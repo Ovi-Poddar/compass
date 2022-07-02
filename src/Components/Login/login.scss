@@ -8,15 +8,15 @@
 $font-primary: 'Lato',Arial, sans-serif;
 $primary: #E00707;
 
-body{
-	font-family: $font-primary;
-	font-size: 16px;
-	line-height: 1.8;
-	font-weight: normal;
-	background: #f8f9fd;
-	color: lighten($black,50%);
-}
-a {
+// body{
+// 	font-family: $font-primary;
+// 	font-size: 16px;
+// 	line-height: 1.8;
+// 	font-weight: normal;
+// 	background: #f8f9fd;
+// 	color: lighten($black,50%);
+// }
+.login-a {
 	transition: .3s all ease;
 	color: $primary;
 	&:hover, &:focus {
@@ -26,13 +26,13 @@ a {
 		color: $primary;
 	}
 }
-h1, h2, h3, h4, h5,
-.h1, .h2, .h3, .h4, .h5 {
-	line-height: 1.5;
-	font-weight: 400;
-	font-family: $font-primary;
-	color: $black;
-}
+// h1, h2, h3, h4, h5,
+// .h1, .h2, .h3, .h4, .h5 {
+// 	line-height: 1.5;
+// 	font-weight: 400;
+// 	font-family: $font-primary;
+// 	color: $black;
+// }
 
 .bg-primary{
 	background: $primary !important;
@@ -40,6 +40,7 @@ h1, h2, h3, h4, h5,
 
 .ftco-section{
 	padding: 7em 0;
+	// padding: 2em 0;
 }
 
 .ftco-no-pt{
@@ -48,6 +49,7 @@ h1, h2, h3, h4, h5,
 .ftco-no-pb{
 	padding-bottom: 0;
 }
+
 //HEADING SECTION
 .heading-section{
 	font-size: 28px;
@@ -55,7 +57,7 @@ h1, h2, h3, h4, h5,
 }
 
 //COVER BG
-.img{
+.login-img{
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;
@@ -88,7 +90,7 @@ h1, h2, h3, h4, h5,
 }
 
 //FORM CONTROL
-.form-control {
+.login-form-control {
 	height: 48px;
 	background: rgba(0,0,0,.05);
 	color: $black;
@@ -122,7 +124,7 @@ h1, h2, h3, h4, h5,
 
 
 //CHECKBOX STYLE
-.checkbox-wrap {
+.login-checkbox-wrap {
   display: block;
   position: relative;
   padding-left: 30px;
@@ -137,7 +139,7 @@ h1, h2, h3, h4, h5,
 }
 
 /* Hide the browser's default checkbox */
-.checkbox-wrap input {
+.login-checkbox-wrap input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -146,7 +148,7 @@ h1, h2, h3, h4, h5,
 }
 
 /* Create a custom checkbox */
-.checkmark {
+.login-checkmark {
   position: absolute;
   top: 0;
   left: 0;
@@ -154,7 +156,7 @@ h1, h2, h3, h4, h5,
 
 
 /* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
+.login-checkmark:after {
   content: "\f0c8";
   font-family: "FontAwesome";
   position: absolute;
@@ -165,7 +167,7 @@ h1, h2, h3, h4, h5,
 }
 
 /* Show the checkmark when checked */
-.checkbox-wrap{
+.login-checkbox-wrap{
 	input:checked ~ .checkmark:after {
 	  display: block;
 	  content: "\f14a";
@@ -175,11 +177,11 @@ h1, h2, h3, h4, h5,
 }
 
 /* Style the checkmark/indicator */
-.checkbox-wrap .checkmark:after {
-}
+// .checkbox-wrap .checkmark:after {
+// }
 
 
-.checkbox-primary{
+.login-checkbox-primary{
   color: $primary;
   input:checked ~ .checkmark:after {
 	  color: $primary;
@@ -188,7 +190,7 @@ h1, h2, h3, h4, h5,
 
 
 //BUTTON
-.btn {
+.login-btn {
 	cursor: pointer;
 	@include border-radius(40px);
 	box-shadow: none!important;
@@ -196,7 +198,7 @@ h1, h2, h3, h4, h5,
 	&:hover, &:active, &:focus {
 		outline: none;
 	}
-	&.btn-primary {
+	&.login-btn-primary {
 		background: $primary !important;
 		border: 1px solid $primary !important;
 		color: $white !important;
@@ -205,7 +207,7 @@ h1, h2, h3, h4, h5,
 			background: transparent;
 			color :$primary;
 		}
-		&.btn-outline-primary {
+		&.login-btn-outline-primary {
 			border: 1px solid $primary;
 			background: transparent;
 			color :$primary;
@@ -218,7 +220,7 @@ h1, h2, h3, h4, h5,
 	}
 }
 
-.form-group{
+.login-form-group{
 	position: relative;
 	.submit{
 		position: absolute;

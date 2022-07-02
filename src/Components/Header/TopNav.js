@@ -12,7 +12,6 @@ import {
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
-
 export default function TopNav() {
   return (
     <>
@@ -49,18 +48,16 @@ export default function TopNav() {
               <Nav.Link href="/about">About</Nav.Link>
               <Nav.Link href="/contact">Contact Us</Nav.Link>
             </Nav>
-            <LinkContainer  to={"/login"}>
-            <Button
-              variant="success "
-              className="me-2"
-              role="button"
-            >
-              Log In
-            </Button>
-             </LinkContainer>
-            <Button variant="danger" className="me-2">
-              Sign Up
-            </Button>
+            <LinkContainer to={"/login"}>
+              <Button variant="success " className="me-2" role="button">
+                Log In
+              </Button>
+            </LinkContainer>
+            <LinkContainer to={"/signup"}>
+              <Button variant="danger" className="me-2">
+                Sign Up
+              </Button>
+            </LinkContainer>
           </Navbar.Collapse>
         </Container>
       </Navbar>

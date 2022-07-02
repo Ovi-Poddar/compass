@@ -41,7 +41,7 @@ export default function CompassFooter() {
                   </p>
                   <ul className="ftco-footer-social p-0">
                     <li className="ftco-animate">
-                      <a
+                      <a className="footer-a"
                         href="/"
                         data-toggle="tooltip"
                         data-placement="top"
@@ -51,7 +51,7 @@ export default function CompassFooter() {
                       </a>
                     </li>
                     <li className="ftco-animate">
-                      <a
+                      <a className="footer-a"
                         href="/"
                         data-toggle="tooltip"
                         data-placement="top"
@@ -61,7 +61,7 @@ export default function CompassFooter() {
                       </a>
                     </li>
                     <li className="ftco-animate">
-                      <a
+                      <a className="footer-a"
                         href="/"
                         data-toggle="tooltip"
                         data-placement="top"
@@ -80,22 +80,22 @@ export default function CompassFooter() {
                           <h2 className="footer-heading">Discover</h2>
                           <ul className="list-unstyled">
                             <li>
-                              <a href="/" className="py-1 d-block">
+                              <a  href="/" className="py-1 d-block footer-a">
                                 Buy &amp; Sell
                               </a>
                             </li>
                             <li>
-                              <a href="/" className="py-1 d-block">
+                              <a href="/" className="py-1 d-block footer-a">
                                 Merchant
                               </a>
                             </li>
                             <li>
-                              <a href="/" className="py-1 d-block">
+                              <a href="/" className="py-1 d-block footer-a">
                                 Giving back
                               </a>
                             </li>
                             <li>
-                              <a href="/" className="py-1 d-block">
+                              <a  href="/" className="py-1 d-block footer-a">
                                 Help &amp; Support
                               </a>
                             </li>
@@ -105,22 +105,22 @@ export default function CompassFooter() {
                           <h2 className="footer-heading">About</h2>
                           <ul className="list-unstyled">
                             <li>
-                              <a href="/" className="py-1 d-block">
+                              <a  href="/" className="py-1 d-block   footer-a">
                                 Staff
                               </a>
                             </li>
                             <li>
-                              <a href="/" className="py-1 d-block">
+                              <a  href="/" className="py-1 d-block  footer-a">
                                 Team
                               </a>
                             </li>
                             <li>
-                              <a href="/" className="py-1 d-block">
+                              <a  href="/" className="py-1 d-block  footer-a">
                                 Careers
                               </a>
                             </li>
                             <li>
-                              <a href="/" className="py-1 d-block">
+                              <a  href="/" className="py-1 d-block footer-a">
                                 Blog
                               </a>
                             </li>
@@ -130,22 +130,22 @@ export default function CompassFooter() {
                           <h2 className="footer-heading">Resources</h2>
                           <ul className="list-unstyled">
                             <li>
-                              <a href="/" className="py-1 d-block">
+                              <a  href="/" className="py-1 d-block" footer-a>
                                 Security
                               </a>
                             </li>
                             <li>
-                              <a href="/" className="py-1 d-block">
+                              <a  href="/" className="py-1 d-block" footer-a>
                                 Global
                               </a>
                             </li>
                             <li>
-                              <a href="/" className="py-1 d-block">
+                              <a  href="/" className="py-1 d-block" footer-a>
                                 Charts
                               </a>
                             </li>
                             <li>
-                              <a href="/" className="py-1 d-block">
+                              <a href="/" className="py-1 d-block" footer-a>
                                 Privacy
                               </a>
                             </li>

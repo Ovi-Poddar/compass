@@ -8,20 +8,20 @@
 $font-primary: 'Poppins',Arial, sans-serif;
 $primary: #12cc94;
 
-body{
-	font-family: $font-primary;
-	font-size: 15px;
-	line-height: 1.8;
-	font-weight: normal;
-}
-a {
+// body{
+// 	font-family: $font-primary;
+// 	font-size: 15px;
+// 	line-height: 1.8;
+// 	font-weight: normal;
+// }
+.footer-a {
 	transition: .3s all ease;
 	&:hover, &:focus {
 		text-decoration: none !important;
 		outline: none !important;
 	}
 }
-h1, h2, h3, h4, h5,
+
 .h1, .h2, .h3, .h4, .h5 {
 	line-height: 1.5;
 	font-weight: 400;
@@ -30,13 +30,13 @@ h1, h2, h3, h4, h5,
 
 
 //COVER BG
-.img,
-.blog-img,
-.user-img{
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center center;
-}
+// .img,
+// .blog-img,
+// .user-img{
+// 	background-size: cover;
+// 	background-repeat: no-repeat;
+// 	background-position: center center;
+// }
 
 .ftco-footer-social {
 	li {
@@ -66,7 +66,7 @@ h1, h2, h3, h4, h5,
 
 
 //FORM CONTROL
-.form-control {
+.footer-form-control {
 	height: 52px;
 	background: $white;
 	color: $black;

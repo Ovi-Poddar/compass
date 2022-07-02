@@ -1,9 +1,10 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 
 import "./login.scss"
 
-export default function MyFooter() {
+export default function LogIn() {
   return (
     <div className="application">
       <Helmet>
@@ -23,21 +24,22 @@ export default function MyFooter() {
           href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
         />
 
-        <link rel="stylesheet" href="css/style.css" />
+        {/* <link rel="stylesheet" href="css/style.css" /> */}
+
         <script src="js/jquery.min.js"></script>
         <script src="js/popper.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
       </Helmet>
 
-      <section className="ftco-section">
-        <div className="container">
+      {/* <section className="ftco-section"> */}
+        <div className="container ">
           <div className="row justify-content-center">
-            <div className="col-md-6 text-center mb-5">
+            <div className="col-md-6 text-center mb-5 mt-5">
               <h2 className="heading-section text-danger font-weight-bold">Login To Compass</h2>
             </div>
           </div>
-          <div className="row justify-content-center">
+          <div className="row justify-content-center mb-5">
             <div className="col-md-6 col-lg-5">
               <div className="login-wrap p-4 p-md-5">
                 <div className="icon d-flex align-items-center justify-content-center">
@@ -45,7 +47,7 @@ export default function MyFooter() {
                 </div>
                 <h3 className="text-center mb-4">Have an account?</h3>
                 <form action="#" className="login-form">
-                  <div className="form-group">
+                  <div className="login-form-group">
                     <input
                       type="text"
                       className="form-control rounded-left  my-2"
@@ -53,7 +55,7 @@ export default function MyFooter() {
                       required
                     />
                   </div>
-                  <div className="form-group d-flex">
+                  <div className="login-form-group d-flex">
                     <input
                       type="password"
                       className="form-control rounded-left my-2"
@@ -61,22 +63,23 @@ export default function MyFooter() {
                       required
                     />
                   </div>
-                  <div className="form-group d-md-flex">
+                  <div className="login-form-group d-md-flex">
                     <div className="w-50">
-                      <label className="checkbox-wrap checkbox-primary">
+                    <Link to="/signup"> Create New Account? </Link>
+                      {/* <label className="login-checkbox-wrap login-checkbox-primary">
                         Remember Me
                         <input type="checkbox" checked />
-                        <span className="checkmark"></span>
-                      </label>
+                        <span className="login-checkmark"></span>
+                      </label> */}
                     </div>
                     <div className="w-50 text-md-right">
-                      <a href="#">Forgot Password</a>
+                      <a href="/">Forgot Password?</a>
                     </div>
                   </div>
-                  <div className="form-group">
+                  <div className="login-form-group mb-5">
                     <button
                       type="submit"
-                      className="btn btn-primary rounded submit p-3 px-5"
+                      className="login-btn login-btn-primary rounded submit p-3 px-5"
                     >
                       Get Started
                     </button>
@@ -86,7 +89,7 @@ export default function MyFooter() {
             </div>
           </div>
         </div>
-      </section>
+      {/* </section> */}
     </div>
   );
 }

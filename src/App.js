@@ -6,6 +6,7 @@ import TopNav from "./Components/Header/TopNav";
 import Login from "./Components/Login/Login";
 import Home from "./Components/Home/Home";
 import CompassFooter from "./Components/CompassFooter/CompassFooter";
+import SignUp from "./Components/SignUp/SignUp";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Home/>}/>
             <Route exact path="/login" element={<Login />} />
+            <Route exact path="/signup" element={<SignUp />} />
           </Routes>
           <CompassFooter/>
       </Router>
