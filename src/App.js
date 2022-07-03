@@ -8,18 +8,22 @@ import Home from "./Components/Home/Home";
 import CompassFooter from "./Components/CompassFooter/CompassFooter";
 import SignUp from "./Components/SignUp/SignUp";
 
+import UserState from "./Context/Users/UserState";
+
 function App() {
   return (
     <>
-      <Router>
-          <TopNav/>
+      <UserState>
+        <Router>
+          <TopNav />
           <Routes>
-            <Route exact path="/" element={<Home/>}/>
+            <Route exact path="/" element={<Home />} />
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/signup" element={<SignUp />} />
           </Routes>
-          <CompassFooter/>
-      </Router>
+          <CompassFooter />
+        </Router>
+      </UserState>
     </>
   );
 }
