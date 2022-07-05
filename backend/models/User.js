@@ -5,6 +5,7 @@ const userSchema = new Schema({
   user_name: {
     type: String,
     required: true,
+    unique: true,
   },
 
   user_email: {
@@ -29,6 +30,5 @@ const userSchema = new Schema({
 });
 
 const User = mongoose.model("User", userSchema);
-User.createIndexes();
 
 module.exports = User;
