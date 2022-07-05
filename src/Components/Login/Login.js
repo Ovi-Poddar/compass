@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 // import { useHistory } from 'react-router-dom'
 
-
 import "./login.scss";
 
 const Login = () => {
-  const [credentials, setCredentials] = useState({ user_name: "", password: "" });
+  const [credentials, setCredentials] = useState({
+    user_name: "",
+    password: "",
+  });
   // let history = useHistory();
 
   const handleSubmit = async (e) => {
@@ -66,12 +68,16 @@ const Login = () => {
                 <span className="fa fa-user-o"></span>
               </div>
               <h3 className="text-center mb-4">Have an account?</h3>
-              <form  className="login-form" onSubmit={handleSubmit}>
+              <form className="login-form" onSubmit={handleSubmit}>
                 <div className="login-form-group">
                   <input
                     type="text"
                     className="form-control rounded-left  my-2"
-                    placeholder="Username" value={credentials.user_name} onChange={onChange} name = "user_name"  id="user_name"
+                    placeholder="Username"
+                    value={credentials.user_name}
+                    onChange={onChange}
+                    name="user_name"
+                    id="user_name"
                     required
                   />
                 </div>
@@ -79,7 +85,11 @@ const Login = () => {
                   <input
                     type="password"
                     className="form-control rounded-left my-2"
-                    placeholder="Password"  value={credentials.password} onChange={onChange} name = "password" id="password"
+                    placeholder="Password"
+                    value={credentials.password}
+                    onChange={onChange}
+                    name="password"
+                    id="password"
                     required
                   />
                 </div>

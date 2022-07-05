@@ -1,11 +1,40 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./style.css";
 
 export default function SignUp() {
+  const [credentials, setCredentials] = useState({
+    user_name: "",
+    user_email: "",
+    password: "",
+    cpassword: "",
+  });
+  // let history = useHistory();
 
-  const [text, setText] = useState("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(credentials);
+    const { user_name, user_email, password, cpassword } = credentials;
+    const response = await fetch("http://localhost:5000/api/auth/createuser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_name: user_name,
+        user_email: user_email,
+        password: password
+      }),
+    });
+    const json = await response.json();
+    console.log(json);
+  };
+
+  const onChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
+
   return (
     <div className="container">
       <div class="container signup-body">
@@ -19,12 +48,15 @@ export default function SignUp() {
                 <h5 class="card-title text-center mb-5 fw-bold signup-h3">
                   Register
                 </h5>
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div class="form-floating mb-3">
                     <input
                       type="text"
                       class="form-control"
                       id="floatingInputUsername"
+                      value={credentials.user_name}
+                      onChange={onChange}
+                      name="user_name"
                       placeholder="myusername"
                       required
                       autofocus
@@ -37,6 +69,9 @@ export default function SignUp() {
                       type="email"
                       class="form-control"
                       id="floatingInputEmail"
+                      value={credentials.user_email}
+                      onChange={onChange}
+                      name="user_email"
                       placeholder="name@example.com"
                     />
                     <label for="floatingInputEmail">Email address</label>
@@ -49,6 +84,10 @@ export default function SignUp() {
                       type="password"
                       class="form-control"
                       id="floatingPassword"
+                      value={credentials.password}
+                      onChange={onChange}
+                      name="password"
+                      minLength={5}
                       placeholder="Password"
                     />
                     <label for="floatingPassword">Password</label>
@@ -59,6 +98,10 @@ export default function SignUp() {
                       type="password"
                       class="form-control"
                       id="floatingPasswordConfirm"
+                      value={credentials.cpassword}
+                      onChange={onChange}
+                      name="cpassword"
+                      minLength={5}
                       placeholder="Confirm Password"
                     />
                     <label for="floatingPasswordConfirm">
@@ -69,7 +112,7 @@ export default function SignUp() {
                   <div class="d-grid mb-2">
                     <button
                       class="btn btn-lg btn-signup fw-bold text-uppercase text-white"
-                      style={{backgroundColor: "#E00707"}}
+                      style={{ backgroundColor: "#E00707" }}
                       type="submit"
                     >
                       Sign Up
