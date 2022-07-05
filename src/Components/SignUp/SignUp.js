@@ -1,24 +1,13 @@
-import React from "react";
-import { Helmet } from "react-helmet";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 
 import "./style.css";
 
-export default function LogIn() {
+export default function SignUp() {
+
+  const [text, setText] = useState("");
   return (
-    <div className="application">
-      <Helmet>
-        <meta charset="utf-8" />
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-        {/* <!-- STYLE CSS --> */}
-        {/* <link rel="stylesheet" href="css/style.css" /> */}
-
-        {/* <script src="./js/jquery-3.3.1.min.js"></script>
-        <script src="./js/main.js"></script> */}
-      </Helmet>
-
+    <div className="container">
       <div class="container signup-body">
         <div class="row">
           <div class="col-lg-10 col-xl-9 mx-auto">
