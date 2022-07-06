@@ -7,6 +7,7 @@ import Login from "./Components/Login/Login";
 import Home from "./Components/Home/Home";
 import CompassFooter from "./Components/CompassFooter/CompassFooter";
 import SignUp from "./Components/SignUp/SignUp";
+import { CreateBusiness } from "./Components/Business/CreateBusiness";
 
 import UserState from "./Context/Users/UserState";
 
@@ -22,8 +23,9 @@ function App() {
             <Route exact path="/" element={<Home />} />
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/signup" element={<SignUp />} />
+            <Route exact path="/createbusiness" element={<CreateBusiness />} />
           </Routes>
-          <CompassFooter />
+          {/* <CompassFooter /> */}
         </Router>
       </UserState>
     </>

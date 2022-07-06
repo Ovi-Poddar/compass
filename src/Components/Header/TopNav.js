@@ -19,7 +19,7 @@ export default function TopNav() {
         <Container fluid>
           <LinkContainer to={"/"}>
             <Navbar.Brand className="text-danger" href="/">
-              <i class="bi bi-compass font-weight-bold"></i> Compass
+              <i className="bi bi-compass font-weight-bold"></i> Compass
             </Navbar.Brand>
           </LinkContainer>
           <Form className="d-flex">
@@ -35,7 +35,7 @@ export default function TopNav() {
               aria-label="Search"
             />
             <Button variant="danger">
-              <i class="bi bi-search"></i>
+              <i className="bi bi-search"></i>
             </Button>
           </Form>
           <Navbar.Toggle aria-controls="navbarScroll" />
@@ -45,8 +45,8 @@ export default function TopNav() {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link href="/about">About</Nav.Link>
-              <Nav.Link href="/contact">Contact Us</Nav.Link>
+              <Nav.Link href="/createbusiness">Create Business</Nav.Link>
+              {/* <Nav.Link href="/contact">Contact Us</Nav.Link> */}
             </Nav>
             <LinkContainer to={"/login"}>
               <Button variant="success " className="me-2" role="button">

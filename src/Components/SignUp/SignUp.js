@@ -48,7 +48,7 @@ export default function SignUp() {
                 <h5 class="card-title text-center mb-5 fw-bold signup-h3">
                   Register
                 </h5>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}  autocomplete="off" >
                   <div class="form-floating mb-3">
                     <input
                       type="text"
