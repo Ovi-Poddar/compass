@@ -5,11 +5,8 @@ import { useNavigate } from 'react-router-dom' ;
 
 import "./login.scss";
 
-import AlertContext from "../../Context/Alert/AlertContext";
 
-const Login = () => {
-
-  const {setAlertMessage, setAlertType} = useContext(AlertContext);
+const Login = (props) => {
 
   const [credentials, setCredentials] = useState({
     user_name: "",
@@ -36,14 +33,14 @@ const Login = () => {
     if (json.success) {
       // Save the auth token and redirect
       localStorage.setItem('token', json.authtoken);
-      navigate("/");
+    
+      props.showAlert("Login Successful !", "success");
 
-      setAlertType("success");
-      setAlertMessage("LogIn Successful!");
+      navigate("/landing");
+
     } else {
       // alert("Invalid credentials");
-      setAlertType("danger");
-      setAlertMessage("Invalid credentials");
+      props.showAlert("Invalid credentials!", "danger");
     }
   };
 

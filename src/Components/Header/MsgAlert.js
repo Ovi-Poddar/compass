@@ -1,38 +1,26 @@
-import React, { useState, useContext } from "react";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import React from "react";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ErrorIcon from '@mui/icons-material/Error';
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import InfoIcon from "@mui/icons-material/Info";
 
-import AlertContext from "../../Context/Alert/AlertContext";
 
 export default function MsgAlert(props) {
-  const { alertMessage, alertType } = useContext(AlertContext);
-
-  console.log(alertMessage, alertType);
 
   return (
     <>
-      {alertMessage.length > 0 && (
+      { props.alert &&  (
         <div
-          className={`alert alert-${alertType} alert-dismissible fade show container`}
+          className={`alert alert-${props.alert.type} container`}
           role="alert"
         >
           <strong>
-            {alertType.localeCompare("success") == 0 && <CheckCircleOutlineIcon />}
-            {alertType.localeCompare("danger") == 0 && <ErrorOutlineIcon />}
-            {alertType.localeCompare("info") == 0 && <InfoIcon />}
-            {alertType.localeCompare("warning") == 0 && <WarningAmberIcon />}
-            {alertMessage}
+            {props.alert.type === "success" && <CheckCircleIcon className="mx-2"/>}
+            {props.alert.type === "danger" && <ErrorIcon className="mx-2"/>}
+            {props.alert.type === "info" && <InfoIcon className="mx-2"/>}
+            {props.alert.type === "warning" && <WarningAmberIcon className="mx-2"/>}
+            {props.alert.msg} 
           </strong>
-          <button
-            type="button"
-            className="close"
-            data-dismiss="alert"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
         </div>
       )}
     </>

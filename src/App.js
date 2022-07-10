@@ -9,27 +9,40 @@ import CompassFooter from "./Components/CompassFooter/CompassFooter";
 import SignUp from "./Components/SignUp/SignUp";
 import { CreateBusiness } from "./Components/Business/CreateBusiness";
 
-// import UserState from "./Context/Users/UserState";
-
-import AlertState from "./Context/Alert/AlertState";
 import MsgAlert from "./Components/Header/MsgAlert";
+import Landing from "./Components/LandingPage/Landing";
+
+import { useState } from "react";
+
 
 function App() {
+
+  const [alert, setAlert] = useState(null);
+
+  const showAlert = (message, type)=>{
+      setAlert({
+        msg: message,
+        type: type
+      })
+      setTimeout(() => {
+          setAlert(null);
+      }, 2000);
+  }
+
   return (
     <>
-      <AlertState>
         <Router>
           <TopNav />
-          <MsgAlert />
+          <MsgAlert alert={alert} />
           <Routes>
             <Route exact path="/" element={<Home />} />
-            <Route exact path="/login" element={<Login />} />
-            <Route exact path="/signup" element={<SignUp />} />
+            <Route exact path="/login" element={<Login showAlert = {showAlert} />} />
+            <Route exact path="/signup" element={<SignUp  showAlert = {showAlert}  />} />
+            <Route exact path="/landing" element={<Landing/>} />
             <Route exact path="/createbusiness" element={<CreateBusiness />} />
           </Routes>
           {/* <CompassFooter /> */}
         </Router>
-      </AlertState>
     </>
   );
 }

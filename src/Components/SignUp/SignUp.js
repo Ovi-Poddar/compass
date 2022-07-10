@@ -4,11 +4,7 @@ import { useNavigate } from 'react-router-dom' ;
 
 import "./style.css";
 
-import AlertContext from "../../Context/Alert/AlertContext";
-
-
-export default function SignUp() {
-  const {setAlertMessage, setAlertType} = useContext(AlertContext);
+export default function SignUp(props) {
   const navigate = useNavigate();
 
   const [credentials, setCredentials] = useState({
@@ -36,10 +32,12 @@ export default function SignUp() {
     const json = await response.json();
     console.log(json);
 
-    navigate("/login");
+    props.showAlert("Signup Successful ! Please login to continue. ", "success");
 
-    setAlertMessage("SignUp Successful! Please login to continue. ");
-    setAlertType("success");
+    setCredentials({user_name: "",user_email: "",password: "",cpassword: ""})
+
+    navigate("/login");
+    
 
   };
 
