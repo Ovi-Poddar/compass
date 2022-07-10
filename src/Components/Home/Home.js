@@ -5,7 +5,6 @@ import HomeCarousel from './HomeCarousel'
 export default function Home() {
   return (
     <>
-        <MsgAlert/>
         <HomeCarousel/>
     </>
   )

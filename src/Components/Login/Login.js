@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React, { useState , useContext} from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-// import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom' ;
 
 import "./login.scss";
 
+import AlertContext from "../../Context/Alert/AlertContext";
+
 const Login = () => {
+
+  const {setAlertMessage, setAlertType} = useContext(AlertContext);
+
   const [credentials, setCredentials] = useState({
     user_name: "",
     password: "",
   });
-  // let history = useHistory();
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,10 +35,15 @@ const Login = () => {
     console.log(json);
     if (json.success) {
       // Save the auth token and redirect
-      // localStorage.setItem('token', json.authtoken);
-      // history.push("/");
+      localStorage.setItem('token', json.authtoken);
+      navigate("/");
+
+      setAlertType("success");
+      setAlertMessage("LogIn Successful!");
     } else {
-      alert("Invalid credentials");
+      // alert("Invalid credentials");
+      setAlertType("danger");
+      setAlertMessage("Invalid credentials");
     }
   };
 
@@ -68,7 +79,7 @@ const Login = () => {
                 <span className="fa fa-user-o"></span>
               </div>
               <h3 className="text-center mb-4">Have an account?</h3>
-              <form className="login-form" onSubmit={handleSubmit}>
+              <form className="login-form" onSubmit={handleSubmit} autoComplete="off" >
                 <div className="login-form-group">
                   <input
                     type="text"
@@ -109,7 +120,8 @@ const Login = () => {
                 <div className="login-form-group mb-5">
                   <button
                     type="submit"
-                    className="login-btn login-btn-primary rounded submit p-3 px-5"
+                    // className="login-btn login-btn-primary rounded submit p-3 px-5"
+                    className="btn btn-lg btn-danger mt-2 btn-block"
                   >
                     Get Started
                   </button>

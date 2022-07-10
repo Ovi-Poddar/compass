@@ -9,16 +9,18 @@ import CompassFooter from "./Components/CompassFooter/CompassFooter";
 import SignUp from "./Components/SignUp/SignUp";
 import { CreateBusiness } from "./Components/Business/CreateBusiness";
 
-import UserState from "./Context/Users/UserState";
+// import UserState from "./Context/Users/UserState";
+
+import AlertState from "./Context/Alert/AlertState";
+import MsgAlert from "./Components/Header/MsgAlert";
 
 function App() {
-
-
   return (
     <>
-      <UserState>
+      <AlertState>
         <Router>
           <TopNav />
+          <MsgAlert />
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/login" element={<Login />} />
@@ -27,7 +29,7 @@ function App() {
           </Routes>
           {/* <CompassFooter /> */}
         </Router>
-      </UserState>
+      </AlertState>
     </>
   );
 }

@@ -27,11 +27,11 @@ router.post(
     }
     try {
       // Check whether the user with this email exists already
-      let user = await User.findOne({ user_email: req.body.user_email });
+      let user = await User.findOne({ user_name: req.body.user_name });
       if (user) {
         return res
           .status(400)
-          .json({ error: "Sorry a user with this email already exists" });
+          .json({ error: "Sorry a user with this name already exists" });
       }
       const salt = await bcrypt.genSalt(10);
       const secretPass = await bcrypt.hash(req.body.password, salt);
@@ -49,9 +49,8 @@ router.post(
       };
       const authtoken = jwt.sign(data, process.env.JWT_SECRET);
       console.log(authtoken);
-
       res.json(user);
-    //   res.json({ authtoken });
+     //  res.json({ authtoken });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Server Error");
@@ -115,7 +114,7 @@ router.post(
 router.post('/getuser', fetchUser,  async (req, res) => {
     try {
       userId = req.user.id;
-      const user = await User.findById(userId).select("-password")
+      const user = await User.findById(userId).select("-password");
       res.send(user)
     } catch (error) {
       console.error(error.message);
