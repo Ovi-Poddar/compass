@@ -19,6 +19,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //routing setup
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/business', require('./routes/business'));
 
 //error handling
 

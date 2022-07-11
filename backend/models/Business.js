@@ -13,6 +13,11 @@ const businessSchema = new Schema({
         required: true,
     },
 
+    about: {
+        type : String,
+        default: ""
+    },
+
     contact_no: {
         type: String,
     },
@@ -33,19 +38,21 @@ const businessSchema = new Schema({
     },
 
     category: {
-        type: [String],
+        type: String,
         required: true,
+        deafult: ""
     },
 
     tags: {
         type: [String],
         required: true,
+        default: ["business"],
     },
     
     is_open: {
         type: Boolean,
         required: true,
-        default : False,
+        default : false,
     },
 
     review_count: {
@@ -74,13 +81,14 @@ const businessSchema = new Schema({
     },
 
     average_star_count: {
-        //type : Number,
-        type: Decimal128,  //dont know if works found in stackoverflow
+        type : Number,
+        //type: Decimal128,  //dont know if works found in stackoverflow
         default: 0,
     },
 
     opening_hours: {
         type: [String],
+        deafault:[""],
     },
 });
 

@@ -15,9 +15,7 @@ router.post(
     // username must be an email
     body("user_email", "Enter a valid email").isEmail(),
     // password must be at least 5 chars long
-    body("password", "Password must be atleast 5 characters").isLength({
-      min: 5,
-    }),
+    body("password", "Password must be atleast 5 characters").isLength({min: 5,}),
   ],
   async (req, res) => {
     // If there are errors, return Bad request and the errors

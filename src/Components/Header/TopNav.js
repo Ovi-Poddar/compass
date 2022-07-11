@@ -45,9 +45,15 @@ export default function TopNav() {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link href="/createbusiness">Create Business</Nav.Link>
+{/*               
+              <Nav.Link href="/createbusiness">Create Business</Nav.Link> */}
               {/* <Nav.Link href="/contact">Contact Us</Nav.Link> */}
             </Nav>
+            <LinkContainer to={"/createbusiness"}>
+              <Button variant="info " className="me-2" role="button">
+                Create Business
+              </Button>
+            </LinkContainer>
             <LinkContainer to={"/login"}>
               <Button variant="success " className="me-2" role="button">
                 Log In
