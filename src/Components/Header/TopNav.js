@@ -12,7 +12,15 @@ import {
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
+import { useNavigate } from "react-router-dom";
+
 export default function TopNav() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  }
   return (
     <>
       <Navbar bg="light" expand="lg">
@@ -45,7 +53,7 @@ export default function TopNav() {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-{/*               
+              {/*               
               <Nav.Link href="/createbusiness">Create Business</Nav.Link> */}
               {/* <Nav.Link href="/contact">Contact Us</Nav.Link> */}
             </Nav>
@@ -54,16 +62,25 @@ export default function TopNav() {
                 Create Business
               </Button>
             </LinkContainer>
-            <LinkContainer to={"/login"}>
-              <Button variant="success " className="me-2" role="button">
-                Log In
+
+            {!localStorage.getItem("token") ? ( // if user is not logged in
+              <>
+                <LinkContainer to={"/login"}>
+                  <Button variant="success " className="me-2" role="button">
+                    Log In
+                  </Button>
+                </LinkContainer>
+                <LinkContainer to={"/signup"}>
+                  <Button variant="danger" className="me-2">
+                    Sign Up
+                  </Button>
+                </LinkContainer>
+              </>
+            ) : (
+              <Button variant="danger" className="me-2 " onClick={handleLogout}>
+                Log Out
               </Button>
-            </LinkContainer>
-            <LinkContainer to={"/signup"}>
-              <Button variant="danger" className="me-2">
-                Sign Up
-              </Button>
-            </LinkContainer>
+            )}
           </Navbar.Collapse>
         </Container>
       </Navbar>

@@ -22,17 +22,17 @@ const businessSchema = new Schema({
         type: String,
     },
 
-    address: {
+    district: {
         type : String,
         required: true,
     },
 
-    area: {
+    city: {
         type: String,
         required: true,
     },
 
-    city: {
+    address: {
         type: String,
         required: true,
     },

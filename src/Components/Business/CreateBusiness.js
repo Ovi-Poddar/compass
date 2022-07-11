@@ -1,65 +1,72 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState , useEffect} from "react";
+import { Link, useNavigate  } from "react-router-dom";
 
 import "./style_create_business.css";
 
 export default function CreateBusiness(props) {
+
+  useEffect(() => {
+    if(localStorage.getItem("token") === null) {
+      props.showAlert("Please login to create business", "warning");
+      navigate("/");
+    }
+  }, []); // <- add empty brackets here
+
   const navigate = useNavigate();
 
   const [business_details, setBusiness_details] = useState({
     business_name: "",
     contact_no: "",
     address: "",
-    area: "",
+    district: "",
     city: "",
     category: "",
-    //opening_hours: [""],
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(business_details);
 
-    const {
-      business_name,
-      contact_no,
-      address,
-      area,
-      city,
-      category,
-    } = business_details;
-    
-    const response = await fetch("http://localhost:5000/api/business/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        business_name: business_name,
-        contact_no: contact_no,
-        address: address,
-        area: area,
-        city: city,
-        category: category,
-        //opening_hours:opening_hours
-      }),
-    });
+    const { business_name, contact_no, address, district, city, category } =
+      business_details;
+
+    console.log(business_details)
+
+    const response = await fetch(
+      "http://localhost:5000/api/business/createbusiness",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          business_name: business_name,
+          contact_no: contact_no,
+          address: address,
+          district: district,
+          city: city,
+          category: category
+          //opening_hours:opening_hours
+        }),
+      }
+    );
     const json = await response.json();
     console.log(json);
 
-    props.showAlert("Creation Successful", "success");
+    props.showAlert("Your business created Successfully", "success");
 
     setBusiness_details({
       business_name: "",
       contact_no: "",
       address: "",
-      area: "",
+      district: "",
       city: "",
       category: "",
-//      opening_hours: [""],
+      //      opening_hours: [""],
     });
 
-    //navigate("/");
+    navigate("/landing");
   };
 
   const onChange = (e) => {
@@ -75,11 +82,11 @@ export default function CreateBusiness(props) {
         <div className="row">
           <div className="col-lg-10 col-xl-9 mx-auto">
             <div className="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
-              <div className="card-img-left d-none d-md-flex">
+              <div className="business-card-img-left d-none d-md-flex">
                 {/* <!-- Background image for card set in CSS! --> */}
               </div>
               <div className="card-body p-4 p-sm-5">
-                <h5 className="card-title text-center mb-5 fw-bold signup-h3">
+                <h5 className="card-title text-center mb-5 fw-bold business-h3">
                   Create Your Business
                 </h5>
                 <form onSubmit={handleSubmit} autoComplete="off">
@@ -117,11 +124,11 @@ export default function CreateBusiness(props) {
                     <input
                       type="text"
                       className="form-control"
-                      id="city"
-                      value={business_details.city}
+                      id="district"
+                      value={business_details.district}
                       onChange={onChange}
-                      name="city"
-                      placeholder="X city"
+                      name="district"
+                      placeholder="X district"
                       required
                     />
                     <label htmlFor="city">District</label>
@@ -131,14 +138,14 @@ export default function CreateBusiness(props) {
                     <input
                       type="text"
                       className="form-control"
-                      id="area"
-                      value={business_details.area}
+                      id="city"
+                      value={business_details.city}
                       onChange={onChange}
-                      name="area"
-                      placeholder="X area"
+                      name="city"
+                      placeholder="X city"
                       required
                     />
-                    <label htmlFor="area">Area</label>
+                    <label htmlFor="area">City</label>
                   </div>
 
                   <div className="form-floating mb-3">
@@ -149,65 +156,25 @@ export default function CreateBusiness(props) {
                       value={business_details.address}
                       onChange={onChange}
                       name="address"
-                      placeholder="00, X Street"
+                      placeholder="00, Straet"
                       required
                     />
-                    <label htmlFor="address">Street</label>
+                    <label htmlFor="address">Address</label>
                   </div>
-
-                  <div className="form-floating mb-3">
-                    {/* <div class="dropdown">
-                      <button
-                        class="btn btn-secondary dropdown-toggle"
-                        type="button"
-                        id="dropdownMenu2"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        Select a Category
-                      </button>
-                      <div
-                        class="dropdown-menu"
-                        aria-labelledby="dropdownMenu2"
-                      >
-                        <button class="dropdown-item" type="button" >
-                          Restaurant
-                        </button>
-                        <button class="dropdown-item" type="button">
-                          Home service
-                        </button>
-                        <button class="dropdown-item" type="button">
-                          Autoshop
-                        </button>
-                      </div>
-                    </div> */}
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="category"
+                  <div className=" my-4">
+                    <select
+                      className="form-select"
+                      aria-label="Default select example" 
+                      name="category" id="category" required
                       value={business_details.category}
                       onChange={onChange}
-                      name="category"
-                      placeholder="Category"
-                      required
-                    />
-                    <label htmlFor="category">Select a Category</label>
+                    >
+                      <option selected> Select a category </option>
+                      <option value="One">One</option>
+                      <option value="Two">Two</option>
+                      <option value="Three">Three</option>
+                    </select>
                   </div>
-
-                  {/* <div className="form-floating mb-3"> add checkboxes and input fields for opening hour
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="address"
-                      value={business_details.address}
-                      onChange={onChange}
-                      name="address"
-                      placeholder="00, X Street"
-                      required
-                    />
-                    <label htmlFor="address">Street</label>
-                  </div> */}
 
                   <div className="d-grid mb-2">
                     <button
@@ -233,4 +200,4 @@ export default function CreateBusiness(props) {
       </div>
     </div>
   );
-};
+}
