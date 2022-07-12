@@ -4,15 +4,16 @@ import { Link, useNavigate  } from "react-router-dom";
 import "./style_create_business.css";
 
 export default function CreateBusiness(props) {
+  const {showAlert } = props;
+  const navigate = useNavigate();
 
   useEffect(() => {
     if(localStorage.getItem("token") === null) {
-      props.showAlert("Please login to create business", "warning");
-      navigate("/");
+      showAlert("Please login to create business", "warning");
+      navigate("/login");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // <- add empty brackets here
-
-  const navigate = useNavigate();
 
   const [business_details, setBusiness_details] = useState({
     business_name: "",

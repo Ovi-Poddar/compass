@@ -8,6 +8,7 @@ import Home from "./Components/Home/Home";
 import CompassFooter from "./Components/CompassFooter/CompassFooter";
 import SignUp from "./Components/SignUp/SignUp";
 import CreateBusiness from "./Components/Business/CreateBusiness";
+import ShowOwnBusiness from "./Components/Business/ShowOwnBusiness";
 
 import MsgAlert from "./Components/Header/MsgAlert";
 import Landing from "./Components/LandingPage/Landing";
@@ -40,6 +41,7 @@ function App() {
             <Route exact path="/signup" element={<SignUp  showAlert = {showAlert}  />} />
             <Route exact path="/landing" element={<Landing/>} />
             <Route exact path="/createbusiness" element={<CreateBusiness showAlert = {showAlert}/>} />
+            <Route exact path="/showownbusinesses" element={<ShowOwnBusiness/>} />
           </Routes>
           {/* <CompassFooter /> */}
         </Router>

@@ -4,7 +4,19 @@ const Business = require("../models/Business");
 const { body, validationResult } = require("express-validator");
 var fetchUser = require("../middleware/fetchUser");
 
-// ROUTE 1: Add a new Business using: POST "/api/business/create". Login required
+
+// ROUTE 1: Get All the Businesses of this user using: GET "/api/business/getownbusinesses". Login required
+router.get('/getownbusinesses', fetchUser, async (req, res) => {
+  try {
+      const businesses = await Business.find({ user: req.user.id });
+      res.json(businesses);
+  } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Internal Server Error");
+  }
+})
+
+// ROUTE 2: Add a new Business using: POST "/api/business/createbusiness". Login required
 router.post(
   "/createbusiness",
   fetchUser,

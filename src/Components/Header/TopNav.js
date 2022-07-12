@@ -20,7 +20,7 @@ export default function TopNav() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/");
-  }
+  };
   return (
     <>
       <Navbar bg="light" expand="lg">
@@ -77,9 +77,20 @@ export default function TopNav() {
                 </LinkContainer>
               </>
             ) : (
-              <Button variant="danger" className="me-2 " onClick={handleLogout}>
-                Log Out
-              </Button>
+              <>
+                <LinkContainer to={"/showownbusinesses"}>
+                  <Button variant="primary" className="me-2 ">
+                    My Businesses
+                  </Button>
+                </LinkContainer>
+                <Button
+                  variant="danger"
+                  className="me-2 "
+                  onClick={handleLogout}
+                >
+                  Log Out
+                </Button>
+              </>
             )}
           </Navbar.Collapse>
         </Container>
