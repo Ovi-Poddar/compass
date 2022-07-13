@@ -14,16 +14,11 @@ import MsgAlert from "./Components/Header/MsgAlert";
 import Landing from "./Components/LandingPage/Landing";
 import BusinessPageLanding from "./Components/Business/BusinessPageLanding";
 
-import Dashboard from "./Components/Business/pages/Dashboard";
-import Users from "./Components/Business/pages/Users";
-import Messages from "./Components/Business/pages/Messages";
-import FileManager from "./Components/Business/pages/FileManager";
-import Analytics from "./Components/Business/pages/Analytics";
-import Order from "./Components/Business/pages/Order";
-import Saved from "./Components/Business/pages/Saved";
-import Setting from "./Components/Business/pages/Setting";
-
 import { useState } from "react";
+import { BusinessHome } from "./Components/Business/pages/BusinessHome";
+import { Reviews } from "./Components/Business/pages/Reviews";
+import { AskCommunity } from "./Components/Business/pages/AskCommunity";
+import { Offers } from "./Components/Business/pages/Offers";
 
 function App() {
   const [alert, setAlert] = useState(null);
@@ -61,22 +56,19 @@ function App() {
             path="/createbusiness"
             element={<CreateBusiness showAlert={showAlert} />}
           />
-          {/* <Route exact path="/showownbusinesses" element={<ShowOwnBusiness/>} /> */}
-          <Route
+          <Route exact path="/showownbusinesses" element={<ShowOwnBusiness/>} />
+          {/* <Route
             exact
             path="/showownbusinesses"
             element={<BusinessPageLanding />}
-          />
+          /> */}
 
-          {/* added for sidebar */}
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/messages" element={<Messages />} />
-          <Route path="/analytics" element={<Analytics />} />
-          <Route path="/file-manager" element={<FileManager />} />
-          <Route path="/order" element={<Order />} />
-          <Route path="/saved" element={<Saved />} />
-          <Route path="/settings" element={<Setting />} />
+          {/* Added for Business Sidebar Menu */}
+          <Route path="/businesshome" element={<BusinessHome />} />
+          <Route path="/reviews" element={<Reviews />} />
+          <Route path="/askthecommunity" element={<AskCommunity />} />
+          <Route path="/offers" element={<Offers />} />
+          {/* <Route path="/settings" element={<Setting />} /> */}
 
           <Route path="*" element={<> not found</>} />
         </Routes>
