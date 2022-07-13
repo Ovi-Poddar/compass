@@ -8,7 +8,7 @@ var fetchUser = require("../middleware/fetchUser");
 // ROUTE 1: Get All the Businesses of this user using: GET "/api/business/getownbusinesses". Login required
 router.get('/getownbusinesses', fetchUser, async (req, res) => {
   try {
-      const businesses = await Business.find({ user: req.user.id });
+      const businesses = await Business.find({ owner_id: req.user.id });
       res.json(businesses);
   } catch (error) {
       console.error(error.message);

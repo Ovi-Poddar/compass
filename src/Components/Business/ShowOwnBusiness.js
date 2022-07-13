@@ -29,7 +29,7 @@ function ShowOwnBusiness() {
     <>
       <div className="d-flex justify-content-center text-center container">
         <h2 className="my-4">
-          Your Businesses
+          { businesses.length > 0 ? "Your Businesses" : "No Businesses to show" }
         </h2>
       </div>
       <div className="row my-4 container">
