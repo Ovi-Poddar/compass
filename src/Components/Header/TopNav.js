@@ -19,6 +19,11 @@ import { useNavigate } from "react-router-dom";
 
 import { Link } from "react-router-dom";
 
+import PersonIcon from "@mui/icons-material/Person";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import HomeIcon from "@mui/icons-material/Home";
+import BusinessIcon from '@mui/icons-material/Business';
+
 export default function TopNav() {
   // const classes = useStyles();
 
@@ -109,22 +114,29 @@ export default function TopNav() {
               </>
             ) : (
               <>
-                <div
-                  className="btn-group info"
-                  style={{ marginRight: "auto" }}
+                <button
+                  type="button"
+                  className="btn btn-outline-primary mx-3"
+                  data-mdb-ripple-color="dark"
+                  style={{ textTransform: "none" }}
                 >
+                  <HomeIcon /> Home
+                </button>
+
+                <div className="btn-group info" style={{ marginRight: "auto" }}>
                   <button
                     type="button"
-                    className="btn btn-danger dropdown-toggle"
+                    className="btn btn-outline-primary dropdown-toggle"
                     data-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
+                    style={{ textTransform: "none" }}
                   >
-                    For Business
+                   <BusinessIcon/>  For Business
                   </button>
                   <ul className="dropdown-menu">
                     <li>
-                      <Link className="dropdown-item" to="/createbusiness" >
+                      <Link className="dropdown-item" to="/createbusiness">
                         Create Business
                       </Link>
                     </li>
@@ -136,13 +148,40 @@ export default function TopNav() {
                   </ul>
                 </div>
 
-                <Button
-                  variant="danger"
-                  className="mx-2 "
+                <Fab
+                  size="small"
+                  color="primary"
+                  aria-label="add"
+                  className="mx-2"
+                >
+                  <NotificationsIcon />
+                </Fab>
+
+                <Fab
+                  size="small"
+                  color="secondary"
+                  aria-label="add"
+                  className="mx-2"
+                >
+                  <PersonIcon />
+                </Fab>
+
+                <Fab
+                  variant="extended"
+                  size="medium"
+                  color="error"
+                  aria-label="add"
+                  className="mx-3"
+                  sx={{
+                    "&:hover": {
+                      color: "white",
+                    },
+                    textTransform: "none",
+                  }}
                   onClick={handleLogout}
                 >
                   Log Out
-                </Button>
+                </Fab>
               </>
             )}
           </Navbar.Collapse>
