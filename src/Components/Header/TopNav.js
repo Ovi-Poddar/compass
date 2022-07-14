@@ -22,7 +22,7 @@ import { Link } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import HomeIcon from "@mui/icons-material/Home";
-import BusinessIcon from '@mui/icons-material/Business';
+import BusinessIcon from "@mui/icons-material/Business";
 
 export default function TopNav() {
   // const classes = useStyles();
@@ -114,25 +114,25 @@ export default function TopNav() {
               </>
             ) : (
               <>
-                <button
-                  type="button"
-                  className="btn btn-outline-primary mx-3"
-                  data-mdb-ripple-color="dark"
-                  style={{ textTransform: "none" }}
+                <Link
+                  class="btn btn-primary"
+                  style={{ backgroundColor: "#55acee", textTransform: "none" }}
+                  to="#!"
+                  role="button"
                 >
-                  <HomeIcon /> Home
-                </button>
-
-                <div className="btn-group info" style={{ marginRight: "auto" }}>
+                  <HomeIcon className="me-2" />
+                  Home
+                </Link>
+                <div className="dropdown">
                   <button
-                    type="button"
-                    className="btn btn-outline-primary dropdown-toggle"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
+                    className="btn btn-outline-primary dropdown-toggle mx-3"
                     style={{ textTransform: "none" }}
+                    type="button"
+                    id="dropdownMenu2"
+                    data-mdb-toggle="dropdown"
+                    aria-expanded="false"
                   >
-                   <BusinessIcon/>  For Business
+                    <BusinessIcon /> For Business
                   </button>
                   <ul className="dropdown-menu">
                     <li>
