@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { FaBars, FaHome } from "react-icons/fa";
-import {BiSearch } from "react-icons/bi";
+import { BiSearch } from "react-icons/bi";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SidebarMenu from "./SidebarMenu";
@@ -8,16 +8,19 @@ import SidebarMenu from "./SidebarMenu";
 import "./sidebar-style.css";
 
 //icons
-import ReviewsIcon from '@mui/icons-material/Reviews';
-import HelpIcon from '@mui/icons-material/Help';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import ReviewsIcon from "@mui/icons-material/Reviews";
+import HelpIcon from "@mui/icons-material/Help";
+import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 
+import Fab from "@mui/material/Fab";
+import HomeIcon from "@mui/icons-material/Home";
+import FindInPageIcon from '@mui/icons-material/FindInPage';
 
 const routes = [
   {
     path: "/businesshome",
     name: "Business Home",
-    icon: <FaHome />,
+    icon: <HomeIcon />,
   },
   {
     path: "/askthecommunity",
@@ -29,7 +32,7 @@ const routes = [
     name: "Reviews",
     icon: <ReviewsIcon />,
   },
-  
+
   {
     path: "/offers",
     name: "Offers",
@@ -39,23 +42,23 @@ const routes = [
   // {
   //   path: "/settings",
   //   name: "Settings",
-  //   icon: <BiCog />,
+  //   icon: <LocalOfferIcon />,
   //   exact: true,
   //   subRoutes: [
   //     {
   //       path: "/settings/profile",
   //       name: "Profile ",
-  //       icon: <FaUser />,
+  //       icon: <LocalOfferIcon />,
   //     },
   //     {
   //       path: "/settings/2fa",
   //       name: "2FA",
-  //       icon: <FaLock />,
+  //       icon: <LocalOfferIcon />,
   //     },
   //     {
   //       path: "/settings/billing",
   //       name: "Billing",
-  //       icon: <FaMoneyBill />,
+  //       icon: <LocalOfferIcon />,
   //     },
   //   ],
   // },
@@ -123,7 +126,7 @@ const SideBar = ({ children }) => {
                   exit="hidden"
                   className="logo"
                 >
-                  Business Menu
+                  {/* Business Menu */}
                 </motion.h1>
               )}
             </AnimatePresence>
@@ -133,9 +136,10 @@ const SideBar = ({ children }) => {
             </div>
           </div>
           <div className="search">
-            <div className="search_icon">
-              <BiSearch />
-            </div>
+            <a role = "button" style={{textDecoration : "none"}}>
+              <FindInPageIcon  size={70} />
+            </a>
+           
             <AnimatePresence>
               {isOpen && (
                 <motion.input
