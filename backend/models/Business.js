@@ -45,7 +45,6 @@ const businessSchema = new Schema({
 
     tags: {
         type: [String],
-        required: true,
         default: ["business"],
     },
     
