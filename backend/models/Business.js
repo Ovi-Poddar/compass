@@ -87,7 +87,7 @@ const businessSchema = new Schema({
 
     opening_hours: {
         type: [String],
-        deafault:[""],
+        default:[""],
     },
 });
 

@@ -171,9 +171,9 @@ export default function CreateBusiness(props) {
                       onChange={onChange}
                     >
                       <option selected> Select a category </option>
-                      <option value="One">One</option>
-                      <option value="Two">Two</option>
-                      <option value="Three">Three</option>
+                      <option value="Restaurant">Restaurant</option>
+                      <option value="AutoShop">AutoShop</option>
+                      <option value="HomeService">HomeService</option>
                     </select>
                   </div>
 

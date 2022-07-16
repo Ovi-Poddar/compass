@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const querySchema = new Schema({
@@ -35,7 +35,8 @@ const querySchema = new Schema({
         type: [{
         type: mongoose.Schema.Types.ObjectID,
         ref: 'Query_Answer',
-        }]
+        }],
+        default: []
     },
 
 });

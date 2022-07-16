@@ -32,7 +32,7 @@ router.post(
 );
 
 // ROUTE 2: Get All the Reviews of this business using: GET "/api/review/getallreviews". Login required
-router.get("/getallreviews/:business_id", fetchUser, async (req, res) => {
+router.get("/getallreviews/:business_id", async (req, res) => {
   try {
     const reviews = await Review.find({
       business_id: req.params.business_id,

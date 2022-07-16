@@ -21,6 +21,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/business', require('./routes/business'));
 app.use('/api/review', require('./routes/review'));
+app.use('/api/query', require('./routes/query'));
 
 //error handling
 
