@@ -31,7 +31,7 @@ router.post(
   }
 );
 
-// ROUTE 2: Get All the Reviews of this business using: GET "/api/review/getallreviews". Login required
+// ROUTE 2: Get All the Reviews of this business using: GET "/api/review/getallreviews".
 router.get("/getallreviews/:business_id", async (req, res) => {
   try {
     const reviews = await Review.find({

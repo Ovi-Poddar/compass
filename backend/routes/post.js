@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const Query = require("../models/Query");
+const Post = require("../models/Post");
 const { body, validationResult } = require("express-validator");
 var fetchUser = require("../middleware/fetchUser");
 
-// ROUTE 1: Add a query to a Business using: POST "/api/query/addquery/". Login required
+// ROUTE 1: Add a post to a Business using: POST "/api/post/addpost/". Login required
 router.post(
-    "/addquery/:business_id",
+    "/addpost/:business_id",
     fetchUser,
     [body("text", "Enter a valid name").isLength({ min: 3 })],
     async (req, res) => {
@@ -17,13 +17,13 @@ router.post(
         if (!errors.isEmpty()) {
           return res.status(400).json({ errors: errors.array() });
         }
-        const query = new Query({
+        const post = new Post({
           text: text,
           user_id: req.user.id,
           business_id: req.params.business_id,
         });
-        const savedQuery= await query.save();
-        res.json(savedQuery);
+        const savedPost= await post.save();
+        res.json(savedPost);
       } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");
@@ -31,16 +31,16 @@ router.post(
     }
   );
 
-  // ROUTE 2: Get All the Reviews of this business using: GET "/api/query/getallqueries".
-router.get("/getallqueries/:business_id", async (req, res) => {
+  // ROUTE 2: Get All the Posts of this business using: GET "/api/post/getallposts".
+router.get("/getallposts/:business_id", async (req, res) => {
     try {
-      const queries = await Query.find({
+      const posts = await Post.find({
         business_id: req.params.business_id,
       })
         .populate("user_id", "user_name -_id")
         .select("-__v -business_id")
         .sort({ creation_date: -1 });
-      res.json(queries);
+      res.json(posts);
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Server Error");

@@ -22,6 +22,7 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/business', require('./routes/business'));
 app.use('/api/review', require('./routes/review'));
 app.use('/api/query', require('./routes/query'));
+app.use('/api/post', require('./routes/post'));
 
 //error handling
 
