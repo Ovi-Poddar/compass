@@ -69,24 +69,6 @@ export default function TopNav() {
               <Nav.Link href="/className=business">className= Business</Nav.Link> */}
               {/* <Nav.Link href="/contact">Contact Us</Nav.Link> */}
             </Nav>
-<<<<<<< HEAD
-            {/* link to login, signup and business homepage */}
-            <LinkContainer to={"/businesshome"}>
-              <Button variant="Dark" className="me-2" role="button">
-                Business
-              </Button>
-            </LinkContainer>
-            <LinkContainer to={"/login"}>
-              <Button variant="success " className="me-2" role="button">
-                Log In
-              </Button>
-            </LinkContainer>
-            <LinkContainer to={"/signup"}>
-              <Button variant="danger" className="me-2">
-                Sign Up
-              </Button>
-            </LinkContainer>
-=======
 
             {!localStorage.getItem("token") ? ( // if user is not logged in
               <>
@@ -141,30 +123,17 @@ export default function TopNav() {
                   <HomeIcon className="me-2" />
                   Home
                 </Link>
-                <div className="dropdown">
-                  <button
-                    className="btn btn-outline-primary dropdown-toggle mx-3"
-                    style={{ textTransform: "none" }}
-                    type="button"
-                    id="dropdownMenu2"
-                    data-mdb-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <BusinessIcon /> For Business
-                  </button>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <Link className="dropdown-item" to="/createbusiness">
-                        Create Business
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" to="/showownbusinesses">
-                        My Businesses
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
+
+                <Dropdown>
+                  <Dropdown.Toggle variant="primary" id="dropdownforbusiness" className = "mx-3">
+                  <BusinessIcon /> For Business
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item as={Link} to="/createbusiness">  Create Business</Dropdown.Item>
+                    <Dropdown.Item as={Link} to="/showownbusinesses">  My Businesses</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
 
                 <Fab
                   size="small"
@@ -202,7 +171,6 @@ export default function TopNav() {
                 </Fab>
               </>
             )}
->>>>>>> c52a7e20d0ac53d474a7a51886bcd600ee72314a
           </Navbar.Collapse>
         </Container>
       </Navbar>

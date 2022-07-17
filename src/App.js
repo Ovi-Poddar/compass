@@ -10,6 +10,16 @@ import SignUp from "./Components/SignUp/SignUp";
 import CreateBusiness from "./Components/Business/CreateBusiness";
 import ShowOwnBusiness from "./Components/Business/ShowOwnBusiness";
 
+import MsgAlert from "./Components/Header/MsgAlert";
+import Landing from "./Components/LandingPage/Landing";
+import BusinessPageLanding from "./Components/Business/BusinessPageLanding";
+
+import { useState } from "react";
+import { BusinessHome } from "./Components/Business/pages/BusinessHome";
+import { Reviews } from "./Components/Business/pages/Reviews";
+import { AskCommunity } from "./Components/Business/pages/AskCommunity";
+import { Offers } from "./Components/Business/pages/Offers";
+
 import UserState from "./Context/Users/UserState";
 import Business from "./Components/BusinessPages/BusinessHome";
 import AddReview from "./Components/Review/Review";
@@ -34,44 +44,6 @@ function App() {
 
   return (
     <>
-      <UserState>
-        <Router>
-          <TopNav />
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route exact path="/login" element={<Login />} />
-            <Route exact path="/signup" element={<SignUp />} />
-            <Route exact path="/review" element={<AddReview />}></Route>
-            <Route exact path="/businesshome" element={<Business />}></Route>
-            <Route
-              exact
-              path="/businessupdates"
-              element={<BusinessUpdates />}
-            ></Route>
-            <Route
-              exact
-              path="/businessoffers"
-              element={<BusinessOffers />}
-            ></Route>
-            <Route
-              exact
-              path="/businessquery"
-              element={<BusinessQuery />}
-            ></Route>
-            <Route
-              exact
-              path="/businesshours"
-              element={<BusinessHours />}
-            ></Route>
-            <Route
-              exact
-              path="/businessamenities"
-              element={<BusinessAmenities />}
-            ></Route>
-          </Routes>
-          {/* <CompassFooter /> */}
-        </Router>
-      </UserState>
       <Router>
         <TopNav />
         <MsgAlert alert={alert} />
@@ -103,6 +75,34 @@ function App() {
             path="/showownbusinesses"
             element={<BusinessPageLanding />}
           /> */}
+
+          {/* Added by Taanvir Raihan */}
+
+          <Route
+            exact
+            path="/businessupdates"
+            element={<BusinessUpdates />}
+          ></Route>
+          <Route
+            exact
+            path="/businessoffers"
+            element={<BusinessOffers />}
+          ></Route>
+          <Route
+            exact
+            path="/businessquery"
+            element={<BusinessQuery />}
+          ></Route>
+          <Route
+            exact
+            path="/businesshours"
+            element={<BusinessHours />}
+          ></Route>
+          <Route
+            exact
+            path="/businessamenities"
+            element={<BusinessAmenities />}
+          ></Route>
 
           {/* Added for Business Sidebar Menu */}
           <Route path="/businesshome" element={<BusinessHome />} />
