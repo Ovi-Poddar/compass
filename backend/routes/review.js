@@ -47,4 +47,20 @@ router.get("/getallreviews/:business_id", async (req, res) => {
   }
 });
 
+// ROUTE 3: Get single review: GET "/api/review/:review_id".
+router.get("/:review_id", async (req, res) => {
+  try {
+    const review = await Review.find({
+      _id: req.params.review_id,
+    })
+      // .populate("user_id", "user_name -_id")
+      // .select("-__v -business_id")
+      // .sort({ creation_date: -1 });
+    res.json(review);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 module.exports = router;
