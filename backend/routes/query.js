@@ -46,5 +46,21 @@ router.get("/getallqueries/:business_id", async (req, res) => {
       res.status(500).send("Internal Server Error");
     }
   });
+
+// ROUTE 3: Get single query: GET "/api/query/:query_id".
+router.get("/:query_id", async (req, res) => {
+  try {
+    const query = await Query.find({
+      _id: req.params.query_id,
+    })
+      // .populate("user_id", "user_name -_id")
+      // .select("-__v -business_id")
+      // .sort({ creation_date: -1 });
+    res.json(query);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
   
   module.exports = router;

@@ -47,7 +47,7 @@ router.get("/getallposts/:business_id", async (req, res) => {
     }
   });
 
-// ROUTE 2: Get single post: GET "/api/post/:post_id".
+// ROUTE 3: Get single post: GET "/api/post/:post_id".
 router.get("/:post_id", async (req, res) => {
   try {
     const post = await Post.find({
