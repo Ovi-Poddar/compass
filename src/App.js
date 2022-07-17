@@ -9,13 +9,13 @@ import CompassFooter from "./Components/CompassFooter/CompassFooter";
 import SignUp from "./Components/SignUp/SignUp";
 
 import UserState from "./Context/Users/UserState";
-import Business from "./Components/Business/BusinessHome";
+import Business from "./Components/BusinessPages/BusinessHome";
 import AddReview from "./Components/Review/Review";
-import BusinessUpdates from "./Components/Business/BusinessUpdates";
-import BusinessOffers from "./Components/Business/BusinessOffers";
-import BusinessQuery from "./Components/Business/BusinessQuery";
-import BusinessHours from "./Components/Business/BusinessHours";
-import BusinessAmenities from "./Components/Business/BusinessAmenities";
+import BusinessUpdates from "./Components/BusinessPages/BusinessUpdates";
+import BusinessOffers from "./Components/BusinessPages/BusinessOffers";
+import BusinessQuery from "./Components/BusinessPages/BusinessQuery";
+import BusinessHours from "./Components/BusinessPages/BusinessHours";
+import BusinessAmenities from "./Components/BusinessPages/BusinessAmenities";
 
 function App() {
   return (
