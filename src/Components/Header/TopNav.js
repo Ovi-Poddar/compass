@@ -10,16 +10,36 @@ import {
   Dropdown,
   DropdownButton,
 } from "react-bootstrap";
+
+import Fab from "@mui/material/Fab";
+
 import { LinkContainer } from "react-router-bootstrap";
 
+import { useNavigate } from "react-router-dom";
+
+import { Link } from "react-router-dom";
+
+import PersonIcon from "@mui/icons-material/Person";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import HomeIcon from "@mui/icons-material/Home";
+import BusinessIcon from "@mui/icons-material/Business";
+
 export default function TopNav() {
+  // const classes = useStyles();
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
   return (
     <>
       <Navbar bg="light" expand="lg">
         <Container fluid>
           <LinkContainer to={"/"}>
             <Navbar.Brand className="text-danger" href="/">
-              <i class="bi bi-compass font-weight-bold"></i> Compass
+              <i className="bi bi-compass font-weight-bold"></i> Compass
             </Navbar.Brand>
           </LinkContainer>
           <Form className="d-flex">
@@ -35,7 +55,7 @@ export default function TopNav() {
               aria-label="Search"
             />
             <Button variant="danger">
-              <i class="bi bi-search"></i>
+              <i className="bi bi-search"></i>
             </Button>
           </Form>
           <Navbar.Toggle aria-controls="navbarScroll" />
@@ -45,9 +65,11 @@ export default function TopNav() {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link href="/about">About</Nav.Link>
-              <Nav.Link href="/contact">Contact Us</Nav.Link>
+              {/*               
+              <Nav.Link href="/className=business">className= Business</Nav.Link> */}
+              {/* <Nav.Link href="/contact">Contact Us</Nav.Link> */}
             </Nav>
+<<<<<<< HEAD
             {/* link to login, signup and business homepage */}
             <LinkContainer to={"/businesshome"}>
               <Button variant="Dark" className="me-2" role="button">
@@ -64,6 +86,123 @@ export default function TopNav() {
                 Sign Up
               </Button>
             </LinkContainer>
+=======
+
+            {!localStorage.getItem("token") ? ( // if user is not logged in
+              <>
+                <LinkContainer to={"/login"}>
+                  {/* <Button variant="success " className="me-2" role="button">
+                    Log In
+                  </Button> */}
+                  <Fab
+                    variant="extended"
+                    size="medium"
+                    color="success"
+                    aria-label="add"
+                    className="me-2"
+                    sx={{
+                      "&:hover": {
+                        color: "white",
+                      },
+                      textTransform: "none",
+                    }}
+                  >
+                    Log In
+                  </Fab>
+                </LinkContainer>
+                <LinkContainer to={"/signup"}>
+                  {/* <Button variant="danger" className="me-2">
+                    Sign Up
+                  </Button> */}
+                  <Fab
+                    variant="extended"
+                    size="medium"
+                    color="error"
+                    aria-label="add"
+                    sx={{
+                      "&:hover": {
+                        color: "white",
+                      },
+                      textTransform: "none",
+                    }}
+                  >
+                    Sign Up
+                  </Fab>
+                </LinkContainer>
+              </>
+            ) : (
+              <>
+                <Link
+                  class="btn btn-primary"
+                  style={{ backgroundColor: "#55acee", textTransform: "none" }}
+                  to="#!"
+                  role="button"
+                >
+                  <HomeIcon className="me-2" />
+                  Home
+                </Link>
+                <div className="dropdown">
+                  <button
+                    className="btn btn-outline-primary dropdown-toggle mx-3"
+                    style={{ textTransform: "none" }}
+                    type="button"
+                    id="dropdownMenu2"
+                    data-mdb-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <BusinessIcon /> For Business
+                  </button>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <Link className="dropdown-item" to="/createbusiness">
+                        Create Business
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" to="/showownbusinesses">
+                        My Businesses
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+
+                <Fab
+                  size="small"
+                  color="primary"
+                  aria-label="add"
+                  className="mx-2"
+                >
+                  <NotificationsIcon />
+                </Fab>
+
+                <Fab
+                  size="small"
+                  color="secondary"
+                  aria-label="add"
+                  className="mx-2"
+                >
+                  <PersonIcon />
+                </Fab>
+
+                <Fab
+                  variant="extended"
+                  size="medium"
+                  color="error"
+                  aria-label="add"
+                  className="mx-3"
+                  sx={{
+                    "&:hover": {
+                      color: "white",
+                    },
+                    textTransform: "none",
+                  }}
+                  onClick={handleLogout}
+                >
+                  Log Out
+                </Fab>
+              </>
+            )}
+>>>>>>> c52a7e20d0ac53d474a7a51886bcd600ee72314a
           </Navbar.Collapse>
         </Container>
       </Navbar>

@@ -1,22 +1,31 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const reviewSchema = new Schema({
     
   // string, 22 character unique review id
-  review_id: String,
+  //review_id: String, 
+  //isnt it auto generated?
 
   // string, 22 character unique user id, maps to the user in user.json
-  user_id: String,
+  user_id: {  // foreign key
+    type : mongoose.Schema.Types.ObjectID,
+    ref : 'User',
+    required: true,
+},
 
   // string, 22 character business id, maps to business in business.json
-  business_id: String,
+  business_id: {  // foreign key
+    type : mongoose.Schema.Types.ObjectID,
+    ref : 'Business',
+    required: true,
+},
 
   // integer, star rating
   stars: { type: Number, default: 0 },
 
   // string, date formatted YYYY-MM-DD
-  date: { type: Date, default: Date.now },
+  creation_date: { type: Date, default: Date.now },
 
   // string, the review itself
   text: { type: String, required: true },
@@ -28,4 +37,5 @@ const reviewSchema = new Schema({
   funny: { type: Number, default: 0 },
 });
 
-module.exports = mongoose.model("Review", reviewSchema);
+const Review = mongoose.model("Review", reviewSchema);
+module.exports = Review;

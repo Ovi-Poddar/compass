@@ -1,104 +1,151 @@
-import React from "react";
-import { Helmet } from "react-helmet";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom' ;
 
-import "./style.css";
+import "./style_signup.css";
 
-export default function LogIn() {
+export default function SignUp(props) {
+  const navigate = useNavigate();
+
+  const [credentials, setCredentials] = useState({
+    user_name: "",
+    user_email: "",
+    password: "",
+    cpassword: "",
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(credentials);
+    const { user_name, user_email, password, cpassword } = credentials;
+    const response = await fetch("http://localhost:5000/api/auth/createuser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_name: user_name,
+        user_email: user_email,
+        password: password
+      }),
+    });
+    const json = await response.json();
+    console.log(json);
+
+    props.showAlert("Signup Successful ! Please login to continue. ", "success");
+
+    setCredentials({user_name: "",user_email: "",password: "",cpassword: ""})
+
+    navigate("/login");
+    
+
+  };
+
+  const onChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
+
   return (
-    <div className="application">
-      <Helmet>
-        <meta charset="utf-8" />
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-        {/* <!-- STYLE CSS --> */}
-        {/* <link rel="stylesheet" href="css/style.css" /> */}
-
-        {/* <script src="./js/jquery-3.3.1.min.js"></script>
-        <script src="./js/main.js"></script> */}
-      </Helmet>
-
-      <div class="container signup-body">
-        <div class="row">
-          <div class="col-lg-10 col-xl-9 mx-auto">
-            <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
-              <div class="card-img-left d-none d-md-flex">
+    <div className="container">
+      <div className="container signup-body">
+        <div className="row">
+          <div className="col-lg-10 col-xl-9 mx-auto">
+            <div className="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
+              <div className="card-img-left d-none d-md-flex">
                 {/* <!-- Background image for card set in CSS! --> */}
               </div>
-              <div class="card-body p-4 p-sm-5">
-                <h5 class="card-title text-center mb-5 fw-bold signup-h3">
+              <div className="card-body p-4 p-sm-5">
+                <h5 className="card-title text-center mb-5 fw-bold signup-h3">
                   Register
                 </h5>
-                <form>
-                  <div class="form-floating mb-3">
+                <form onSubmit={handleSubmit}  autoComplete="off" >
+                  <div className="form-floating mb-3">
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       id="floatingInputUsername"
+                      value={credentials.user_name}
+                      onChange={onChange}
+                      name="user_name"
                       placeholder="myusername"
                       required
-                      autofocus
+                      autoFocus
+                      minLength={3}
                     />
-                    <label for="floatingInputUsername">Username</label>
+                    <label htmlFor="floatingInputUsername">Username</label>
                   </div>
 
-                  <div class="form-floating mb-3">
+                  <div className="form-floating mb-3">
                     <input
                       type="email"
-                      class="form-control"
+                      className="form-control"
                       id="floatingInputEmail"
+                      value={credentials.user_email}
+                      onChange={onChange}
+                      name="user_email"
                       placeholder="name@example.com"
+                      required
                     />
-                    <label for="floatingInputEmail">Email address</label>
+                    <label htmlFor="floatingInputEmail">Email address</label>
                   </div>
 
                   <hr />
 
-                  <div class="form-floating mb-3">
+                  <div className="form-floating mb-3">
                     <input
                       type="password"
-                      class="form-control"
+                      className="form-control"
                       id="floatingPassword"
+                      value={credentials.password}
+                      onChange={onChange}
+                      name="password"
+                      minLength={5}
                       placeholder="Password"
+                      required
                     />
-                    <label for="floatingPassword">Password</label>
+                    <label htmlFor="floatingPassword">Password</label>
                   </div>
 
-                  <div class="form-floating mb-3">
+                  <div className="form-floating mb-3">
                     <input
                       type="password"
-                      class="form-control"
+                      className="form-control"
                       id="floatingPasswordConfirm"
+                      value={credentials.cpassword}
+                      onChange={onChange}
+                      name="cpassword"
+                      minLength={5}
                       placeholder="Confirm Password"
+                      required
                     />
-                    <label for="floatingPasswordConfirm">
+                    <label htmlFor="floatingPasswordConfirm">
                       Confirm Password
                     </label>
                   </div>
 
-                  <div class="d-grid mb-2">
+                  <div className="d-grid mb-2">
                     <button
-                      class="btn btn-lg btn-signup fw-bold text-uppercase text-white"
-                      style={{backgroundColor: "#E00707"}}
+                      // className="btn btn-lg btn-signup fw-bold text-uppercase text-white"
+                      className="btn btn-danger btn-lg btn-block"
+                      style={{ backgroundColor: "#E00707" }}
                       type="submit"
                     >
                       Sign Up
                     </button>
                   </div>
 
-                  <Link class="d-block text-center mt-2 small" to="/login">
+                  <Link className="d-block text-center mt-2 small" to="/login">
                     Have an account? Sign In
                   </Link>
 
-                  <hr class="my-4" />
+                  <hr className="my-4" />
 
-                  {/* <div class="d-grid mb-2">
+                  {/* <div className="d-grid mb-2">
                     <button
-                      class="btn btn-lg btn-google btn-login fw-bold text-uppercase"
+                      className="btn btn-lg btn-google btn-login fw-bold text-uppercase"
                       type="submit"
                     >
-                      <i class="fab fa-google me-2"></i> Sign up with Google
+                      <i className="fab fa-google me-2"></i> Sign up with Google
                     </button>
                   </div> */}
                 </form>

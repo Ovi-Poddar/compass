@@ -7,6 +7,8 @@ import Login from "./Components/Login/Login";
 import Home from "./Components/Home/Home";
 import CompassFooter from "./Components/CompassFooter/CompassFooter";
 import SignUp from "./Components/SignUp/SignUp";
+import CreateBusiness from "./Components/Business/CreateBusiness";
+import ShowOwnBusiness from "./Components/Business/ShowOwnBusiness";
 
 import UserState from "./Context/Users/UserState";
 import Business from "./Components/BusinessPages/BusinessHome";
@@ -18,6 +20,18 @@ import BusinessHours from "./Components/BusinessPages/BusinessHours";
 import BusinessAmenities from "./Components/BusinessPages/BusinessAmenities";
 
 function App() {
+  const [alert, setAlert] = useState(null);
+
+  const showAlert = (message, type) => {
+    setAlert({
+      msg: message,
+      type: type,
+    });
+    setTimeout(() => {
+      setAlert(null);
+    }, 2000);
+  };
+
   return (
     <>
       <UserState>
@@ -58,6 +72,49 @@ function App() {
           {/* <CompassFooter /> */}
         </Router>
       </UserState>
+      <Router>
+        <TopNav />
+        <MsgAlert alert={alert} />
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route
+            exact
+            path="/login"
+            element={<Login showAlert={showAlert} />}
+          />
+          <Route
+            exact
+            path="/signup"
+            element={<SignUp showAlert={showAlert} />}
+          />
+          <Route exact path="/landing" element={<Landing />} />
+          <Route
+            exact
+            path="/createbusiness"
+            element={<CreateBusiness showAlert={showAlert} />}
+          />
+          <Route
+            exact
+            path="/showownbusinesses"
+            element={<ShowOwnBusiness />}
+          />
+          {/* <Route
+            exact
+            path="/showownbusinesses"
+            element={<BusinessPageLanding />}
+          /> */}
+
+          {/* Added for Business Sidebar Menu */}
+          <Route path="/businesshome" element={<BusinessHome />} />
+          <Route path="/reviews" element={<Reviews />} />
+          <Route path="/askthecommunity" element={<AskCommunity />} />
+          <Route path="/offers" element={<Offers />} />
+          {/* <Route path="/settings" element={<Setting />} /> */}
+
+          <Route path="*" element={<> not found</>} />
+        </Routes>
+        {/* <CompassFooter /> */}
+      </Router>
     </>
   );
 }
