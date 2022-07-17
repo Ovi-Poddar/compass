@@ -48,6 +48,12 @@ export default function TopNav() {
               <Nav.Link href="/about">About</Nav.Link>
               <Nav.Link href="/contact">Contact Us</Nav.Link>
             </Nav>
+            {/* link to login, signup and business homepage */}
+            <LinkContainer to={"/businesshome"}>
+              <Button variant="Dark" className="me-2" role="button">
+                Business
+              </Button>
+            </LinkContainer>
             <LinkContainer to={"/login"}>
               <Button variant="success " className="me-2" role="button">
                 Log In
@@ -64,7 +70,7 @@ export default function TopNav() {
       <div className="d-flex justify-content-center">
         <DropdownButton
           id="dropdown-basic-button"
-          title="Restaurent"
+          title="Restaurant"
           className="me-2"
           variant="light"
         >
