@@ -46,5 +46,21 @@ router.get("/getallposts/:business_id", async (req, res) => {
       res.status(500).send("Internal Server Error");
     }
   });
+
+// ROUTE 2: Get single post: GET "/api/post/:post_id".
+router.get("/:post_id", async (req, res) => {
+  try {
+    const post = await Post.find({
+      _id: req.params.post_id,
+    })
+      // .populate("user_id", "user_name -_id")
+      // .select("-__v -business_id")
+      // .sort({ creation_date: -1 });
+    res.json(post);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
   
   module.exports = router;
