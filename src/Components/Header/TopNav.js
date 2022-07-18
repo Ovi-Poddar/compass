@@ -24,13 +24,14 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import HomeIcon from "@mui/icons-material/Home";
 import BusinessIcon from "@mui/icons-material/Business";
 
-export default function TopNav() {
+export default function TopNav(props) {
   // const classes = useStyles();
 
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    props.showAlert("Logged out successfully", "success");
     navigate("/");
   };
   return (

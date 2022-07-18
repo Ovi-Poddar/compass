@@ -29,6 +29,8 @@ import BusinessQuery from "./Components/BusinessPages/BusinessQuery";
 import BusinessHours from "./Components/BusinessPages/BusinessHours";
 import BusinessAmenities from "./Components/BusinessPages/BusinessAmenities";
 
+import Review from "./Components/Review/Review";
+
 function App() {
   const [alert, setAlert] = useState(null);
 
@@ -45,7 +47,7 @@ function App() {
   return (
     <>
       <Router>
-        <TopNav />
+        <TopNav showAlert={showAlert}/>
         <MsgAlert alert={alert} />
         <Routes>
           <Route exact path="/" element={<Home />} />
@@ -106,7 +108,7 @@ function App() {
 
           {/* Added for Business Sidebar Menu */}
           <Route path="/businesshome" element={<BusinessHome />} />
-          <Route path="/reviews" element={<Reviews />} />
+          <Route path="/reviews" element={<Reviews/>} />
           <Route path="/askthecommunity" element={<AskCommunity />} />
           <Route path="/offers" element={<Offers />} />
           {/* <Route path="/settings" element={<Setting />} /> */}

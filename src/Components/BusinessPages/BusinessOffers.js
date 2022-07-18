@@ -16,7 +16,7 @@ export default function BusinessOffers() {
   return (
     <>
       <div className="Carousel">
-        <div className="image_container" style={{ position: "relative" }}>
+        {/* <div className="image_container" style={{ position: "relative" }}>
           <img
             className="places  m-auto"
             alt="Sultan's Dine"
@@ -58,7 +58,7 @@ export default function BusinessOffers() {
             src={place1}
             width="470"
           />
-        </div>
+        </div> */}
         {/* external link container */}
         <div
           className="link_container my-4"

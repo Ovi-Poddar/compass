@@ -72,7 +72,7 @@ export default function BusinessHours() {
           }}
         >
           <div className="write_review_container" style={{ float: "left" }}>
-            <Link to="/review">
+            <Link to="/reviews">
               <Button
                 className="me-2"
                 role="button"
