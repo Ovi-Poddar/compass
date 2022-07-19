@@ -16,6 +16,7 @@ function SubmitReview() {
 
   const handleClick = (value) => {
     setCurrentValue(value);
+    console.log(value);
   };
 
   const handleMouseOver = (newHoverValue) => {
@@ -28,6 +29,7 @@ function SubmitReview() {
 
   const [review, setReview] = useState({
     text: "",
+    rating: 0,
   });
 
   const handleSubmitReview = async (e) => {
@@ -35,7 +37,7 @@ function SubmitReview() {
     console.log(review);
 
     const response = await fetch(
-      "http://localhost:5000/api/review/addreview/62d5301c3687e28d51bd22ed",
+      "http://localhost:5000/api/review/addreview/62d6f63d15cc5eca76126aab",
       {
         method: "POST",
         headers: {
@@ -44,6 +46,7 @@ function SubmitReview() {
         },
         body: JSON.stringify({
           text: review.text,
+          rating : currentValue,
         }),
       }
     );
@@ -54,9 +57,10 @@ function SubmitReview() {
 
     setReview({
       text: "",
+      rating: 0,
     });
-
-    //navigate("/reviews");
+    setCurrentValue(0);
+    // navigate("/reviews");
   };
 
   const onChange = (e) => {
