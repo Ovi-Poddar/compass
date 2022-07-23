@@ -108,7 +108,7 @@ function App() {
 
           {/* Added for Business Sidebar Menu */}
           <Route path="/businesshome" element={<BusinessHome />} />
-          <Route path="/reviews" element={<Reviews/>} />
+          <Route path="/reviews/:business_id" element={<Reviews/>} />
           <Route path="/askthecommunity" element={<AskCommunity />} />
           <Route path="/offers" element={<Offers />} />
           {/* <Route path="/settings" element={<Setting />} /> */}
