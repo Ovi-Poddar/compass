@@ -25,7 +25,6 @@ import HomeIcon from "@mui/icons-material/Home";
 import BusinessIcon from "@mui/icons-material/Business";
 
 export default function TopNav(props) {
-  // const classes = useStyles();
 
   const navigate = useNavigate();
 
@@ -116,7 +115,7 @@ export default function TopNav(props) {
             ) : (
               <>
                 <Link
-                  class="btn btn-primary"
+                  className="btn btn-primary"
                   style={{ backgroundColor: "#55acee", textTransform: "none" }}
                   to="#!"
                   role="button"

@@ -31,6 +31,8 @@ import BusinessAmenities from "./Components/BusinessPages/BusinessAmenities";
 
 import Review from "./Components/Review/Review";
 
+import ReviewState from "./Context/Review/ReviewState";
+
 function App() {
   const [alert, setAlert] = useState(null);
 
@@ -46,77 +48,82 @@ function App() {
 
   return (
     <>
-      <Router>
-        <TopNav showAlert={showAlert}/>
-        <MsgAlert alert={alert} />
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route
-            exact
-            path="/login"
-            element={<Login showAlert={showAlert} />}
-          />
-          <Route
-            exact
-            path="/signup"
-            element={<SignUp showAlert={showAlert} />}
-          />
-          <Route exact path="/landing" element={<Landing />} />
-          <Route
-            exact
-            path="/createbusiness"
-            element={<CreateBusiness showAlert={showAlert} />}
-          />
-          <Route
-            exact
-            path="/showownbusinesses"
-            element={<ShowOwnBusiness />}
-          />
-          {/* <Route
+      <ReviewState>
+        <Router>
+          <TopNav showAlert={showAlert} />
+          <MsgAlert alert={alert} />
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route
+              exact
+              path="/login"
+              element={<Login showAlert={showAlert} />}
+            />
+            <Route
+              exact
+              path="/signup"
+              element={<SignUp showAlert={showAlert} />}
+            />
+            <Route exact path="/landing" element={<Landing />} />
+            <Route
+              exact
+              path="/createbusiness"
+              element={<CreateBusiness showAlert={showAlert} />}
+            />
+            <Route
+              exact
+              path="/showownbusinesses"
+              element={<ShowOwnBusiness />}
+            />
+            {/* <Route
             exact
             path="/showownbusinesses"
             element={<BusinessPageLanding />}
           /> */}
 
-          {/* Added by Taanvir Raihan */}
+            {/* Added by Taanvir Raihan */}
 
-          <Route
-            exact
-            path="/businessupdates"
-            element={<BusinessUpdates />}
-          ></Route>
-          <Route
-            exact
-            path="/businessoffers"
-            element={<BusinessOffers />}
-          ></Route>
-          <Route
-            exact
-            path="/businessquery"
-            element={<BusinessQuery />}
-          ></Route>
-          <Route
-            exact
-            path="/businesshours"
-            element={<BusinessHours />}
-          ></Route>
-          <Route
-            exact
-            path="/businessamenities"
-            element={<BusinessAmenities />}
-          ></Route>
+            <Route
+              exact
+              path="/businessupdates"
+              element={<BusinessUpdates />}
+            ></Route>
+            <Route
+              exact
+              path="/businessoffers"
+              element={<BusinessOffers />}
+            ></Route>
+            <Route
+              exact
+              path="/businessquery"
+              element={<BusinessQuery />}
+            ></Route>
+            <Route
+              exact
+              path="/businesshours"
+              element={<BusinessHours />}
+            ></Route>
+            <Route
+              exact
+              path="/businessamenities"
+              element={<BusinessAmenities />}
+            ></Route>
 
-          {/* Added for Business Sidebar Menu */}
-          <Route path="/businesshome" element={<BusinessHome />} />
-          <Route path="/reviews/:business_id" element={<Reviews/>} />
-          <Route path="/askthecommunity" element={<AskCommunity />} />
-          <Route path="/offers" element={<Offers />} />
-          {/* <Route path="/settings" element={<Setting />} /> */}
+            {/* Added for Business Sidebar Menu */}
+            <Route path="/businesshome" element={<BusinessHome />} />
+            <Route
+              path="/reviews/:business_id"
+              element={<Reviews showAlert={showAlert} />}
+            />
+            <Route path="/askthecommunity" element={<AskCommunity />} />
+            <Route path="/offers" element={<Offers />} />
+            {/* <Route path="/settings" element={<Setting />} /> */}
 
-          <Route path="*" element={<> not found</>} />
-        </Routes>
-        {/* <CompassFooter /> */}
-      </Router>
+            <Route path="*" element={<> not found</>} />
+          </Routes>
+          {/* <CompassFooter /> */}
+        </Router>
+      </ReviewState>
     </>
   );
 }

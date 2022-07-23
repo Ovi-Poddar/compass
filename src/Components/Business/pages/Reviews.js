@@ -1,37 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useParams } from "react-router-dom";
 import ReviewItem from "../../Reviews/ReviewItem";
 import SubmitReview from "../../Reviews/SubmitReview";
 import SideBar from "../Sidebar/Sidebar";
 
 import Card from "react-bootstrap/Card";
 
-export const Reviews = () => {
-  const host = "http://localhost:5000";
-  const reviewsInitial = [];
-  const [reviews, setReviews] = useState(reviewsInitial);
+import ReviewContext from "../../../Context/Review/ReviewContext";
+
+export const Reviews = (props) => {
+
+  let { business_id } = useParams();
+
+  const context = useContext(ReviewContext);
+  const {reviews, getReviews } = context;
 
   // Get all Businesses
-  const getReviews = async () => {
-    // API Call
-    const response = await fetch(
-      `${host}/api/review/getallreviews/62d6f63d15cc5eca76126aab`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": localStorage.getItem("token"),
-        },
-      }
-    );
-    const json = await response.json();
-    console.log(json);
-    const allreviews = JSON.parse(JSON.stringify(json));
-    setReviews(allreviews);
-  };
+  // const getReviews = async () => {
+  //   // API Call
+  //   const response = await fetch(
+  //     `${host}/api/review/getallreviews/62d6f63d15cc5eca76126aab`,
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "auth-token": localStorage.getItem("token"),
+  //       },
+  //     }
+  //   );
+  //   const json = await response.json();
+  //   console.log(json);
+  //   const allreviews = JSON.parse(JSON.stringify(json));
+  //   setReviews(allreviews);
+  // };
 
   useEffect(() => {
-    getReviews();
-  }, []); // <- add empty brackets here
+    getReviews(business_id);
+    // eslint-disable-next-line
+}, [])
 
   return (
     <>
@@ -50,6 +56,7 @@ export const Reviews = () => {
                             <ReviewItem
                               key={review._id}
                               review={review}
+                              business_id = {business_id}
                             />
                           );
                         })}
@@ -60,7 +67,7 @@ export const Reviews = () => {
               </div>
             </div>
             <div className="col-3">
-              <SubmitReview />
+              <SubmitReview  showAlert = {props.showAlert} business_id = {business_id} />
             </div>
           </div>
         </div>

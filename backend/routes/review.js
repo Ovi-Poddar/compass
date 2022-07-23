@@ -22,9 +22,14 @@ router.post(
         text: text,
         user_id: req.user.id,
         business_id: req.params.business_id,
-        stars : req.body.rating
+        stars: req.body.rating,
       });
-      const savedReview = await review.save();
+      let savedReview = await review.save();
+      savedReview = await Review.findOne({
+        _id: savedReview.id,
+      })
+        .populate("user_id", "user_name")
+        .select("-__v -business_id");
       res.json(savedReview);
     } catch (error) {
       console.error(error.message);
@@ -34,11 +39,12 @@ router.post(
 );
 
 // ROUTE 2: Get All the Reviews of this business using: GET "/api/review/getallreviews".
-router.get("/getallreviews/:business_id", fetchUser,  async (req, res) => {
+router.get("/getallreviews/:business_id", fetchUser, async (req, res) => {
   try {
     const reviews = await Review.find({
       business_id: req.params.business_id,
-    }) .populate("user_id", "user_name")
+    })
+      .populate("user_id", "user_name")
       .select("-__v -business_id")
       .sort({ creation_date: -1 });
 
