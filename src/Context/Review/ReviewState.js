@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useContext } from "react";
-import { useParams } from "react-router-dom";
 
 import ReviewContext from "./ReviewContext";
 
@@ -45,8 +44,23 @@ const ReviewState = (props) => {
     setReviews([addedReview].concat(reviews));
   };
 
+   // Delete a Review using: DELETE "/api/review/deletereview/".
+   const deleteReview = async (review_id) => {
+    // API Call
+    const response = await fetch(`${host}/api/review/deletereview/${review_id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': localStorage.getItem('token')
+      }
+    });
+    const json = response.json(); 
+    const newReviews = reviews.filter((review) => { return review._id !== review_id });
+    setReviews(newReviews);
+  }
+
   return (
-    <ReviewContext.Provider value={{ getReviews, addReview, reviews }}>
+    <ReviewContext.Provider value={{ getReviews, addReview, reviews, deleteReview }}>
       {props.children}
     </ReviewContext.Provider>
   );

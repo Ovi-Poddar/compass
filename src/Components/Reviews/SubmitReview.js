@@ -24,7 +24,7 @@ function SubmitReview(props) {
   const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(undefined);
   const stars = Array(5).fill(0);
-  const reviewTooltip = ["Bad", "Poor", "OK", "Good", "Excellent"];
+  const reviewTooltip = ["Bad", "Poor", "Ok", "Good", "Excellent"];
 
   const handleClick = (value) => {
     setCurrentValue(value);

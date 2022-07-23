@@ -15,25 +15,6 @@ export const Reviews = (props) => {
   const context = useContext(ReviewContext);
   const {reviews, getReviews } = context;
 
-  // Get all Businesses
-  // const getReviews = async () => {
-  //   // API Call
-  //   const response = await fetch(
-  //     `${host}/api/review/getallreviews/62d6f63d15cc5eca76126aab`,
-  //     {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "auth-token": localStorage.getItem("token"),
-  //       },
-  //     }
-  //   );
-  //   const json = await response.json();
-  //   console.log(json);
-  //   const allreviews = JSON.parse(JSON.stringify(json));
-  //   setReviews(allreviews);
-  // };
-
   useEffect(() => {
     getReviews(business_id);
     // eslint-disable-next-line

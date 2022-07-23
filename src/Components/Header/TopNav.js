@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 
 import {
   Nav,
@@ -24,12 +24,26 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import HomeIcon from "@mui/icons-material/Home";
 import BusinessIcon from "@mui/icons-material/Business";
 
+import UserContext from "../../Context/Users/UserContext";
+
 export default function TopNav(props) {
+  const context = useContext(UserContext);
+  const { user, getUser, setUser } = context;
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      getUser();
+      console.log(user);
+    }
+  }, []);
 
   const navigate = useNavigate();
 
   const handleLogout = () => {
+
     localStorage.removeItem("token");
+    setUser(null);
+
     props.showAlert("Logged out successfully", "success");
     navigate("/");
   };
@@ -125,13 +139,23 @@ export default function TopNav(props) {
                 </Link>
 
                 <Dropdown>
-                  <Dropdown.Toggle variant="primary" id="dropdownforbusiness" className = "mx-3">
-                  <BusinessIcon /> For Business
+                  <Dropdown.Toggle
+                    variant="primary"
+                    id="dropdownforbusiness"
+                    className="mx-3"
+                  >
+                    <BusinessIcon /> For Business
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item as={Link} to="/createbusiness">  Create Business</Dropdown.Item>
-                    <Dropdown.Item as={Link} to="/showownbusinesses">  My Businesses</Dropdown.Item>
+                    <Dropdown.Item as={Link} to="/createbusiness">
+                      {" "}
+                      Create Business
+                    </Dropdown.Item>
+                    <Dropdown.Item as={Link} to="/showownbusinesses">
+                      {" "}
+                      My Businesses
+                    </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
 
@@ -142,6 +166,7 @@ export default function TopNav(props) {
                   className="mx-2"
                 >
                   <NotificationsIcon />
+                 
                 </Fab>
 
                 <Fab
@@ -151,6 +176,7 @@ export default function TopNav(props) {
                   className="mx-2"
                 >
                   <PersonIcon />
+                  {/* {user && (user.user_name)} */}
                 </Fab>
 
                 <Fab

@@ -1,12 +1,24 @@
-import React, { useState , useContext} from "react";
+import React, { useState , useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useNavigate } from 'react-router-dom' ;
 
+
 import "./login.scss";
+
+import UserContext from "../../Context/Users/UserContext";
 
 
 const Login = (props) => {
+
+  const context = useContext(UserContext);
+  const { user, getUser } = context;
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      getUser();
+    }
+  }, []);
 
   const [credentials, setCredentials] = useState({
     user_name: "",
@@ -33,13 +45,13 @@ const Login = (props) => {
     if (json.success) {
       // Save the auth token and redirect
       localStorage.setItem('token', json.authtoken);
+      getUser();
     
       props.showAlert("Login Successful !", "success");
 
       navigate("/landing");
 
     } else {
-      // alert("Invalid credentials");
       props.showAlert("Invalid credentials!", "danger");
     }
   };

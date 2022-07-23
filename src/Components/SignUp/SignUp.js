@@ -1,10 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext , useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom' ;
+import UserContext from "../../Context/Users/UserContext";
 
 import "./style_signup.css";
 
 export default function SignUp(props) {
+  const context = useContext(UserContext);
+  const { user, getUser } = context;
+
   const navigate = useNavigate();
 
   const [credentials, setCredentials] = useState({

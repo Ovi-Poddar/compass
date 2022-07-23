@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Collapse from "react-bootstrap/Collapse";
 import Form from "react-bootstrap/Form";
@@ -20,9 +20,15 @@ import Modal from "react-bootstrap/Modal";
 
 import { FaStar } from "react-icons/fa";
 
-// import "./ReviewItem.css";
+import UserContext from "../../Context/Users/UserContext";
+import ReviewContext from "../../Context/Review/ReviewContext";
 
 function ReviewItem(props) {
+  const userContext = useContext(UserContext);
+  const { user } = userContext;
+  const reviewContext = useContext(ReviewContext);
+  const {deleteReview} = reviewContext;
+
   const colors = {
     orange: "#FFBA5A",
     grey: "#a9a9a9",
@@ -37,6 +43,12 @@ function ReviewItem(props) {
   const [showDelete, setShowDelete] = useState(false);
 
   const handleCloseDelete = () => setShowDelete(false);
+
+  const handleConfirmDelete = () => {
+    setShowDelete(false);
+    console.log(props.review._id);
+    deleteReview(props.review._id);
+  }
   const handleShowDelete = () => setShowDelete(true);
 
   return (
@@ -56,28 +68,38 @@ function ReviewItem(props) {
 
           {stars.map((_, index) => {
             return (
-              <div className = "cotainer d-inline"  key={props.review._id + index}> 
-              <FaStar
-                size={17}
-                color={props.review.stars > index ? colors.orange : colors.grey}
-                style={{
-                  marginRight: 2,
-                }}
-              /> </div>
+              <div className="d-inline" key={props.review._id + index}>
+                <FaStar
+                  size={16}
+                  color={
+                    props.review.stars > index ? colors.orange : colors.grey
+                  }
+                  style={{
+                    marginRight: 0,
+                  }}
+                />{" "}
+              </div>
             );
           })}
-          <div className="d-inline" style = {{marginLeft : "18rem"}}>
-            <a role="button" className="mx-2 text-primary" onClick={handleShow}>
-              <EditIcon />
-            </a>
-            <a
-              role="button"
-              className="text-primary"
-              onClick={handleShowDelete}
-            >
-              <DeleteIcon />
-            </a>
-          </div>
+
+          {props.review.user_id._id == user._id && (
+            <div className="d-inline" style={{ marginLeft: "18rem" }}>
+              <a
+                role="button"
+                className="mx-2 text-primary"
+                onClick={handleShow}
+              >
+                <EditIcon />
+              </a>
+              <a
+                role="button"
+                className="text-primary"
+                onClick={handleShowDelete}
+              >
+                <DeleteIcon />
+              </a>
+            </div>
+          )}
           <div className="d-flex align-items-center mb-3">
             <span class="badge rounded-pill bg-danger d-inline">
               {" "}
@@ -138,7 +160,7 @@ function ReviewItem(props) {
                 <Button variant="secondary" onClick={handleCloseDelete}>
                   Cancel
                 </Button>
-                <Button variant="danger" onClick={handleCloseDelete}>
+                <Button variant="danger" onClick={handleConfirmDelete}>
                   {" "}
                   Yes{" "}
                 </Button>
