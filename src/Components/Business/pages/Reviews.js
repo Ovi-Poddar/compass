@@ -23,21 +23,21 @@ export const Reviews = (props) => {
   return (
     <>
       <SideBar>
-        <div class="container">
-          <div className="row">
-            <div className="col-7">
+        <div className="container ">
+          <div className="d-flex justify-content-center">
+            <div className="" >
               <div className="container my-1 py-4 " style={{ width: "53rem" }}>
                 <div className="row d-flex justify-content-start ">
                   <div className="col-md-12 col-lg-10">
                     <Card className="shadow-md">
                       <Card.Body className="p-4">
-                        <h4 className="mb-4 text-danger">Recent Reviews</h4>
+                        <h4 className="mb-4 text-danger">Recent Reviews ({reviews.length})</h4>
                         {reviews.map((review) => {
                           return (
                             <ReviewItem
                               key={review._id}
                               review={review}
-                              business_id = {business_id}
+                              business_id = {business_id} showAlert={props.showAlert}
                             />
                           );
                         })}
@@ -47,7 +47,7 @@ export const Reviews = (props) => {
                 </div>
               </div>
             </div>
-            <div className="col-3">
+            <div className="sticky-top">
               <SubmitReview  showAlert = {props.showAlert} business_id = {business_id} />
             </div>
           </div>

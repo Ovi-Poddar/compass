@@ -68,7 +68,7 @@ function SubmitReview(props) {
 
   return (
     <div>
-      <Card className="text-center mt-4 shadow-lg" style={{ width: "30rem" }}>
+      <Card className="text-center mt-4 shadow-lg" style={{ width: "30rem", position : "sticky" , top : "0"}}>
         <Card.Body>
           <div style={styles.container}>
             <h2 className="text-danger"> Write A Review </h2>

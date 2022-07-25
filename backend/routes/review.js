@@ -72,23 +72,59 @@ router.get("/:review_id", async (req, res) => {
 });
 
 // ROUTE 3: Delete an existing Review using: DELETE "/api/review/deletereview". Login required
-router.delete('/deletereview/:review_id', fetchUser, async (req, res) => {
+router.delete("/deletereview/:review_id", fetchUser, async (req, res) => {
   try {
-      // Find the review to be deleted and delete it
-      let review = await Review.findById(req.params.review_id);
-      if (!review) { return res.status(404).send("Not Found") }
+    // Find the review to be deleted and delete it
+    let review = await Review.findById(req.params.review_id);
+    if (!review) {
+      return res.status(404).send("Not Found");
+    }
 
-      // Allow deletion only if user owns this Review
-      if (review.user_id.toString() !== req.user.id) {
-          return res.status(401).send("Not Allowed");
-      }
+    // Allow deletion only if user owns this Review
+    if (review.user_id.toString() !== req.user.id) {
+      return res.status(401).send("Not Allowed");
+    }
 
-      review = await Review.findByIdAndDelete(req.params.review_id);
-      res.json({ "Success": "Review has been deleted", review: review });
+    review = await Review.findByIdAndDelete(req.params.review_id);
+    res.json({ Success: "Review has been deleted", review: review });
   } catch (error) {
-      console.error(error.message);
-      res.status(500).send("Internal Server Error");
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
   }
-})
+});
+
+// ROUTE 4: Update an existing Review using: PUT "/api/review/updatereview". Login required
+router.put("/updatereview/:review_id", fetchUser, async (req, res) => {
+  const { text, stars } = req.body;
+  try {
+    // Create a New Review object
+    const newReview = {};
+    if (text) {
+      newReview.text = text;
+    }
+    if (stars) {
+      newReview.stars = stars;
+    }
+
+    // Find the review to be updated and update it
+    let review = await Review.findById(req.params.review_id);
+    if (!review) {
+      return res.status(404).send("Not Found");
+    }
+    // Allow update only if user owns this Review
+    if (review.user_id.toString() !== req.user.id) {
+      return res.status(401).send("Not Allowed");
+    }
+    review = await Review.findByIdAndUpdate(
+      req.params.review_id,
+      { $set: newReview },
+      { new: true }
+    );
+    res.json({ review });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 module.exports = router;
