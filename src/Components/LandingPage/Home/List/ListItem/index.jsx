@@ -1,13 +1,18 @@
-import React from 'react';
-import './styles.css';
+import React from "react";
+import "./styles.css";
 
 const ListItem = ({
-  item: { coverSrc, title, price, deliveryFee, serviceTime, rating },
+  item: { business_name, price, deliveryFee, serviceTime, rating },
 }) => (
-  <div className='listItem-wrap'>
-    <img src={{coverSrc}} alt='' />
+  <div className="listItem-wrap">
+    <img
+      src={
+        "https://images.squarespace-cdn.com/content/v1/5c6dcbf5f4755a48d74da555/1566361112664-1HH140I24PNJ60MQ0YKE/auto+repair+shop+houston+tx.jpg?format=2500w"
+      }
+      alt=""
+    />
     <header>
-      <h4>{title}</h4>
+      <h4>{business_name}</h4>
       <span>🌟{rating}</span>
     </header>
     <footer>

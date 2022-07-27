@@ -25,9 +25,9 @@ const useStyles = makeStyles({
   },
 });
 
-const CheckboxProton = ({ changeChecked, cuisine }) => {
+const CheckboxProton = ({ changeChecked, category }) => {
   const classes = useStyles();
-  const { checked, label, id } = cuisine;
+  const { checked, label, id } = category;
   return (
     <div className = "container">
       <FormControlLabel
