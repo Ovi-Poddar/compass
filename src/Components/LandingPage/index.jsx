@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import EmptyView from './common/EmptyView';
-import FilterPanel from './Home/FilterPanel';
-import List from './Home/List';
-import SearchBar from './Home/SearchBar';
-import { dataList } from './constants';
+import EmptyView from '../../components/common/EmptyView';
+import FilterPanel from '../../components/Home/FilterPanel';
+import List from '../../components/Home/List';
+import SearchBar from '../../components/Home/SearchBar';
+import { dataList } from '../../constants';
 import './styles.css';
 
-const Landing = () => {
+const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedRating, setSelectedRating] = useState(null);
   const [selectedPrice, setSelectedPrice] = useState([1000, 5000]);
@@ -123,4 +123,4 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default Home;

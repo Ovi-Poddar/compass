@@ -39,6 +39,7 @@ import Review from "./Components/Review/Review";
 /* States for context api  */
 import ReviewState from "./Context/Review/ReviewState";
 import UserState from "./Context/Users/UserState";
+import MyBusinessItem from "./Components/Business/MyBusiness/MyBusinessItem";
 
 function App() {
   const [alert, setAlert] = useState(null);
@@ -83,11 +84,11 @@ function App() {
                 path="/showownbusinesses"
                 element={<ShowOwnBusiness />}
               />
-              {/* <Route
+              <Route
             exact
             path="/showownbusinesses"
-            element={<BusinessPageLanding />}
-          /> */}
+            element={<MyBusinessItem />}
+          />
 
               {/* Added by Taanvir Raihan */}
 

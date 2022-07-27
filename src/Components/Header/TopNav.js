@@ -131,7 +131,7 @@ export default function TopNav(props) {
                 <Link
                   className="btn btn-primary"
                   style={{ backgroundColor: "#55acee", textTransform: "none" }}
-                  to="#!"
+                  to="/landing"
                   role="button"
                 >
                   <HomeIcon className="me-2" />

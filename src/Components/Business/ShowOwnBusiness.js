@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 
+import MyBusinessItem from "./MyBusiness/MyBusinessItem";
+
+import "./MyBusiness/styles.css";
+
 function ShowOwnBusiness() {
   const host = "http://localhost:5000";
   const businessesInitial = [];
@@ -29,10 +33,10 @@ function ShowOwnBusiness() {
     <>
       <div className="d-flex justify-content-center text-center container">
         <h2 className="my-4">
-          { businesses.length > 0 ? "Your Businesses" : "No Businesses to show" }
+          {businesses.length === 0 && "No Businesses to show"}
         </h2>
       </div>
-      <div className="row my-4 container">
+      {/* <div className="row my-4 container">
         {businesses.map((business) => (
           <div className="col-md-3">
             <div className="card">
@@ -49,6 +53,13 @@ function ShowOwnBusiness() {
             </div>
           </div>
         ))}
+      </div> */}
+      <div className="container mt-2">
+        <div className="row">
+          {businesses.map((business) => {
+            return <MyBusinessItem key={business._id} business={business} />;
+          })}
+        </div>
       </div>
     </>
   );
