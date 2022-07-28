@@ -32,7 +32,7 @@ router.post(
   );
 
   // ROUTE 2: Get All the Reviews of this business using: GET "/api/query/getallqueries".
-router.get("/getallqueries/:business_id", async (req, res) => {
+router.get("/getallqueries/:business_id", fetchUser, async (req, res) => {
     try {
       const queries = await Query.find({
         business_id: req.params.business_id,
@@ -62,5 +62,62 @@ router.get("/:query_id", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
-  
+
+// ROUTE 4: Delete an existing Query using: DELETE "/api/query/deletequery". Login required
+
+router.delete("/deletequery/:query_id", fetchUser, async (req, res) => {
+  try {
+    // Find the query to be deleted and delete it
+    let query = await Query.findById(req.params.query_id);
+
+    if (!query) {
+      return res.status(404).json({ msg: "Query not found" });
+    }
+
+    // Allow deletion only if user owns this Review
+    if (query.user_id.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "Not authorized" });
+    }
+
+    query = await Query.findByIdAndDelete(req.params.query_id);
+    res.json({Success: "Query deleted successfully", query: query});
+
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// ROUTE 5: Update an existing Query using: PUT "/api/query/updatequery". Login required
+router.put("/updatequery/:query_id", fetchUser, async (req, res) => {
+  const { text } = req.body;
+  try {
+    // Create a new query object
+    const newQuery = {};
+    if(text) newQuery.text = text;
+
+    // Find the query to be updated and update it
+    let query = await Query.findById(req.params.query_id);
+
+    if (!query) {
+      return res.status(404).json({ msg: "Query not found" });
+    }
+
+    // Allow update only if user owns this Query
+    if (query.user_id.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "Not authorized" });
+    }
+
+    query = await Query.findByIdAndUpdate(
+      req.params.query_id,
+      { $set: newQuery },
+      { new: true }
+    );
+    res.json({Success: "Query updated successfully", query: query});
+
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
   module.exports = router;

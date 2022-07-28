@@ -1,7 +1,7 @@
 import React from "react";
 import SideBar from "../Sidebar/Sidebar";
 
-export const AskCommunity = () => {
+export const Queries = () => {
   return (
     <>
       <SideBar> 
