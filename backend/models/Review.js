@@ -1,11 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const reviewSchema = new Schema({
-    
-  // string, 22 character unique review id
-  //review_id: String, 
-  //isnt it auto generated?
+const reviewSchema = new Schema({ 
 
   // string, 22 character unique user id, maps to the user in user.json
   user_id: {  // foreign key
