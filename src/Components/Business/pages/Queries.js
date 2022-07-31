@@ -19,21 +19,21 @@ export const Queries = (props) => {
   return (
     <>
       <SideBar>
-        <div classNameName="d-flex justify-content-start">
+        <div className="d-flex justify-content-start">
           <MakeQuery showAlert={props.showAlert} business_id={business_id} />
         </div>
-        <div classNameName="container">
-          <div classNameName="d-flex justify-content-center pt-3">
-            <div classNameName="">
+        <div className="container">
+          <div className="d-flex justify-content-center pt-3 px-4">
+            <div className="">
               <div
-                classNameName="container my-1 py-4 "
+                className="container my-1 py-4"
                 style={{ width: "53rem" }}
               >
-                <div classNameName="row d-flex justify-content-start ">
-                  <div classNameName="col-md-12 col-lg-10">
-                    <Card classNameName="shadow-md">
-                      <Card.Body classNameName="p-4">
-                        <h4 classNameName="mb-4 text-danger">
+                <div className="row d-flex justify-content-start ">
+                  <div className="col-md-12 col-lg-10">
+                    <Card className="shadow-md">
+                      <Card.Body className="p-4">
+                        <h4 className="mb-4 text-danger">
                           Recent Queries ({queries.length})
                         </h4>
                         {queries.map((query) => {
