@@ -7,7 +7,7 @@ import QueryContext from "../../../Context/Query/QueryContext";
 import Card from "react-bootstrap/Card";
 
 export const Queries = (props) => {
-  let {business_id} = useParams();
+  let { business_id } = useParams();
 
   const context = useContext(QueryContext);
   const { queries, getQueries } = context;
@@ -19,15 +19,21 @@ export const Queries = (props) => {
   return (
     <>
       <SideBar>
-        <div className="container ">
-          <div className="d-flex justify-content-center">
-            <div className="">
-              <div className="container my-1 py-4 " style={{ width: "53rem" }}>
-                <div className="row d-flex justify-content-start ">
-                  <div className="col-md-12 col-lg-10">
-                    <Card className="shadow-md">
-                      <Card.Body className="p-4">
-                        <h4 className="mb-4 text-danger">
+        <div classNameName="d-flex justify-content-start">
+          <MakeQuery showAlert={props.showAlert} business_id={business_id} />
+        </div>
+        <div classNameName="container">
+          <div classNameName="d-flex justify-content-center pt-3">
+            <div classNameName="">
+              <div
+                classNameName="container my-1 py-4 "
+                style={{ width: "53rem" }}
+              >
+                <div classNameName="row d-flex justify-content-start ">
+                  <div classNameName="col-md-12 col-lg-10">
+                    <Card classNameName="shadow-md">
+                      <Card.Body classNameName="p-4">
+                        <h4 classNameName="mb-4 text-danger">
                           Recent Queries ({queries.length})
                         </h4>
                         {queries.map((query) => {
@@ -45,12 +51,6 @@ export const Queries = (props) => {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="sticky-top">
-              <MakeQuery
-                showAlert={props.showAlert}
-                business_id={business_id}
-              />
             </div>
           </div>
         </div>
