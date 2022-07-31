@@ -6,8 +6,8 @@ import place3 from "../../Images/business_place3.jpg";
 import sd from "../../Images/sd.jpg";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import BusinessExternalLinks from "./BusinessExternalLinks";
-import Update from "../BusinessPageTabs/Update";
+// import BusinessExternalLinks from "./BusinessExternalLinks";
+// import Update from "../BusinessPageTabs/Update";
 
 export default function BusinessUpdates() {
   return (
@@ -57,9 +57,9 @@ export default function BusinessUpdates() {
           />
         </div>
         {/* external link container */}
-        <BusinessExternalLinks />
+        {/* <BusinessExternalLinks /> */}
         {/* tab container */}
-        <Update />
+        {/* <Update /> */}
         {/* content container */}
 
         <div

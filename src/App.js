@@ -27,19 +27,21 @@ import { Offers } from "./Components/Business/pages/Offers";
 
 import Business from "./Components/BusinessPages/BusinessHome";
 import AddReview from "./Components/Review/Review";
-import BusinessUpdates from "./Components/BusinessPages/BusinessUpdates";
-import BusinessOffers from "./Components/BusinessPages/BusinessOffers";
-import BusinessQuery from "./Components/BusinessPages/BusinessQuery";
-import BusinessHours from "./Components/BusinessPages/BusinessHours";
-import BusinessAmenities from "./Components/BusinessPages/BusinessAmenities";
+// import BusinessUpdates from "./Components/BusinessPages/BusinessUpdates";
+// import BusinessOffers from "./Components/BusinessPages/BusinessOffers";
+// import BusinessQuery from "./Components/BusinessPages/BusinessQuery";
+// import BusinessHours from "./Components/BusinessPages/BusinessHours";
+// import BusinessAmenities from "./Components/BusinessPages/BusinessAmenities";
 
 import Review from "./Components/Review/Review";
 
 /* States for context api  */
 import ReviewState from "./Context/Review/ReviewState";
 import UserState from "./Context/Users/UserState";
+
 import MyBusinessItem from "./Components/Business/MyBusiness/MyBusinessItem";
 import QueryState from "./Context/Query/QueryState";
+
 
 function App() {
   const [alert, setAlert] = useState(null);
@@ -93,7 +95,7 @@ function App() {
 
                 {/* Added by Taanvir Raihan */}
 
-                <Route
+                {/* <Route
                   exact
                   path="/businessupdates"
                   element={<BusinessUpdates />}
@@ -118,7 +120,7 @@ function App() {
                   path="/businessamenities"
                   element={<BusinessAmenities />}
                 />
-                <Route path="/businesshome" element={<Business />} />
+                <Route path="/businesshome" element={<Business />} /> */}
 
                 {/* Added for Business Sidebar Menu */}
                 <Route path="/businessdashboard" element={<BusinessHome />} />

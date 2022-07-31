@@ -5,8 +5,8 @@ import pepperoni from "../../Images/pepperoni.jpg";
 import sd from "../../Images/sd.jpg";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import BusinessExternalLinks from "./BusinessExternalLinks";
-import Offers from "../BusinessPageTabs/Offers";
+// import BusinessExternalLinks from "./BusinessExternalLinks";
+// import Offers from "../BusinessPageTabs/Offers";
 
 export default function BusinessOffers() {
   return (
