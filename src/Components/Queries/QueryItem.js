@@ -5,7 +5,7 @@ import React from "react";
 function QueryItem(props) {
   return (
     <>
-      <div className="query-item"> hello </div>
+      <div className="query-item" py-5> hello </div>
     </>
   );
 }

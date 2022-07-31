@@ -57,9 +57,9 @@ export default function BusinessHours() {
           />
         </div>
         {/* external link container */}
-        <BusinessExternalLinks />
+        {/* <BusinessExternalLinks /> */}
         {/* tab container */}
-        <Hours />
+        {/* <Hours /> */}
         {/* content container */}
 
         <div

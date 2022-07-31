@@ -192,7 +192,8 @@ function ReviewItem(props) {
                       </span>
                     </OverlayTrigger>
                   );
-                })}</div>
+                })}
+                </div>
                 <Form>
                   <Form.Group className="mb-3">
                     {/* <Form.Label>Your Experience</Form.Label> */}

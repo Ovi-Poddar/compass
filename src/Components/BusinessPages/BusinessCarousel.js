@@ -60,9 +60,9 @@ export default function BusinessCarousel() {
           />
         </div>
         {/* external link container */}
-        <BusinessExternalLinks />
+        {/* <BusinessExternalLinks /> */}
         {/* tab container */}
-        <Home />
+        {/* <Home /> */}
         {/* content container */}
 
         <div
