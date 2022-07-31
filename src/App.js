@@ -96,30 +96,32 @@ function App() {
                   exact
                   path="/businessupdates"
                   element={<BusinessUpdates />}
-                ></Route>
+                />
                 <Route
                   exact
                   path="/businessoffers"
                   element={<BusinessOffers />}
-                ></Route>
+                />
                 <Route
                   exact
                   path="/businessquery"
                   element={<BusinessQuery />}
-                ></Route>
+                />
                 <Route
                   exact
                   path="/businesshours"
                   element={<BusinessHours />}
-                ></Route>
+                />
                 <Route
                   exact
                   path="/businessamenities"
                   element={<BusinessAmenities />}
-                ></Route>
+                />
+                <Route path="/businesshome" element={<Business />} />
 
                 {/* Added for Business Sidebar Menu */}
-                <Route path="/businesshome" element={<BusinessHome />} />
+                <Route path="/businessdashboard" element={<BusinessHome />} />
+
                 <Route
                   path="/reviews/:business_id"
                   element={<Reviews showAlert={showAlert} />}
