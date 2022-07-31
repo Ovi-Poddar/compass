@@ -55,7 +55,7 @@ function ShowOwnBusiness() {
         ))}
       </div> */}
       <div className="container mt-2">
-        <div className="row">
+        <div className="row d-flex jusitify-content-center">
           {businesses.map((business) => {
             return <MyBusinessItem key={business._id} business={business} />;
           })}

@@ -30,7 +30,14 @@ router.post(
       })
         .populate("user_id", "user_name")
         .select("-__v -business_id");
+
+      // increase the number of reviews of the business
+      await Business.findByIdAndUpdate(req.params.business_id, {
+        review_count: { $inc: 1 },
+      });
+      
       res.json(savedReview);
+      
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Server Error");
@@ -86,6 +93,12 @@ router.delete("/deletereview/:review_id", fetchUser, async (req, res) => {
     }
 
     review = await Review.findByIdAndDelete(req.params.review_id);
+
+    // decrease the number of reviews of the business
+    await Business.findByIdAndUpdate(review.business_id, {
+      review_count: { $inc: -1 },
+    });
+
     res.json({ Success: "Review has been deleted", review: review });
   } catch (error) {
     console.error(error.message);

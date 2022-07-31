@@ -15,14 +15,14 @@ const ListItem = ({
       <h4>{business_name}</h4>
       <span>🌟{rating}</span>
     </header>
-    <footer>
+    {/* <footer>
       <p>
         <b>{serviceTime}</b> <span> Delivery Fee ${deliveryFee}</span>
       </p>
       <p>
         <b>${price}</b>
       </p>
-    </footer>
+    </footer> */}
   </div>
 );
 

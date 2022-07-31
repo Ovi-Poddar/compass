@@ -4,19 +4,30 @@ const Business = require("../models/Business");
 const { body, validationResult } = require("express-validator");
 var fetchUser = require("../middleware/fetchUser");
 
-
 // ROUTE 1: Get All the Businesses of this user using: GET "/api/business/getownbusinesses". Login required
-router.get('/getownbusinesses', fetchUser, async (req, res) => {
+router.get("/getownbusinesses", fetchUser, async (req, res) => {
   try {
-      const businesses = await Business.find({ owner_id: req.user.id });
-      res.json(businesses);
+    const businesses = await Business.find({ owner_id: req.user.id });
+    res.json(businesses);
   } catch (error) {
-      console.error(error.message);
-      res.status(500).send("Internal Server Error");
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
   }
-})
+});
+// ROUTE 2: Get All the Businesses of all users using: GET "/api/business/getallbusinesses". Login not required
+router.get("/getallbusinesses", async (req, res) => {
+  try {
+    // Empty `filter` means "match all documents"
+    const filter = {};
+    const businesses = await Business.find(filter);
+    res.json(businesses);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
-// ROUTE 2: Add a new Business using: POST "/api/business/createbusiness". Login required
+// ROUTE 3: Add a new Business using: POST "/api/business/createbusiness". Login required
 router.post(
   "/createbusiness",
   fetchUser,
@@ -27,14 +38,8 @@ router.post(
   ],
   async (req, res) => {
     try {
-      const {
-        business_name,
-        contact_no,
-        district,
-        city,
-        address,
-        category
-      } = req.body;
+      const { business_name, contact_no, district, city, address, category } =
+        req.body;
 
       // If there are errors, return Bad request and the errors
       const errors = validationResult(req);
@@ -43,12 +48,12 @@ router.post(
         return res.status(400).json({ errors: errors.array() });
       }
       const business = new Business({
-        business_name : business_name,
+        business_name: business_name,
         owner_id: req.user.id,
         contact_no: contact_no,
         address: address,
         district: district,
-        city: city, 
+        city: city,
         category: category,
       });
       const savedBusiness = await business.save();

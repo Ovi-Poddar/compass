@@ -8,13 +8,12 @@ import "./styles.css";
 
 const Landing = () => {
   const host = "http://localhost:5000";
-  const businessesInitial = [];
-  const [businesses, setBusinesses] = useState(businessesInitial);
+  const [businesses, setBusinesses] = useState([]);
 
   // Get all Businesses
   const getBusinesses = async () => {
     // API Call
-    const response = await fetch(`${host}/api/business/getownbusinesses`, {
+    const response = await fetch(`${host}/api/business/getallbusinesses`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -22,9 +21,12 @@ const Landing = () => {
       },
     });
     const json = await response.json();
-    const businesses = JSON.parse(JSON.stringify(json));
-    setBusinesses(businesses);
+    const allbusinesses = JSON.parse(JSON.stringify(json));
+    setBusinesses(allbusinesses);
   };
+
+  getBusinesses();
+  
 
   const [selectedRating, setSelectedRating] = useState(null);
 
@@ -34,6 +36,7 @@ const Landing = () => {
     { id: 3, checked: false, label: "HomeService" },
   ]);
 
+  
   const [list, setList] = useState(businesses);
   const [resultsFound, setResultsFound] = useState(true);
   const [searchInput, setSearchInput] = useState("");
@@ -93,7 +96,7 @@ const Landing = () => {
     getBusinesses();
     applyFilters();
     console.log(list);
-  }, [selectedRating, categories, searchInput]);
+  }, [selectedRating, categories, searchInput, list]);
 
   return (
     <div className="home">
@@ -101,7 +104,7 @@ const Landing = () => {
       <SearchBar
         value={searchInput}
         changeInput={(e) => setSearchInput(e.target.value)}
-      />
+      /> 
       <div className="home_panelList-wrap">
         {/* Filter Panel */}
         <div className="home_panel-wrap">
@@ -111,7 +114,7 @@ const Landing = () => {
             categories={categories}
             changeChecked={handleChangeChecked}
           />
-        </div>
+        </div> 
         {/* List & Empty View */}
         <div className="home_list-wrap">
           {resultsFound ? <List list={list} /> : <EmptyView />}
