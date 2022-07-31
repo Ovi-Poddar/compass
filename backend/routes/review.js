@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Review = require("../models/Review");
 const User = require("../models/User");
+const Business = require("../models/Business");
 const { body, validationResult } = require("express-validator");
 var fetchUser = require("../middleware/fetchUser");
 
@@ -32,10 +33,11 @@ router.post(
         .select("-__v -business_id");
 
       // increase the number of reviews of the business
-      await Business.findByIdAndUpdate(req.params.business_id, {
-        review_count: { $inc: 1 },
-      });
-      
+      const curr_business = await Business.findById(req.params.business_id);
+      curr_business.review_count += 1;
+      await curr_business.save();
+
+
       res.json(savedReview);
       
     } catch (error) {
@@ -95,9 +97,9 @@ router.delete("/deletereview/:review_id", fetchUser, async (req, res) => {
     review = await Review.findByIdAndDelete(req.params.review_id);
 
     // decrease the number of reviews of the business
-    await Business.findByIdAndUpdate(review.business_id, {
-      review_count: { $inc: -1 },
-    });
+    const curr_business = await Business.findById(review.business_id);
+    curr_business.review_count -= 1;
+    await curr_business.save();
 
     res.json({ Success: "Review has been deleted", review: review });
   } catch (error) {

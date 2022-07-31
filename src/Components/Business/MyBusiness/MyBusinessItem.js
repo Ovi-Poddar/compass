@@ -49,13 +49,17 @@ const MyBusinessItem = (props) => {
         />
         <Card.Body>
           <Card.Title className="text-success fw-bold">
-            {props.business.business_name}
+            <span class="badge bg-success">{props.business.business_name}</span>
           </Card.Title>
           <Card.Text>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt, aliquid!
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt,
+            aliquid!
           </Card.Text>
           <Button variant="warning">Visit</Button>
-          <Link to={`/reviews/${props.business._id}`}> {props.business.review_count} Reviews </Link>
+          <Link to={`/reviews/${props.business._id}`} >
+            {" "}
+            {props.business.review_count} Reviews{" "}
+          </Link>
         </Card.Body>
       </Card>
     </div>

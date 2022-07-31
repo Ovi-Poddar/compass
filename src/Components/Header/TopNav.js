@@ -49,10 +49,12 @@ export default function TopNav(props) {
   };
   return (
     <>
-      <Navbar bg="light" expand="lg">
+      <Navbar
+      // bg="light"
+      expand="lg" style={{ backgroundColor: "#FE9834" }}>
         <Container fluid>
           <LinkContainer to={"/"}>
-            <Navbar.Brand className="text-danger" href="/">
+            <Navbar.Brand className="" href="/">
               <i className="bi bi-compass font-weight-bold"></i> Compass
             </Navbar.Brand>
           </LinkContainer>
@@ -130,7 +132,7 @@ export default function TopNav(props) {
               <>
                 <Link
                   className="btn btn-primary"
-                  style={{ backgroundColor: "#55acee", textTransform: "none" }}
+                  style={{ backgroundColor: "#7B1FA2", textTransform: "none" }}
                   to="/landing"
                   role="button"
                 >
@@ -142,8 +144,8 @@ export default function TopNav(props) {
                   <Dropdown.Toggle
                     variant="primary"
                     id="dropdownforbusiness"
-                    className="mx-3"
-                  >
+                    className="mx-3"  style={{ backgroundColor: "#7B1FA2", textTransform: "none" }}
+                  > 
                     <BusinessIcon /> For Business
                   </Dropdown.Toggle>
 
