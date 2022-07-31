@@ -2,10 +2,10 @@ import React from "react";
 
 // import "./QueryItem.css";
 
-function QueryItem() {
+function QueryItem(props) {
   return (
     <>
-      <div className="query-item"> </div>
+      <div className="query-item"> hello </div>
     </>
   );
 }

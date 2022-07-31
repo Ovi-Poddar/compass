@@ -78,7 +78,7 @@ router.get("/:review_id", async (req, res) => {
   }
 });
 
-// ROUTE 3: Delete an existing Review using: DELETE "/api/review/deletereview". Login required
+// ROUTE 4: Delete an existing Review using: DELETE "/api/review/deletereview". Login required
 router.delete("/deletereview/:review_id", fetchUser, async (req, res) => {
   try {
     // Find the review to be deleted and delete it
@@ -106,7 +106,7 @@ router.delete("/deletereview/:review_id", fetchUser, async (req, res) => {
   }
 });
 
-// ROUTE 4: Update an existing Review using: PUT "/api/review/updatereview". Login required
+// ROUTE 5: Update an existing Review using: PUT "/api/review/updatereview". Login required
 router.put("/updatereview/:review_id", fetchUser, async (req, res) => {
   const { text, stars } = req.body;
   try {

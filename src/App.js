@@ -15,16 +15,15 @@ import CompassFooter from "./Components/CompassFooter/CompassFooter";
 import CreateBusiness from "./Components/Business/CreateBusiness";
 import ShowOwnBusiness from "./Components/Business/ShowOwnBusiness";
 
-
 import Landing from "./Components/LandingPage/Landing";
 import BusinessPageLanding from "./Components/Business/BusinessPageLanding";
 
 import { useState } from "react";
 import { BusinessHome } from "./Components/Business/pages/BusinessHome";
 import { Reviews } from "./Components/Business/pages/Reviews";
-import { AskCommunity } from "./Components/Business/pages/AskCommunity";
-import { Offers } from "./Components/Business/pages/Offers";
 
+import { Queries } from "./Components/Business/pages/Queries";
+import { Offers } from "./Components/Business/pages/Offers";
 
 import Business from "./Components/BusinessPages/BusinessHome";
 import AddReview from "./Components/Review/Review";
@@ -40,6 +39,7 @@ import Review from "./Components/Review/Review";
 import ReviewState from "./Context/Review/ReviewState";
 import UserState from "./Context/Users/UserState";
 import MyBusinessItem from "./Components/Business/MyBusiness/MyBusinessItem";
+import QueryState from "./Context/Query/QueryState";
 
 function App() {
   const [alert, setAlert] = useState(null);
@@ -58,80 +58,87 @@ function App() {
     <>
       <UserState>
         <ReviewState>
-          <Router>
-            <TopNav showAlert={showAlert} />
-            <MsgAlert alert={alert} />
-            <Routes>
-              <Route exact path="/" element={<Home />} />
-              <Route
-                exact
-                path="/login"
-                element={<Login showAlert={showAlert} />}
-              />
-              <Route
-                exact
-                path="/signup"
-                element={<SignUp showAlert={showAlert} />}
-              />
-              <Route exact path="/landing" element={<Landing />} />
-              <Route
-                exact
-                path="/createbusiness"
-                element={<CreateBusiness showAlert={showAlert} />}
-              />
-              <Route
-                exact
-                path="/showownbusinesses"
-                element={<ShowOwnBusiness />}
-              />
-              <Route
+          <QueryState>
+            <Router>
+              <TopNav showAlert={showAlert} />
+              <MsgAlert alert={alert} />
+              <Routes>
+                <Route exact path="/" element={<Home />} />
+                <Route
+                  exact
+                  path="/login"
+                  element={<Login showAlert={showAlert} />}
+                />
+                <Route
+                  exact
+                  path="/signup"
+                  element={<SignUp showAlert={showAlert} />}
+                />
+                <Route exact path="/landing" element={<Landing />} />
+                <Route
+                  exact
+                  path="/createbusiness"
+                  element={<CreateBusiness showAlert={showAlert} />}
+                />
+                <Route
+                  exact
+                  path="/showownbusinesses"
+                  element={<ShowOwnBusiness />}
+                />
+                {/* <Route
             exact
             path="/showownbusinesses"
             element={<MyBusinessItem />}
           />
 
-              {/* Added by Taanvir Raihan */}
+                {/* Added by Taanvir Raihan */}
 
-              <Route
-                exact
-                path="/businessupdates"
-                element={<BusinessUpdates />}
-              ></Route>
-              <Route
-                exact
-                path="/businessoffers"
-                element={<BusinessOffers />}
-              ></Route>
-              <Route
-                exact
-                path="/businessquery"
-                element={<BusinessQuery />}
-              ></Route>
-              <Route
-                exact
-                path="/businesshours"
-                element={<BusinessHours />}
-              ></Route>
-              <Route
-                exact
-                path="/businessamenities"
-                element={<BusinessAmenities />}
-              ></Route>
+                <Route
+                  exact
+                  path="/businessupdates"
+                  element={<BusinessUpdates />}
+                />
+                <Route
+                  exact
+                  path="/businessoffers"
+                  element={<BusinessOffers />}
+                />
+                <Route
+                  exact
+                  path="/businessquery"
+                  element={<BusinessQuery />}
+                />
+                <Route
+                  exact
+                  path="/businesshours"
+                  element={<BusinessHours />}
+                />
+                <Route
+                  exact
+                  path="/businessamenities"
+                  element={<BusinessAmenities />}
+                />
+                <Route path="/businesshome" element={<Business />} />
 
-              {/* Added for Business Sidebar Menu */}
-              <Route path="/businesshome" element={<BusinessHome />} />
-              <Route
-                path="/reviews/:business_id"
-                element={<Reviews showAlert={showAlert} />}
-              />
-              <Route path="/askthecommunity" element={<AskCommunity />} />
-              <Route path="/offers" element={<Offers />} />
-              {/* <Route path="/settings" element={<Setting />} /> */}
+                {/* Added for Business Sidebar Menu */}
+                <Route path="/businessdashboard" element={<BusinessHome />} />
 
-              <Route path="*" element={<> not found</>} />
-            </Routes>
-            {/* <CompassFooter /> */}
-          </Router>
+                <Route
+                  path="/reviews/:business_id"
+                  element={<Reviews showAlert={showAlert} />}
+                />
+                <Route
+                  path="/queries/:business_id"
+                  element={<Queries showAlert={showAlert} />}
+                />
+                <Route path="/offers" element={<Offers />} />
+                {/* <Route path="/settings" element={<Setting />} /> */}
+
+                <Route path="*" element={<> not found</>} />
+              </Routes>
+              {/* <CompassFooter /> */}
+            </Router>
+          </QueryState>
         </ReviewState>
       </UserState>
     </>

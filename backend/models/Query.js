@@ -6,7 +6,7 @@ const querySchema = new Schema({
         type: mongoose.Schema.Types.ObjectID,
         ref: 'User',
         required: true,
-    },
+    }, 
     
       // string, 22 character business id, maps to business in business.json
     business_id: {  // foreign key

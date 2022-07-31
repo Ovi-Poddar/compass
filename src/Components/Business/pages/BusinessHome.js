@@ -6,6 +6,7 @@ export const BusinessHome = () => {
   return (
     <>
       <>
+        <SideBar />
         <div className="Offers container mx-2">
           <BusinessHours />
         </div>
