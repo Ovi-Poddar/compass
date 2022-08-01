@@ -38,7 +38,6 @@ router.post(
       await curr_business.save();
 
       res.json(savedReview);
-      
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Server Error");
@@ -134,6 +133,42 @@ router.put("/updatereview/:review_id", fetchUser, async (req, res) => {
       { $set: newReview },
       { new: true }
     );
+    res.json({ review });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// ROUTE 6 : Add a thumbUp to a review using: PUT "/api/review/thumbup/:review_id". Login required
+router.put("/thumbup/:review_id", fetchUser, async (req, res) => {
+  try {
+    // Find the review to be updated and update it
+    let review = await Review.findById(req.params.review_id);
+    if (!review) {
+      return res.status(404).send("Not Found");
+    }
+    // increment likes/ useful counts
+    review.useful_count += 1;
+    await review.save();
+    res.json({ review });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+//// ROUTE & : Add a thumb down to a review using: PUT "/api/review/thumbup/:review_id". Login required
+router.put("/thumbdown/:review_id", fetchUser, async (req, res) => {
+  try {
+    // Find the review to be updated and update it
+    let review = await Review.findById(req.params.review_id);
+    if (!review) {
+      return res.status(404).send("Not Found");
+    }
+    // increment likes/ useful counts
+    review.useful_count -= 1;
+    await review.save();
     res.json({ review });
   } catch (error) {
     console.error(error.message);

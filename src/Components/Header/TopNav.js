@@ -64,12 +64,12 @@ export default function TopNav(props) {
               placeholder="Search"
               aria-label="Search"
             />
-            <FormControl
+            {/* <FormControl
               type="search"
               placeholder="Search"
               className="me-2"
               aria-label="Search"
-            />
+            /> */}
             <Button variant="danger">
               <i className="bi bi-search"></i>
             </Button>

@@ -64,37 +64,49 @@ const ReviewState = (props) => {
     setReviews(newReviews);
   };
 
-  // Edit a Review using: PUT "/api/review/updatereview/".
-  const editReview = async (review_id, text, stars) => {
+  // Increase a thumbUp to review
+  const thumbUp = async (review_id) => {
     // API Call
-    const response = await fetch(
-      `${host}/api/review/updatereview/${review_id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": localStorage.getItem("token"),
-        },
-        body: JSON.stringify({ text, stars }),
-      }
-    );
-    const json = await response.json();
-
-    let newReviews = JSON.parse(JSON.stringify(reviews));
-
-    // Find the review to be edited and edit it in client side
-    newReviews.forEach((review) => {
+    const response = await fetch(`${host}/api/review/thumbup/${review_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": localStorage.getItem("token"),
+      },
+    });
+    const json = response.json();
+    const newReviews = reviews.map((review) => {
       if (review._id === review_id) {
-        review.text = text;
-        review.stars = stars;
+        review.useful_count += 1;
       }
+      return review;
+    });
+    setReviews(newReviews);
+  };
+
+  //Increase a thumbDown to review
+  const thumbDown = async (review_id) => {
+    // API Call
+    const response = await fetch(`${host}/api/review/thumbdown/${review_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": localStorage.getItem("token"),
+      },
+    });
+    const json = response.json();
+    const newReviews = reviews.map((review) => {
+      if (review._id === review_id) {
+        review.not_useful_count += 1;
+      }
+      return review;
     });
     setReviews(newReviews);
   };
 
   return (
     <ReviewContext.Provider
-      value={{ getReviews, addReview, reviews, deleteReview , editReview}}
+      value={{ getReviews, addReview, reviews, deleteReview, editReview , thumbUp, thumbDown}}
     >
       {props.children}
     </ReviewContext.Provider>

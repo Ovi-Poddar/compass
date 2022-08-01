@@ -27,10 +27,10 @@ const reviewSchema = new Schema({
   text: { type: String, required: true },
 
   // integer, number of useful votes received
-  useful: { type: Number, default: 0 },
+  useful_count: { type: Number, default: 0 },
 
   // integer, number of funny votes received
-  funny: { type: Number, default: 0 },
+  not_useful_count: { type: Number, default: 0 },
 });
 
 const Review = mongoose.model("Review", reviewSchema);
