@@ -1,7 +1,9 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 
 import ReviewContext from "./ReviewContext";
+
+import UserContext from "../../Context/Users/UserContext";
 
 const ReviewState = (props) => {
   const host = "http://localhost:5000";
@@ -9,8 +11,13 @@ const ReviewState = (props) => {
   const reviewsInitial = [];
   const [reviews, setReviews] = useState(reviewsInitial);
 
+  const userContext = useContext(UserContext);
+  const { user, getUser } = userContext;
+
   // Get all Reviews of this business using: GET "/api/review/getallreviews".
   const getReviews = async (business_id) => {
+    getUser();
+    console.log(user);
     // API Call
     const response = await fetch(
       `${host}/api/review/getallreviews/${business_id}`,
@@ -24,6 +31,21 @@ const ReviewState = (props) => {
     );
     const json = await response.json();
     setReviews(json);
+
+    //check if the review is liked by the user
+    if (user) {
+      const reviews = json.map((review) => {
+        const isLiked = review.users_who_like.includes(user._id);
+        const isDisliked = review.users_who_dislike.includes(user._id);
+        return {
+          ...review,
+          isLiked,
+          isDisliked,
+        };
+      });
+      setReviews(reviews);
+      console.log(reviews);
+    }
   };
 
   // Add a Review to a Business using: POST "/api/review/addreview/".
@@ -64,8 +86,8 @@ const ReviewState = (props) => {
     setReviews(newReviews);
   };
 
-   // Edit a Review using: PUT "/api/review/updatereview/".
-   const editReview = async (review_id, text, stars) => {
+  // Edit a Review using: PUT "/api/review/updatereview/".
+  const editReview = async (review_id, text, stars) => {
     // API Call
     const response = await fetch(
       `${host}/api/review/updatereview/${review_id}`,
@@ -103,9 +125,23 @@ const ReviewState = (props) => {
       },
     });
     const json = response.json();
+    console.log(user._id);
     const newReviews = reviews.map((review) => {
-      if (review._id === review_id) {
+      if (review._id === review_id && !review.users_who_like.includes(user._id)) {
         review.useful_count += 1;
+        review.isLiked = true;
+        review.users_who_like.push(user._id);
+      }
+      else if (review._id === review_id && review.users_who_like.includes(user._id)) {
+        review.useful_count -= 1;
+        review.isLiked = false;
+        review.users_who_like.splice(review.users_who_like.indexOf(user._id), 1);
+      }
+      if (review._id === review_id && review.users_who_dislike.includes(user._id)) {
+        review.not_useful_count -= 1;
+        review.isDisliked = false;
+        review.isLiked = true;
+        review.users_who_dislike.splice(review.users_who_dislike.indexOf(user._id), 1);
       }
       return review;
     });
@@ -124,17 +160,45 @@ const ReviewState = (props) => {
     });
     const json = response.json();
     const newReviews = reviews.map((review) => {
-      if (review._id === review_id) {
+      if (review._id === review_id && !review.users_who_dislike.includes(user._id)) {
         review.not_useful_count += 1;
+        review.isDisliked = true;
+        review.users_who_dislike.push(user._id);
+      }
+      else if (review._id === review_id && review.users_who_dislike.includes(user._id)) {
+        review.not_useful_count -= 1;
+        review.isDisliked = false;
+        review.users_who_dislike.splice(review.users_who_dislike.indexOf(user._id), 1);
+      }
+      if (review._id === review_id && review.users_who_like.includes(user._id)) {
+        review.useful_count -= 1;
+        review.isLiked = false;
+        review.isDisliked = true;
+        review.users_who_like.splice(review.users_who_like.indexOf(user._id), 1);
       }
       return review;
     });
     setReviews(newReviews);
   };
 
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      getUser();
+    }
+  }, []);
+  
+
   return (
     <ReviewContext.Provider
-      value={{ getReviews, addReview, reviews, deleteReview, editReview , thumbUp, thumbDown}}
+      value={{
+        getReviews,
+        addReview,
+        reviews,
+        deleteReview,
+        editReview,
+        thumbUp,
+        thumbDown,
+      }}
     >
       {props.children}
     </ReviewContext.Provider>

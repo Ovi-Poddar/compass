@@ -35,7 +35,7 @@ function ReviewItem(props) {
   const stars = Array(5).fill(0);
 
   const userContext = useContext(UserContext);
-  const { user } = userContext;
+  const { user , getUser} = userContext;
   const reviewContext = useContext(ReviewContext);
   const { deleteReview, editReview, thumbUp, thumbDown } = reviewContext;
 
