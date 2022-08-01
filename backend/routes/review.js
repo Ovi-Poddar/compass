@@ -154,6 +154,11 @@ router.put("/thumbup/:review_id", fetchUser, async (req, res) => {
       review.useful_count += 1;
       review.users_who_like.push(req.user.id);
     }
+    else
+    {
+      review.useful_count -= 1;
+      review.users_who_like.splice(review.users_who_like.indexOf(req.user.id), 1);
+    }
     if(review.users_who_dislike.includes(req.user.id))
     {
       review.not_useful_count -= 1;
@@ -183,6 +188,11 @@ router.put("/thumbdown/:review_id", fetchUser, async (req, res) => {
     {
       review.not_useful_count += 1;
       review.users_who_dislike.push(req.user.id);
+    }
+    else
+    {
+      review.not_useful_count -= 1;
+      review.users_who_dislike.splice(review.users_who_dislike.indexOf(req.user.id), 1);
     }
     if(review.users_who_like.includes(req.user.id))
     {
