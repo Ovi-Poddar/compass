@@ -64,6 +64,34 @@ const ReviewState = (props) => {
     setReviews(newReviews);
   };
 
+   // Edit a Review using: PUT "/api/review/updatereview/".
+   const editReview = async (review_id, text, stars) => {
+    // API Call
+    const response = await fetch(
+      `${host}/api/review/updatereview/${review_id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("token"),
+        },
+        body: JSON.stringify({ text, stars }),
+      }
+    );
+    const json = await response.json();
+
+    let newReviews = JSON.parse(JSON.stringify(reviews));
+
+    // Find the review to be edited and edit it in client side
+    newReviews.forEach((review) => {
+      if (review._id === review_id) {
+        review.text = text;
+        review.stars = stars;
+      }
+    });
+    setReviews(newReviews);
+  };
+
   // Increase a thumbUp to review
   const thumbUp = async (review_id) => {
     // API Call
