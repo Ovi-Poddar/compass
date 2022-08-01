@@ -37,7 +37,6 @@ router.post(
       curr_business.review_count += 1;
       await curr_business.save();
 
-
       res.json(savedReview);
       
     } catch (error) {

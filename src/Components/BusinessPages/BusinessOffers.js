@@ -5,8 +5,8 @@ import pepperoni from "../../Images/pepperoni.jpg";
 import sd from "../../Images/sd.jpg";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-// import BusinessExternalLinks from "./BusinessExternalLinks";
-// import Offers from "../BusinessPageTabs/Offers";
+import BusinessExternalLinks from "./BusinessExternalLinks";
+import Offers from "../BusinessPageTabs/Offers";
 
 export default function BusinessOffers() {
   return (
@@ -94,7 +94,7 @@ export default function BusinessOffers() {
               className="offer_image_container"
               style={{
                 width: "700px",
-                border: "3px solid #ffffff",
+                // border: "3px solid #ffffff",
                 padding: "10px",
                 height: "380px",
                 overflow: "hidden",

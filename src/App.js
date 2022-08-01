@@ -26,14 +26,12 @@ import { Queries } from "./Components/Business/pages/Queries";
 import { Offers } from "./Components/Business/pages/Offers";
 
 import Business from "./Components/BusinessPages/BusinessHome";
-import AddReview from "./Components/Review/Review";
-// import BusinessUpdates from "./Components/BusinessPages/BusinessUpdates";
-// import BusinessOffers from "./Components/BusinessPages/BusinessOffers";
-// import BusinessQuery from "./Components/BusinessPages/BusinessQuery";
-// import BusinessHours from "./Components/BusinessPages/BusinessHours";
-// import BusinessAmenities from "./Components/BusinessPages/BusinessAmenities";
 
-import Review from "./Components/Review/Review";
+import BusinessUpdates from "./Components/BusinessPages/BusinessUpdates";
+import BusinessOffers from "./Components/BusinessPages/BusinessOffers";
+import BusinessQuery from "./Components/BusinessPages/BusinessQuery";
+import BusinessHours from "./Components/BusinessPages/BusinessHours";
+import BusinessAmenities from "./Components/BusinessPages/BusinessAmenities";
 
 /* States for context api  */
 import ReviewState from "./Context/Review/ReviewState";
@@ -76,7 +74,7 @@ function App() {
                   path="/signup"
                   element={<SignUp showAlert={showAlert} />}
                 />
-                <Route exact path="/landing" element={<Landing />} />
+                {/* <Route exact path="/landing" element={<Landing />} /> */}
                 <Route
                   exact
                   path="/createbusiness"
@@ -95,7 +93,7 @@ function App() {
 
                 {/* Added by Taanvir Raihan */}
 
-                {/* <Route
+                <Route
                   exact
                   path="/businessupdates"
                   element={<BusinessUpdates />}
@@ -120,7 +118,7 @@ function App() {
                   path="/businessamenities"
                   element={<BusinessAmenities />}
                 />
-                <Route path="/businesshome" element={<Business />} /> */}
+                <Route path="/businesshome" element={<Business />} />
 
                 {/* Added for Business Sidebar Menu */}
                 <Route path="/businessdashboard" element={<BusinessHome />} />

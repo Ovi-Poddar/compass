@@ -9,8 +9,8 @@ import pepperoni from "../../Images/pepperoni.jpg";
 import sd from "../../Images/sd.jpg";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-// import BusinessExternalLinks from "./BusinessExternalLinks";
-// import Home from "../BusinessPageTabs/Home";
+import BusinessExternalLinks from "./BusinessExternalLinks";
+import Home from "../BusinessPageTabs/Home";
 
 export default function BusinessCarousel() {
   return (
@@ -60,9 +60,9 @@ export default function BusinessCarousel() {
           />
         </div>
         {/* external link container */}
-        {/* <BusinessExternalLinks /> */}
+        <BusinessExternalLinks />
         {/* tab container */}
-        {/* <Home /> */}
+        <Home />
         {/* content container */}
 
         <div

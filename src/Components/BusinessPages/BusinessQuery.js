@@ -7,8 +7,8 @@ import margharita from "../../Images/m.jpg";
 import pepperoni from "../../Images/pepperoni.jpg";
 import sd from "../../Images/sd.jpg";
 import { Button } from "react-bootstrap";
-// import BusinessExternalLinks from "./BusinessExternalLinks";
-// import Query from "../BusinessPageTabs/Query";
+import BusinessExternalLinks from "./BusinessExternalLinks";
+import Query from "../BusinessPageTabs/Query";
 
 export default function BusinessQuery() {
   return (
@@ -58,9 +58,9 @@ export default function BusinessQuery() {
           />
         </div>
         {/* external link container */}
-        {/* <BusinessExternalLinks /> */}
+        <BusinessExternalLinks />
         {/* tab container */}
-        {/* <Query /> */}
+        <Query />
         {/* content container */}
 
         <div
