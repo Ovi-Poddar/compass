@@ -149,7 +149,17 @@ router.put("/thumbup/:review_id", fetchUser, async (req, res) => {
       return res.status(404).send("Not Found");
     }
     // increment likes/ useful counts
-    review.useful_count += 1;
+    if(!review.users_who_like.includes(req.user.id))
+    {
+      review.useful_count += 1;
+      review.users_who_like.push(req.user.id);
+    }
+    if(review.users_who_dislike.includes(req.user.id))
+    {
+      review.not_useful_count -= 1;
+      // remove the user from list
+      review.users_who_dislike.splice(review.users_who_dislike.indexOf(req.user.id), 1);
+    }
     await review.save();
     res.json({ review });
   } catch (error) {
@@ -166,8 +176,20 @@ router.put("/thumbdown/:review_id", fetchUser, async (req, res) => {
     if (!review) {
       return res.status(404).send("Not Found");
     }
-    // increment likes/ useful counts
-    review.useful_count -= 1;
+    // increment likes/ useful counts if not already on list
+
+
+    if(!review.users_who_dislike.includes(req.user.id))
+    {
+      review.not_useful_count += 1;
+      review.users_who_dislike.push(req.user.id);
+    }
+    if(review.users_who_like.includes(req.user.id))
+    {
+      review.useful_count -= 1;
+      // remove the user from list
+      review.users_who_like.splice(review.users_who_like.indexOf(req.user.id), 1);
+    }
     await review.save();
     res.json({ review });
   } catch (error) {

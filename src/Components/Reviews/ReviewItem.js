@@ -8,6 +8,7 @@ import Card from "react-bootstrap/Card";
 
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import MoodIcon from "@mui/icons-material/Mood";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import EditIcon from "@mui/icons-material/Edit";
@@ -36,7 +37,7 @@ function ReviewItem(props) {
   const userContext = useContext(UserContext);
   const { user } = userContext;
   const reviewContext = useContext(ReviewContext);
-  const { deleteReview, editReview } = reviewContext;
+  const { deleteReview, editReview, thumbUp, thumbDown } = reviewContext;
 
   // for the edit review modal
   const [showEdit, setShowEdit] = useState(false);
@@ -91,6 +92,20 @@ function ReviewItem(props) {
     deleteReview(props.review._id);
   };
   const handleShowDelete = () => setShowDelete(true);
+
+  //for updating review thumbs up/down
+  const handleThumbUp = (e) => {
+    e.preventDefault();
+    thumbUp(props.review._id);
+    props.showAlert("Review liked!", "success");
+  }
+
+  const handleThumbDown = (e) => {
+    e.preventDefault();
+    thumbDown(props.review._id);
+    props.showAlert("Review disliked!", "success");
+  }
+
 
   return (
     <>
@@ -245,8 +260,16 @@ function ReviewItem(props) {
 
           <OverlayTrigger overlay={<Tooltip id="tooltip-like">Like!</Tooltip>}>
             <span className="d-inline-block">
+              <a role="button" className="mr-2 text-primary" onClick={handleThumbUp}>
+                <ThumbUpIcon />{props.review.useful_count}
+              </a>
+            </span>
+          </OverlayTrigger>
+
+          <OverlayTrigger overlay={<Tooltip id="tooltip-like">Dislike!</Tooltip>}>
+            <span className="d-inline-block" onClick={handleThumbDown}>
               <a role="button" className="mr-2 text-primary">
-                <ThumbUpIcon />
+                <ThumbDownIcon />{props.review.not_useful_count}
               </a>
             </span>
           </OverlayTrigger>

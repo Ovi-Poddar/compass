@@ -31,6 +31,12 @@ const reviewSchema = new Schema({
 
   // integer, number of funny votes received
   not_useful_count: { type: Number, default: 0 },
+
+  //users to like the review
+  users_who_like: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+
+  //users to dislike the review
+  users_who_dislike: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 });
 
 const Review = mongoose.model("Review", reviewSchema);
