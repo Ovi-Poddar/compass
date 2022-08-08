@@ -118,7 +118,7 @@ router.put("/updatereview/:review_id", fetchUser, async (req, res) => {
     if (stars) {
       newReview.stars = stars;
     }
-
+    newReview.creation_date = Date.now();
     // Find the review to be updated and update it
     let review = await Review.findById(req.params.review_id);
     if (!review) {

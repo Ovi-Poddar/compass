@@ -1,202 +1,64 @@
-import { NavLink } from "react-router-dom";
-import { FaBars, FaHome } from "react-icons/fa";
-import { BiSearch } from "react-icons/bi";
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import SidebarMenu from "./SidebarMenu";
+import React from "react";
 
-import "./sidebar-style.css";
+import { useParams, Link } from "react-router-dom";
 
-//icons
-import ReviewsIcon from "@mui/icons-material/Reviews";
-import HelpIcon from "@mui/icons-material/Help";
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import "./styles.css";
 
-import Fab from "@mui/material/Fab";
-import HomeIcon from "@mui/icons-material/Home";
-import FindInPageIcon from '@mui/icons-material/FindInPage';
-
-const routes = [
-  {
-    path: "/businesshome",
-    name: "Business Home",
-    icon: <HomeIcon />,
-  },
-  {
-    path: "/askthecommunity",
-    name: "Ask The Community",
-    icon: <HelpIcon />,
-  },
-  {
-    path: "/reviews",
-    name: "Reviews",
-    icon: <ReviewsIcon />,
-  },
-
-  {
-    path: "/offers",
-    name: "Offers",
-    icon: <LocalOfferIcon />,
-  },
-
-  // {
-  //   path: "/settings",
-  //   name: "Settings",
-  //   icon: <LocalOfferIcon />,
-  //   exact: true,
-  //   subRoutes: [
-  //     {
-  //       path: "/settings/profile",
-  //       name: "Profile ",
-  //       icon: <LocalOfferIcon />,
-  //     },
-  //     {
-  //       path: "/settings/2fa",
-  //       name: "2FA",
-  //       icon: <LocalOfferIcon />,
-  //     },
-  //     {
-  //       path: "/settings/billing",
-  //       name: "Billing",
-  //       icon: <LocalOfferIcon />,
-  //     },
-  //   ],
-  // },
-];
-
-const SideBar = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
-  const inputAnimation = {
-    hidden: {
-      width: 0,
-      padding: 0,
-      transition: {
-        duration: 0.2,
-      },
-    },
-    show: {
-      width: "140px",
-      padding: "5px 15px",
-      transition: {
-        duration: 0.2,
-      },
-    },
-  };
-
-  const showAnimation = {
-    hidden: {
-      width: 0,
-      opacity: 0,
-      transition: {
-        duration: 0.5,
-      },
-    },
-    show: {
-      opacity: 1,
-      width: "auto",
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
-
+const Sidebar = () => {
+  let {business_id} = useParams();
   return (
-    <>
-      <div className="main-container">
-        <motion.div
-          animate={{
-            width: isOpen ? "200px" : "45px",
-
-            transition: {
-              duration: 0.5,
-              type: "spring",
-              damping: 10,
-            },
-          }}
-          className={`sidebar `}
-        >
-          <div className="top_section">
-            <AnimatePresence>
-              {isOpen && (
-                <motion.h1
-                  variants={showAnimation}
-                  initial="hidden"
-                  animate="show"
-                  exit="hidden"
-                  className="logo"
-                >
-                  {/* Business Menu */}
-                </motion.h1>
-              )}
-            </AnimatePresence>
-
-            <div className="bars">
-              <FaBars onClick={toggle} />
-            </div>
-          </div>
-          <div className="search">
-            <a role = "button" style={{textDecoration : "none"}}>
-              <FindInPageIcon  size={70} />
-            </a>
-           
-            <AnimatePresence>
-              {isOpen && (
-                <motion.input
-                  initial="hidden"
-                  animate="show"
-                  exit="hidden"
-                  variants={inputAnimation}
-                  type="text"
-                  placeholder="Search"
-                />
-              )}
-            </AnimatePresence>
-          </div>
-          <section className="routes">
-            {routes.map((route, index) => {
-              if (route.subRoutes) {
-                return (
-                  <SidebarMenu
-                    setIsOpen={setIsOpen}
-                    route={route}
-                    showAnimation={showAnimation}
-                    isOpen={isOpen}
-                  />
-                );
-              }
-
-              return (
-                <NavLink
-                  to={route.path}
-                  key={index}
-                  className="link"
-                  activeClassName="sidebar-active"
-                >
-                  <div className="icon">{route.icon}</div>
-                  <AnimatePresence>
-                    {isOpen && (
-                      <motion.div
-                        variants={showAnimation}
-                        initial="hidden"
-                        animate="show"
-                        exit="hidden"
-                        className="link_text"
-                      >
-                        {route.name}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </NavLink>
-              );
-            })}
-          </section>
-        </motion.div>
-
-        <main>{children}</main>
+    <div className="sidebar my-4">
+      <h2 style={{ textTransform: "none" }}>Menu</h2>
+      <ul>
+        <li>
+          <Link to={`/business/${business_id}/`}>
+            <i className="fas fa-home"></i>Home
+          </Link>
+        </li>
+        <li>
+          <Link to={`/reviews/${business_id}`}>
+            <i className="fas fa-user"></i>Reviews
+          </Link>
+        </li>
+        <li>
+          <a href="#">
+            <i className="fas fa-address-card"></i>About
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i className="fas fa-project-diagram"></i>portfolio
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i className="fas fa-blog"></i>Blogs
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i className="fas fa-address-book"></i>Contact
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i className="fas fa-map-pin"></i>Map
+          </a>
+        </li>
+      </ul>
+      <div className="social_media">
+        <a href="#">
+          <i className="fab fa-facebook-f"></i>
+        </a>
+        <a href="#">
+          <i className="fab fa-twitter"></i>
+        </a>
+        <a href="#">
+          <i className="fab fa-instagram"></i>
+        </a>
       </div>
-    </>
+    </div>
   );
 };
 
-export default SideBar;
+export default Sidebar;

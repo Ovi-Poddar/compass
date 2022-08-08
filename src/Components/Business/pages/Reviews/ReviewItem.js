@@ -21,8 +21,8 @@ import Modal from "react-bootstrap/Modal";
 
 import { FaStar } from "react-icons/fa";
 
-import UserContext from "../../Context/Users/UserContext";
-import ReviewContext from "../../Context/Review/ReviewContext";
+import UserContext from "../../../../Context/Users/UserContext";
+import ReviewContext from "../../../../Context/Review/ReviewContext";
 
 import moment from "moment";
 
