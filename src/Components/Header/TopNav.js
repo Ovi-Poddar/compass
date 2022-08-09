@@ -51,7 +51,7 @@ export default function TopNav(props) {
     <>
       <Navbar
       // bg="light"
-      expand="lg" style={{ backgroundColor: "#FE9834", position:"absolute", zIndex:"1", top:"0", width:"100%", marginBottom:"50px"}}>
+      expand="lg" style={{ backgroundColor: "#FE9834", position:"ralative", zIndex:"10", top:"0", width:"100%"}}>
         <Container fluid>
           <LinkContainer to={"/"}>
             <Navbar.Brand className="" href="/">
