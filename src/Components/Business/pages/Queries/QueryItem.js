@@ -129,7 +129,7 @@ function QueryItem(props) {
 
             {props.query.user_id._id === user._id && (
               <>
-                <div className="d-inline" style={{ marginLeft: "18rem" }}>
+                <div className="d-inline" style={{ marginLeft: "45rem" }}>
                   <Button
                     className="mr-3"
                     variant="outline-primary"
@@ -173,7 +173,7 @@ function QueryItem(props) {
                 className="btn-sm btn-primary shadow-1-strong"
                 variant="primary"
                 onClick={toggleAnswerQuery}
-                style={{ marginLeft: "18rem" }}
+                style={{ marginLeft: "2rem" }}
               >
                 <ReplyIcon />
               </Button>

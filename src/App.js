@@ -47,8 +47,11 @@ import Profile from "./Components/UserProfile/Profile";
 import MultiForm from "./Components/Business/CreateBusinessForm/MultiForm";
 
 
+
 function App() {
   const [alert, setAlert] = useState(null);
+
+
 
   const showAlert = (message, type) => {
     setAlert({

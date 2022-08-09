@@ -15,6 +15,7 @@ function BusinessHome() {
           {/* <div className="info"> */}
           <div className="container ">
             <div className="main_content_body">
+              {/* Add Your Main Content Codes Here */}
               <Home />
             </div>
           </div> 

@@ -36,13 +36,18 @@ function MakeQuery(props) {
 
   return (
     <>
-      <div className="d-flex justify-content-start px-5">
+      <div className="">
+        <div style={{ marginLeft: "0px", position: "fixed", zIndex: "1", marginBottom:"20px" }}  >
+          <div className="d-flex justify-content-center" style={{marginLeft:"350px"}}>
+            {" "}
+            <h1 className="fw-bold text-danger">Ask The Community</h1>
+          </div>
+          <Button variant="danger" onClick={handleShowAddQuery}>
+            Make a Query
+          </Button>{" "}
+        </div>
         <div className="row">
-          <h1 className="fw-bold text-danger">Ask The Community</h1>
           <div className="d-flex justify-content-start pt-3 pb-2">
-            <Button variant="danger" onClick={handleShowAddQuery}>
-              Make a Query
-            </Button>
             <div className="d-flex align-items-center mb-3">
               <Modal
                 size="lg"
