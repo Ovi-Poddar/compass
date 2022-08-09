@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Query = require("../models/Query");
+const Business = require("../models/Business");
 const QueryAnswer = require("../models/QueryAnswer");
 const { body, validationResult } = require("express-validator");
 var fetchUser = require("../middleware/fetchUser");
@@ -23,7 +24,18 @@ router.post(
           user_id: req.user.id,
           business_id: req.params.business_id,
         });
-        const savedQuery= await query.save();
+        let savedQuery= await query.save();
+        savedQuery = await Query.findOne({
+          _id: savedQuery.id,
+        })
+          .populate("user_id", "user_name")
+          .select("-__v -business_id");
+
+        //increase the number of queries of the business
+        const curr_business = await Business.findById(req.params.business_id);
+        curr_business.query_count += 1;
+        await curr_business.save();
+
         res.json(savedQuery);
       } catch (error) {
         console.error(error.message);
@@ -38,7 +50,7 @@ router.get("/getallqueries/:business_id", fetchUser, async (req, res) => {
       const queries = await Query.find({
         business_id: req.params.business_id,
       })
-        .populate("user_id", "user_name -_id")
+        .populate("user_id", "user_name")
         .select("-__v -business_id")
         .sort({ creation_date: -1 });
       res.json(queries);
@@ -66,6 +78,7 @@ router.get("/:query_id", async (req, res) => {
 
 // ROUTE 4: Delete an existing Query using: DELETE "/api/query/deletequery". Login required
 
+
 router.delete("/deletequery/:query_id", fetchUser, async (req, res) => {
   try {
     // Find the query to be deleted and delete it
@@ -91,6 +104,13 @@ router.delete("/deletequery/:query_id", fetchUser, async (req, res) => {
     // Delete the query
 
     query = await Query.findByIdAndDelete(req.params.query_id);
+
+    //decrease the number of queries of the business
+    const curr_business = await Business.findById(query.business_id);
+    console.log(curr_business)
+    curr_business.query_count -= 1;
+    await curr_business.save();
+
     res.json({Success: "Query deleted successfully", query: query});
 
   } catch (error) {
@@ -106,6 +126,8 @@ router.put("/updatequery/:query_id", fetchUser, async (req, res) => {
     // Create a new query object
     const newQuery = {};
     if(text) newQuery.text = text;
+
+    newQuery.creation_date = Date.now();
 
     // Find the query to be updated and update it
     let query = await Query.findById(req.params.query_id);
@@ -149,7 +171,8 @@ router.post(
         text: text,
         answerer_id: req.user.id,
         query_id: req.params.query_id,
-      });
+      })
+      ;
       const query = await Query.findById(req.params.query_id);
       query.answers.push(queryanswer);
       await query.save();
@@ -247,9 +270,9 @@ router.get("/getallanswers/:query_id", fetchUser, async (req, res) => {
     const answers = await QueryAnswer.find({
       query_id: req.params.query_id,
     })
-      .populate("answerer_id", "query_id")
-      .select("-__v -query_id")
-      .sort({ creation_date: -1 });
+      // .populate("answerer_id", "query_id")
+      // .select("-__v -query_id")
+      // .sort({ creation_date: -1 });
     res.json(answers);
   } catch (error) {
     console.error(error.message);

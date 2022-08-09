@@ -23,7 +23,7 @@ import { useState } from "react";
 
 import { Reviews } from "./Components/Business/pages/Reviews/index";
 
-import { Queries } from "./Components/Business/pages/Queries";
+import { Queries } from "./Components/Business/pages/Queries/Queries_home";
 import { Offers } from "./Components/Business/pages/Offers";
 
 import Business from "./Components/BusinessPages/BusinessHome";

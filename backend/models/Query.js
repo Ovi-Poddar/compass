@@ -34,7 +34,7 @@ const querySchema = new Schema({
     answers: {
         type: [{
         type: mongoose.Schema.Types.ObjectID,
-        ref: 'Query_Answer',
+        ref: 'QueryAnswer',
         }],
         default: []
     },
