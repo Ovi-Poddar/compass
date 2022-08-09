@@ -1,3 +1,12 @@
+### Installation Process 
+While Installing React(Front End Part), Vulnerabilites may arise due to dependencies errors. 
+Running  ``` npm install ``` will not eliminate vulnerabilities completely. Don't be worried about it.   
+```
+    npm config set legacy-peer-deps true
+    npm install
+    npm start
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
