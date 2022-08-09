@@ -4,11 +4,11 @@ import Button from "react-bootstrap/Button";
 import React from "react";
 import { useContext, useState } from "react";
 
-import QueryContext from "../../Context/Query/QueryContext";
+import QueryContext from "../../../../Context/Query/QueryContext";
 
 function MakeQuery(props) {
   const context = useContext(QueryContext);
-  const { addQuery } = context;
+  const { addQuery, queries } = context;
 
   const { showAlert, business_id } = props;
 
@@ -23,6 +23,7 @@ function MakeQuery(props) {
     e.preventDefault();
     addQuery(query.text, business_id);
     setQuery({ text: "" });
+    handleShowAddQuery();
     showAlert("Query added successfully!", "success");
   };
 
@@ -35,7 +36,7 @@ function MakeQuery(props) {
 
   return (
     <>
-      <div className="d-flex justify-content-center px-5">
+      <div className="d-flex justify-content-start px-5">
         <div className="row">
           <h1 className="fw-bold text-danger">Ask The Community</h1>
           <div className="d-flex justify-content-start pt-3 pb-2">
@@ -47,6 +48,8 @@ function MakeQuery(props) {
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
+                backdrop="static"
+                keyboard={false}
                 show={showAddQuery}
                 onHide={handleShowAddQuery}
               >

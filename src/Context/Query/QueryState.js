@@ -8,7 +8,7 @@ const QueryState = (props) => {
 
     const queriesInitial = [];
     const [queries, setQueries] = useState(queriesInitial);
-
+    
     // Get all Queries of this business using: GET "/api/query/getallqueries".
     const getQueries = async (business_id) => {
         // API Call
@@ -67,16 +67,18 @@ const QueryState = (props) => {
 
     // Edit a Query using: PUT "/api/query/editquery/".
     const editQuery = async (query_id, text) => {
+
+        console.log(text, query_id)
         // API Call
         const response = await fetch(
-            `${host}/api/query/editquery/${query_id}`,
+            `${host}/api/query/updatequery/${query_id}`,
             {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                     "auth-token": localStorage.getItem("token"),
                 },
-                body: JSON.stringify({ text: text }),
+                body: JSON.stringify({ text }),
             }
         );
         const json = await response.json();
@@ -93,9 +95,111 @@ const QueryState = (props) => {
         setQueries(newQueries);
     }
 
+
+    // Add an answer to a Query using: POST "/api/query/addanswer/:query_id".
+    const addAnswer = async (text, query_id) => {
+        // API Call
+        const response = await fetch(
+            `${host}/api/query/addanswer/${query_id}`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": localStorage.getItem("token"),
+                },
+                body: JSON.stringify({ text}),
+            }
+        );
+        const addedAnswer = await response.json();
+        setQueries(queries.map((query) => {
+            if (query._id === query_id) {
+                query.answers.push(addedAnswer);
+            }
+            return query;
+        }));
+    }
+
+    // Edit an answer to a Query using: PUT "/api/query/updateanswer/:answer_id".
+    const editAnswer = async (answer_id, text) => {
+        // API Call
+        const response = await fetch(
+            `${host}/api/query/updateanswer/${answer_id}`,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": localStorage.getItem("token"),
+                },
+                body: JSON.stringify({ text}),
+            }
+        );
+        const json = await response.json();
+
+        let newQueries = JSON.parse(JSON.stringify(queries));
+            
+        // Find the answer with the given id and update its text.
+        newQueries.forEach((query) => {
+            query.answers.forEach((answer) => {
+                if (answer._id === answer_id) {
+                    answer.text = text;
+                }
+            }
+            );
+        }
+        );
+        setQueries(newQueries);
+    }
+
+    //delete an answer to a Query using: DELETE "/api/query/deleteanswer/:answer_id".
+    const deleteAnswer = async (answer_id) => {
+        // API Call
+        const response = await fetch(
+            `${host}/api/query/deleteanswer/${answer_id}`,
+            {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": localStorage.getItem("token"),
+                },
+            }
+        );
+        const json = await response.json();
+
+        let newQueries = JSON.parse(JSON.stringify(queries));
+
+        // Find the answer with the given id and delete it.
+        newQueries.forEach((query) => {
+            query.answers = query.answers.filter((answer) => {
+                return answer._id !== answer_id;
+            }
+            );
+        }
+        );
+        setQueries(newQueries);
+    }
+
+    // //Get All the Answers of this query using: GET "/api/query/getallanswers".
+    // const getAnswers = async (query_id) => {
+    //     // API Call
+    //     const response = await fetch(
+    //         `${host}/api/query/getallanswers/${query_id}`,
+    //         {
+    //             method: "GET",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 "auth-token": localStorage.getItem("token"),
+    //             },
+    //         }
+    //     );
+    //     const json = await response.json();
+    //     setAnswers(json);
+    // }
+
+
+
     return (
         <QueryContext.Provider
-        value={{ queries, getQueries, addQuery, deleteQuery, editQuery}}
+        value={{ queries, getQueries, addQuery, deleteQuery, editQuery, addAnswer, editAnswer, deleteAnswer }}
         >
             {props.children}
         </QueryContext.Provider>

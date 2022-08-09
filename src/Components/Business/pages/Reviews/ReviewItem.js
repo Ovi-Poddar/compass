@@ -1,12 +1,7 @@
 import React, { useState, useContext } from "react";
 import Button from "react-bootstrap/Button";
-import Collapse from "react-bootstrap/Collapse";
 import Form from "react-bootstrap/Form";
-import ReplyIcon from "@mui/icons-material/Reply";
 
-import Card from "react-bootstrap/Card";
-
-import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import MoodIcon from "@mui/icons-material/Mood";
@@ -35,7 +30,7 @@ function ReviewItem(props) {
   const stars = Array(5).fill(0);
 
   const userContext = useContext(UserContext);
-  const { user , getUser} = userContext;
+  const { user } = userContext;
   const reviewContext = useContext(ReviewContext);
   const { deleteReview, editReview, thumbUp, thumbDown } = reviewContext;
 
