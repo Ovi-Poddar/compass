@@ -1,4 +1,5 @@
-### Installation Process 
+# Installation Process 
+
 While Installing React(Front End Part), Vulnerabilites may arise due to dependencies errors. 
 Running  ``` npm install ``` will not eliminate vulnerabilities completely. Don't be worried about it.   
 ```
