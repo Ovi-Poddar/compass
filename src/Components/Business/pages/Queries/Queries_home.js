@@ -37,17 +37,17 @@ export const Queries = (props) => {
             <div className="main_content" style={{marginTop:"60px"}}>
               <div className="row d-flex mr-4 ">
                 
-                <div className="container">
+                <div className="container" >
                   <div className="d-flex justify-content-center pt-3 px-4">
                     <div className="">
                       <div
                         className="container my-1 py-4"
                         style={{ width: "53rem" }}
                       >
-                        <div className="row d-flex justify-content-start main_content_body">
+                        <div className="row d-flex justify-content-start main_content_body" >
                           <div className="col-md-12 col-lg-10" >
-                            <Card className="shadow-md ">
-                              <Card.Body className="p-4">
+                            <Card className="shadow-md" >
+                              <Card.Body className="p-4" style={{marginBottom:"250px"}}>
                                 <h4 className="mb-4 text-danger">
                                   Recent Queries ({queries.length})
                                 </h4>
