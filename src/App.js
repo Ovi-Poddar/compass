@@ -40,7 +40,6 @@ import UserState from "./Context/Users/UserState";
 import MyBusinessItem from "./Components/Business/MyBusiness/MyBusinessItem";
 import QueryState from "./Context/Query/QueryState";
 
-
 function App() {
   const [alert, setAlert] = useState(null);
 
@@ -91,31 +90,31 @@ function App() {
             element={<MyBusinessItem />}
           />
 
-                {/* Added by Taanvir Raihan */}
+                {/* Added by Tanvir Raihan */}
 
                 <Route
                   exact
-                  path="/businessupdates"
+                  path="/businessupdates/:business_id"
                   element={<BusinessUpdates />}
                 />
                 <Route
                   exact
-                  path="/businessoffers"
+                  path="/businessoffers/:business_id"
                   element={<BusinessOffers />}
                 />
                 <Route
                   exact
-                  path="/businessquery"
+                  path="/businessquery/:business_id"
                   element={<BusinessQuery />}
                 />
                 <Route
                   exact
-                  path="/businesshours"
+                  path="/businesshours/:business_id"
                   element={<BusinessHours />}
                 />
                 <Route
                   exact
-                  path="/businessamenities"
+                  path="/businessamenities/:business_id"
                   element={<BusinessAmenities />}
                 />
                 <Route path="/businesshome" element={<Business />} />

@@ -14,7 +14,9 @@ import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 
 import Fab from "@mui/material/Fab";
 import HomeIcon from "@mui/icons-material/Home";
-import FindInPageIcon from '@mui/icons-material/FindInPage';
+import FindInPageIcon from "@mui/icons-material/FindInPage";
+import UpdateIcon from "@mui/icons-material/Update";
+import ShopIcon from "@mui/icons-material/Shop";
 
 const routes = [
   {
@@ -23,7 +25,7 @@ const routes = [
     icon: <HomeIcon />,
   },
   {
-    path: "/askthecommunity",
+    path: "/businessqueries",
     name: "Ask The Community",
     icon: <HelpIcon />,
   },
@@ -34,11 +36,22 @@ const routes = [
   },
 
   {
-    path: "/offers",
+    path: "/businessoffers",
     name: "Offers",
     icon: <LocalOfferIcon />,
   },
 
+  {
+    path: "/businessupdates",
+    name: "Updates",
+    icon: <UpdateIcon />,
+  },
+
+  {
+    path: "/businessamenities",
+    name: "Amenities",
+    icon: <ShopIcon />,
+  },
   // {
   //   path: "/settings",
   //   name: "Settings",
@@ -136,10 +149,10 @@ const SideBar = ({ children }) => {
             </div>
           </div>
           <div className="search">
-            <a role = "button" style={{textDecoration : "none"}}>
-              <FindInPageIcon  size={70} />
+            <a role="button" style={{ textDecoration: "none" }}>
+              <FindInPageIcon size={70} />
             </a>
-           
+
             <AnimatePresence>
               {isOpen && (
                 <motion.input
