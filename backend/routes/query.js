@@ -177,7 +177,12 @@ router.post(
       query.answers.push(queryanswer);
       await query.save();
 
-      const savedQueryAnswer= await queryanswer.save();
+      let savedQueryAnswer= await queryanswer.save();
+      savedQueryAnswer = await QueryAnswer.findOne({
+        _id: savedQueryAnswer.id,
+      })
+        .populate("answerer_id", "user_name")
+
       res.json(savedQueryAnswer);
     } catch (error) {
       console.error(error.message);
@@ -252,6 +257,7 @@ router.delete("/deleteanswer/:answer_id", fetchUser, async (req, res) => {
         query.answers.pull(answer);
     }
   });
+  await query.save();
 
     answer = await QueryAnswer.findByIdAndDelete(req.params.answer_id);
 
@@ -270,9 +276,7 @@ router.get("/getallanswers/:query_id", fetchUser, async (req, res) => {
     const answers = await QueryAnswer.find({
       query_id: req.params.query_id,
     })
-      // .populate("answerer_id", "query_id")
-      // .select("-__v -query_id")
-      // .sort({ creation_date: -1 });
+      .populate("answerer_id", "user_name")
     res.json(answers);
   } catch (error) {
     console.error(error.message);

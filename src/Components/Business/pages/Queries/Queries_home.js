@@ -36,13 +36,13 @@ export const Queries = (props) => {
             </div>
             <div className="main_content" style={{marginTop:"60px"}}>
               <div className="row d-flex mr-4 ">
-                <hr className="mt-2" />
+                
                 <div className="container">
                   <div className="d-flex justify-content-center pt-3 px-4">
                     <div className="">
                       <div
                         className="container my-1 py-4"
-                        style={{ width: "80rem" }}
+                        style={{ width: "53rem" }}
                       >
                         <div className="row d-flex justify-content-start main_content_body">
                           <div className="col-md-12 col-lg-10" >
