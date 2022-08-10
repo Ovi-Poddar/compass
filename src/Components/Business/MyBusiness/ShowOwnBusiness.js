@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import MyBusinessItem from "./MyBusiness/MyBusinessItem";
+import MyBusinessItem from "./MyBusinessItem";
 
-import "./MyBusiness/styles.css";
+import "./styles.css";
 
 function ShowOwnBusiness() {
   const host = "http://localhost:5000";

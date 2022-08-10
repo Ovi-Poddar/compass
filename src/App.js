@@ -12,8 +12,7 @@ import SignUp from "./Components/SignUp/SignUp";
 import Home from "./Components/Home/Home";
 import CompassFooter from "./Components/CompassFooter/CompassFooter";
 
-import CreateBusiness from "./Components/Business/CreateBusiness";
-import ShowOwnBusiness from "./Components/Business/ShowOwnBusiness";
+import ShowOwnBusiness from "./Components/Business/MyBusiness/ShowOwnBusiness";
 
 import Landing from "./Components/LandingPage/Landing";
 
@@ -44,14 +43,14 @@ import QueryState from "./Context/Query/QueryState";
 
 import Profile from "./Components/UserProfile/Profile";
 
-import MultiForm from "./Components/Business/CreateBusinessForm/MultiForm";
 
+import { storage } from "./firebase";
+import CreateBusinessForm from "./Components/Business/CreateBusiness/CreateBusinessForm";
 
+import Main from "./Components/Business/CreateBusiness/Main";
 
 function App() {
   const [alert, setAlert] = useState(null);
-
-
 
   const showAlert = (message, type) => {
     setAlert({
@@ -87,7 +86,7 @@ function App() {
                 <Route
                   exact
                   path="/createbusiness"
-                  element={<CreateBusiness showAlert={showAlert} />}
+                  element={<Main showAlert={showAlert} />}
                 />
                 <Route
                   exact

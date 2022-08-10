@@ -32,13 +32,13 @@ router.post(
   "/createbusiness",
   fetchUser,
   [
-    body("business_name", "Enter a valid name").isLength({ min: 3 }),
+    body("business_name", "Enter a valid name").exists(),
     // body("contact_no", "Contact Number must be 11 digits").isLength(11),
-    body("contact_no", "Contact Number must be 11 digits").exists(11),
+    body("contact_no", "Contact Number must be 11 digits").exists(),
   ],
   async (req, res) => {
     try {
-      const { business_name, contact_no, district, city, address, category } =
+      const { business_name, contact_no, district, city, address, category, email, about } =
         req.body;
 
       // If there are errors, return Bad request and the errors
@@ -55,14 +55,36 @@ router.post(
         district: district,
         city: city,
         category: category,
+        about: about,
+        email: email,
       });
       const savedBusiness = await business.save();
-      res.json(savedBusiness);
+      res.json({ success: true, business: savedBusiness });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Server Error");
     }
   }
 );
+
+// ROUTE 4 : Upload Profile Picture using: POST "/api/business/uploadprofilepic". Login required
+router.post(
+  "/uploadprofilepic",
+  fetchUser,
+  [
+    body("business_id", "Enter a valid business id").exists(),
+    body("profile_image", "Enter a valid image").exists(),
+  ],
+  async (req, res) => {
+    try {
+      const { business_id, image } = req.body;
+
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Internal Server Error");
+    }
+  }
+);
+
 
 module.exports = router;
