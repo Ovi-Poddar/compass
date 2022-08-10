@@ -1,11 +1,39 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 import "./home.css";
+import { useParams } from "react-router-dom";
+
 
 import CollectionsIcon from '@mui/icons-material/Collections';
 import GroupIcon from '@mui/icons-material/Group';
+import { Link } from "react-router-dom";
 
 const Home = () => {
+  const { business_id } = useParams();
+  
+  const [business, setBusiness] = useState(null);
+
+  //fetch business details
+  const fetchBusinessDetails = async () => {
+    const response = await fetch(
+      `http://localhost:5000/api/business/getbusiness/${business_id}`,
+      {
+        method: "GET",
+        headers: {
+          "auth-token": localStorage.getItem("token"),
+        },
+      }
+    );
+    const json = await response.json();
+    setBusiness(json);
+    console.log(json);
+  };
+
+  useEffect(() => {
+    fetchBusinessDetails();
+  }, []);
+
+
   return (
     <div>
       <div className="">
@@ -17,14 +45,15 @@ const Home = () => {
                 <div className="media align-items-end profile-header">
                   <div className="profile mr-3">
                     <img
-                      src="https://bootstrapious.com/i/snippets/sn-profile/teacher.jpg"
+                      // src="https://bootstrapious.com/i/snippets/sn-profile/teacher.jpg"
+                      src={business ? business.profile_image : "https://bootstrapious.com/i/snippets/sn-profile/teacher.jpg"}
                       alt="..."
                       width="130"
                       className="rounded mb-2 img-thumbnail"
                     />
-                    <a href="#" className="btn btn-dark btn-sm btn-block">
+                    <Link to={`/business/edit/${business_id}`} className="btn btn-dark btn-sm btn-block">
                       Edit profile
-                    </a>
+                    </Link>
                   </div>
                   <div className="media-body mb-5 text-white">
                     <h4 className="mt-0 mb-0">Manuella Tarly</h4>

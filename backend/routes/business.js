@@ -2,7 +2,17 @@ const express = require("express");
 const router = express.Router();
 const Business = require("../models/Business");
 const { body, validationResult } = require("express-validator");
+const multer  = require('multer')
+// const upload = multer({ dest: 'uploads/' })
 var fetchUser = require("../middleware/fetchUser");
+
+const {
+  addImage
+ } = require('../imageController');
+
+ // Setting up multer as a middleware to grab photo uploads
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage }).single('profile_image');
 
 // ROUTE 1: Get All the Businesses of this user using: GET "/api/business/getownbusinesses". Login required
 router.get("/getownbusinesses", fetchUser, async (req, res) => {
@@ -68,24 +78,32 @@ router.post(
 );
 
 // ROUTE 4 : Upload Profile Picture using: POST "/api/business/uploadprofilepic". Login required
-router.post(
-  "/uploadprofilepic",
-  fetchUser,
-  [
-    body("business_id", "Enter a valid business id").exists(),
-    body("profile_image", "Enter a valid image").exists(),
-  ],
-  async (req, res) => {
-    try {
-      const { business_id, image } = req.body;
-
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).send("Internal Server Error");
-    }
+router.post('/uploadprofilepic', upload, addImage , async (req, res) => {
+  try {
+    const { business_id } = req.body;
+    const  {downloadURL}  = req.file;
+    console.log(downloadURL);
+    const business = await Business.findOne({ _id: business_id });
+    business.profile_image = downloadURL;
+    const savedBusiness = await business.save();
+    res.json({ success: true, business: savedBusiness });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
   }
-);
+});
 
+//get a business using: GET "/api/business/getbusiness/:business_id". Login Not required
+router.get("/getbusiness/:business_id", async (req, res) => {
+  try {
+    const { business_id } = req.params;
+    const business = await Business.findOne({ _id: business_id });
+    res.json(business);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 // Added by Tanvir
 

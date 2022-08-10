@@ -62,7 +62,7 @@ export default function SignUp(props) {
                 <h5 className="card-title text-center mb-5 fw-bold signup-h3">
                   Register
                 </h5>
-                <form onSubmit={handleSubmit}  autoComplete="off" >
+                <form onSubmit={handleSubmit}  autoComplete="off"  >
                   <div className="form-floating mb-3">
                     <input
                       type="text"
