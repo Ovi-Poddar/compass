@@ -7,7 +7,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import moment from "moment";
 import Modal from "react-bootstrap/Modal";
-import Card from "react-bootstrap/Card"
+import Card from "react-bootstrap/Card";
 import AnswerItem from "./AnswerItem";
 
 import UserContext from "../../../../Context/Users/UserContext";
@@ -19,31 +19,34 @@ function QueryItem(props) {
   const userContext = useContext(UserContext);
   const { user } = userContext;
   const queryContext = useContext(QueryContext);
-  const { deleteQuery, editQuery, addAnswer} = queryContext;
-  let answers = []
+  const { deleteQuery, editQuery, addAnswer } = queryContext;
+  const answerInitial = [];
+  const [answers, setAnswers] = useState(answerInitial);
 
+  useEffect(() => {
+    getallanswers();
+    // eslint-disable-next-line
+  }, answers);
 
-  const getallanswers = async () =>{
+  let id = "#QueryAnswer" + String(props.query._id);
+  let id1 = "QueryAnswer" + String(props.query._id);
+
+  const getallanswers = async () => {
     const response = await fetch(
       `http://localhost:5000/api/query/getallanswers/${props.query._id}`,
       {
-          method: "GET",
-          headers: {
-              "Content-Type": "application/json",
-              "auth-token": localStorage.getItem("token"),
-          },
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("token"),
+        },
       }
-  );
-  const json = await response.json();
+    );
+    const json = await response.json();
+    setAnswers(json);
     console.log(json);
-//     answers = JSON.stringify({
-//       answerer_id: answerer_id,
-// creation_date: creation_date,
-// query_id: query_id,
-// text: text,
-// _id: _id
-  // });
-  }
+    console.log(answers);
+  };
 
   const [showEditQuery, setShowEditQuery] = useState(false);
   const toggleEditQuery = () => setShowEditQuery(!showEditQuery);
@@ -129,7 +132,7 @@ function QueryItem(props) {
 
             {props.query.user_id._id === user._id && (
               <>
-                <div className="d-inline" style={{ marginLeft: "45rem" }}>
+                <div className="d-inline" style={{ marginLeft: "20rem" }}>
                   <Button
                     className="mr-3"
                     variant="outline-primary"
@@ -160,12 +163,12 @@ function QueryItem(props) {
                 className="btn-sm btn-primary"
                 data-toggle="collapse"
                 variant="primary"
-                data-target="#QueryAnswers"
+                data-target={id}
                 // aria-expanded="false"
                 // aria-controls="#QueryAnswers"
                 onClick={getallanswers}
               >
-                Show All Answers({props.query.answers.length})
+                Show All Answers
               </Button>
 
               {/* button for reply */}
@@ -178,41 +181,43 @@ function QueryItem(props) {
                 <ReplyIcon />
               </Button>
             </div>
-            <div className="container collapse" id="QueryAnswers">
+            <div className="container collapse" id={id1}>
               <div className="d-flex justify-content-start">
-                  <div
-                    className="container my-1 py-2 rounded shadow-1-strong"
-                    // style={{ width: "35rem" }}
-                  >
-                    <div className="row d-flex justify-content-start">
-                      <div className="col-md-12 col-lg-10">
-                        <Card className="shadow-md">
-                          <Card.Body className="">
-                           <h4 className="mb-4 text-danger">
-                                  Recent Answers ({answers.length})
-                                </h4>
-                          {/* {answers.map((answer) => {
-                                  return (
-                                    <AnswerItem
-                                      key={answer._id}
-                                      answer={answer}
-                                      showAlert={props.showAlert}
-                                    />
-                                  );
-                                })} */}
-                          </Card.Body>
-                        </Card>
-                      </div>
+                <div
+                  className="container my-1 py-2 rounded shadow-1-strong"
+                  // style={{ width: "35rem" }}
+                >
+                  <div className="row d-flex justify-content-start">
+                    <div className="col-md-12 col-lg-10">
+                      <Card className="shadow-md">
+                        <Card.Body className="">
+                          <h4 className="mb-4 text-danger">
+                            Recent Answers ({answers.length})
+                          </h4>
+                          {answers.map((answer) => {
+                            return (
+                              <AnswerItem
+                                key={answer._id}
+                                answer={answer}
+                                showAlert={props.showAlert}
+                              />
+                            );
+                          })}
+                        </Card.Body>
+                      </Card>
                     </div>
                   </div>
+                </div>
               </div>
             </div>
 
             {/* Modal for editing query */}
-            <Modal 
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-            show={showEditQuery} onHide={toggleEditQuery}>
+            <Modal
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
+              show={showEditQuery}
+              onHide={toggleEditQuery}
+            >
               <Modal.Header closeButton>
                 <Modal.Title className="text-primary">
                   Edit Your Query

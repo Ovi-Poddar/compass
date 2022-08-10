@@ -8,13 +8,16 @@ import pepperoni from "../../Images/pepperoni.jpg";
 import sd from "../../Images/sd.jpg";
 import { Button } from "react-bootstrap";
 import BusinessExternalLinks from "./BusinessExternalLinks";
-import Query from "../BusinessPageTabs/Query";
+import TabComponent from "../BusinessPageTabs/TabComponent";
 
 export default function BusinessQuery() {
   return (
     <>
       <div className="Carousel">
-        <div className="image_container" style={{ position: "relative" }}>
+        <div
+          className="image_container"
+          style={{ position: "relative", marginLeft: "200px" }}
+        >
           <img
             className="places  m-auto"
             alt="Sultan's Dine"
@@ -49,20 +52,13 @@ export default function BusinessQuery() {
             src={place3}
             width="470"
           />
-          <img
-            className="places  m-auto"
-            alt="Sultan's Dine"
-            height="300"
-            src={place1}
-            width="470"
-          />
         </div>
         {/* external link container */}
         <BusinessExternalLinks />
         {/* tab container */}
-        <Query />
+        <TabComponent active_tab="query" />
+        {/* <Query /> */}
         {/* content container */}
-
         <div
           className="content_container"
           style={{

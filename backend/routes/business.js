@@ -87,4 +87,17 @@ router.post(
 );
 
 
+// Added by Tanvir
+
+// ROUTE 5: Get full menu of the Business using: GET "/api/business/getfullmenu". Login not required
+router.get("/getfullmenu/:business_id", async (req, res) => {
+  try {
+    const business = await Business.findById(req.params.business_id);
+    res.json(business);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 module.exports = router;

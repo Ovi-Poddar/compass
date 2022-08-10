@@ -26,7 +26,6 @@ const userSchema = new Schema({
 
   // float, average rating of all reviews
   average_stars: { type: Number, default: 0 },
-
 });
 
 const User = mongoose.model("User", userSchema);

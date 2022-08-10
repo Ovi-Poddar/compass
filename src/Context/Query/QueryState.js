@@ -178,25 +178,6 @@ const QueryState = (props) => {
         setQueries(newQueries);
     }
 
-    // //Get All the Answers of this query using: GET "/api/query/getallanswers".
-    // const getAnswers = async (query_id) => {
-    //     // API Call
-    //     const response = await fetch(
-    //         `${host}/api/query/getallanswers/${query_id}`,
-    //         {
-    //             method: "GET",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //                 "auth-token": localStorage.getItem("token"),
-    //             },
-    //         }
-    //     );
-    //     const json = await response.json();
-    //     setAnswers(json);
-    // }
-
-
-
     return (
         <QueryContext.Provider
         value={{ queries, getQueries, addQuery, deleteQuery, editQuery, addAnswer, editAnswer, deleteAnswer }}

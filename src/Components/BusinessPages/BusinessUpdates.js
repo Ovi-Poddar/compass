@@ -7,13 +7,16 @@ import sd from "../../Images/sd.jpg";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import BusinessExternalLinks from "./BusinessExternalLinks";
-import Update from "../BusinessPageTabs/Update";
+import TabComponent from "../BusinessPageTabs/TabComponent";
 
 export default function BusinessUpdates() {
   return (
     <>
       <div className="Carousel">
-        <div className="image_container" style={{ position: "relative" }}>
+        <div
+          className="image_container"
+          style={{ position: "relative", marginLeft: "200px" }}
+        >
           <img
             className="places  m-auto"
             alt="Sultan's Dine"
@@ -48,18 +51,12 @@ export default function BusinessUpdates() {
             src={place3}
             width="470"
           />
-          <img
-            className="places  m-auto"
-            alt="Sultan's Dine"
-            height="300"
-            src={place1}
-            width="470"
-          />
         </div>
         {/* external link container */}
         <BusinessExternalLinks />
         {/* tab container */}
-        <Update />
+        <TabComponent active_tab="updates" />
+        {/* <Update /> */}
         {/* content container */}
 
         <div

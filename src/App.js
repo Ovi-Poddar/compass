@@ -27,7 +27,6 @@ import { Offers } from "./Components/Business/pages/Offers";
 
 import Business from "./Components/BusinessPages/BusinessHome";
 
-
 import BusinessUpdates from "./Components/BusinessPages/BusinessUpdates";
 import BusinessOffers from "./Components/BusinessPages/BusinessOffers";
 import BusinessQuery from "./Components/BusinessPages/BusinessQuery";
@@ -94,16 +93,12 @@ function App() {
                   element={<ShowOwnBusiness />}
                 />
                 {/* Route for User Profile */}
-                 <Route
-                  exact
-                  path="/profile/:user_id"
-                  element={<Profile/>}
-                />
+                <Route exact path="/profile/:user_id" element={<Profile />} />
                 {/* Route for Business Profile */}
                 <Route
                   exact
                   path="/business/:business_id"
-                  element={<BusinessHome/>}
+                  element={<BusinessHome />}
                 />
                 {/* <Route
             exact
@@ -111,51 +106,46 @@ function App() {
             element={<MyBusinessItem />}
           />
 
-                {/* Added by Taanvir Raihan */}
-
-                {/* <Route
+                {/* Added by Tanvir Raihan */}
+                <Route
                   exact
-                  path="/businessupdates"
+                  path="/businessupdates/:business_id"
                   element={<BusinessUpdates />}
                 />
                 <Route
                   exact
-                  path="/businessoffers"
+                  path="/businessoffers/:business_id"
                   element={<BusinessOffers />}
                 />
                 <Route
                   exact
-                  path="/businessquery"
+                  path="/businessquery/:business_id"
                   element={<BusinessQuery />}
                 />
                 <Route
                   exact
-                  path="/businesshours"
+                  path="/businesshours/:business_id"
                   element={<BusinessHours />}
                 />
                 <Route
                   exact
-                  path="/businessamenities"
+                  path="/businessamenities/:business_id"
                   element={<BusinessAmenities />}
                 />
-                <Route path="/businesshome" element={<Business />} /> */}
+                <Route path="/businesshome" element={<Business />} />
 
                 {/* Added for Business Sidebar Menu */}
                 <Route path="/businessdashboard" element={<BusinessHome />} />
-
                 <Route
                   path="/reviews/:business_id"
                   element={<Reviews showAlert={showAlert} />}
                 />
-
-                
                 <Route
                   path="/queries/:business_id"
                   element={<Queries showAlert={showAlert} />}
                 />
                 <Route path="/offers" element={<Offers />} />
                 {/* <Route path="/settings" element={<Setting />} /> */}
-
                 <Route path="*" element={<> not found</>} />
               </Routes>
               {/* <CompassFooter /> */}

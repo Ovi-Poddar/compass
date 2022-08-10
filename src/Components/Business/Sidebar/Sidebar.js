@@ -5,7 +5,7 @@ import { useParams, Link } from "react-router-dom";
 import "./styles.css";
 
 const Sidebar = () => {
-  let {business_id} = useParams();
+  let { business_id } = useParams();
   return (
     <div className="sidebar my-4">
       <h2 style={{ textTransform: "none" }}>Menu</h2>
