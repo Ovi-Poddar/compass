@@ -60,8 +60,6 @@ function AnswerItem(props) {
     props.showAlert("Answer deleted successfully!", "success");
   };
 
-  console.log(props.answer.text)
-
 
   if (props.answer != null) {
     return (
@@ -82,18 +80,24 @@ function AnswerItem(props) {
               {props.answer.answerer_id.user_name}
             </h6>
 
+            <div className="d-flex align-items-center mb-3">
+              <span class="badge rounded-pill bg-danger d-inline">
+                {moment(props.answer.creation_date).calendar()}
+              </span>
+            </div>
+            <p className="mb-2 text-dark">{props.answer.text}</p>
             {props.answer.answerer_id._id === user._id && (
               <>
-                <div className="d-inline" style={{ marginLeft: "18rem" }}>
+                <div className="d-inline" style={{ marginLeft: "9rem" }}>
                   <Button
-                    className="mr-3"
+                    className="btn-sm mr-3"
                     variant="outline-primary"
                     onClick={updateAnswer}
                   >
                     <EditIcon />
                   </Button>
                   <Button
-                    className="mr-3"
+                    className="btn-sm mr-3"
                     variant="outline-danger"
                     onClick={toggleDeleteAnswer}
                   >
@@ -102,13 +106,6 @@ function AnswerItem(props) {
                 </div>
               </>
             )}
-
-            <div className="d-flex align-items-center mb-3">
-              <span class="badge rounded-pill bg-danger d-inline">
-                {moment(props.answer.creation_date).calendar()}
-              </span>
-            </div>
-            <p className="mb-2 text-dark">{props.answer.text}</p>
 
 
             {/* Modal for editing answer */}
