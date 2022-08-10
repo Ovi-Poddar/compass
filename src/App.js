@@ -16,13 +16,14 @@ import CreateBusiness from "./Components/Business/CreateBusiness";
 import ShowOwnBusiness from "./Components/Business/ShowOwnBusiness";
 
 import Landing from "./Components/LandingPage/Landing";
-import BusinessPageLanding from "./Components/Business/BusinessPageLanding";
+
+import BusinessHome from "./Components/Business/pages/BusinessHome";
 
 import { useState } from "react";
-import { BusinessHome } from "./Components/Business/pages/BusinessHome";
-import { Reviews } from "./Components/Business/pages/Reviews";
 
-import { Queries } from "./Components/Business/pages/Queries";
+import { Reviews } from "./Components/Business/pages/Reviews/index";
+
+import { Queries } from "./Components/Business/pages/Queries/Queries_home";
 import { Offers } from "./Components/Business/pages/Offers";
 
 import Business from "./Components/BusinessPages/BusinessHome";
@@ -39,6 +40,10 @@ import UserState from "./Context/Users/UserState";
 
 import MyBusinessItem from "./Components/Business/MyBusiness/MyBusinessItem";
 import QueryState from "./Context/Query/QueryState";
+
+import Profile from "./Components/UserProfile/Profile";
+
+import MultiForm from "./Components/Business/CreateBusinessForm/MultiForm";
 
 function App() {
   const [alert, setAlert] = useState(null);
@@ -73,7 +78,7 @@ function App() {
                   path="/signup"
                   element={<SignUp showAlert={showAlert} />}
                 />
-                {/* <Route exact path="/landing" element={<Landing />} /> */}
+                <Route exact path="/landing" element={<Landing />} />
                 <Route
                   exact
                   path="/createbusiness"
@@ -84,6 +89,14 @@ function App() {
                   path="/showownbusinesses"
                   element={<ShowOwnBusiness />}
                 />
+                {/* Route for User Profile */}
+                <Route exact path="/profile/:user_id" element={<Profile />} />
+                {/* Route for Business Profile */}
+                <Route
+                  exact
+                  path="/business/:business_id"
+                  element={<BusinessHome />}
+                />
                 {/* <Route
             exact
             path="/showownbusinesses"
@@ -91,7 +104,6 @@ function App() {
           />
 
                 {/* Added by Tanvir Raihan */}
-
                 <Route
                   exact
                   path="/businessupdates/:business_id"
@@ -121,7 +133,6 @@ function App() {
 
                 {/* Added for Business Sidebar Menu */}
                 <Route path="/businessdashboard" element={<BusinessHome />} />
-
                 <Route
                   path="/reviews/:business_id"
                   element={<Reviews showAlert={showAlert} />}
@@ -132,7 +143,6 @@ function App() {
                 />
                 <Route path="/offers" element={<Offers />} />
                 {/* <Route path="/settings" element={<Setting />} /> */}
-
                 <Route path="*" element={<> not found</>} />
               </Routes>
               {/* <CompassFooter /> */}

@@ -4,11 +4,11 @@ import Button from "react-bootstrap/Button";
 import React from "react";
 import { useContext, useState } from "react";
 
-import QueryContext from "../../Context/Query/QueryContext";
+import QueryContext from "../../../../Context/Query/QueryContext";
 
 function MakeQuery(props) {
   const context = useContext(QueryContext);
-  const { addQuery } = context;
+  const { addQuery, queries } = context;
 
   const { showAlert, business_id } = props;
 
@@ -23,6 +23,7 @@ function MakeQuery(props) {
     e.preventDefault();
     addQuery(query.text, business_id);
     setQuery({ text: "" });
+    handleShowAddQuery();
     showAlert("Query added successfully!", "success");
   };
 
@@ -35,18 +36,25 @@ function MakeQuery(props) {
 
   return (
     <>
-      <div className="d-flex justify-content-center px-5">
+      <div className="">
+        <div style={{ marginLeft: "0px", position: "fixed", zIndex: "1", marginBottom:"20px" }}  >
+          <div className="d-flex justify-content-center" style={{marginLeft:"350px"}}>
+            {" "}
+            <h1 className="fw-bold text-danger">Ask The Community</h1>
+          </div>
+          <Button variant="danger" onClick={handleShowAddQuery}>
+            Make a Query
+          </Button>{" "}
+        </div>
         <div className="row">
-          <h1 className="fw-bold text-danger">Ask The Community</h1>
           <div className="d-flex justify-content-start pt-3 pb-2">
-            <Button variant="danger" onClick={handleShowAddQuery}>
-              Make a Query
-            </Button>
             <div className="d-flex align-items-center mb-3">
               <Modal
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
+                backdrop="static"
+                keyboard={false}
                 show={showAddQuery}
                 onHide={handleShowAddQuery}
               >

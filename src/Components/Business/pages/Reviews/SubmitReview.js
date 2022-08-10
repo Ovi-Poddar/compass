@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 
-import ReviewContext from "../../Context/Review/ReviewContext";
+import ReviewContext from "../../../../Context/Review/ReviewContext";
 
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
@@ -68,7 +68,7 @@ function SubmitReview(props) {
 
   return (
     <div>
-      <Card className="text-center mt-4 shadow-lg" style={{ width: "30rem", position : "sticky" , top : "0"}}>
+      <Card className="text-center ml-4 mt-4 shadow-lg" style={{ width: "30rem", position : "sticky" , top : "0"}}>
         <Card.Body>
           <div style={styles.container}>
             <h2 className="text-danger"> Write A Review </h2>

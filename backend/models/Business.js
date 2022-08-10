@@ -89,6 +89,20 @@ const businessSchema = new Schema({
         type: [String],
         default:[""],
     },
+
+    images: {
+        type: [String],
+        default: [""],
+    },
+
+    profile_image: {
+        type: String,
+        default: "",
+    },
+    email: {
+        type: String,
+        default: "",
+    },
 });
 
 const Business = mongoose.model("Business", businessSchema);

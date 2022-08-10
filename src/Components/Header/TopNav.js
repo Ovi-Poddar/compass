@@ -33,7 +33,7 @@ export default function TopNav(props) {
   useEffect(() => {
     if (localStorage.getItem("token")) {
       getUser();
-      console.log(user);
+      console.log("user", user);
     }
   }, []);
 
@@ -51,11 +51,11 @@ export default function TopNav(props) {
     <>
       <Navbar
       // bg="light"
-      expand="lg" style={{ backgroundColor: "#FE9834" }}>
+      expand="lg" style={{ backgroundColor: "#FE9834", position:"ralative", zIndex:"10", top:"0", width:"100%"}}>
         <Container fluid>
           <LinkContainer to={"/"}>
             <Navbar.Brand className="" href="/">
-              <i className="bi bi-compass font-weight-bold"></i> Compass
+               C<i className="bi bi-compass font-weight-bold"></i>MPASS
             </Navbar.Brand>
           </LinkContainer>
           <Form className="d-flex">
@@ -171,6 +171,7 @@ export default function TopNav(props) {
                  
                 </Fab>
 
+                {user && (<Link to={`/profile/${user._id}`}>
                 <Fab
                   size="small"
                   color="secondary"
@@ -178,9 +179,10 @@ export default function TopNav(props) {
                   className="mx-2"
                 >
                   <PersonIcon />
-                  {/* {user && (user.user_name)} */}
-                </Fab>
+                 {/* {user && (user.user_name)} */}
+                 </Fab> </Link> )}
 
+                <Link to={"/"}style={{ textDecoration: 'none' }}>
                 <Fab
                   variant="extended"
                   size="medium"
@@ -188,21 +190,21 @@ export default function TopNav(props) {
                   aria-label="add"
                   className="mx-3"
                   sx={{
-                    "&:hover": {
-                      color: "white",
-                    },
+                    // "&:hover": {
+                    //   color: "blue",
+                    // },
                     textTransform: "none",
                   }}
                   onClick={handleLogout}
                 >
                   Log Out
-                </Fab>
+                </Fab> </Link> 
               </>
             )}
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <div className="d-flex justify-content-center">
+      {/* <div className="d-flex justify-content-center">
         <DropdownButton
           id="dropdown-basic-button"
           title="Restaurant"
@@ -243,7 +245,7 @@ export default function TopNav(props) {
           <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
           <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
         </DropdownButton>
-      </div>
+      </div> */}
     </>
   );
 }

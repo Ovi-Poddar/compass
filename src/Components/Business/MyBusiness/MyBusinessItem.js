@@ -55,8 +55,10 @@ const MyBusinessItem = (props) => {
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt,
             aliquid!
           </Card.Text>
-          <Button variant="warning">Visit</Button>
-          <Link to={`/reviews/${props.business._id}`} >
+          <Link to={`/business/${props.business._id}`}>
+            <Button variant="warning">Visit</Button>
+          </Link>
+          <Link to={`/reviews/${props.business._id}`}>
             {" "}
             {props.business.review_count} Reviews{" "}
           </Link>

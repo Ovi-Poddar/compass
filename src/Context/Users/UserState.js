@@ -15,9 +15,11 @@ const UserState = (props) => {
       },
     });
     const json = await response.json();
-    console.log(json);
+    // console.log(json);
     setUser(json);
   };
+
+  // getUser();
 
   return (
     <UserContext.Provider value={{ user, setUser, getUser }}>
