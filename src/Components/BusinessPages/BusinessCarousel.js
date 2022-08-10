@@ -10,7 +10,7 @@ import sd from "../../Images/sd.jpg";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import BusinessExternalLinks from "./BusinessExternalLinks";
-import Home from "../BusinessPageTabs/Home";
+import TabComponent from "../BusinessPageTabs/TabComponent";
 
 export default function BusinessCarousel() {
   return (
@@ -58,7 +58,8 @@ export default function BusinessCarousel() {
         {/* external link container */}
         <BusinessExternalLinks />
         {/* tab container */}
-        <Home />
+        {/* <Home /> */}
+        <TabComponent active_tab="home" />
         {/* content container */}
 
         <div

@@ -50,7 +50,6 @@ const MultiForm = () => {
     setTimeout(() => {
       navigate("/showownbusinesses");
     }, 1000);
-
   };
 
   const nextStep = () => {

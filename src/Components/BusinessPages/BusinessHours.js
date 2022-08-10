@@ -7,7 +7,7 @@ import sd from "../../Images/sd.jpg";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import BusinessExternalLinks from "./BusinessExternalLinks";
-import Hours from "../BusinessPageTabs/Hours";
+import TabComponent from "../BusinessPageTabs/TabComponent";
 
 export default function BusinessHours() {
   return (
@@ -55,7 +55,8 @@ export default function BusinessHours() {
         {/* external link container */}
         <BusinessExternalLinks />
         {/* tab container */}
-        <Hours />
+        {/* <Hours /> */}
+        <TabComponent active_tab="hours" />
         {/* content container */}
 
         <div

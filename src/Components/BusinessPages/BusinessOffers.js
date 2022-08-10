@@ -6,7 +6,7 @@ import sd from "../../Images/sd.jpg";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import BusinessExternalLinks from "./BusinessExternalLinks";
-import Offers from "../BusinessPageTabs/Offers";
+import TabComponent from "../BusinessPageTabs/TabComponent";
 
 export default function BusinessOffers() {
   return (
@@ -54,7 +54,8 @@ export default function BusinessOffers() {
         {/* external link container */}
         <BusinessExternalLinks />
         {/* tab container */}
-        <Offers />
+        <TabComponent active_tab="offers" />
+        {/* <Offers /> */}
 
         {/* content container */}
         <div

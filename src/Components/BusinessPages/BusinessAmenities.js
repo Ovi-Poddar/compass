@@ -8,9 +8,8 @@ import margharita from "../../Images/m.jpg";
 import pepperoni from "../../Images/pepperoni.jpg";
 import sd from "../../Images/sd.jpg";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import BusinessExternalLinks from "./BusinessExternalLinks";
-import Amenities from "../BusinessPageTabs/Amenities";
+import TabComponent from "../BusinessPageTabs/TabComponent";
 
 export default function BusinessAmenities() {
   return (
@@ -58,7 +57,8 @@ export default function BusinessAmenities() {
         {/* external link container */}
         <BusinessExternalLinks />
         {/* tab container */}
-        <Amenities />
+        <TabComponent active_tab="amenities" />
+        {/* <Amenities /> */}
         {/* content container */}
 
         <div

@@ -7,7 +7,7 @@ import sd from "../../Images/sd.jpg";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import BusinessExternalLinks from "./BusinessExternalLinks";
-import Update from "../BusinessPageTabs/Update";
+import TabComponent from "../BusinessPageTabs/TabComponent";
 
 export default function BusinessUpdates() {
   return (
@@ -55,7 +55,8 @@ export default function BusinessUpdates() {
         {/* external link container */}
         <BusinessExternalLinks />
         {/* tab container */}
-        <Update />
+        <TabComponent active_tab="updates" />
+        {/* <Update /> */}
         {/* content container */}
 
         <div

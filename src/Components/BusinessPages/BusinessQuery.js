@@ -8,7 +8,7 @@ import pepperoni from "../../Images/pepperoni.jpg";
 import sd from "../../Images/sd.jpg";
 import { Button } from "react-bootstrap";
 import BusinessExternalLinks from "./BusinessExternalLinks";
-import Query from "../BusinessPageTabs/Query";
+import TabComponent from "../BusinessPageTabs/TabComponent";
 
 export default function BusinessQuery() {
   return (
@@ -56,9 +56,9 @@ export default function BusinessQuery() {
         {/* external link container */}
         <BusinessExternalLinks />
         {/* tab container */}
-        <Query />
+        <TabComponent active_tab="query" />
+        {/* <Query /> */}
         {/* content container */}
-
         <div
           className="content_container"
           style={{
