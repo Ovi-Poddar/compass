@@ -146,7 +146,10 @@ function App() {
                     path="/businessamenities/:business_id"
                     element={<BusinessAmenities />}
                   />
-                  <Route path="/businesshome" element={<Business />} />
+                  <Route
+                    path="/businesshome/:business_id"
+                    element={<Business />}
+                  />
 
                   {/* Added for Business Sidebar Menu */}
                   <Route path="/businessdashboard" element={<BusinessHome />} />

@@ -1,9 +1,8 @@
 import React from "react";
 import "./styles.css";
+import { Link } from "react-router-dom";
 
-const ListItem = ({
-  item: { business_name, price, deliveryFee, serviceTime, rating },
-}) => (
+const ListItem = (props) => (
   <div className="listItem-wrap">
     <img
       src={
@@ -12,8 +11,10 @@ const ListItem = ({
       alt=""
     />
     <header>
-      <h4>{business_name}</h4>
-      <span>🌟{rating}</span>
+      <Link to={`/businesshome/${props.item._id}`}>
+        <h4>{props.item.business_name}</h4>
+      </Link>
+      <span>🌟{props.item.rating}</span>
     </header>
     {/* <footer>
       <p>
