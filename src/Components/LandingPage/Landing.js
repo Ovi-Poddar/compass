@@ -8,36 +8,18 @@ import "./styles.css";
 
 const Landing = () => {
   const host = "http://localhost:5000";
-  const [businesses, setBusinesses] = useState([]);
 
-  // Get all Businesses
-  const getBusinesses = async () => {
-    // API Call
-    const response = await fetch(`${host}/api/business/getallbusinesses`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "auth-token": localStorage.getItem("token"),
-      },
-    });
-    const json = await response.json();
-    const allbusinesses = JSON.parse(JSON.stringify(json));
-    setBusinesses(allbusinesses);
-  };
-
-  getBusinesses();
-  
-
+  const [businesses, setBusinesses] = useState([]); // keep track of all businesses available
   const [selectedRating, setSelectedRating] = useState(null);
 
   const [categories, setcategories] = useState([
     { id: 1, checked: false, label: "Restaurant" },
     { id: 2, checked: false, label: "AutoShop" },
     { id: 3, checked: false, label: "HomeService" },
+    { id: 4, checked: false, label: "Others" },
   ]);
 
-  
-  const [list, setList] = useState(businesses);
+  const [list, setList] = useState(null);
   const [resultsFound, setResultsFound] = useState(true);
   const [searchInput, setSearchInput] = useState("");
 
@@ -53,7 +35,6 @@ const Landing = () => {
   };
 
   const applyFilters = () => {
-    // let updatedList = dataList;
     let updatedList = businesses;
 
     // Rating Filter
@@ -93,10 +74,33 @@ const Landing = () => {
   };
 
   useEffect(() => {
-    getBusinesses();
     applyFilters();
     console.log(list);
   }, [selectedRating, categories, searchInput, list]);
+
+  //fetch all businesses when component mounts
+  useEffect(() => {
+    let isMounted = true;
+    const fetchAllBusinesses = async () => {
+      // API Call
+      const response = await fetch(`${host}/api/business/getallbusinesses`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("token"),
+        },
+      });
+      const json = await response.json();
+      const allbusinesses = JSON.parse(JSON.stringify(json));
+      if (isMounted) {
+        setList(allbusinesses);
+        setBusinesses(allbusinesses);
+      }
+    };
+    fetchAllBusinesses();
+
+    return () => (isMounted = false);
+  }, []);
 
   return (
     <div className="home">
@@ -104,7 +108,7 @@ const Landing = () => {
       <SearchBar
         value={searchInput}
         changeInput={(e) => setSearchInput(e.target.value)}
-      /> 
+      />
       <div className="home_panelList-wrap">
         {/* Filter Panel */}
         <div className="home_panel-wrap">
@@ -114,7 +118,7 @@ const Landing = () => {
             categories={categories}
             changeChecked={handleChangeChecked}
           />
-        </div> 
+        </div>
         {/* List & Empty View */}
         <div className="home_list-wrap">
           {resultsFound ? <List list={list} /> : <EmptyView />}

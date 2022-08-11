@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext,useState } from "react";
 
 import {
   Nav,
@@ -29,13 +29,15 @@ import UserContext from "../../Context/Users/UserContext";
 export default function TopNav(props) {
   const context = useContext(UserContext);
   const { user, getUser, setUser } = context;
+  const [userToken, setuserToken] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
       getUser();
+      setuserToken(localStorage.getItem("token"));
       console.log("user", user);
     }
-  }, []);
+  }, [userToken]);
 
   const navigate = useNavigate();
 
@@ -43,6 +45,7 @@ export default function TopNav(props) {
 
     localStorage.removeItem("token");
     setUser(null);
+    setuserToken(null);
 
     props.showAlert("Logged out successfully", "success");
     navigate("/");

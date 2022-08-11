@@ -318,6 +318,7 @@ const CreateBusinessForm = () => {
           city: methods.watch("city"),
           category: methods.watch("category"),
           profile_image: methods.watch("profile_image"),
+          about: methods.watch("about"),
         }),
       }
     );

@@ -16,7 +16,7 @@ const addImage = async (req, res, next) => {
         const timestamp = Date.now();
         const name = file.originalname.split(".")[0];
         const type = file.originalname.split(".")[1];
-        const fileName = `${name}_${timestamp}.${type}`;
+        const fileName = `images/${name}_${timestamp}.${type}`;
         const imageRef = ref(storage, fileName);
         // Upload the file
         await uploadBytes(imageRef, file.buffer);
