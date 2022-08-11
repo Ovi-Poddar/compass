@@ -1,8 +1,6 @@
 import React from "react";
 import "./styles.css";
 import { Link } from "react-router-dom";
-
-import { Link } from "react-router-dom";
 import { Rating } from "@mui/material";
 import { Card } from "react-bootstrap";
 
