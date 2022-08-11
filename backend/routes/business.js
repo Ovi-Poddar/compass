@@ -93,7 +93,7 @@ router.post('/uploadprofilepic', upload, addImage , async (req, res) => {
   }
 });
 
-//get a business using: GET "/api/business/getbusiness/:business_id". Login Not required
+// Route 5: get a business using: GET "/api/business/getbusiness/:business_id". Login Not required
 router.get("/getbusiness/:business_id", async (req, res) => {
   try {
     const { business_id } = req.params;
@@ -105,9 +105,21 @@ router.get("/getbusiness/:business_id", async (req, res) => {
   }
 });
 
+// Route 6: get the owner of a business using: GET "/api/business/getowner/:business_id". Login required
+router.get("/getowner/:business_id", fetchUser, async (req, res) => {
+  try {
+    const { business_id } = req.params;
+    const business = await Business.findOne({ _id: business_id });
+    res.json(String(business.owner_id));
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 // Added by Tanvir
 
-// ROUTE 5: Get full menu of the Business using: GET "/api/business/getfullmenu". Login not required
+// ROUTE 7: Get full menu of the Business using: GET "/api/business/getfullmenu". Login not required
 router.get("/getfullmenu/:business_id", async (req, res) => {
   try {
     const business = await Business.findById(req.params.business_id);

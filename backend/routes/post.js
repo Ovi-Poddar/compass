@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Post = require("../models/Post");
+const Business = require("../models/Business");
 const { body, validationResult } = require("express-validator");
 var fetchUser = require("../middleware/fetchUser");
 
@@ -22,7 +23,7 @@ router.post(
           user_id: req.user.id,
           business_id: req.params.business_id,
         });
-        const savedPost= await post.save();
+        let savedPost= await post.save();
 
         savedPost = await Post.findOne({
           _id: savedPost.id,
@@ -75,9 +76,9 @@ router.get("/:post_id", async (req, res) => {
   }
 });
 
-// Route 4: Delete a post: DELETE "/api/post/:post_id".
+// Route 4: Delete a post: DELETE "/api/post/deletepost/:post_id".
 
-router.delete("/:post_id", fetchuser, async (req, res) => {
+router.delete("/deletepost/:post_id", fetchUser, async (req, res) => {
   try {
     // Find the post to be deleted and delete it
     let post = await Post.findById(req.params.post_id);
@@ -143,9 +144,4 @@ router.put("/updatepost/:post_id", fetchUser, async (req, res) => {
   }
 } ); 
 
-    
-    
-
-    
-  
   module.exports = router;

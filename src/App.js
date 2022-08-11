@@ -23,6 +23,7 @@ import { useState } from "react";
 import { Reviews } from "./Components/Business/pages/Reviews/index";
 
 import { Queries } from "./Components/Business/pages/Queries/Queries_home";
+import { Posts } from "./Components/Business/pages/Posts/Posts_home";
 import { Offers } from "./Components/Business/pages/Offers";
 
 import Business from "./Components/BusinessPages/BusinessHome";
@@ -39,6 +40,7 @@ import UserState from "./Context/Users/UserState";
 
 import MyBusinessItem from "./Components/Business/MyBusiness/MyBusinessItem";
 import QueryState from "./Context/Query/QueryState";
+import PostState from "./Context/Post/PostState";
 
 import Profile from "./Components/UserProfile/Profile";
 
@@ -67,6 +69,7 @@ function App() {
       <UserState>
         <ReviewState>
           <QueryState>
+            <PostState>
             <Router>
               <TopNav showAlert={showAlert} />
               <MsgAlert alert={alert} />
@@ -150,12 +153,17 @@ function App() {
                   path="/queries/:business_id"
                   element={<Queries showAlert={showAlert} />}
                 />
+                <Route
+                  path="/posts/:business_id"
+                  element={<Posts showAlert={showAlert} />}
+                />
                 <Route path="/offers" element={<Offers />} />
                 {/* <Route path="/settings" element={<Setting />} /> */}
                 <Route path="*" element={<> not found</>} />
               </Routes>
               {/* <CompassFooter /> */}
             </Router>
+            </PostState>
           </QueryState>
         </ReviewState>
       </UserState>

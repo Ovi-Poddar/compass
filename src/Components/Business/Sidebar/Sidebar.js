@@ -26,9 +26,9 @@ const Sidebar = () => {
           </Link>
         </li>
         <li>
-          <a href="#">
-            <i className="fas fa-address-card"></i>About
-          </a>
+          <Link to={`/posts/${business_id}`}>
+            <i className="fas fa-user"></i>Posts
+          </Link>
         </li>
         <li>
           <a href="#">
