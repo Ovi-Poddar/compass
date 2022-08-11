@@ -26,7 +26,7 @@ function QueryItem(props) {
   useEffect(() => {
     getallanswers();
     // eslint-disable-next-line
-  }, answers);
+  }, []);
 
   let id = "#QueryAnswer" + String(props.query._id);
   let id1 = "QueryAnswer" + String(props.query._id);
@@ -44,8 +44,6 @@ function QueryItem(props) {
     );
     const json = await response.json();
     setAnswers(json);
-    console.log(json);
-    console.log(answers);
   };
 
   const [showEditQuery, setShowEditQuery] = useState(false);

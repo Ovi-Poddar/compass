@@ -59,12 +59,7 @@ const businessSchema = new Schema({
     default: 0,
   },
 
-  asked_query_count: {
-    type: Number,
-    default: 0,
-  },
-
-  answered_query_count: {
+  query_count: {
     type: Number,
     default: 0,
   },

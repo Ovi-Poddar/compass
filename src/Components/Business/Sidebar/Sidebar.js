@@ -17,18 +17,18 @@ const Sidebar = () => {
         </li>
         <li>
           <Link to={`/reviews/${business_id}`}>
-            <i className="fas fa-user"></i>Reviews
+          <i class="fas fa-star"></i>Reviews
           </Link>
         </li>
         <li>
           <Link to={`/queries/${business_id}`}>
-            <i className="fas fa-user"></i>Queries
+            <i className="fas fa-question"></i>Queries
           </Link>
         </li>
         <li>
-          <a href="#">
-            <i className="fas fa-address-card"></i>About
-          </a>
+          <Link to={`/posts/${business_id}`}>
+            <i className="fas fa-message"></i>Posts
+          </Link>
         </li>
         <li>
           <a href="#">

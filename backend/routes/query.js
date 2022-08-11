@@ -107,7 +107,6 @@ router.delete("/deletequery/:query_id", fetchUser, async (req, res) => {
 
     //decrease the number of queries of the business
     const curr_business = await Business.findById(query.business_id);
-    console.log(curr_business)
     curr_business.query_count -= 1;
     await curr_business.save();
 
