@@ -1,16 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
 import "./home.css";
 import { useParams } from "react-router-dom";
 
-
-import CollectionsIcon from '@mui/icons-material/Collections';
-import GroupIcon from '@mui/icons-material/Group';
+import CollectionsIcon from "@mui/icons-material/Collections";
+import GroupIcon from "@mui/icons-material/Group";
 import { Link } from "react-router-dom";
+
+import PlaceIcon from "@mui/icons-material/Place";
+
+import Spinner from "react-bootstrap/Spinner";
 
 const Home = () => {
   const { business_id } = useParams();
-  
+
   const [business, setBusiness] = useState(null);
 
   //fetch business details
@@ -34,6 +37,11 @@ const Home = () => {
   }, []);
 
 
+  const [profileImageLoaded, setprofileImageLoaded] = useState(false);
+  const onProfileImageLoaded = () => {
+    setprofileImageLoaded(true);
+  };
+
   return (
     <div>
       <div className="">
@@ -44,23 +52,34 @@ const Home = () => {
               <div className="px-4 pt-0 pb-4 cover">
                 <div className="media align-items-end profile-header">
                   <div className="profile mr-3">
-                    <img
-                      // src="https://bootstrapious.com/i/snippets/sn-profile/teacher.jpg"
-                      src={business ? business.profile_image : "https://bootstrapious.com/i/snippets/sn-profile/teacher.jpg"}
-                      alt="..."
-                      width="130"
-                      className="rounded mb-2 img-thumbnail"
-                    />
-                    <Link to={`/business/edit/${business_id}`} className="btn btn-dark btn-sm btn-block">
+                    <div style={{ width: "200px", height: "150px"}} className="bg-white">
+                        <img
+                          src={business?.profile_image}
+                          alt=""
+                          width="auto"
+                          height="auto"
+                          className="rounded mb-2 img-thumbnail"
+                          onLoad={onProfileImageLoaded}
+                        />
+                        {!profileImageLoaded && ( 
+                          <div className="d-flex justify-content-center p-4" role="status">
+                          <Spinner animation="border" variant="danger" />
+                          </div>
+                          
+                        )}
+                      
+                    </div>
+                    <Link
+                      to={`/business/edit/${business_id}`}
+                      className="btn btn-dark btn-sm btn-block"
+                    >
                       Edit profile
                     </Link>
                   </div>
                   <div className="media-body mb-5 text-white">
-                    <h4 className="mt-0 mb-0">Manuella Tarly</h4>
-                    <p className="small mb-4">
-                      {" "}
-                      <i className="fa fa-map-marker mr-2"></i>San Farcisco
-                    </p>
+                    <h4 className="mt-0 mb-0"> {business?.business_name} </h4>
+                    {/* <p className="small mb-4 text-warning"> */}
+                     <p> <PlaceIcon color="warning" /> {business?.address}{", "}{business?.city}{", "}{business?.district} </p>
                   </div>
                 </div>
               </div>
@@ -68,7 +87,9 @@ const Home = () => {
               <div className="bg-light p-4 d-flex justify-content-end text-center">
                 <ul className="list-inline mb-0">
                   <li className="list-inline-item mx-4">
-                    <h5 className="font-weight-bold mb-0 d-block">241</h5>
+                    <h5 className="font-weight-bold mb-0 d-block">
+                      {business?.images.length}
+                    </h5>
                     <small className="text-muted">
                       {" "}
                       {/* <i className="fa fa-picture-o mr-1"></i>  */}
@@ -76,7 +97,9 @@ const Home = () => {
                     </small>
                   </li>
                   <li className="list-inline-item">
-                    <h5 className="font-weight-bold mb-0 d-block">84K</h5>
+                    <h5 className="font-weight-bold mb-0 d-block">
+                      {business?.review_count}{" "}
+                    </h5>
                     <small className="text-muted">
                       {" "}
                       {/* <i className="fa fa-user-circle-o mr-1"></i> */}
