@@ -98,6 +98,7 @@ const businessSchema = new Schema({
     type: String,
     default: "",
   },
+  
 });
 
 const Business = mongoose.model("Business", businessSchema);

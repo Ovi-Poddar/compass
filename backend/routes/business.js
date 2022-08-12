@@ -7,12 +7,14 @@ const multer  = require('multer')
 var fetchUser = require("../middleware/fetchUser");
 
 const {
-  addImage
+  addImage, addMultipleImages,
  } = require('../imageController');
 
  // Setting up multer as a middleware to grab photo uploads
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage }).single('profile_image');
+const uploads = multer({ storage: storage }).array('images[]', 10);
+// const uploads = multer({ dest: 'uploads/' })
 
 // ROUTE 1: Get All the Businesses of this user using: GET "/api/business/getownbusinesses". Login required
 router.get("/getownbusinesses", fetchUser, async (req, res) => {
@@ -117,9 +119,41 @@ router.get("/getowner/:business_id", fetchUser, async (req, res) => {
   }
 });
 
+//Route 7 : upload photos to a business using: POST "/api/business/uploadphotos". Login required
+router.post('/uploadphotos', uploads, fetchUser, addMultipleImages, async (req, res, next) => {
+  try {
+    console.log(req.body);
+    const { business_id } = req.body;
+    const downloadURLs =  req.downloadURLs;
+    console.log("downloadURLs", downloadURLs);
+    const business = await Business.findOne({ _id: business_id });
+
+    // console.log(Object.keys(business.images));  
+    /**
+     * You can't just push the downloadURLs to the images array,
+     * because the array is an array of objects, not an array of strings.
+     * So you need to convert the string array to an array of objects.
+     * then push the objects to the images array. 
+     * here, key is the number of the image, and value is the downloadURL
+     */
+    let length = Object.keys(business.images).length;
+    business.images = allImages;
+    downloadURLs.forEach(url => {
+      business.images[length] = url;
+      length++;
+    });
+    //save the business with the new images array
+    const savedBusiness = await business.save();
+    res.json({ success: true, images: savedBusiness.images });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 // Added by Tanvir
 
-// ROUTE 7: Get full menu of the Business using: GET "/api/business/getfullmenu". Login not required
+// ROUTE 8: Get full menu of the Business using: GET "/api/business/getfullmenu". Login not required
 router.get("/getfullmenu/:business_id", async (req, res) => {
   try {
     const business = await Business.findById(req.params.business_id);
