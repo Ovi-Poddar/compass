@@ -25,6 +25,13 @@ import {
 
 import FinalStep from "./FinalStep";
 
+import Box from "@mui/material/Box";
+import FormLabel from "@mui/material/FormLabel";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormHelperText from "@mui/material/FormHelperText";
+import Checkbox from "@mui/material/Checkbox";
+
 const useStyles = makeStyles((theme) => ({
   button: {
     // marginRight: theme.spacing(1),
@@ -37,6 +44,8 @@ function getSteps() {
     "Location Information",
     "Contact Information",
     "Description",
+    "Add Tags",
+    "Add Opening Hours",
   ];
 }
 const BasicForm = () => {
@@ -233,6 +242,267 @@ const AboutForm = () => {
   );
 };
 
+let taglist = [];
+
+const handleChangeTaglist = (e) => {
+  //check if tags already has this value, add if not, remove if is already there
+  if (taglist.includes(e.target.name)) {
+    taglist = taglist.filter((tag) => tag !== e.target.name);
+  } else {
+    taglist.push(e.target.name);
+  }
+
+  // console.log(tags);
+};
+
+// Add a checklist for tags
+const TagCheckList = () => {
+  const { control } = useFormContext();
+  return (
+    <>
+      <h3>Add Tags for Your Business</h3>
+      <Controller
+        control={control}
+        name="tags"
+        render={({}) => (
+          <Box sx={{ display: "flex" }}>
+            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+              <FormLabel component="legend"></FormLabel>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox onChange={handleChangeTaglist} name="Social" />
+                  }
+                  label="Social"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox onChange={handleChangeTaglist} name="Food" />
+                  }
+                  label="Food"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox onChange={handleChangeTaglist} name="Expensive" />
+                  }
+                  label="Expensive"
+                />
+              </FormGroup>
+            </FormControl>
+            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+              <FormLabel component="legend"></FormLabel>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox onChange={handleChangeTaglist} name="Service" />
+                  }
+                  label="Service"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={handleChangeTaglist}
+                      name="Entertainment"
+                    />
+                  }
+                  label="Entertainment"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox onChange={handleChangeTaglist} name="Local" />
+                  }
+                  label="Local"
+                />
+              </FormGroup>
+            </FormControl>
+            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+              <FormLabel component="legend"></FormLabel>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox onChange={handleChangeTaglist} name="Sports" />
+                  }
+                  label="Sports"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox onChange={handleChangeTaglist} name="Shopping" />
+                  }
+                  label="Shopping"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox onChange={handleChangeTaglist} name="Repair" />
+                  }
+                  label="Repair"
+                />
+              </FormGroup>
+            </FormControl>
+            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+              <FormLabel component="legend"></FormLabel>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox onChange={handleChangeTaglist} name="Public" />
+                  }
+                  label="Public"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox onChange={handleChangeTaglist} name="Exclusive" />
+                  }
+                  label="Exclusive"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox onChange={handleChangeTaglist} name="Homemade" />
+                  }
+                  label="Homemade"
+                />
+              </FormGroup>
+            </FormControl>
+          </Box>
+        )}
+      />
+    </>
+  );
+};
+
+let opening_days_list = [];
+
+const handleChangeOpeningDays = (e) => {
+  //check if opening days already has this value, add if not, remove if is already there
+  if (opening_days_list.includes(e.target.name)) {
+    opening_days_list = opening_days_list.filter(
+      (day) => day !== e.target.name
+    );
+  } else {
+    opening_days_list.push(e.target.name);
+  }
+
+  // console.log(opening_days_list);
+};
+
+const OpeningDayCheckList = () => {
+  const { control } = useFormContext();
+  return (
+    <>
+      <h3>Add opening Days</h3>
+      <Controller
+        control={control}
+        name="opening_days"
+        render={({}) => (
+          <Box sx={{ display: "flex" }} className="justify-content-center">
+            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+              <FormLabel component="legend"></FormLabel>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={handleChangeOpeningDays}
+                      name="Saturday"
+                    />
+                  }
+                  label="Saturday"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={handleChangeOpeningDays}
+                      name="Sunday"
+                    />
+                  }
+                  label="Sunday"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={handleChangeOpeningDays}
+                      name="Monday"
+                    />
+                  }
+                  label="Monday"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={handleChangeOpeningDays}
+                      name="Tuesday"
+                    />
+                  }
+                  label="Tuesday"
+                />
+              </FormGroup>
+            </FormControl>
+            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+              <FormLabel component="legend"></FormLabel>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={handleChangeOpeningDays}
+                      name="Wednesday"
+                    />
+                  }
+                  label="Wednesday"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={handleChangeOpeningDays}
+                      name="Thursday"
+                    />
+                  }
+                  label="Thursday"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={handleChangeOpeningDays}
+                      name="Friday"
+                    />
+                  }
+                  label="Friday"
+                />
+              </FormGroup>
+            </FormControl>
+          </Box>
+        )}
+      />
+      <Controller
+        control={control}
+        name="opening_time"
+        render={({ field }) => (
+          <TextField
+            id="opening_time"
+            variant="outlined"
+            placeholder="Enter Opening Time"
+            label="Opening Time"
+            margin="normal"
+            style={{ width: "60%" }}
+            {...field}
+          />
+        )}
+      />
+      <Controller
+        control={control}
+        name="closing_time"
+        render={({ field }) => (
+          <TextField
+            id="closing_time"
+            variant="outlined"
+            placeholder="Enter Closing Time"
+            label="Closing Time"
+            margin="normal"
+            style={{ width: "60%" }}
+            {...field}
+          />
+        )}
+      />
+    </>
+  );
+};
+
 function getStepContent(step, methods) {
   switch (step) {
     case 0:
@@ -243,8 +513,12 @@ function getStepContent(step, methods) {
       return <ContactForm />;
     case 3:
       return <AboutForm />;
+    case 4:
+      return <TagCheckList />;
+    case 5:
+      return <OpeningDayCheckList />;
     default:
-      return "unknown step";
+      return "Unknown Step";
   }
 }
 
@@ -261,6 +535,8 @@ const CreateBusinessForm = () => {
       city: "",
       category: "",
       about: "",
+      opening_time: "",
+      closing_time: "",
     },
   });
   const [activeStep, setActiveStep] = useState(0);
@@ -278,7 +554,7 @@ const CreateBusinessForm = () => {
 
   const handleNext = (data) => {
     console.log(methods.watch());
-    if (activeStep === steps.length-1) {
+    if (activeStep === steps.length - 1) {
       handleSubmit();
       setActiveStep(activeStep + 1);
     } else {
@@ -319,6 +595,10 @@ const CreateBusinessForm = () => {
           category: methods.watch("category"),
           profile_image: methods.watch("profile_image"),
           about: methods.watch("about"),
+          tags: taglist,
+          opening_days: opening_days_list,
+          opening_time: methods.watch("opening_time"),
+          closing_time: methods.watch("closing_time"),
         }),
       }
     );
@@ -340,39 +620,45 @@ const CreateBusinessForm = () => {
   return (
     <div>
       {activeStep < steps.length ? (
-      <div className="container mb-4">
-        <Stepper alternativeLabel activeStep={activeStep}>
-          {steps.map((step, index) => {
-            const labelProps = {};
-            const stepProps = {};
-            if (isStepOptional(index)) {
-              labelProps.optional = (
-                <Typography
-                  variant="caption"
-                  align="center"
-                  style={{ display: "block" }}
-                >
-                  optional
-                </Typography>
+        <div className="container mb-4">
+          <Stepper alternativeLabel activeStep={activeStep}>
+            {steps.map((step, index) => {
+              const labelProps = {};
+              const stepProps = {};
+              if (isStepOptional(index)) {
+                labelProps.optional = (
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ display: "block" }}
+                  >
+                    optional
+                  </Typography>
+                );
+              }
+              if (isStepFalied() && activeStep == index) {
+                labelProps.error = true;
+              }
+              if (isStepSkipped(index)) {
+                stepProps.completed = false;
+              }
+              return (
+                <Step {...stepProps} key={index}>
+                  <StepLabel {...labelProps}>{step}</StepLabel>
+                </Step>
               );
-            }
-            if (isStepFalied() && activeStep == index) {
-              labelProps.error = true;
-            }
-            if (isStepSkipped(index)) {
-              stepProps.completed = false;
-            }
-            return (
-              <Step {...stepProps} key={index}>
-                <StepLabel {...labelProps}>{step}</StepLabel>
-              </Step>
-            );
-          })}
-        </Stepper>
-      </div>) : null}
+            })}
+          </Stepper>
+        </div>
+      ) : null}
       <Card className="text-center">
         <Card.Body>
-        {activeStep < steps.length ? <Card.Title> <h1 className="text-success">Create Your Business</h1></Card.Title> : null}
+          {activeStep < steps.length ? (
+            <Card.Title>
+              {" "}
+              <h1 className="text-success">Create Your Business</h1>
+            </Card.Title>
+          ) : null}
         </Card.Body>
         {activeStep === steps.length ? (
           // <Typography variant="h3" align="center">

@@ -1,4 +1,5 @@
-import React from "react";
+import { React, useEffect } from "react";
+import { useState } from "react";
 
 import place1 from "../../Images/business_place1.jpg";
 import place2 from "../../Images/business_place2.jpg";
@@ -8,11 +9,36 @@ import margharita from "../../Images/m.jpg";
 import pepperoni from "../../Images/pepperoni.jpg";
 import sd from "../../Images/sd.jpg";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import BusinessExternalLinks from "./BusinessExternalLinks";
 import TabComponent from "../BusinessPageTabs/TabComponent";
 
 export default function BusinessCarousel() {
+  const business_id = useParams().business_id;
+  const host = "http://localhost:5000";
+  const [business_info, setbusiness_info] = useState({});
+  const getBusinessInfo = async () => {
+    // API Call
+    const response = await fetch(
+      `${host}/api/business/getbusiness/${business_id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("token"),
+        },
+      }
+    );
+    const json = await response.json();
+    console.log("response", json);
+    const business = JSON.parse(JSON.stringify(json));
+    console.log("business_info", business);
+    setbusiness_info(business);
+  };
+
+  useEffect(() => {
+    getBusinessInfo();
+  }, []); // <- add empty brackets here
   return (
     <>
       <div className="Carousel">
@@ -36,8 +62,11 @@ export default function BusinessCarousel() {
               transform: "translate(-50%, -50%)",
             }}
           >
-            <h1 className="css-dyjx0f" style={{ color: "white" }}>
-              Sultan's Dine
+            <h1
+              className="css-dyjx0f"
+              style={{ color: "white", fontFamily: "Roboto" }}
+            >
+              {business_info.business_name}
             </h1>
           </div>
           <img
@@ -216,9 +245,10 @@ export default function BusinessCarousel() {
                     float: "left",
                     color: "black",
                     width: "100px",
+                    fontFamily: "Roboto",
                   }}
                 >
-                  01843164367
+                  {business_info.contact_no}
                 </div>
               </Button>
             </div>
@@ -246,12 +276,13 @@ export default function BusinessCarousel() {
                     display: "flex",
                     justifyContent: "flex-start",
                     float: "left",
-                    marginLeft: "50px",
+                    marginLeft: "75px",
                     color: "black",
                     width: "200px",
+                    fontFamily: "Roboto",
                   }}
                 >
-                  Rangs KB Square, Sat Masjid Road, Jigatala
+                  {business_info.address}
                 </div>
               </Button>
             </div>

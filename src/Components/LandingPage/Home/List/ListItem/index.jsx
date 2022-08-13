@@ -7,7 +7,7 @@ import { Rating } from "@mui/material";
 import { Card } from "react-bootstrap";
 
 const ListItem = ({ item }) => {
-  const { business_name, profile_image, rating, _id } = item;
+  const {  business_name, profile_image, rating, _id } = item;
   const business_id = _id;
 
   const [imageLoaded, setimageLoaded] = useState(false);

@@ -3,9 +3,10 @@ import ListItem from "./ListItem";
 import "./styles.css";
 
 const List = ({ list }) => {
-  list && list.forEach(item => {
-    console.log(item._id);
-  });
+  list &&
+    list.forEach((item) => {
+      console.log(item._id);
+    });
   return (
     <div className="list-wrap">
       {list && list.map((item) => <ListItem key={item._id} item={item} />)}
