@@ -19,8 +19,8 @@ const addMultipleImages = async (req, res, next) => {
       const timestamp = Date.now();
       const name = file.originalname.split(".")[0];
       const type = file.originalname.split(".")[1];
-      console.log(name, type, timestamp);
-      const fileName = `photos/${name}_${timestamp}.${type}`;
+      const folder = req.body.folder;
+      const fileName = `images/${folder}/${name}_${timestamp}.${type}`;
       const imageRef = ref(storage, fileName);
       // Upload the file
       await uploadBytes(imageRef, file.buffer);

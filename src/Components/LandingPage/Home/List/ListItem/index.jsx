@@ -1,16 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles.css";
 
+import Spinner from "react-bootstrap/Spinner";
 import { Link } from "react-router-dom";
 import { Rating } from "@mui/material";
 import { Card } from "react-bootstrap";
 
 const ListItem = ({ item }) => {
-  const {business_name, profile_image, rating, _id } = item;
+  const { business_name, profile_image, rating, _id } = item;
   const business_id = _id;
+
+  const [imageLoaded, setimageLoaded] = useState(false);
+
+  const onImageLoaded = () => {
+    setimageLoaded(true);
+  };
+
   return (
     <Card className="listItem-wrap">
-      <img src={profile_image} alt="image" />
+      <div style={{ width: "100%", height: "300px" }}>
+        <img
+          src={profile_image}
+          onLoad={onImageLoaded}
+          alt="image"
+          style={{ width: "100%", height: "100%" }}
+        />
+        {!imageLoaded && (
+          <div className="d-flex justify-content-center p-4" role="status">
+            <Spinner animation="border" variant="danger" />
+          </div>
+        )}
+      </div>
+
       <Card.Footer className="d-flex justify-content-between">
         <Link to={`/business/${business_id}`}>
           <h4 className="ml-3">{business_name}</h4>

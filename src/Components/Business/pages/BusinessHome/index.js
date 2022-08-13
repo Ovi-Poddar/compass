@@ -5,12 +5,15 @@ import {useParams} from 'react-router-dom';
 
 import Sidebar from "../../Sidebar/Sidebar";
 
+import BusinessHomeState from "../../../../Context/BusinessHome/BusinessHomeState";
+
 // import "./Sidebar/styles.css";
 
 function BusinessHome() {
   const { business_id } = useParams();
   return (
     <>
+      <BusinessHomeState business_id={business_id} >
       <div className="wrapper">
         <Sidebar />
         <div className="main_content" >
@@ -23,6 +26,7 @@ function BusinessHome() {
           </div> 
         </div>
       </div>
+      </BusinessHomeState>
     </>
   );
 }

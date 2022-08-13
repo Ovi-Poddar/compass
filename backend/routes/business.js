@@ -122,12 +122,10 @@ router.get("/getowner/:business_id", fetchUser, async (req, res) => {
 //Route 7 : upload photos to a business using: POST "/api/business/uploadphotos". Login required
 router.post('/uploadphotos', uploads, fetchUser, addMultipleImages, async (req, res, next) => {
   try {
-    console.log(req.body);
     const { business_id } = req.body;
     const downloadURLs =  req.downloadURLs;
     console.log("downloadURLs", downloadURLs);
     const business = await Business.findOne({ _id: business_id });
-
     // console.log(Object.keys(business.images));  
     /**
      * You can't just push the downloadURLs to the images array,
@@ -137,7 +135,6 @@ router.post('/uploadphotos', uploads, fetchUser, addMultipleImages, async (req, 
      * here, key is the number of the image, and value is the downloadURL
      */
     let length = Object.keys(business.images).length;
-    business.images = allImages;
     downloadURLs.forEach(url => {
       business.images[length] = url;
       length++;
@@ -151,9 +148,21 @@ router.post('/uploadphotos', uploads, fetchUser, addMultipleImages, async (req, 
   }
 });
 
+//Route 8: Get all photos of the business using: GET "/api/business/getphotos/:business_id". Login required
+router.get("/getphotos/:business_id", async (req, res) => {
+  try {
+    const { business_id } = req.params;
+    const business = await Business.findOne({ _id: business_id });
+    res.json(business.images);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 // Added by Tanvir
 
-// ROUTE 8: Get full menu of the Business using: GET "/api/business/getfullmenu". Login not required
+// ROUTE 9: Get full menu of the Business using: GET "/api/business/getfullmenu". Login not required
 router.get("/getfullmenu/:business_id", async (req, res) => {
   try {
     const business = await Business.findById(req.params.business_id);

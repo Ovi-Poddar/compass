@@ -50,6 +50,7 @@ import CreateBusinessForm from "./Components/Business/CreateBusiness/CreateBusin
 import Main from "./Components/Business/CreateBusiness/Main";
 import EditBusiness from "./Components/Business/EditBusiness/EditBusiness";
 import ProfileFormLoader from "./Components/UserProfile/CreateProfile/ProfileFormLoader";
+import BusinessPhotos from "./Components/Business/pages/Photos/BusinessPhotos";
 
 function App() {
   const [alert, setAlert] = useState(null);
@@ -161,6 +162,10 @@ function App() {
                   <Route
                     path="/posts/:business_id"
                     element={<Posts showAlert={showAlert} />}
+                  />
+                  <Route
+                    path="/photos/:business_id"
+                    element={<BusinessPhotos showAlert={showAlert} />}
                   />
                   <Route path="/offers" element={<Offers />} />
                   {/* <Route path="/settings" element={<Setting />} /> */}
