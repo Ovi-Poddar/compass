@@ -48,9 +48,9 @@ router.post(
   ],
   async (req, res) => {
     try {
-      const { business_name, contact_no, district, city, address, category, email, about, tags } =
+      const { business_name, contact_no, district, city, address, category, email, about, tags, opening_days, opening_time, closing_time } =
         req.body;
-        
+
       // If there are errors, return Bad request and the errors
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -68,6 +68,9 @@ router.post(
         about: about,
         email: email,
         tags: tags,
+        opening_days: opening_days,
+        opening_time: opening_time,
+        closing_time: closing_time,
       });
       const savedBusiness = await business.save();
       res.json({ success: true, business: savedBusiness });

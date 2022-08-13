@@ -25,12 +25,12 @@ import {
 
 import FinalStep from "./FinalStep";
 
-import Box from '@mui/material/Box';
-import FormLabel from '@mui/material/FormLabel';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormHelperText from '@mui/material/FormHelperText';
-import Checkbox from '@mui/material/Checkbox';
+import Box from "@mui/material/Box";
+import FormLabel from "@mui/material/FormLabel";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormHelperText from "@mui/material/FormHelperText";
+import Checkbox from "@mui/material/Checkbox";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -45,6 +45,7 @@ function getSteps() {
     "Contact Information",
     "Description",
     "Add Tags",
+    "Add Opening Hours",
   ];
 }
 const BasicForm = () => {
@@ -259,39 +260,30 @@ const TagCheckList = () => {
   const { control } = useFormContext();
   return (
     <>
-    <h3>Add Tags for Your Business</h3>
+      <h3>Add Tags for Your Business</h3>
       <Controller
         control={control}
         name="tags"
-        render={({ field }) => (
+        render={({ }) => (
           <Box sx={{ display: "flex" }}>
             <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
               <FormLabel component="legend"></FormLabel>
               <FormGroup>
                 <FormControlLabel
                   control={
-                    <Checkbox
-                      onChange={handleChangeTaglist}
-                      name="Social"
-                    />
+                    <Checkbox onChange={handleChangeTaglist} name="Social" />
                   }
                   label="Social"
                 />
                 <FormControlLabel
                   control={
-                    <Checkbox
-                      onChange={handleChangeTaglist}
-                      name="Food"
-                    />
+                    <Checkbox onChange={handleChangeTaglist} name="Food" />
                   }
                   label="Food"
                 />
                 <FormControlLabel
                   control={
-                    <Checkbox
-                      onChange={handleChangeTaglist}
-                      name="Expensive"
-                    />
+                    <Checkbox onChange={handleChangeTaglist} name="Expensive" />
                   }
                   label="Expensive"
                 />
@@ -302,10 +294,7 @@ const TagCheckList = () => {
               <FormGroup>
                 <FormControlLabel
                   control={
-                    <Checkbox
-                      onChange={handleChangeTaglist}
-                      name="Service"
-                    />
+                    <Checkbox onChange={handleChangeTaglist} name="Service" />
                   }
                   label="Service"
                 />
@@ -320,10 +309,7 @@ const TagCheckList = () => {
                 />
                 <FormControlLabel
                   control={
-                    <Checkbox
-                      onChange={handleChangeTaglist}
-                      name="Local"
-                    />
+                    <Checkbox onChange={handleChangeTaglist} name="Local" />
                   }
                   label="Local"
                 />
@@ -334,28 +320,19 @@ const TagCheckList = () => {
               <FormGroup>
                 <FormControlLabel
                   control={
-                    <Checkbox
-                      onChange={handleChangeTaglist}
-                      name="Sports"
-                    />
+                    <Checkbox onChange={handleChangeTaglist} name="Sports" />
                   }
                   label="Sports"
                 />
                 <FormControlLabel
                   control={
-                    <Checkbox
-                      onChange={handleChangeTaglist}
-                      name="Shopping"
-                    />
+                    <Checkbox onChange={handleChangeTaglist} name="Shopping" />
                   }
                   label="Shopping"
                 />
                 <FormControlLabel
                   control={
-                    <Checkbox
-                      onChange={handleChangeTaglist}
-                      name="Repair"
-                    />
+                    <Checkbox onChange={handleChangeTaglist} name="Repair" />
                   }
                   label="Repair"
                 />
@@ -366,28 +343,19 @@ const TagCheckList = () => {
               <FormGroup>
                 <FormControlLabel
                   control={
-                    <Checkbox
-                      onChange={handleChangeTaglist}
-                      name="Public"
-                    />
+                    <Checkbox onChange={handleChangeTaglist} name="Public" />
                   }
                   label="Public"
                 />
                 <FormControlLabel
                   control={
-                    <Checkbox
-                      onChange={handleChangeTaglist}
-                      name="Exclusive"
-                    />
+                    <Checkbox onChange={handleChangeTaglist} name="Exclusive" />
                   }
                   label="Exclusive"
                 />
                 <FormControlLabel
                   control={
-                    <Checkbox
-                      onChange={handleChangeTaglist}
-                      name="Homemade"
-                    />
+                    <Checkbox onChange={handleChangeTaglist} name="Homemade" />
                   }
                   label="Homemade"
                 />
@@ -396,6 +364,128 @@ const TagCheckList = () => {
           </Box>
         )}
       />
+    </>
+  );
+};
+
+let opening_days_list = [];
+
+const handleChangeOpeningDays = (e) => {
+  //check if opening days already has this value, add if not, remove if is already there
+  if (opening_days_list.includes(e.target.name)) {
+    opening_days_list = opening_days_list.filter(
+      (day) => day !== e.target.name
+    );
+  } else {
+    opening_days_list.push(e.target.name);
+  }
+
+  // console.log(opening_days_list);
+};
+
+const OpeningDayCheckList = () => {
+  const { control } = useFormContext();
+  return (
+    <>
+     <h3>Add opening Days</h3>
+      <Controller
+        control={control}
+        name="opening_days"
+        render={({}) => (
+          <Box sx={{ display: "flex" }} className="justify-content-center">
+            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+              <FormLabel component="legend"></FormLabel>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={handleChangeOpeningDays}
+                      name="Saturday"
+                    />
+                  }
+                  label="Saturday"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox onChange={handleChangeOpeningDays} name="Sunday" />
+                  }
+                  label="Sunday"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox onChange={handleChangeOpeningDays} name="Monday" />
+                  }
+                  label="Monday"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox onChange={handleChangeOpeningDays} name="Tuesday" />
+                  }
+                  label="Tuesday"
+                />
+              </FormGroup>
+            </FormControl>
+            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+              <FormLabel component="legend"></FormLabel>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={handleChangeOpeningDays}
+                      name="Wednesday"
+                    />
+                  }
+                  label="Wednesday"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox onChange={handleChangeOpeningDays} name="Thursday" />
+                  }
+                  label="Thursday"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox onChange={handleChangeOpeningDays} name="Friday" />
+                  }
+                  label="Friday"
+                />
+              </FormGroup>
+            </FormControl>
+          </Box>
+        )}
+      />
+      <Controller
+        control={control}
+        name="opening_time"
+        render={({ field }) => (
+          <TextField
+            id="opening_time"
+            variant="outlined"
+            placeholder="Enter Opening Time"
+            label="Opening Time"
+            margin="normal"
+            style={{ width: "60%" }}
+            {...field}
+          />
+        )}
+      />
+      <Controller
+        control={control}
+        name="closing_time"
+        render={({ field }) => (
+          <TextField
+            id="closing_time"
+            variant="outlined"
+            placeholder="Enter Closing Time"
+            label="Closing Time"
+            margin="normal"
+            style={{ width: "60%" }}
+            {...field}
+          />
+        )}
+      />
+
+      
     </>
   );
 };
@@ -412,6 +502,8 @@ function getStepContent(step, methods) {
       return <AboutForm />;
     case 4:
       return <TagCheckList />;
+    case 5:
+      return <OpeningDayCheckList />;
     default:
       return "Unknown Step";
   }
@@ -430,7 +522,8 @@ const CreateBusinessForm = () => {
       city: "",
       category: "",
       about: "",
-      tags: [],
+      opening_time: "",
+      closing_time: "",
     },
   });
   const [activeStep, setActiveStep] = useState(0);
@@ -490,6 +583,9 @@ const CreateBusinessForm = () => {
           profile_image: methods.watch("profile_image"),
           about: methods.watch("about"),
           tags: taglist,
+          opening_days: opening_days_list,
+          opening_time: methods.watch("opening_time"),
+          closing_time: methods.watch("closing_time"),
         }),
       }
     );
