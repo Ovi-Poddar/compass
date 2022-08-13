@@ -80,11 +80,21 @@ const businessSchema = new Schema({
     default: 0,
   },
 
-  opening_hours: {
+  opening_days: {
     type: [String],
     default: [""],
   },
 
+  opening_time: {
+    type: String,
+    default: "",
+  },
+
+  closing_time: {
+    type: String,
+    default: "",
+  },
+  
   images: {
     type: [String],
     default: [""],
