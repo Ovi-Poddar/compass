@@ -264,7 +264,7 @@ const TagCheckList = () => {
       <Controller
         control={control}
         name="tags"
-        render={({ }) => (
+        render={({}) => (
           <Box sx={{ display: "flex" }}>
             <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
               <FormLabel component="legend"></FormLabel>
@@ -387,7 +387,7 @@ const OpeningDayCheckList = () => {
   const { control } = useFormContext();
   return (
     <>
-     <h3>Add opening Days</h3>
+      <h3>Add opening Days</h3>
       <Controller
         control={control}
         name="opening_days"
@@ -407,19 +407,28 @@ const OpeningDayCheckList = () => {
                 />
                 <FormControlLabel
                   control={
-                    <Checkbox onChange={handleChangeOpeningDays} name="Sunday" />
+                    <Checkbox
+                      onChange={handleChangeOpeningDays}
+                      name="Sunday"
+                    />
                   }
                   label="Sunday"
                 />
                 <FormControlLabel
                   control={
-                    <Checkbox onChange={handleChangeOpeningDays} name="Monday" />
+                    <Checkbox
+                      onChange={handleChangeOpeningDays}
+                      name="Monday"
+                    />
                   }
                   label="Monday"
                 />
                 <FormControlLabel
                   control={
-                    <Checkbox onChange={handleChangeOpeningDays} name="Tuesday" />
+                    <Checkbox
+                      onChange={handleChangeOpeningDays}
+                      name="Tuesday"
+                    />
                   }
                   label="Tuesday"
                 />
@@ -439,13 +448,19 @@ const OpeningDayCheckList = () => {
                 />
                 <FormControlLabel
                   control={
-                    <Checkbox onChange={handleChangeOpeningDays} name="Thursday" />
+                    <Checkbox
+                      onChange={handleChangeOpeningDays}
+                      name="Thursday"
+                    />
                   }
                   label="Thursday"
                 />
                 <FormControlLabel
                   control={
-                    <Checkbox onChange={handleChangeOpeningDays} name="Friday" />
+                    <Checkbox
+                      onChange={handleChangeOpeningDays}
+                      name="Friday"
+                    />
                   }
                   label="Friday"
                 />
@@ -484,8 +499,6 @@ const OpeningDayCheckList = () => {
           />
         )}
       />
-
-      
     </>
   );
 };

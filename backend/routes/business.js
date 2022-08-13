@@ -2,17 +2,15 @@ const express = require("express");
 const router = express.Router();
 const Business = require("../models/Business");
 const { body, validationResult } = require("express-validator");
-const multer  = require('multer')
+const multer = require("multer");
 // const upload = multer({ dest: 'uploads/' })
 var fetchUser = require("../middleware/fetchUser");
 
-const {
-  addImage
- } = require('../imageController');
+const { addImage } = require("../imageController");
 
- // Setting up multer as a middleware to grab photo uploads
+// Setting up multer as a middleware to grab photo uploads
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage }).single('profile_image');
+const upload = multer({ storage: storage }).single("profile_image");
 
 // ROUTE 1: Get All the Businesses of this user using: GET "/api/business/getownbusinesses". Login required
 router.get("/getownbusinesses", fetchUser, async (req, res) => {
@@ -48,8 +46,20 @@ router.post(
   ],
   async (req, res) => {
     try {
-      const { business_name, contact_no, district, city, address, category, email, about, tags, opening_days, opening_time, closing_time } =
-        req.body;
+      const {
+        business_name,
+        contact_no,
+        district,
+        city,
+        address,
+        category,
+        email,
+        about,
+        tags,
+        opening_days,
+        opening_time,
+        closing_time,
+      } = req.body;
 
       // If there are errors, return Bad request and the errors
       const errors = validationResult(req);
@@ -82,10 +92,10 @@ router.post(
 );
 
 // ROUTE 4 : Upload Profile Picture using: POST "/api/business/uploadprofilepic". Login required
-router.post('/uploadprofilepic', upload, addImage , async (req, res) => {
+router.post("/uploadprofilepic", upload, addImage, async (req, res) => {
   try {
     const { business_id } = req.body;
-    const  {downloadURL}  = req.file;
+    const { downloadURL } = req.file;
     console.log(downloadURL);
     const business = await Business.findOne({ _id: business_id });
     business.profile_image = downloadURL;
