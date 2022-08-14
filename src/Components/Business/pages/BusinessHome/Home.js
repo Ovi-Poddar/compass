@@ -37,27 +37,28 @@ const Home = () => {
   const [gallery, setGallery] = useState([]);
 
   //fetch business details
-  const fetchBusinessDetails = async () => {
-    let isMounted = true;
-    const response = await fetch(
-      `http://localhost:5000/api/business/getbusiness/${business_id}`,
-      {
-        method: "GET",
-        headers: {
-          "auth-token": localStorage.getItem("token"),
-        },
-      }
-    );
-    const json = await response.json();
-    setBusiness(json);
-    setGallery(json.images);
-  };
-
   useEffect(() => {
+    let isMounted = true;
+    const fetchBusinessDetails = async () => {
+      const response = await fetch(
+        `http://localhost:5000/api/business/getbusiness/${business_id}`,
+        {
+          method: "GET",
+        }
+      );
+      const json = await response.json();
+      const gotBusiness = (JSON.parse(JSON.stringify(json)));
+      if(isMounted){
+        setBusiness(gotBusiness);
+        setGallery(gotBusiness.images.splice(0, Math.min(gotBusiness.images.length, 6)));
+        console.log(gotBusiness.images);
+      }
+    };
     fetchBusinessDetails();
+    return () => (isMounted = false);
   }, []);
 
-  useEffect(() => {}, [gallery]);
+
 
   const handleChange = async (e) => {
     //push the files into the state
@@ -281,24 +282,27 @@ const Home = () => {
                   </div>
                   <div className="row">
                     {/* conditional rendering display all the photos */}
-                    {gallery
-                      .splice(0, Math.min(6, gallery.length))
-                      .map((image) => {
+                    {gallery ? 
+                      gallery.map((image, idx) => {
                         return (
-                          <div
-                            className="col-lg-6 mb-2 pr-lg-1"
-                            key={image}
-                            style={{ width: "400px", height: "400px" }}
-                          >
-                            <img
-                              src={image}
-                              alt="..."
-                              style={{ width: "100%", height: "100%" }}
-                              className="img-fluid rounded shadow-sm"
-                            />
+                          <div className="col-md-4" key={idx}>
+                            <div className="card mb-4">
+                              <img
+                                src={image}
+                                className="card-img-top"  alt=""
+                                style={{ height: "200px" }}
+                              />
+                            </div>
                           </div>
                         );
-                      })}
+                      }) : (
+                        <div className="col-lg-6 mb-2 pr-lg-1">
+                          <h1 className="text-center">
+                            {" "}
+                            <i className="fa fa-spinner fa-spin"></i>{" "}
+                          </h1>
+                        </div>)
+                  }
                   </div>
                   <div className="py-4">
                     <h5 className="mb-3">Recent posts</h5>

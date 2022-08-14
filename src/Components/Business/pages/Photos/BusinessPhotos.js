@@ -19,14 +19,23 @@ function BusinessPhotos() {
   const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
-    const getPhotos = async () => {
+    let isMounted = true;
+    const fetchPhotos = async () => {
       const response = await fetch(
-        `http://localhost:5000/api/business/getphotos/${business_id}`
+        `http://localhost:5000/api/business/getphotos/${business_id}`,
+        {
+          method: "GET",
+        }
       );
       const json = await response.json();
-      setPhotos(JSON.parse(JSON.stringify(json)));
+      const photos = JSON.parse(JSON.stringify(json));
+      if (isMounted) {
+        setPhotos(photos);
+        console.log(photos);
+      }
     };
-    getPhotos();
+    fetchPhotos();
+    return () => (isMounted = false);
   }, []);
 
   return (
@@ -39,16 +48,19 @@ function BusinessPhotos() {
             <div className="container ">
               <div className="main_content_body">
                 {/* Add Your Main Content Codes Here */}
-                {photos.length > 0 ?  <div className="row">
-                  {/* conditional rendering display all the photos */}
-                  {photos.map((image) => {
-                    return (
-                      <PhotoItem
-                        key={image} image={image}
-                     />
-                    );
-                  })}
-                </div> : <div className="row"> <h1 >No Photos Uploaded yet</h1> </div>}
+                {photos.length > 0 ? (
+                  <div className="row">
+                    {/* conditional rendering display all the photos */}
+                    {photos.map((image) => {
+                      return <PhotoItem key={image} image={image} />;
+                    })}
+                  </div>
+                ) : (
+                  <div className="row">
+                    {" "}
+                    <h1>No Photos Uploaded yet</h1>{" "}
+                  </div>
+                )}
               </div>
             </div>
           </div>

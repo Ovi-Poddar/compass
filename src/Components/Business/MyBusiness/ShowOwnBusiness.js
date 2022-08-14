@@ -32,8 +32,9 @@ function ShowOwnBusiness() {
   return (
     <>
       <div className="d-flex justify-content-center text-center container">
-        <h2 className="my-4">
-          {businesses.length === 0 && "You have created no Businesses yet! "}
+        <h2 className="my-4 text-center text-danger">
+          {businesses.length === 0 ? "You have created no Businesses yet! " :
+            `Your Businesses(${businesses.length})`}
         </h2>
       </div>
       <div className="container mt-2">

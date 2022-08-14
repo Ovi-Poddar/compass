@@ -12,13 +12,14 @@ const MyBusinessItem = (props) => {
   return (
     <div className="col-4">
       <Card style={{ width: "18rem" }} variant="primary" className="mb-3">
+        <div className=""> 
         <Card.Img
           variant="top"
           // src={require("../../../Images/mybusiness.jpg")}
-          style={{ height: "200px" }}
+          style={{ height: "200px", width: "100%" }}
           src={props.business.profile_image}
-        />
-        <Card.Body>
+        /> </div>
+        <Card.Body style={{height:"200px"}}>
           <Card.Title className="text-success fw-bold">
             <span class="badge bg-success">{props.business.business_name}</span>
           </Card.Title>

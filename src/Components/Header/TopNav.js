@@ -1,4 +1,4 @@
-import React, { useEffect, useContext,useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 
 import {
   Nav,
@@ -42,7 +42,6 @@ export default function TopNav(props) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-
     localStorage.removeItem("token");
     setUser(null);
     setuserToken(null);
@@ -53,30 +52,43 @@ export default function TopNav(props) {
   return (
     <>
       <Navbar
-      // bg="light"
-      expand="lg" style={{ backgroundColor: "#FE9834", position:"ralative", zIndex:"10", top:"0", width:"100%"}}>
+        // bg="light"
+        expand="lg"
+        style={{
+          backgroundColor: "#FE9834",
+          position: "ralative",
+          zIndex: "10",
+          top: "0",
+          width: "100%",
+        }}
+      >
         <Container fluid>
           <LinkContainer to={"/"}>
             <Navbar.Brand className="" href="/">
-               C<i className="bi bi-compass font-weight-bold"></i>MPASS
+              C<i className="bi bi-compass font-weight-bold"></i>MPASS
             </Navbar.Brand>
           </LinkContainer>
-          <Form className="d-flex">
+          {/* <Form className="d-flex">
             <FormControl
               type="search"
               placeholder="Search"
               aria-label="Search"
             />
-            {/* <FormControl
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            /> */}
+
             <Button variant="danger">
               <i className="bi bi-search"></i>
             </Button>
-          </Form>
+            
+          </Form> */}
+          <Link
+            className="btn btn-primary mx-4"
+            style={{ backgroundColor: "#7B1FA2", textTransform: "none" }}
+            to="/landing"
+            role="button"
+          >
+            <HomeIcon className="me-2" />
+            Home
+          </Link>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -133,22 +145,16 @@ export default function TopNav(props) {
               </>
             ) : (
               <>
-                <Link
-                  className="btn btn-primary"
-                  style={{ backgroundColor: "#7B1FA2", textTransform: "none" }}
-                  to="/landing"
-                  role="button"
-                >
-                  <HomeIcon className="me-2" />
-                  Home
-                </Link>
-
                 <Dropdown>
                   <Dropdown.Toggle
                     variant="primary"
                     id="dropdownforbusiness"
-                    className="mx-3"  style={{ backgroundColor: "#7B1FA2", textTransform: "none" }}
-                  > 
+                    className="mx-3"
+                    style={{
+                      backgroundColor: "#7B1FA2",
+                      textTransform: "none",
+                    }}
+                  >
                     <BusinessIcon /> For Business
                   </Dropdown.Toggle>
 
@@ -171,37 +177,40 @@ export default function TopNav(props) {
                   className="mx-2"
                 >
                   <NotificationsIcon />
-                 
                 </Fab>
 
-                {user && (<Link to={`/profile/${user._id}`}>
-                <Fab
-                  size="small"
-                  color="secondary"
-                  aria-label="add"
-                  className="mx-2"
-                >
-                  <PersonIcon />
-                 {/* {user && (user.user_name)} */}
-                 </Fab> </Link> )}
+                {user && (
+                  <Link to={`/profile/${user._id}`}>
+                    <Fab
+                      size="small"
+                      color="secondary"
+                      aria-label="add"
+                      className="mx-2"
+                    >
+                      <PersonIcon />
+                      {/* {user && (user.user_name)} */}
+                    </Fab>{" "}
+                  </Link>
+                )}
 
-                <Link to={"/"}style={{ textDecoration: 'none' }}>
-                <Fab
-                  variant="extended"
-                  size="medium"
-                  color="error"
-                  aria-label="add"
-                  className="mx-3"
-                  sx={{
-                    // "&:hover": {
-                    //   color: "blue",
-                    // },
-                    textTransform: "none",
-                  }}
-                  onClick={handleLogout}
-                >
-                  Log Out
-                </Fab> </Link> 
+                <Link to={"/"} style={{ textDecoration: "none" }}>
+                  <Fab
+                    variant="extended"
+                    size="medium"
+                    color="error"
+                    aria-label="add"
+                    className="mx-3"
+                    sx={{
+                      // "&:hover": {
+                      //   color: "blue",
+                      // },
+                      textTransform: "none",
+                    }}
+                    onClick={handleLogout}
+                  >
+                    Log Out
+                  </Fab>{" "}
+                </Link>
               </>
             )}
           </Navbar.Collapse>

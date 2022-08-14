@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import Card from "react-bootstrap/Card";
@@ -8,12 +8,17 @@ import SubmitReview from "./SubmitReview";
 import Sidebar from "../../Sidebar/Sidebar";
 
 import ReviewContext from "../../../../Context/Review/ReviewContext";
+import UserContext from "../../../../Context/Users/UserContext";
 
 export const Reviews = (props) => {
   let { business_id } = useParams();
 
   const context = useContext(ReviewContext);
   const { reviews, getReviews } = context;
+
+  const {user, getUser} = useContext(UserContext);
+  
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     getReviews(business_id);
@@ -37,7 +42,7 @@ export const Reviews = (props) => {
                           <h4 className="mb-4 text-danger">
                             Recent Reviews ({reviews.length})
                           </h4>
-                          {reviews.map((review) => {
+                          {reviews?.map((review) => {
                             return (
                               <ReviewItem
                                 key={review._id}
@@ -65,10 +70,10 @@ export const Reviews = (props) => {
                     marginLeft: "60px",
                   }}
                 >
-                  <SubmitReview
+                 { localStorage.getItem("token") && <SubmitReview
                     showAlert={props.showAlert}
                     business_id={business_id}
-                  />
+                  />}
                 </div>
               </div>
             </div>
