@@ -4,6 +4,8 @@ import Form from "react-bootstrap/Form";
 
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import MoodIcon from "@mui/icons-material/Mood";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import EditIcon from "@mui/icons-material/Edit";
@@ -255,21 +257,22 @@ function ReviewItem(props) {
 
           <OverlayTrigger overlay={<Tooltip id="tooltip-like">Like!</Tooltip>}>
             <span className="d-inline-block">
-              <a role="button" className="mr-2 text-primary" onClick={handleThumbUp}>
-                <ThumbUpIcon />{props.review.useful_count}
+              <a role="button" className="mr-2 text-success" onClick={handleThumbUp}>
+                {props.review.isLiked ? <ThumbUpIcon /> : <ThumbUpOffAltIcon/>}
+                {props.review.useful_count}
               </a>
             </span>
           </OverlayTrigger>
 
           <OverlayTrigger overlay={<Tooltip id="tooltip-like">Dislike!</Tooltip>}>
             <span className="d-inline-block" onClick={handleThumbDown}>
-              <a role="button" className="mr-2 text-primary">
-                <ThumbDownIcon />{props.review.not_useful_count}
+              <a role="button" className="mr-2 text-danger">
+                {!props.review.isLiked ? <ThumbDownIcon/> : <ThumbDownOffAltIcon/>} {props.review.not_useful_count}
               </a>
             </span>
           </OverlayTrigger>
 
-          <OverlayTrigger
+          {/* <OverlayTrigger
             overlay={<Tooltip id="tooltip-funny">Funny!</Tooltip>}
           >
             <span className="d-inline-block">
@@ -281,7 +284,7 @@ function ReviewItem(props) {
                 <MoodIcon />
               </a>
             </span>
-          </OverlayTrigger>
+          </OverlayTrigger> */}
         </div>
       </div>
       <hr className="mt-2" />

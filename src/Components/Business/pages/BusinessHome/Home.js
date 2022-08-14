@@ -24,6 +24,9 @@ import BusinessHomeContext from "../../../../Context/BusinessHome/BusinessHomeCo
 
 import LoadingDots from "../../../LoadingSpinner/LoadingDots";
 import LoadingSpinner from "../../../LoadingSpinner/LoadingSpinner";
+import TopReviews from "./TopReviews/TopReviews";
+import UserRating from "./Rating/UserRating";
+import ScoreCard from "./Rating/ScoreCard";
 
 const Home = () => {
   const { business_id } = useParams();
@@ -46,19 +49,19 @@ const Home = () => {
           method: "GET",
         }
       );
-      const json = await response.json();
-      const gotBusiness = (JSON.parse(JSON.stringify(json)));
-      if(isMounted){
+      let json = await response.json();
+      const gotBusiness = JSON.parse(JSON.stringify(json));
+      if (isMounted) {
         setBusiness(gotBusiness);
-        setGallery(gotBusiness.images.splice(0, Math.min(gotBusiness.images.length, 6)));
+        setGallery(
+          gotBusiness.images.splice(0, Math.min(gotBusiness.images.length, 6))
+        );
         console.log(gotBusiness.images);
       }
     };
     fetchBusinessDetails();
     return () => (isMounted = false);
   }, []);
-
-
 
   const handleChange = async (e) => {
     //push the files into the state
@@ -282,29 +285,31 @@ const Home = () => {
                   </div>
                   <div className="row">
                     {/* conditional rendering display all the photos */}
-                    {gallery ? 
+                    {gallery ? (
                       gallery.map((image, idx) => {
                         return (
                           <div className="col-md-4" key={idx}>
                             <div className="card mb-4">
                               <img
                                 src={image}
-                                className="card-img-top"  alt=""
+                                className="card-img-top"
+                                alt=""
                                 style={{ height: "200px" }}
                               />
                             </div>
                           </div>
                         );
-                      }) : (
-                        <div className="col-lg-6 mb-2 pr-lg-1">
-                          <h1 className="text-center">
-                            {" "}
-                            <i className="fa fa-spinner fa-spin"></i>{" "}
-                          </h1>
-                        </div>)
-                  }
+                      })
+                    ) : (
+                      <div className="col-lg-6 mb-2 pr-lg-1">
+                        <h1 className="text-center">
+                          {" "}
+                          <i className="fa fa-spinner fa-spin"></i>{" "}
+                        </h1>
+                      </div>
+                    )}
                   </div>
-                  <div className="py-4">
+                  {/* <div className="py-4">
                     <h5 className="mb-3">Recent posts</h5>
                     <div className="p-4 bg-light rounded shadow-sm">
                       <p className="font-italic mb-0">
@@ -320,6 +325,22 @@ const Home = () => {
                           <i className="fa fa-heart-o mr-2"></i>200 Likes
                         </li>
                       </ul>
+                    </div>
+                  </div> */}
+                  <hr/>
+                  {/* Top reviews section */}
+                  <div className="py-4">
+                    <TopReviews />
+                  </div>
+                  <hr />
+                  <div class="container mt-4">
+                    <div class="row">
+                      <div class="col-4">
+                        <UserRating />
+                      </div>
+                      <div class="col-8">
+                        <ScoreCard />
+                      </div>
                     </div>
                   </div>
                 </div>
