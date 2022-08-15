@@ -1,6 +1,8 @@
 import React from "react";
 
-const TopReviews = () => {
+import Rating from "@mui/material/Rating";
+
+const TopReviews = ({ topReviews }) => {
   return (
     <>
       <div class="row d-flex justify-content-center">
@@ -15,108 +17,31 @@ const TopReviews = () => {
       </div>
 
       <div class="row text-center">
-        <div class="col-md-4 mb-5 mb-md-0">
-          <div class="d-flex justify-content-center mb-4">
-            <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
-              class="rounded-circle shadow-1-strong"
-              width="150"
-              height="150"
-            />
-          </div>
-          <h5 class="mb-3">Maria Smantha</h5>
-          <h6 class="text-primary mb-3">Web Developer</h6>
-          <p class="px-xl-3">
-            <i class="fas fa-quote-left pe-2"></i>Lorem ipsum dolor sit amet,
-            consectetur adipisicing elit. Quod eos id officiis hic tenetur quae
-            quaerat ad velit ab hic tenetur.
-          </p>
-          <ul class="list-unstyled d-flex justify-content-center mb-0">
-            <li>
-              <i class="fas fa-star fa-sm text-warning"></i>
-            </li>
-            <li>
-              <i class="fas fa-star fa-sm text-warning"></i>
-            </li>
-            <li>
-              <i class="fas fa-star fa-sm text-warning"></i>
-            </li>
-            <li>
-              <i class="fas fa-star fa-sm text-warning"></i>
-            </li>
-            <li>
-              <i class="fas fa-star-half-alt fa-sm text-warning"></i>
-            </li>
-          </ul>
-        </div>
-        <div class="col-md-4 mb-5 mb-md-0">
-          <div class="d-flex justify-content-center mb-4">
-            <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(2).webp"
-              class="rounded-circle shadow-1-strong"
-              width="150"
-              height="150"
-            />
-          </div>
-          <h5 class="mb-3">Lisa Cudrow</h5>
-          <h6 class="text-primary mb-3">Graphic Designer</h6>
-          <p class="px-xl-3">
-            <i class="fas fa-quote-left pe-2"></i>Ut enim ad minima veniam, quis
-            nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut
-            aliquid commodi.
-          </p>
-          <ul class="list-unstyled d-flex justify-content-center mb-0">
-            <li>
-              <i class="fas fa-star fa-sm text-warning"></i>
-            </li>
-            <li>
-              <i class="fas fa-star fa-sm text-warning"></i>
-            </li>
-            <li>
-              <i class="fas fa-star fa-sm text-warning"></i>
-            </li>
-            <li>
-              <i class="fas fa-star fa-sm text-warning"></i>
-            </li>
-            <li>
-              <i class="fas fa-star fa-sm text-warning"></i>
-            </li>
-          </ul>
-        </div>
-        <div class="col-md-4 mb-0">
-          <div class="d-flex justify-content-center mb-4">
-            <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(9).webp"
-              class="rounded-circle shadow-1-strong"
-              width="150"
-              height="150"
-            />
-          </div>
-          <h5 class="mb-3">John Smith</h5>
-          <h6 class="text-primary mb-3">Marketing Specialist</h6>
-          <p class="px-xl-3">
-            <i class="fas fa-quote-left pe-2"></i>At vero eos et accusamus et
-            iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-            deleniti atque corrupti.
-          </p>
-          <ul class="list-unstyled d-flex justify-content-center mb-0">
-            <li>
-              <i class="fas fa-star fa-sm text-warning"></i>
-            </li>
-            <li>
-              <i class="fas fa-star fa-sm text-warning"></i>
-            </li>
-            <li>
-              <i class="fas fa-star fa-sm text-warning"></i>
-            </li>
-            <li>
-              <i class="fas fa-star fa-sm text-warning"></i>
-            </li>
-            <li>
-              <i class="far fa-star fa-sm text-warning"></i>
-            </li>
-          </ul>
-        </div>
+        {/* conditional rendering  */}
+        {topReviews.map((review, idx) => {
+          return (
+            <div class="col-md-4 mb-5 mb-md-0" key={idx}>
+              <div class="d-flex justify-content-center mb-4">
+                <img
+                  src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
+                  class="rounded-circle shadow-1-strong"
+                  width="150"
+                  height="150"
+                />
+              </div>
+              <h5 class="mb-3">{review.user_id.user_name}</h5>
+              {/* <h6 class="text-primary mb-3">Web Developer</h6> */}
+              <p class="px-xl-3">
+                <i class="fas fa-quote-left pe-2"></i>{review.text}
+              </p>
+              <div class="list-unstyled d-flex justify-content-center mb-0">
+              <Rating name="read-only" value={review.stars} readOnly />
+              </div>
+            </div>
+          );
+        })}
+
+        
       </div>
     </>
   );

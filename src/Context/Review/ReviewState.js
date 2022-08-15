@@ -17,7 +17,6 @@ const ReviewState = (props) => {
   // Get all Reviews of this business using: GET "/api/review/getallreviews".
   const getReviews = async (business_id) => {
     getUser();
-    console.log(user);
     // API Call
     const response = await fetch(
       `${host}/api/review/getallreviews/${business_id}`,
@@ -44,7 +43,6 @@ const ReviewState = (props) => {
         };
       });
       setReviews(reviews);
-      console.log(reviews);
     }
   };
 

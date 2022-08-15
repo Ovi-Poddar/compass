@@ -32,10 +32,17 @@ router.post(
         .populate("user_id", "user_name")
         .select("-__v -business_id");
 
-      // increase the number of reviews of the business
-      const curr_business = await Business.findById(req.params.business_id);
-      curr_business.review_count += 1;
-      await curr_business.save();
+      // Update the business's average rating
+      let business = await Business.findOne({
+        _id: req.params.business_id,
+      });
+      let newAverage =
+        (business.average_star_count * business.review_count +
+          savedReview.stars) /
+        (business.review_count + 1);
+      business.average_star_count = newAverage;
+      business.review_count = business.review_count + 1;
+      await business.save();
 
       res.json(savedReview);
     } catch (error) {
@@ -94,10 +101,16 @@ router.delete("/deletereview/:review_id", fetchUser, async (req, res) => {
 
     review = await Review.findByIdAndDelete(req.params.review_id);
 
-    // decrease the number of reviews of the business
-    const curr_business = await Business.findById(review.business_id);
-    curr_business.review_count -= 1;
-    await curr_business.save();
+    // Update the business's average rating
+    let business = await Business.findOne({
+      _id: review.business_id,
+    });
+    let newAverage =
+      (business.average_star_count * business.review_count - review.stars) /
+      (business.review_count - 1);
+    business.average_star_count = newAverage;
+    business.review_count = business.review_count - 1;
+    await business.save();
 
     res.json({ Success: "Review has been deleted", review: review });
   } catch (error) {

@@ -27,16 +27,18 @@ import LoadingSpinner from "../../../LoadingSpinner/LoadingSpinner";
 import TopReviews from "./TopReviews/TopReviews";
 import UserRating from "./Rating/UserRating";
 import ScoreCard from "./Rating/ScoreCard";
+import ReviewContext from "../../../../Context/Review/ReviewContext";
 
 const Home = () => {
   const { business_id } = useParams();
   const [business, setBusiness] = useState(null);
   const { images, addImages } = useContext(BusinessHomeContext);
+  const { getReviews, reviews } = useContext(ReviewContext);
 
   const [imagesToUpload, setImagesToUpload] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
   const [imagesToPreview, setImagesToPreview] = useState([]);
-
+  const [topReviews, settopReviews] = useState([]);
   const [gallery, setGallery] = useState([]);
 
   //fetch business details
@@ -51,17 +53,38 @@ const Home = () => {
       );
       let json = await response.json();
       const gotBusiness = JSON.parse(JSON.stringify(json));
+      getReviews(business_id);
+      //sort reviews by rating desc and tiebreaker by useful_count desc and maximum 3 reviews
+      const sortedReviews = _.orderBy(
+        reviews,
+        ["stars", "useful_count"],
+        ["desc", "desc"]
+      );
+      const topReviews = sortedReviews.slice(0, 3);
+
+      //count how many reveiws are of 1, 2, 3, 4, 5 stars
+      const starsCount = {
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 0,
+      };
+      reviews.forEach((review) => {
+        starsCount[review.stars] += 1;
+      });
+
       if (isMounted) {
         setBusiness(gotBusiness);
         setGallery(
           gotBusiness.images.splice(0, Math.min(gotBusiness.images.length, 6))
         );
-        console.log(gotBusiness.images);
+        settopReviews(topReviews);
       }
     };
     fetchBusinessDetails();
     return () => (isMounted = false);
-  }, []);
+  }, [reviews]);
 
   const handleChange = async (e) => {
     //push the files into the state
@@ -71,7 +94,6 @@ const Home = () => {
     const currImages = [],
       fileReaders = [];
     let isCancel = false;
-    console.log(files);
     if (files.length) {
       Object.values(files).forEach((file) => {
         const fileReader = new FileReader();
@@ -88,7 +110,7 @@ const Home = () => {
         fileReader.readAsDataURL(file);
       });
     }
-    console.log(imagesToPreview);
+
     return () => {
       isCancel = true;
       fileReaders.forEach((fileReader) => {
@@ -327,10 +349,10 @@ const Home = () => {
                       </ul>
                     </div>
                   </div> */}
-                  <hr/>
+                  <hr />
                   {/* Top reviews section */}
                   <div className="py-4">
-                    <TopReviews />
+                    <TopReviews topReviews={topReviews} />
                   </div>
                   <hr />
                   <div class="container mt-4">
