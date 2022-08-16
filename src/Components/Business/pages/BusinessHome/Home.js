@@ -28,6 +28,7 @@ import TopReviews from "./TopReviews/TopReviews";
 import UserRating from "./Rating/UserRating";
 import ScoreCard from "./Rating/ScoreCard";
 import ReviewContext from "../../../../Context/Review/ReviewContext";
+import UserContext from "../../../../Context/Users/UserContext";
 
 const Home = () => {
   const { business_id } = useParams();
@@ -41,6 +42,10 @@ const Home = () => {
   const [topReviews, settopReviews] = useState([]);
   const [gallery, setGallery] = useState([]);
 
+  const[allImages, setAllImages] = useState([]);
+  
+  const {user} = useContext(UserContext);
+
   //fetch business details
   useEffect(() => {
     let isMounted = true;
@@ -53,6 +58,7 @@ const Home = () => {
       );
       let json = await response.json();
       const gotBusiness = JSON.parse(JSON.stringify(json));
+      setAllImages(gotBusiness.images);
       getReviews(business_id);
       //sort reviews by rating desc and tiebreaker by useful_count desc and maximum 3 reviews
       const sortedReviews = _.orderBy(
@@ -78,14 +84,17 @@ const Home = () => {
         setBusiness(gotBusiness);
         setGallery(
           gotBusiness.images.splice(0, Math.min(gotBusiness.images.length, 6))
+          
         );
         settopReviews(topReviews);
+        
       }
     };
     fetchBusinessDetails();
+   
     return () => (isMounted = false);
-  }, [reviews]);
-
+    
+  }, [reviews , allImages]);
   const handleChange = async (e) => {
     //push the files into the state
     const files = e.target.files;
@@ -173,12 +182,12 @@ const Home = () => {
                           </div>
                         )}
                       </div>
-                      <Link
+                      {user?._id === business?.owner_id ? <Link
                         to={`/business/edit/${business_id}`}
                         className="btn btn-dark btn-sm btn-block"
                       >
                         Edit profile
-                      </Link>
+                      </Link> : null}
                     </div>
                     <div className="media-body mb-5 text-white">
                       <h4 className="mt-0 mb-0"> {business?.business_name} </h4>
@@ -198,9 +207,9 @@ const Home = () => {
                 <div className="bg-light p-4 d-flex justify-content-end text-center">
                   <ul className="list-inline mb-0">
                     <li className="list-inline-item mx-4">
-                      <Button variant="danger" size="sm" onClick={handleShow}>
+                      {user?._id === business?.owner_id ? <Button variant="danger" size="sm" onClick={handleShow}>
                         <AddAPhotoIcon /> Add Photos
-                      </Button>
+                      </Button> : null}
                       <Modal show={show} onHide={handleClose}>
                         <Modal.Header closeButton>
                           <Modal.Title>
@@ -274,7 +283,7 @@ const Home = () => {
                     </li>
                     <li className="list-inline-item mx-4">
                       <h5 className="font-weight-bold mb-0 d-block">
-                        {business?.images.length}
+                        {allImages.length}
                       </h5>
                       <small className="text-dark">
                         {" "}

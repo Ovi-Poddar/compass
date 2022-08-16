@@ -44,9 +44,6 @@ import PostState from "./Context/Post/PostState";
 
 import Profile from "./Components/UserProfile/Profile";
 
-import { storage } from "./firebase";
-import CreateBusinessForm from "./Components/Business/CreateBusiness/CreateBusinessForm";
-
 import Main from "./Components/Business/CreateBusiness/Main";
 import EditBusiness from "./Components/Business/EditBusiness/EditBusiness";
 import ProfileFormLoader from "./Components/UserProfile/CreateProfile/ProfileFormLoader";
