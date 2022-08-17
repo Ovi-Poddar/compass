@@ -88,7 +88,7 @@ function AnswerItem(props) {
             <p className="mb-2 text-dark">{props.answer.text}</p>
             {props.answer.answerer_id._id === user._id && (
               <>
-                <div className="d-inline" style={{ marginLeft: "9rem" }}>
+                <div className="d-inline" style={{ marginLeft: "11rem" }}>
                   <Button
                     className="btn-sm mr-3"
                     variant="outline-primary"

@@ -22,14 +22,22 @@ function QueryItem(props) {
   const { deleteQuery, editQuery, addAnswer } = queryContext;
   const answerInitial = [];
   const [answers, setAnswers] = useState(answerInitial);
+  const [button_text, setButtonText] = useState("Show All Answers");
 
   useEffect(() => {
     getallanswers();
     // eslint-disable-next-line
-  }, []);
+  }, [answers]);
 
   let id = "#QueryAnswer" + String(props.query._id);
   let id1 = "QueryAnswer" + String(props.query._id);
+
+  const handleGetAnswers = () => {
+  {
+    getallanswers();
+    update_button_text();
+  }
+}
 
   const getallanswers = async () => {
     const response = await fetch(
@@ -45,6 +53,13 @@ function QueryItem(props) {
     const json = await response.json();
     setAnswers(json);
   };
+
+  const update_button_text = () => {
+    if(button_text === "Show All Answers"){
+      setButtonText("Hide Answers");
+    }
+    else setButtonText("Show All Answers");
+  }
 
   const [showEditQuery, setShowEditQuery] = useState(false);
   const toggleEditQuery = () => setShowEditQuery(!showEditQuery);
@@ -97,6 +112,7 @@ function QueryItem(props) {
   const handleAddAnswer = async (e) => {
     e.preventDefault();
     addAnswer(answer.atext, props.query._id);
+    answers.concat(answer);
     setAnswer({ atext: "" });
     toggleAnswerQuery();
     props.showAlert("Answer added successfully!", "success");
@@ -156,29 +172,6 @@ function QueryItem(props) {
             </div>
             <p className="mb-2 text-dark">{props.query.text}</p>
 
-            <div className="d-inline">
-              <Button
-                className="btn-sm btn-primary"
-                data-toggle="collapse"
-                variant="primary"
-                data-target={id}
-                // aria-expanded="false"
-                // aria-controls="#QueryAnswers"
-                onClick={getallanswers}
-              >
-                Show All Answers
-              </Button>
-
-              {/* button for reply */}
-              <Button
-                className="btn-sm btn-primary shadow-1-strong"
-                variant="primary"
-                onClick={toggleAnswerQuery}
-                style={{ marginLeft: "2rem" }}
-              >
-                <ReplyIcon />
-              </Button>
-            </div>
             <div className="container collapse" id={id1}>
               <div className="d-flex justify-content-start">
                 <div
@@ -186,7 +179,7 @@ function QueryItem(props) {
                   // style={{ width: "35rem" }}
                 >
                   <div className="row d-flex justify-content-start">
-                    <div className="col-md-12 col-lg-10">
+                    <div className="col-md-12 col-lg-11">
                       <Card className="shadow-md">
                         <Card.Body className="">
                           <h4 className="mb-4 text-danger">
@@ -207,6 +200,29 @@ function QueryItem(props) {
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="d-inline">
+              <Button
+                className="btn-sm btn-primary"
+                data-toggle="collapse"
+                variant="primary"
+                data-target={id}
+                // aria-expanded="false"
+                // aria-controls="#QueryAnswers"
+                onClick={handleGetAnswers}
+              >
+                {button_text}
+              </Button>
+
+              {/* button for reply */}
+              <Button
+                className="btn-sm btn-primary shadow-1-strong"
+                variant="primary"
+                onClick={toggleAnswerQuery}
+                style={{ marginLeft: "2rem" }}
+              >
+                <ReplyIcon />
+              </Button>
             </div>
 
             {/* Modal for editing query */}
