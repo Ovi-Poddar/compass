@@ -26,7 +26,7 @@ function QueryItem(props) {
   useEffect(() => {
     getallanswers();
     // eslint-disable-next-line
-  }, []);
+  }, [answers]);
 
   let id = "#QueryAnswer" + String(props.query._id);
   let id1 = "QueryAnswer" + String(props.query._id);
@@ -97,6 +97,7 @@ function QueryItem(props) {
   const handleAddAnswer = async (e) => {
     e.preventDefault();
     addAnswer(answer.atext, props.query._id);
+    answers.concat(answer);
     setAnswer({ atext: "" });
     toggleAnswerQuery();
     props.showAlert("Answer added successfully!", "success");
