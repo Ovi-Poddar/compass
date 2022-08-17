@@ -1,12 +1,31 @@
 import React, { useState, useContext, useEffect } from "react";
 
+
 import Card from "react-bootstrap/Card";
 import BusinessHomeContext from "../../../../Context/BusinessHome/BusinessHomeContext";
 function ShortDetails(props){
 
     const business_id = props.business_id;
+    const host = "http://localhost:5000";
 
-    const { business_details, getBusinessDetails } = useContext(BusinessHomeContext);
+    const [business, setBusiness] = useState([]);
+
+    const getBusinessDetails = async (business_id) => {
+        //API Call
+        const response = await fetch(
+          `${host}/api/business/getbusiness/${business_id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "auth-token": localStorage.getItem("token"),
+            },
+          }
+        );
+        const json = await response.json();
+        console.log("hello");
+        setBusiness(json);
+      }
 
     useEffect(() => {
         getBusinessDetails(business_id);
@@ -18,21 +37,21 @@ function ShortDetails(props){
         <>
         <Card className="text-center ml-4 mt-4 shadow-lg" style={{ width: "30rem", position : "sticky" , top : "0"}}>
             <Card.Body>
-                <Card.Title>{business_details.business_name}</Card.Title>
+                <Card.Title>{business.business_name}</Card.Title>
                 <Card.Text>
-                    {business_details.about}
+                    {business.about}
                 </Card.Text>
                 <Card.Text>
-                    {business_details.contact_no}
+                    {business.contact_no}
                 </Card.Text>
                 <Card.Text>
-                    {business_details.address}
+                    {business.address}
                 </Card.Text>
                 <Card.Text>
-                    {business_details.average_star_count}
+                    {business.average_star_count}
                 </Card.Text>
                 <Card.Text>
-                    {business_details.email}
+                    {business.email}
                 </Card.Text>
             </Card.Body>
         </Card>

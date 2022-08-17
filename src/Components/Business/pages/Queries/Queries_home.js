@@ -67,7 +67,7 @@ export const Queries = (props) => {
                           </div>
                         </div>
                       </div>
-                      {/* <div
+                      <div
                   className="justify-content-end"
                   style={{
                     backgrounColor: "lightgreen",
@@ -84,7 +84,7 @@ export const Queries = (props) => {
                     showAlert={props.showAlert}
                     business_id={business_id}
                   />
-                </div> */}
+                </div>
                     </div>
                   </div>
                 </div>
