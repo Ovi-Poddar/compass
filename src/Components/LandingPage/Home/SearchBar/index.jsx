@@ -7,7 +7,7 @@ const SearchBar = ({ value, changeInput }) => (
     <SearchIcon className='searchBar-icon' />
     <input
       type='text'
-      placeholder='Search'
+      placeholder='Search Businesses'
       value={value}
       onChange={changeInput}
     />

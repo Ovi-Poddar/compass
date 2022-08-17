@@ -9,16 +9,16 @@ import business from "../../Images/home_business.unsplash.jpg";
 
 export default function HomeCarousel() {
   return (
-    <div className="container">
+    <div className="mx-2 mt-2">
       <Carousel>
-        <Carousel.Item interval={1000}>
+        <Carousel.Item interval={2000}>
           <img className="d-block w-100 h-50" src={food} alt="Food" />
           <Carousel.Caption>
             <h3  >Welcome To Compass!</h3>
             <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
           </Carousel.Caption>
         </Carousel.Item>
-        <Carousel.Item interval={1000}>
+        <Carousel.Item interval={2000}>
           <img className="d-block w-100 h-50" src={business} alt="Business" />
           <Carousel.Caption>
             <h3>Welcome To Compass!</h3>

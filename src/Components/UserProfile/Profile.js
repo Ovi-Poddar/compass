@@ -1,11 +1,40 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import "./profile.css";
 import ScoreBoard from "./ScoreBoard/ScoreBoard";
+import UserContext from "../../Context/Users/UserContext";
 
-
+import { useParams } from "react-router-dom";
 
 const Profile = () => {
+  const { profile_id } = useParams();
+  console.log("profile_id", profile_id);
+  const [userDetails, setUserDetails] = useState(null);
+  const { user, getUser } = useContext(UserContext);
+
+  //fetch user details
+  useEffect(() => {
+    //use async await to fetch user details
+    let isMounted = true;
+    async function fetchUser() {
+      const response = await fetch(`http://localhost:5000/api/profile/getprofile/${profile_id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const json = await response.json();
+      if (isMounted) {
+        setUserDetails(json);
+        console.log(json);
+      }
+    }
+    fetchUser();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   return (
     <div className="container">
       <div className="container emp-profile">
@@ -26,11 +55,11 @@ const Profile = () => {
 
             <div className="col-md-6">
               <div className="profile-head">
-                <h5>Kshiti Ghelani</h5>
-                <h6>Web Developer and Designer</h6>
-                <p className="proile-rating">
+                <h5>{userDetails ? userDetails.user_name : null}</h5>
+                {/* <h6>Web Developer and Designer</h6> */}
+                {/* <p className="proile-rating">
                   RANKINGS : <span>8/10</span>
-                </p>
+                </p> */}
                 <ul className="nav nav-tabs" id="myTab" role="tablist">
                   <li className="nav-item">
                     <a
@@ -73,8 +102,12 @@ const Profile = () => {
           <div className="row">
             <div className="col-md-4">
               <div className="profile-work">
+              {/* <ScoreBoard /> */}
+
+
+
                 {/* <p>WORK LINK</p> */}
-                <ScoreBoard/>
+               
                 {/* <a href="">Website Link</a>
                 <br />
                 <a href="">Bootsnipp Profile</a>
@@ -103,18 +136,10 @@ const Profile = () => {
                 >
                   <div className="row">
                     <div className="col-md-6">
-                      <label>User Id</label>
-                    </div>
-                    <div className="col-md-6">
-                      <p>Kshiti123</p>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-6">
                       <label>Name</label>
                     </div>
                     <div className="col-md-6">
-                      <p>Kshiti Ghelani</p>
+                      <p>{userDetails?.user_name}</p>
                     </div>
                   </div>
                   <div className="row">
@@ -122,10 +147,10 @@ const Profile = () => {
                       <label>Email</label>
                     </div>
                     <div className="col-md-6">
-                      <p>kshitighelani@gmail.com</p>
+                      <p>{userDetails?.user_email}</p>
                     </div>
                   </div>
-                  <div className="row">
+                  {/* <div className="row">
                     <div className="col-md-6">
                       <label>Phone</label>
                     </div>
@@ -140,15 +165,15 @@ const Profile = () => {
                     <div className="col-md-6">
                       <p>Web Developer and Designer</p>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div
                   className="tab-pane fade"
                   id="profile"
                   role="tabpanel"
                   aria-labelledby="profile-tab"
-                >
-                  <div className="row">
+                > 
+                  {/* <div className="row">
                     <div className="col-md-6">
                       <label>Experience</label>
                     </div>
@@ -194,7 +219,7 @@ const Profile = () => {
                       <br />
                       <p>Your detail description</p>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

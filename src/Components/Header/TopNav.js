@@ -82,7 +82,7 @@ export default function TopNav(props) {
           </Form> */}
           <Link
             className="btn btn-primary mx-4"
-            style={{ backgroundColor: "#7B1FA2", textTransform: "none" }}
+            style={{ backgroundColor: "#7B1FA2", textTransform: "none"}}
             to="/landing"
             role="button"
           >

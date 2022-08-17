@@ -40,13 +40,11 @@ router.post(
     }
   }
 );
-
-// ROUTE 2: Get single userprofile: GET "/api/getprofile/:profile_id".
+ 
+// ROUTE 2: Get single userprofile: GET "/api/getprofile/:profile_id". LOGIN not required
 router.get("/getprofile/:profile_id", async (req, res) => {
   try {
-    const profile = await User.find({
-      _id: req.params.profile_id,
-    });
+    const profile = await User.findById(req.params.profile_id).select("-password -__v");
     res.json(profile);
   } catch (error) {
     console.error(error.message);

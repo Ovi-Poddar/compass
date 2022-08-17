@@ -95,7 +95,7 @@ function App() {
                     element={<ShowOwnBusiness />}
                   />
                   {/* Route for User Profile */}
-                  <Route exact path="/profile/:user_id" element={<Profile />} />
+                  <Route exact path="/profile/:profile_id" element={<Profile />} />
                   {/* Route for Business Profile */}
                   <Route
                     exact
