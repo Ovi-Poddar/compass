@@ -205,7 +205,7 @@ function QueryItem(props) {
               <Button
                 className="btn-sm btn-primary"
                 data-toggle="collapse"
-                variant="primary"
+                variant="danger"
                 data-target={id}
                 // aria-expanded="false"
                 // aria-controls="#QueryAnswers"
@@ -217,7 +217,7 @@ function QueryItem(props) {
               {/* button for reply */}
               <Button
                 className="btn-sm btn-primary shadow-1-strong"
-                variant="primary"
+                variant="danger"
                 onClick={toggleAnswerQuery}
                 style={{ marginLeft: "2rem" }}
               >

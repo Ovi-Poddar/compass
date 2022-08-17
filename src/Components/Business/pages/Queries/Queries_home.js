@@ -5,6 +5,7 @@ import MakeQuery from "./MakeQuery";
 import SideBar from "../../Sidebar/Sidebar";
 import QueryContext from "../../../../Context/Query/QueryContext";
 import Card from "react-bootstrap/Card";
+import ShortDetails from "../ShortDetails/ShortDetails";
 
 export const Queries = (props) => {
   let { business_id } = useParams();
@@ -66,6 +67,24 @@ export const Queries = (props) => {
                           </div>
                         </div>
                       </div>
+                      {/* <div
+                  className="justify-content-end"
+                  style={{
+                    backgrounColor: "lightgreen",
+                    position: "fixed",
+                    top: "0",
+                    bottom: "0",
+                    right: "0",
+                    width: "40%",
+                    marginTop: "120px",
+                    marginLeft: "60px",
+                  }}
+                >
+                 <ShortDetails
+                    showAlert={props.showAlert}
+                    business_id={business_id}
+                  />
+                </div> */}
                     </div>
                   </div>
                 </div>

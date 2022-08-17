@@ -8,6 +8,7 @@ const BusinessHomeState = (props) => {
 
   const imagesInitial = [];
   const [images, setImages] = useState(imagesInitial);
+  const [ business_details, setBusiness_details ] = useState([]);
 
  //Get all the Images from the database
   const getImages = async (business_id) => {
@@ -71,12 +72,33 @@ const BusinessHomeState = (props) => {
   //   setPosts(newPosts);
   // };
 
+  // get business details
+  const getBusinessDetails = async (business_id) => {
+    //API Call
+    const response = await fetch(
+      `${host}/api/business/getbusiness/${business_id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("token"),
+        },
+      }
+    );
+    const json = await response.json();
+    console.log("hello");
+    setBusiness_details(json);
+  }
+
+
   return (
     <BusinessHomeContext.Provider
       value={{
         images,
         getImages,
         addImages,
+        business_details,
+        getBusinessDetails,
       }}
     >
       {props.children}
