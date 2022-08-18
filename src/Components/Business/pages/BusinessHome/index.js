@@ -17,7 +17,7 @@ function BusinessHome() {
       <BusinessHomeState business_id={business_id} >
       <div className="wrapper">
         <Sidebar />
-        <div className="main_content" >
+        <div className="main_content" style={{width:"87%"}}>
           {/* <div className="info"> */}
           <div className="container ">
             <div className="main_content_body">

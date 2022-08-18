@@ -95,7 +95,7 @@ const BasicForm = () => {
             >
               <MenuItem value="Restaurant">Restaurant</MenuItem>
               <MenuItem value="HomeService">HomeService</MenuItem>
-              <MenuItem value="AutoShop"> AutoShop</MenuItem>
+              <MenuItem value="Shop"> Shop</MenuItem>
               <MenuItem value="Others"> Others</MenuItem>
             </Select>
           </FormControl>

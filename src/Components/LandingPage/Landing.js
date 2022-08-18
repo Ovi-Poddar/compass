@@ -14,7 +14,7 @@ const Landing = () => {
 
   const [categories, setcategories] = useState([
     { id: 1, checked: false, label: "Restaurant" },
-    { id: 2, checked: false, label: "AutoShop" },
+    { id: 2, checked: false, label: "Shop" },
     { id: 3, checked: false, label: "HomeService" },
     { id: 4, checked: false, label: "Others" },
   ]);

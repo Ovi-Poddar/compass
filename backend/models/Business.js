@@ -97,7 +97,6 @@ const businessSchema = new Schema({
 
   images: {
     type: [String],
-    default: [""],
   },
 
   profile_image: {

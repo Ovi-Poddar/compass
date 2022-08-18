@@ -151,10 +151,10 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       {!isUploading ? (
-        <div className="">
-          <div className="row py-4 px-0">
+        <div  className="container" >
+          <div className="row py-4 px-0" >
             <div className="col mx-auto">
               {/* <!-- Profile widget --> */}
               <div className="bg-white shadow rounded overflow-hidden">
@@ -167,7 +167,7 @@ const Home = () => {
                       >
                         <img
                           src={business?.profile_image}
-                          alt=""
+                          alt="..."
                           width="auto"
                           height="auto"
                           className="rounded mb-2 img-thumbnail"
@@ -186,7 +186,7 @@ const Home = () => {
                         to={`/business/edit/${business_id}`}
                         className="btn btn-dark btn-sm btn-block"
                       >
-                        Edit profile
+                        Change Picture
                       </Link> : null}
                     </div>
                     <div className="media-body mb-5 text-white">
@@ -261,7 +261,8 @@ const Home = () => {
                                         <img
                                           src={image}
                                           className="mb-1"
-                                          alt=""
+                                          alt="..."
+                                          style={{ width: "200px", height: "150px" }}
                                         />{" "}
                                       </p>
                                     );
@@ -305,7 +306,8 @@ const Home = () => {
                 </div>
 
                 <div className="py-4 px-4">
-                  <div className="d-flex align-items-center justify-content-between mb-3">
+                  
+                  { gallery ? <div> <div className="d-flex align-items-center justify-content-between mb-3">
                     <h5 className="mb-0">Recent photos</h5>
                     <Link
                       to={`/photos/${business?._id}`}
@@ -315,8 +317,7 @@ const Home = () => {
                     </Link>
                   </div>
                   <div className="row">
-                    {/* conditional rendering display all the photos */}
-                    {gallery ? (
+                    { gallery ? (
                       gallery.map((image, idx) => {
                         return (
                           <div className="col-md-4" key={idx}>
@@ -324,7 +325,7 @@ const Home = () => {
                               <img
                                 src={image}
                                 className="card-img-top"
-                                alt=""
+                                alt="..."
                                 style={{ height: "200px" }}
                               />
                             </div>
@@ -339,25 +340,8 @@ const Home = () => {
                         </h1>
                       </div>
                     )}
-                  </div>
-                  {/* <div className="py-4">
-                    <h5 className="mb-3">Recent posts</h5>
-                    <div className="p-4 bg-light rounded shadow-sm">
-                      <p className="font-italic mb-0">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua. Ut enim ad minim veniam.
-                      </p>
-                      <ul className="list-inline small text-muted mt-3 mb-0">
-                        <li className="list-inline-item">
-                          <i className="fa fa-comment-o mr-2"></i>12 Comments
-                        </li>
-                        <li className="list-inline-item">
-                          <i className="fa fa-heart-o mr-2"></i>200 Likes
-                        </li>
-                      </ul>
-                    </div>
-                  </div> */}
+                  </div> </div> : null }
+                   
                   <hr />
                   {/* Top reviews section */}
                   <div className="py-4">
@@ -381,8 +365,8 @@ const Home = () => {
           </div>
         </div>
       ) : (
-        <div className="container">
-          <LoadingDots />
+        <div className="container" style={{marginTop:"300px", marginLeft:"600px"}}>
+          <Spinner animation="grow" style={{ width: "4rem", height: "4rem" }} />
         </div>
       )}
     </div>
