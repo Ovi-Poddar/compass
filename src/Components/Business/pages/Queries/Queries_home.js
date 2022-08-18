@@ -52,7 +52,7 @@ export const Queries = (props) => {
                                 <h4 className="mb-4 text-danger">
                                   Recent Queries ({queries.length})
                                 </h4>
-                                {queries.map((query) => {
+                                {queries?.map((query) => {
                                   return (
                                     <QueryItem
                                       key={query._id}
@@ -67,7 +67,7 @@ export const Queries = (props) => {
                           </div>
                         </div>
                       </div>
-                      <div
+                      {/* <div
                   className="justify-content-end"
                   style={{
                     backgrounColor: "lightgreen",
@@ -84,7 +84,7 @@ export const Queries = (props) => {
                     showAlert={props.showAlert}
                     business_id={business_id}
                   />
-                </div>
+                </div> */}
                     </div>
                   </div>
                 </div>

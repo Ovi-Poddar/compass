@@ -73,10 +73,10 @@ function PostItem(props) {
               className="fw-bold mb-1 mr-3 d-inline"
               style={{ color: "#027A97" }}
             >
-              {props.post.user_id.user_name}
+              {props.post?.user_id.user_name}
             </h6>
 
-            {props.post.user_id._id === user._id && (
+            {(props.post?.user_id._id === user?._id) ? 
               <>
                 <div className="d-inline" style={{ marginLeft: "20rem" }}>
                   <Button
@@ -95,14 +95,35 @@ function PostItem(props) {
                   </Button>
                 </div>
               </>
-            )}
+              :
+              <>
+              <div className="d-inline" style={{ marginLeft: "20rem" }}>
+                <Button
+                  className="mr-3"
+                  variant="outline-primary"
+                  onClick={updatePost}
+                  disabled = {true}
+                >
+                  <EditIcon />
+                </Button>
+                <Button
+                  className="mr-3"
+                  variant="outline-danger"
+                  onClick={toggleDeletePost}
+                  disabled  = {true}
+                >
+                  <DeleteIcon />
+                </Button>
+              </div>
+            </>
+            }
 
             <div className="d-flex align-items-center mb-3">
               <span class="badge rounded-pill bg-danger d-inline">
-                {moment(props.post.creation_date).calendar()}
+                {moment(props.post?.creation_date).calendar()}
               </span>
             </div>
-            <p className="mb-2 text-dark">{props.post.text}</p>
+            <p className="mb-2 text-dark">{props.post?.text}</p>
 
             {/* Modal for editing post */}
             <Modal

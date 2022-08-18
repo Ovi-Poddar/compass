@@ -77,18 +77,18 @@ function AnswerItem(props) {
               className="fw-bold mb-1 mr-3 d-inline"
               style={{ color: "#027A97" }}
             >
-              {props.answer.answerer_id.user_name}
+              {props.answer?.answerer_id.user_name}
             </h6>
 
             <div className="d-flex align-items-center mb-3">
               <span class="badge rounded-pill bg-danger d-inline">
-                {moment(props.answer.creation_date).calendar()}
+                {moment(props.answer?.creation_date).calendar()}
               </span>
             </div>
-            <p className="mb-2 text-dark">{props.answer.text}</p>
-            {props.answer.answerer_id._id === user._id && (
+            <p className="mb-2 text-dark ">{props.answer?.text}</p>
+            {(props.answer?.answerer_id._id === user?._id) ? 
               <>
-                <div className="d-inline" style={{ marginLeft: "11rem" }}>
+                <div className="d-inline"  style={{ marginLeft: "11rem" }}>
                   <Button
                     className="btn-sm mr-3"
                     variant="outline-primary"
@@ -104,8 +104,28 @@ function AnswerItem(props) {
                     <DeleteIcon />
                   </Button>
                 </div>
-              </>
-            )}
+              </> :
+              <>
+              <div className="d-inline"  style={{ marginLeft: "11rem" }}>
+                <Button
+                  className="btn-sm mr-3"
+                  variant="outline-primary"
+                  onClick={updateAnswer}
+                  disabled={true}
+                >
+                  <EditIcon />
+                </Button>
+                <Button
+                  className="btn-sm mr-3"
+                  variant="outline-danger"
+                  onClick={toggleDeleteAnswer}
+                  disabled={true}
+                >
+                  <DeleteIcon />
+                </Button>
+              </div>
+            </>
+  }
 
 
             {/* Modal for editing answer */}

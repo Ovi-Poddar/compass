@@ -45,7 +45,7 @@ router.post(
   );
 
 // ROUTE 2: Get All the Queries of this business using: GET "/api/query/getallqueries".
-router.get("/getallqueries/:business_id", fetchUser, async (req, res) => {
+router.get("/getallqueries/:business_id", async (req, res) => {
     try {
       const queries = await Query.find({
         business_id: req.params.business_id,
@@ -270,7 +270,7 @@ router.delete("/deleteanswer/:answer_id", fetchUser, async (req, res) => {
 });
 
 // ROUTE 9: Get All the Answers of this query using: GET "/api/query/getallanswers".
-router.get("/getallanswers/:query_id", fetchUser, async (req, res) => {
+router.get("/getallanswers/:query_id", async (req, res) => {
   try {
     const answers = await QueryAnswer.find({
       query_id: req.params.query_id,

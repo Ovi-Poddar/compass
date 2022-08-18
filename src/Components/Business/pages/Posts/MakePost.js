@@ -58,7 +58,6 @@ function MakePost(props) {
     });
   };
 
-  if (user != null) {
     return (
       <>
         <div className="">
@@ -76,11 +75,12 @@ function MakePost(props) {
             >
               <h1 className="fw-bold text-danger">See Our Recent Updates</h1>
             </div>
-            {String(owner) === String(user._id) && (
+            {String(owner) === String(user?._id) && (
               <Button
                 variant="danger"
                 onClick={handleShowAddPost}
                 style={{ marginLeft: "35rem" }}
+                disabled = {localStorage.getItem("token") === null}
               >
                 Make a Post
               </Button>
@@ -143,7 +143,7 @@ function MakePost(props) {
         </div>
       </>
     );
-  }
+
 }
 
 export default MakePost;

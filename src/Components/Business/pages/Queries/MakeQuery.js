@@ -55,6 +55,7 @@ function MakeQuery(props) {
             variant="danger"
             onClick={handleShowAddQuery}
             style={{ marginLeft: "32rem" }}
+            disabled = {localStorage.getItem("token") === null}
           >
             Make a Query
           </Button>{" "}
