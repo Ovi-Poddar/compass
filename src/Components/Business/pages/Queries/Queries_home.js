@@ -22,33 +22,52 @@ export const Queries = (props) => {
     <>
       <div className="wrapper">
         <SideBar />
-        <div className="" >
+        <div
+          className="justify-content-end"
+          style={{
+            backgrounColor: "lightgreen",
+            position: "fixed",
+            top: "0",
+            bottom: "0",
+            right: "0",
+            width: "40%",
+            marginTop: "14rem",
+            marginLeft: "5rem",
+          }}
+        >
+          <ShortDetails showAlert={props.showAlert} business_id={business_id} />
+        </div>
+        <div className="">
           <div className="container" style={{}}>
             <div
               className="mb-3"
               style={{
-                width: "100%",marginLeft:"220px", marginTop:"30px"
+                width: "100%",
+                marginLeft: "220px",
+                marginTop: "30px",
               }}
             >
               <MakeQuery
                 showAlert={props.showAlert}
                 business_id={business_id}
-              /> 
+              />
             </div>
-            <div className="main_content" style={{marginTop:"60px"}}>
+            <div className="main_content" style={{ marginTop: "60px" }}>
               <div className="row d-flex mr-4 ">
-                
-                <div className="container" >
+                <div className="container">
                   <div className="d-flex justify-content-center pt-3 px-4">
                     <div className="">
                       <div
                         className="container my-1 py-4"
                         style={{ width: "53rem" }}
                       >
-                        <div className="row d-flex justify-content-start main_content_body" >
-                          <div className="col-md-12 col-lg-10" >
-                            <Card className="shadow-md" >
-                              <Card.Body className="p-4" style={{marginBottom:"250px"}}>
+                        <div className="row d-flex justify-content-start main_content_body">
+                          <div className="col-md-12 col-lg-10">
+                            <Card className="shadow-md">
+                              <Card.Body
+                                className="p-4"
+                                style={{ marginBottom: "250px" }}
+                              >
                                 <h4 className="mb-4 text-danger">
                                   Recent Queries ({queries.length})
                                 </h4>
@@ -67,24 +86,6 @@ export const Queries = (props) => {
                           </div>
                         </div>
                       </div>
-                      {/* <div
-                  className="justify-content-end"
-                  style={{
-                    backgrounColor: "lightgreen",
-                    position: "fixed",
-                    top: "0",
-                    bottom: "0",
-                    right: "0",
-                    width: "40%",
-                    marginTop: "120px",
-                    marginLeft: "60px",
-                  }}
-                >
-                 <ShortDetails
-                    showAlert={props.showAlert}
-                    business_id={business_id}
-                  />
-                </div> */}
                     </div>
                   </div>
                 </div>
