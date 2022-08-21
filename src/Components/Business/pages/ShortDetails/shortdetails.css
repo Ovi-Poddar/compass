@@ -1,89 +1,52 @@
-.top-container{
-	display: flex;
-    justify-content: center;
-	align-items: center;
+.top-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.name{
-	font-size: 2rem;
-	font-weight: bold;
-	color: #dd1e1e;
-	position: relative;
-	top: 8px;
+.name {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #dd1e1e;
+  position: relative;
+  top: 8px;
 }
-.category{
-	font-size: 1.5rem;
-	color: grey;
-	position: relative;
-	top: 2px;
+.category {
+  font-size: 1.5rem;
+  color: grey;
+  position: relative;
+  top: 2px;
 }
-.middle-container{
-	background-color: #eee;
-    width: 100%;
-	border-radius: 12px;
-
+.middle-container {
+  background-color: #eee;
+  width: 100%;
+  border-radius: 12px;
 }
 .middle-container:hover {
-	border: 1px solid #ed4040;
+  border: 1px solid #ed4040;
 }
-.icon-div{
-	background-color: #d3213c;
-	padding: 12px;
-	border-radius: 10px;
+.icon-div {
+  background-color: #d3213c;
+  padding: 12px;
+  border-radius: 10px;
 }
-.round-div{
-	border-radius: 50%;
-	width: 35px;
-	height: 35px;
-	background-color: #fff;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
+.round-div {
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
-.icon{
-	font-size: 16px !important;
-	color: #ee0707 !important;
-	font-weight: bold !important;
-}
-
-
-.content{
-	font-size: 15px;
-	color: #110032;
-	font-weight: bold;
+.icon {
+  font-size: 16px !important;
+  color: #ee0707 !important;
+  font-weight: bold !important;
 }
 
-.recent-border{
-	border-left: 2px solid #5957f9;
-	display: flex;
-	align-items: center;
-
-}
-.recent-border:hover {
-	border-bottom: 1px solid #dee2e6!important;
-}
-
-.recent-orders{
-	font-size: 16px;
-	font-weight: 700;
-	color: #5957f9;
-	margin-left: 2px;
-}
-
-.wishlist{
-	font-size: 16px;
-	font-weight: 700;
-	color: #272727;
-
-}
-.wishlist-border:hover{
-	border-bottom: 1px solid #dee2e6!important;
-}
-.fashion-studio{
-	font-size: 16px;
-	font-weight: 700;
-	color: #272727;
-}
-.fashion-studio-border:hover {
-	border-bottom: 1px solid #dee2e6!important;
+.content {
+  font-size: 15px;
+  color: #110032;
+  font-weight: bold;
 }
