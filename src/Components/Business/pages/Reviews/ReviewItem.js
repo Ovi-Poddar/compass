@@ -92,12 +92,14 @@ function ReviewItem(props) {
 
   //for updating review thumbs up/down
   const handleThumbUp = (e) => {
+    if(!localStorage.getItem("token")) return;
     e.preventDefault();
     thumbUp(props.review._id);
     props.showAlert("Review liked!", "success");
   }
 
   const handleThumbDown = (e) => {
+    if(!localStorage.getItem("token")) return;
     e.preventDefault();
     thumbDown(props.review._id);
     props.showAlert("Review disliked!", "success");
