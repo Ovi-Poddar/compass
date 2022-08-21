@@ -5,6 +5,7 @@ import MakePost from "./MakePost";
 import SideBar from "../../Sidebar/Sidebar";
 import PostContext from "../../../../Context/Post/PostContext";
 import Card from "react-bootstrap/Card";
+import ShortDetails from "../ShortDetails/ShortDetails";
 
 export const Posts = (props) => {
   let { business_id } = useParams();
@@ -21,8 +22,22 @@ export const Posts = (props) => {
     <>
       <div className="wrapper">
         <SideBar />
+        <div
+          className="justify-content-end"
+          style={{
+            backgrounColor: "lightgreen",
+            position: "fixed",
+            top: "0",
+            bottom: "0",
+            right: "0",
+            width: "37%",
+            marginTop: "14rem",
+          }}
+        >
+          <ShortDetails showAlert={props.showAlert} business_id={business_id} />
+        </div>
         <div className="">
-          <div className="container" style={{}}>
+          <div className="container">
             <div
               className="mb-3"
               style={{

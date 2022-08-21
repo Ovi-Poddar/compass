@@ -30,9 +30,8 @@ export const Queries = (props) => {
             top: "0",
             bottom: "0",
             right: "0",
-            width: "40%",
+            width: "37%",
             marginTop: "14rem",
-            marginLeft: "5rem",
           }}
         >
           <ShortDetails showAlert={props.showAlert} business_id={business_id} />

@@ -5,6 +5,7 @@ import React from "react";
 import { useContext, useState } from "react";
 
 import QueryContext from "../../../../Context/Query/QueryContext";
+import UserContext from "../../../../Context/Users/UserContext";
 
 function MakeQuery(props) {
   const context = useContext(QueryContext);
@@ -15,6 +16,29 @@ function MakeQuery(props) {
   const [query, setQuery] = useState({
     text: "",
   });
+
+  const userContext = useContext(UserContext);
+  const { user } = userContext;
+
+  const [owner,setOwner] = useState("");
+
+  const getowner = async () => {
+    const response = await fetch(
+      `http://localhost:5000/api/business/getowner/${business_id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("token"),
+        },
+      }
+    );
+
+    const json = await response.json();
+    setOwner(json);
+  };
+
+  getowner();
 
   const [showAddQuery, setShowAddQuery] = useState(false);
   const handleShowAddQuery = () => setShowAddQuery(!showAddQuery);
@@ -55,7 +79,7 @@ function MakeQuery(props) {
             variant="danger"
             onClick={handleShowAddQuery}
             style={{ marginLeft: "32rem" }}
-            disabled = {localStorage.getItem("token") === null}
+            disabled = {localStorage.getItem("token") === null && String(owner) === String(user?._id)}
           >
             Make a Query
           </Button>{" "}
