@@ -230,7 +230,7 @@ router.get("/getalluserreviews/:user_id", async (req, res) => {
     const reviews = await Review.find({
       user_id: req.params.user_id,
     })
-      .populate("business_id", "business_name profile_image") 
+      .populate("business_id", "business_name profile_image _id") 
       .select("-__v ")
       .sort({ creation_date: -1 });
     res.json(reviews);
