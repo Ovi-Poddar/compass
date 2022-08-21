@@ -64,7 +64,7 @@ export default function TopNav(props) {
       >
         <Container fluid>
           <LinkContainer to={"/"}>
-            <Navbar.Brand className="" href="/">
+            <Navbar.Brand className="mx-4" href="/">
               C<i className="bi bi-compass font-weight-bold"></i>MPASS
             </Navbar.Brand>
           </LinkContainer>
@@ -112,7 +112,7 @@ export default function TopNav(props) {
                     size="medium"
                     color="success"
                     aria-label="add"
-                    className="me-2"
+                    className="me-4"
                     sx={{
                       "&:hover": {
                         color: "white",
@@ -132,6 +132,7 @@ export default function TopNav(props) {
                     size="medium"
                     color="error"
                     aria-label="add"
+                    className="me-4"
                     sx={{
                       "&:hover": {
                         color: "white",

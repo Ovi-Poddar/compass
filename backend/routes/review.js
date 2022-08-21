@@ -224,4 +224,19 @@ router.put("/thumbdown/:review_id", fetchUser, async (req, res) => {
   }
 });
 
+// ROUTE 9: Get All the Reviews of this user using: GET "/api/review/getallreviews".
+router.get("/getalluserreviews/:user_id", async (req, res) => {
+  try {
+    const reviews = await Review.find({
+      user_id: req.params.user_id,
+    })
+      .populate("business_id", "business_name profile_image") 
+      .select("-__v ")
+      .sort({ creation_date: -1 });
+    res.json(reviews);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
 module.exports = router;
