@@ -34,7 +34,8 @@ const Home = () => {
   const { business_id } = useParams();
   const [business, setBusiness] = useState(null);
   const { images, addImages } = useContext(BusinessHomeContext);
-  const { getReviews, reviews } = useContext(ReviewContext);
+  const { getReviews, reviews, stars, starsPercentage } =
+    useContext(ReviewContext);
 
   const [imagesToUpload, setImagesToUpload] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
@@ -42,9 +43,9 @@ const Home = () => {
   const [topReviews, settopReviews] = useState([]);
   const [gallery, setGallery] = useState([]);
 
-  const[allImages, setAllImages] = useState([]);
-  
-  const {user} = useContext(UserContext);
+  const [allImages, setAllImages] = useState([]);
+
+  const { user } = useContext(UserContext);
 
   //fetch business details
   useEffect(() => {
@@ -68,33 +69,18 @@ const Home = () => {
       );
       const topReviews = sortedReviews.slice(0, 3);
 
-      //count how many reveiws are of 1, 2, 3, 4, 5 stars
-      const starsCount = {
-        1: 0,
-        2: 0,
-        3: 0,
-        4: 0,
-        5: 0,
-      };
-      reviews.forEach((review) => {
-        starsCount[review.stars] += 1;
-      });
-
       if (isMounted) {
         setBusiness(gotBusiness);
         setGallery(
           gotBusiness.images.splice(0, Math.min(gotBusiness.images.length, 6))
-          
         );
         settopReviews(topReviews);
-        
       }
     };
     fetchBusinessDetails();
-   
+
     return () => (isMounted = false);
-    
-  }, [reviews , allImages]);
+  }, [reviews, allImages]);
   const handleChange = async (e) => {
     //push the files into the state
     const files = e.target.files;
@@ -153,8 +139,8 @@ const Home = () => {
   return (
     <div className="container">
       {!isUploading ? (
-        <div  className="container" >
-          <div className="row py-4 px-0" >
+        <div className="container">
+          <div className="row py-4 px-0">
             <div className="col mx-auto">
               {/* <!-- Profile widget --> */}
               <div className="bg-white shadow rounded overflow-hidden">
@@ -182,12 +168,14 @@ const Home = () => {
                           </div>
                         )}
                       </div>
-                      {user?._id === business?.owner_id ? <Link
-                        to={`/business/edit/${business_id}`}
-                        className="btn btn-dark btn-sm btn-block"
-                      >
-                        Change Picture
-                      </Link> : null}
+                      {user?._id === business?.owner_id ? (
+                        <Link
+                          to={`/business/edit/${business_id}`}
+                          className="btn btn-dark btn-sm btn-block"
+                        >
+                          Change Picture
+                        </Link>
+                      ) : null}
                     </div>
                     <div className="media-body mb-5 text-white">
                       <h4 className="mt-0 mb-0"> {business?.business_name} </h4>
@@ -207,9 +195,11 @@ const Home = () => {
                 <div className="bg-light p-4 d-flex justify-content-end text-center">
                   <ul className="list-inline mb-0">
                     <li className="list-inline-item mx-4">
-                      {user?._id === business?.owner_id ? <Button variant="danger" size="sm" onClick={handleShow}>
-                        <AddAPhotoIcon /> Add Photos
-                      </Button> : null}
+                      {user?._id === business?.owner_id ? (
+                        <Button variant="danger" size="sm" onClick={handleShow}>
+                          <AddAPhotoIcon /> Add Photos
+                        </Button>
+                      ) : null}
                       <Modal show={show} onHide={handleClose}>
                         <Modal.Header closeButton>
                           <Modal.Title>
@@ -262,7 +252,10 @@ const Home = () => {
                                           src={image}
                                           className="mb-1"
                                           alt="..."
-                                          style={{ width: "200px", height: "150px" }}
+                                          style={{
+                                            width: "200px",
+                                            height: "150px",
+                                          }}
                                         />{" "}
                                       </p>
                                     );
@@ -306,56 +299,63 @@ const Home = () => {
                 </div>
 
                 <div className="py-4 px-4">
-                  
-                  { gallery ? <div> <div className="d-flex align-items-center justify-content-between mb-3">
-                    <h5 className="mb-0">Recent photos</h5>
-                    <Link
-                      to={`/photos/${business?._id}`}
-                      className="btn btn-link text-muted"
-                    >
-                      Show all
-                    </Link>
-                  </div>
-                  <div className="row">
-                    { gallery ? (
-                      gallery.map((image, idx) => {
-                        return (
-                          <div className="col-md-4" key={idx}>
-                            <div className="card mb-4">
-                              <img
-                                src={image}
-                                className="card-img-top"
-                                alt="..."
-                                style={{ height: "200px" }}
-                              />
-                            </div>
-                          </div>
-                        );
-                      })
-                    ) : (
-                      <div className="col-lg-6 mb-2 pr-lg-1">
-                        <h1 className="text-center">
-                          {" "}
-                          <i className="fa fa-spinner fa-spin"></i>{" "}
-                        </h1>
+                  {gallery ? (
+                    <div>
+                      {" "}
+                      <div className="d-flex align-items-center justify-content-between mb-3">
+                        <h5 className="mb-0">Recent photos</h5>
+                        <Link
+                          to={`/photos/${business?._id}`}
+                          className="btn btn-link text-muted"
+                        >
+                          Show all
+                        </Link>
                       </div>
-                    )}
-                  </div> </div> : null }
-                   
+                      <div className="row">
+                        {gallery ? (
+                          gallery.map((image, idx) => {
+                            return (
+                              <div className="col-md-4" key={idx}>
+                                <div className="card mb-4">
+                                  <img
+                                    src={image}
+                                    className="card-img-top"
+                                    alt="..."
+                                    style={{ height: "200px" }}
+                                  />
+                                </div>
+                              </div>
+                            );
+                          })
+                        ) : (
+                          <div className="col-lg-6 mb-2 pr-lg-1">
+                            <h1 className="text-center">
+                              {" "}
+                              <i className="fa fa-spinner fa-spin"></i>{" "}
+                            </h1>
+                          </div>
+                        )}
+                      </div>{" "}
+                    </div>
+                  ) : null}
                   <hr />
                   {/* Top reviews section */}
-                 
-                 
                   <div class="container mt-4">
                     <div class="row">
                       <div class="col-4">
-                        <UserRating />
+                        <UserRating totalReviews={reviews.length}
+                          averageRating={business?.average_star_count} />
                       </div>
                       <div class="col-8">
-                        <ScoreCard />
+                        <ScoreCard
+                          stars={stars}
+                          starsPercentage={starsPercentage}
+                          
+                        />
                       </div>
                     </div>
-                  </div>  <hr />
+                  </div>{" "}
+                  <hr />
                   <div className="py-4">
                     <TopReviews topReviews={topReviews} />
                   </div>
@@ -366,7 +366,10 @@ const Home = () => {
           </div>
         </div>
       ) : (
-        <div className="container" style={{marginTop:"300px", marginLeft:"600px"}}>
+        <div
+          className="container"
+          style={{ marginTop: "300px", marginLeft: "600px" }}
+        >
           <Spinner animation="grow" style={{ width: "4rem", height: "4rem" }} />
         </div>
       )}
