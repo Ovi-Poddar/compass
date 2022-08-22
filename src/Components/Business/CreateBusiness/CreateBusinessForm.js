@@ -15,6 +15,11 @@ import {
   Input,
   TextareaAutosize,
 } from "@mui/material";
+
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+
 import { makeStyles } from "@mui/styles";
 import {
   useForm,
@@ -31,6 +36,14 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import Checkbox from "@mui/material/Checkbox";
+
+let opening_time = null;
+
+function setOpening_time(e) {
+  //e.preventDefault();
+  // take value of target
+  console.log(e.target.value);
+}
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -383,7 +396,9 @@ const handleChangeOpeningDays = (e) => {
   // console.log(opening_days_list);
 };
 
-const OpeningDayCheckList = () => {
+const OpeningDayCheckList = (props) => {
+  ///const [opening_time, setOpening_time] = useState(new Date('2018-01-01T00:00:00.000Z'));
+
   const { control } = useFormContext();
   return (
     <>
@@ -472,38 +487,48 @@ const OpeningDayCheckList = () => {
       <Controller
         control={control}
         name="opening_time"
-        render={({ field }) => (
-          <TextField
-            id="opening_time"
-            variant="outlined"
-            placeholder="Enter Opening Time"
-            label="Opening Time"
-            margin="normal"
-            style={{ width: "60%" }}
-            {...field}
-          />
+        render={({}) => (
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <TimePicker
+              id="opening_time"
+              label="opening time"
+              value={props.opening_time}
+              onChange={props.setOpening_time}
+              renderInput={(field) => <TextField {...field} />}
+              style={{ width: "10%", marginRight: "10rem" }}
+            />
+          </LocalizationProvider>
+          
         )}
       />
       <Controller
         control={control}
         name="closing_time"
-        render={({ field }) => (
-          <TextField
-            id="closing_time"
-            variant="outlined"
-            placeholder="Enter Closing Time"
-            label="Closing Time"
-            margin="normal"
-            style={{ width: "60%" }}
-            {...field}
-          />
+        render={({}) => (
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <TimePicker
+              id="closing_time"
+              label="closing time"
+              value={props.closing_time}
+              onChange={props.setClosing_time}
+              renderInput={(field) => <TextField {...field} />}
+              style={{ width: "100%" }}
+            />
+          </LocalizationProvider>
         )}
       />
     </>
   );
 };
 
-function getStepContent(step, methods) {
+function getStepContent(
+  step,
+  methods,
+  opening_time,
+  setOpening_time,
+  closing_time,
+  setClosing_time
+) {
   switch (step) {
     case 0:
       return <BasicForm />;
@@ -516,7 +541,14 @@ function getStepContent(step, methods) {
     case 4:
       return <TagCheckList />;
     case 5:
-      return <OpeningDayCheckList />;
+      return (
+        <OpeningDayCheckList
+          opening_time={opening_time}
+          setOpening_time={setOpening_time}
+          closing_time={closing_time}
+          setClosing_time={setClosing_time}
+        />
+      );
     default:
       return "Unknown Step";
   }
@@ -535,10 +567,16 @@ const CreateBusinessForm = () => {
       city: "",
       category: "",
       about: "",
-      opening_time: "",
-      closing_time: "",
     },
   });
+
+  const [opening_time, setOpening_time] = useState(
+    new Date("2018-01-01T00:00:00.000Z")
+  );
+  const [closing_time, setClosing_time] = useState(
+    new Date("2018-01-01T00:00:00.000Z")
+  );
+
   const [activeStep, setActiveStep] = useState(0);
   const [skippedSteps, setSkippedSteps] = useState([]);
   const steps = getSteps();
@@ -597,8 +635,14 @@ const CreateBusinessForm = () => {
           about: methods.watch("about"),
           tags: taglist,
           opening_days: opening_days_list,
-          opening_time: methods.watch("opening_time"),
-          closing_time: methods.watch("closing_time"),
+          opening_time: opening_time.toLocaleString("en-US", {
+            hour: "numeric",
+            hour12: true,
+          }),
+          closing_time: closing_time.toLocaleString("en-US", {
+            hour: "numeric",
+            hour12: true,
+          }),
         }),
       }
     );
@@ -669,7 +713,16 @@ const CreateBusinessForm = () => {
           <>
             <FormProvider {...methods}>
               <form onSubmit={methods.handleSubmit(handleNext)}>
-                <Card.Body>{getStepContent(activeStep, methods)} </Card.Body>
+                <Card.Body>
+                  {getStepContent(
+                    activeStep,
+                    methods,
+                    opening_time,
+                    setOpening_time,
+                    closing_time,
+                    setClosing_time
+                  )}{" "}
+                </Card.Body>
                 <Card.Footer className="text-muted">
                   <Button
                     className={classes.button}
