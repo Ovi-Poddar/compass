@@ -48,6 +48,7 @@ import Main from "./Components/Business/CreateBusiness/Main";
 import EditBusiness from "./Components/Business/EditBusiness/EditBusiness";
 import ProfileFormLoader from "./Components/UserProfile/CreateProfile/ProfileFormLoader";
 import BusinessPhotos from "./Components/Business/pages/Photos/BusinessPhotos";
+import EditProfileForm from "./Components/UserProfile/EditProfile/EditProfileForm";
 
 function App() {
   const [alert, setAlert] = useState(null);
@@ -95,7 +96,11 @@ function App() {
                     element={<ShowOwnBusiness />}
                   />
                   {/* Route for User Profile */}
-                  <Route exact path="/profile/:profile_id" element={<Profile />} />
+                  <Route
+                    exact
+                    path="/profile/:profile_id"
+                    element={<Profile />}
+                  />
                   {/* Route for Business Profile */}
                   <Route
                     exact
@@ -106,6 +111,13 @@ function App() {
                     exact
                     path="/business/edit/:business_id"
                     element={<EditBusiness />}
+                  />
+
+                  {/* edit profile */}
+                  <Route
+                    exact
+                    path="/profile/edit/:profile_id"
+                    element={<EditProfileForm />}
                   />
                   {/* <Route
             exact
