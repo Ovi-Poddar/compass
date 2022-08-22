@@ -26,6 +26,11 @@ const userSchema = new Schema({
 
   // float, average rating of all reviews
   average_stars: { type: Number, default: 0 },
+  profile_image: {
+    type: String,
+    default:
+      "https://media.istockphoto.com/vectors/convenience-store-rgb-color-icon-grocery-shop-exterior-small-business-vector-id1252652997?k=20&m=1252652997&s=612x612&w=0&h=IuUUjBUCa3peH_PYXxOi67xQYTCcRQs1mUFxjy5C5LU=",
+  },
 });
 
 const User = mongoose.model("User", userSchema);

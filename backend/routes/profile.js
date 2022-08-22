@@ -1,10 +1,14 @@
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
 const Review = require("../models/Review");
 const User = require("../models/User");
-const Business = require("../models/Business");
 const { body, validationResult } = require("express-validator");
 var fetchUser = require("../middleware/fetchUser");
+const { addImage, addMultipleImages } = require("../imageController");
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage }).single("profile_image");
 
 // ROUTE 1:create a profile for a user using: POST "/api/profile/createprofile". Login required
 router.post(
@@ -40,11 +44,13 @@ router.post(
     }
   }
 );
- 
+
 // ROUTE 2: Get single userprofile: GET "/api/getprofile/:profile_id". LOGIN not required
 router.get("/getprofile/:profile_id", async (req, res) => {
   try {
-    const profile = await User.findById(req.params.profile_id).select("-password -__v");
+    const profile = await User.findById(req.params.profile_id).select(
+      "-password -__v"
+    );
     res.json(profile);
   } catch (error) {
     console.error(error.message);
@@ -73,17 +79,54 @@ router.delete("/deleteprofile/:profile_id", fetchUser, async (req, res) => {
 
 // ROUTE 4: Update an existing profile using: PUT "/api/profile/updateprofile". Login required
 router.put("/updateprofile/:profile_id", fetchUser, async (req, res) => {
+  console.log("aschi");
+  // console.log(req.headers.user_name);
+  // console.log("req", req.body);
+  const { user_name, user_email } = req.headers;
+  console.log(user_name, user_email);
+
   try {
-    const user = await User.findById(req.user.id);
-    if (!user) {
+    // Create a new query object
+    const newProfile = {};
+    if (user_name) newProfile.user_name = user_name;
+    if (user_email) newProfile.user_email = user_email;
+
+    newProfile.creation_date = Date.now();
+
+    // Find the query to be updated and update it
+    let profile = await User.findById(req.params.profile_id);
+
+    if (!profile) {
       return res.status(404).json({ msg: "User not found" });
     }
-    //only if the user owns this profile,then update it
-    if (user.user_id.toString() !== req.user.id) {
-      return res.status(401).send("Not Allowed");
-    }
-    await User.findByIdAndUpdate(req.user.id, req.body);
-    res.json({ msg: "Profile updated" });
+
+    // Allow update only if user owns this Query
+    // if (profile.profile_id.toString() !== req.user_id) {
+    //   return res.status(401).json({ msg: "Not authorized" });
+    // }
+
+    profile = await User.findByIdAndUpdate(
+      req.params.profile_id,
+      { $set: newProfile },
+      { new: true }
+    );
+    res.json({ Success: "Profile updated successfully", query: profile });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// ROUTE 5 : Upload Profile Picture using: POST "/api/profile/uploadprofilepic". Login required
+router.post("/uploadprofilepic", upload, addImage, async (req, res) => {
+  try {
+    const { profile_id } = req.body;
+    const { downloadURL } = req.file;
+    console.log(downloadURL);
+    const user = await User.findOne({ _id: profile_id });
+    user.profile_image = downloadURL;
+    const savedUser = await user.save();
+    res.json({ success: true, user: savedUser });
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");

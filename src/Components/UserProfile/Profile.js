@@ -3,18 +3,22 @@ import React, { useState, useEffect, useContext } from "react";
 import "./profile.css";
 import ScoreBoard from "./ScoreBoard/ScoreBoard";
 import UserContext from "../../Context/Users/UserContext";
+import { Button } from "react-bootstrap";
 
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import UserReviews from "./UserReviews/UserReviews";
 import UserProfileState from "../../Context/UserProfile/UserProfileState";
 import AboutUser from "./AboutUser/AboutUser";
+import Spinner from "react-bootstrap/Spinner";
 
 const Profile = () => {
   const { profile_id } = useParams();
   console.log("profile_id", profile_id);
   const [userDetails, setUserDetails] = useState(null);
-  const { user, getUser } = useContext(UserContext);
-
+  const { user, getUser, images, addImages } = useContext(UserContext);
+  const [imagesToPreview, setImagesToPreview] = useState([]);
+  const [imagesToUpload, setImagesToUpload] = useState([]);
+  const [isUploading, setIsUploading] = useState(false);
   //fetch user details
   useEffect(() => {
     //use async await to fetch user details
@@ -41,6 +45,60 @@ const Profile = () => {
     };
   }, []);
 
+  // handle image upload
+  const handleChange = async (e) => {
+    //push the files into the state
+    const files = e.target.files;
+    setImagesToUpload(files);
+
+    const currImages = [],
+      fileReaders = [];
+    let isCancel = false;
+    if (files.length) {
+      Object.values(files).forEach((file) => {
+        const fileReader = new FileReader();
+        fileReaders.push(fileReader);
+        fileReader.onload = (e) => {
+          const { result } = e.target;
+          if (result) {
+            currImages.push(result);
+          }
+          if (currImages.length === files.length && !isCancel) {
+            setImagesToPreview(currImages);
+          }
+        };
+        fileReader.readAsDataURL(file);
+      });
+    }
+
+    return () => {
+      isCancel = true;
+      fileReaders.forEach((fileReader) => {
+        if (fileReader.readyState === 1) {
+          fileReader.abort();
+        }
+      });
+    };
+  };
+
+  const [profileImageLoaded, setprofileImageLoaded] = useState(false);
+  const onProfileImageLoaded = () => {
+    setprofileImageLoaded(true);
+  };
+
+  //for addiing photos modal
+  const handleClose = () => {
+    setImagesToUpload([]);
+    setImagesToPreview([]);
+    setShow(false);
+  };
+  const onUpload = (e) => {
+    e.preventDefault();
+    setIsUploading(true);
+    addImages(profile_id, imagesToUpload, setIsUploading);
+    handleClose();
+  };
+
   return (
     <UserProfileState>
       <div className="container">
@@ -50,19 +108,39 @@ const Profile = () => {
               <div className="col-md-3">
                 <div className="profile-img">
                   <img
+                    src={userDetails?.profile_image}
+                    alt="..."
+                    width="auto"
+                    height="auto"
+                    className="rounded mb-2 img-thumbnail"
+                    onLoad={onProfileImageLoaded}
+                  />
+                  {!profileImageLoaded && (
+                    <div
+                      className="d-flex justify-content-center p-4"
+                      role="status"
+                    >
+                      <Spinner animation="border" variant="danger" />
+                    </div>
+                  )}
+                  {/* <img
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"
                     alt=""
-                  />
+                  /> */}
                   <div className="file btn btn-lg btn-primary">
-                    Change Photo
-                    <input type="file" name="file" />
+                    <Link
+                      to={`/profile/edit/${profile_id}`}
+                      className="btn btn-dark btn-sm btn-block"
+                    >
+                      Change Picture
+                    </Link>
                   </div>
                 </div>
               </div>
 
               <div className="col-md-6">
                 <div className="profile-head">
-                  <h5>{userDetails ? userDetails.user_name : null}</h5>
+                  {/* <h5>{userDetails ? userDetails.user_name : null}</h5> */}
                   {/* <h6>Web Developer and Designer</h6> */}
                   {/* <p className="proile-rating">
                   RANKINGS : <span>8/10</span>
@@ -112,17 +190,28 @@ const Profile = () => {
                 </div>
               </div>
               <div className="col-md-2">
-                <input
+                {/* <input
                   type="submit"
                   className="profile-edit-btn"
                   name="btnAddMore"
                   value="Edit Profile"
-                />
+                /> */}
+                <Link to={`/profile/edit/${profile_id}`}>
+                  <Button
+                    variant="danger"
+                    className="btn-block"
+                    style={{ color: "white" }}
+                  >
+                    Edit Profile
+                  </Button>
+                </Link>
               </div>
             </div>
             <div className="row">
               <div className="col-md-3">
-                <div className="profile-work"><ScoreBoard /></div>
+                <div className="profile-work">
+                  <ScoreBoard />
+                </div>
               </div>
               <div className="col-md-8">
                 <div className="tab-content profile-tab" id="myTabContent">
