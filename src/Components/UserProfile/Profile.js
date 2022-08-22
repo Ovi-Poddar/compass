@@ -87,6 +87,7 @@ const Profile = () => {
   };
 
   //for addiing photos modal
+  const [show, setShow] = useState(false);
   const handleClose = () => {
     setImagesToUpload([]);
     setImagesToPreview([]);
@@ -138,7 +139,7 @@ const Profile = () => {
                 </div>
               </div>
 
-              <div className="col-md-6">
+              <div className="col-md-6" style={{marginTop:"100px"}}>
                 <div className="profile-head">
                   {/* <h5>{userDetails ? userDetails.user_name : null}</h5> */}
                   {/* <h6>Web Developer and Designer</h6> */}
