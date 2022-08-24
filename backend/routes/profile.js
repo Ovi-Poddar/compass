@@ -79,11 +79,11 @@ router.delete("/deleteprofile/:profile_id", fetchUser, async (req, res) => {
 
 // ROUTE 4: Update an existing profile using: PUT "/api/profile/updateprofile". Login required
 router.put("/updateprofile/:profile_id", fetchUser, async (req, res) => {
-  console.log("aschi");
+  // console.log("aschi");
   // console.log(req.headers.user_name);
   // console.log("req", req.body);
   const { user_name, user_email } = req.headers;
-  console.log(user_name, user_email);
+  // console.log(user_name, user_email);
 
   try {
     // Create a new query object

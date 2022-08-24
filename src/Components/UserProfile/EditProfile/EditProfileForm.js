@@ -51,15 +51,9 @@ const EditProfileForm = () => {
           user_email: email,
         },
         body: {
-          user_name: "tanvir",
+          user_name: name,
+          user_email: email,
         },
-        // JSON.stringify(
-        //   // name
-
-        //   // user_email: formData.get("user_email"),
-        // ),
-        // body: "tanvir",
-        // ),
       }
     );
     // console.log("name", name);
@@ -74,31 +68,31 @@ const EditProfileForm = () => {
   return (
     <>
       <form
-        // onSubmit={handleSubmit}
+        onSubmit={handleSubmit}
         encType="multipart/form-data"
         style={{
           marginTop: "150px",
           marginLeft: "500px",
         }}
       >
-        <div class="form-group">
-          <label for="name">Name</label>
+        <div className="form-group">
+          <label htmlFor="name">Name</label>
           <input
             type="name"
             name="user_name"
-            class="form-control"
+            className="form-control"
             id="user_name"
             value={data.user_name}
             style={{ width: "500px" }}
             onChange={(e) => setData({ ...data, user_name: e.target.value })}
           />
         </div>
-        <div class="form-group" style={{ marginTop: "50px" }}>
-          <label for="exampleInputEmail1">Email address</label>
+        <div className="form-group" style={{ marginTop: "50px" }}>
+          <label htmlFor="exampleInputEmail1">Email address</label>
           <input
             type="email"
             name="user_email"
-            class="form-control"
+            className="form-control"
             id="user_email"
             aria-describedby="emailHelp"
             value={data.user_email}
@@ -109,8 +103,8 @@ const EditProfileForm = () => {
 
         <button
           type="submit"
-          class="btn btn-primary"
-          onClick={handleSubmit}
+          className="btn btn-primary"
+          // onClick={handleSubmit}
           style={{ marginTop: "50px", marginLeft: "150px" }}
         >
           Update Info

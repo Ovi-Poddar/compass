@@ -109,11 +109,66 @@ router.post("/uploadprofilepic", upload, addImage, async (req, res) => {
   }
 });
 
+// Route 5: update a business using: GET "/api/business/updatebusiness/:business_id". Login required
+router.get("/updatebusiness/:business_id", fetchUser, async (req, res) => {
+  const {
+    business_name,
+    email,
+    contact_no,
+    district,
+    city,
+    address,
+    category,
+    about,
+    tags,
+    opening_days,
+    opening_time,
+    closing_time,
+  } = req.headers;
+  try {
+    // Create a new query object
+    const newBusiness = {};
+    if (business_name) newBusiness.business_name = business_name;
+    if (contact_no) newBusiness.contact_no = contact_no;
+    if (email) newBusiness.email = email;
+    if (district) newBusiness.district = district;
+    if (city) newBusiness.city = city;
+    if (address) newBusiness.address = address;
+    if (category) newBusiness.category = category;
+    if (about) newBusiness.about = about;
+    if (tags) newBusiness.tags = tags;
+    if (opening_days) newBusiness.opening_days = opening_days;
+    if (opening_time) newBusiness.opening_time = opening_time;
+    if (closing_time) newBusiness.closing_time = closing_time;
+
+    // Find the query to be updated and update it
+    let business = await Business.findById(req.params.business_id);
+
+    if (!business) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+    // Allow update only if user owns this business
+    if (business.owner_id.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "Not authorized" });
+    }
+
+    business = await Business.findByIdAndUpdate(
+      req.params.business_id,
+      { $set: newBusiness },
+      { new: true }
+    );
+    res.json({ Success: "Business updated successfully", query: business });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 // Route 5: get a business using: GET "/api/business/getbusiness/:business_id". Login Not required
 router.get("/getbusiness/:business_id", async (req, res) => {
   try {
     const { business_id } = req.params;
-    const business = await Business.findOne({ _id: business_id });
+    const business = await Business.findById({ _id: business_id });
     res.json(business);
   } catch (error) {
     console.error(error.message);
@@ -270,8 +325,5 @@ router.get("/getservices/:business_id", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
-
-
-
 
 module.exports = router;

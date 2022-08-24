@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "react-bootstrap/Card";
+import TimePicker from "react-time-picker";
 import {
   Typography,
   TextField,
@@ -385,6 +386,7 @@ const handleChangeOpeningDays = (e) => {
 
 const OpeningDayCheckList = () => {
   const { control } = useFormContext();
+  const [value, onChange] = useState("12:00");
   return (
     <>
       <h3>Add opening Days</h3>
@@ -499,6 +501,12 @@ const OpeningDayCheckList = () => {
           />
         )}
       />
+      <div className="opening_time">
+        <label htmlFor="appt">Select Opening Time</label>
+        <input type="time" id="opening_time" name="opening_time" />
+      </div>
+
+      {/* <TimePicker name="opening_time" onChange={onChange} value={value} /> */}
     </>
   );
 };
