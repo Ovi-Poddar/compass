@@ -26,6 +26,23 @@ const QueryState = (props) => {
     setQueries(json);
   };
 
+  // Get all Queries of this business of this user using: GET "/api/query/getallqueries".
+  const getQueriesOfUser = async (business_id, user_id) => {
+    // API Call
+    const response = await fetch(
+      `${host}/api/query/getallqueries/${business_id}/${user_id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("token"),
+        },
+      }
+    );
+    const json = await response.json();
+    setQueries(json);
+  }
+
   // Add a Query to a Business using: POST "/api/query/addquery/".
   const addQuery = async (text, business_id) => {
     // API Call
@@ -167,6 +184,7 @@ const QueryState = (props) => {
       value={{
         queries,
         getQueries,
+        getQueriesOfUser,
         addQuery,
         deleteQuery,
         editQuery,
