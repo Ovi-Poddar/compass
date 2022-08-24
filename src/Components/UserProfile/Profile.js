@@ -131,7 +131,7 @@ const Profile = () => {
                   /> */}
                   <div className="file btn btn-lg btn-primary">
                     <Link
-                      to={`/profile/edit/${profile_id}`}
+                      to={`/profile/editpicture/${profile_id}`}
                       className="btn btn-dark btn-sm btn-block"
                     >
                       Change Picture
