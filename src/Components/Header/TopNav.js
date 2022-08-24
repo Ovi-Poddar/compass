@@ -82,13 +82,39 @@ export default function TopNav(props) {
           </Form> */}
           <Link
             className="btn btn-primary mx-4"
-            style={{ backgroundColor: "#7B1FA2", textTransform: "none"}}
+            style={{ backgroundColor: "#7B1FA2", textTransform: "none" }}
             to="/landing"
             role="button"
           >
             <HomeIcon className="me-2" />
             Home
           </Link>
+          {localStorage.getItem("token") && (
+            <Dropdown>
+              <Dropdown.Toggle
+                variant="primary"
+                id="dropdownforbusiness"
+                className="mx-0"
+                style={{
+                  backgroundColor: "#7B1FA2",
+                  textTransform: "none",
+                }}
+              >
+                <BusinessIcon /> For Business
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item as={Link} to="/createbusiness">
+                  {" "}
+                  Create Business
+                </Dropdown.Item>
+                <Dropdown.Item as={Link} to="/showownbusinesses">
+                  {" "}
+                  My Businesses
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          )}
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -146,39 +172,14 @@ export default function TopNav(props) {
               </>
             ) : (
               <>
-                <Dropdown>
-                  <Dropdown.Toggle
-                    variant="primary"
-                    id="dropdownforbusiness"
-                    className="mx-3"
-                    style={{
-                      backgroundColor: "#7B1FA2",
-                      textTransform: "none",
-                    }}
-                  >
-                    <BusinessIcon /> For Business
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item as={Link} to="/createbusiness">
-                      {" "}
-                      Create Business
-                    </Dropdown.Item>
-                    <Dropdown.Item as={Link} to="/showownbusinesses">
-                      {" "}
-                      My Businesses
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-
-                <Fab
+                {/* <Fab
                   size="small"
                   color="primary"
                   aria-label="add"
                   className="mx-2"
                 >
                   <NotificationsIcon />
-                </Fab>
+                </Fab> */}
 
                 {user && (
                   <Link to={`/profile/${user._id}`}>
@@ -200,12 +201,13 @@ export default function TopNav(props) {
                     size="medium"
                     color="error"
                     aria-label="add"
-                    className="mx-3"
                     sx={{
                       // "&:hover": {
                       //   color: "blue",
                       // },
                       textTransform: "none",
+                      marginRight: "30px",
+                      marginLeft: "10px",
                     }}
                     onClick={handleLogout}
                   >

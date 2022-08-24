@@ -7,213 +7,192 @@ import { Link } from "react-router-dom";
 
 export default function CompassFooter() {
   return (
-    <div className="application">
-      <Helmet>
-        <meta charset="utf-8" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
+    <>
+      {/* <!-- Remove the container if you want to extend the Footer to full width. --> */}
+      <div className=" mt-1 mx-1">
+        {/* <!-- Footer --> */}
+        <footer
+          className="text-center text-lg-start text-white"
+          style={{ backgroundColor: "#FE9834" }}
+        >
+          {/* <!-- Section: Social media --> */}
+          <section
+            className="d-flex justify-content-between p-4"
+            style={{ backgroundColor: "#6351ce" }}
+          >
+            {/* <!-- Left --> */}
+            <div className="me-5">
+              <span>Get connected with us on social networks:</span>
+            </div>
+            {/* <!-- Left --> */}
 
-        <link
-          href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
-          rel="stylesheet"
-        />
-        <link rel="stylesheet" href="css/ionicons.min.css" />
-        <link rel="stylesheet" href="css/style.css" />
+            {/* <!-- Right --> */}
+            <div>
+              <a href="" className="text-white me-4">
+                <i className="fab fa-facebook-f"></i>
+              </a>
+              <a href="" className="text-white me-4">
+                <i className="fab fa-twitter"></i>
+              </a>
+              <a href="" className="text-white me-4">
+                <i className="fab fa-google"></i>
+              </a>
+              <a href="" className="text-white me-4">
+                <i className="fab fa-instagram"></i>
+              </a>
+              <a href="" className="text-white me-4">
+                <i className="fab fa-linkedin"></i>
+              </a>
+              <a href="" className="text-white me-4">
+                <i className="fab fa-github"></i>
+              </a>
+            </div>
+            {/* <!-- Right --> */}
+          </section>
+          {/* <!-- Section: Social media --> */}
 
-        <script src="js/jquery.min.js"></script>
-        <script src="js/popper.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/main.js"></script>
-      </Helmet>
-
-      <footer className="footer-08">
-        <div className="container-fluid px-lg-4">
-          <div className="row">
-            <div className="col-md-9 py-5">
-              <div className="row">
-                <div className="col-md-4 mb-md-0 mb-4">
-                  <h2 className="footer-heading">About us</h2>
+          {/* <!-- Section: Links  --> */}
+          <section className="">
+            <div className="container text-center text-md-start mt-5">
+              {/* <!-- Grid row --> */}
+              <div className="row mt-3">
+                {/* <!-- Grid column --> */}
+                <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                  {/* <!-- Content --> */}
+                  <h6 className="text-uppercase fw-bold">Compass</h6>
+                  <hr
+                    className="mb-4 mt-0 d-inline-block mx-auto"
+                    style={{
+                      width: "60px",
+                      backgroundColor: "#7c4dff",
+                      height: "2px",
+                    }}
+                  />
                   <p>
-                    A small river named Duden flows by their place and supplies
-                    it with the necessary regelialia.
-                  </p>
-                  <ul className="ftco-footer-social p-0">
-                    <li className="ftco-animate">
-                      <a className="footer-a"
-                        href="/"
-                        data-toggle="tooltip"
-                        data-placement="top"
-                        title="Twitter"
-                      >
-                       <i className="bi bi-twitter"></i>
-                      </a>
-                    </li>
-                    <li className="ftco-animate">
-                      <a className="footer-a"
-                        href="/"
-                        data-toggle="tooltip"
-                        data-placement="top"
-                        title="Facebook"
-                      >
-                        <i className="bi bi-facebook"></i>
-                      </a>
-                    </li>
-                    <li className="ftco-animate">
-                      <a className="footer-a"
-                        href="/"
-                        data-toggle="tooltip"
-                        data-placement="top"
-                        title="Instagram"
-                      >
-                        <i className="bi bi-instagram"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div className="col-md-8">
-                  <div className="row justify-content-center">
-                    <div className="col-md-12 col-lg-9">
-                      <div className="row">
-                        <div className="col-md-4 mb-md-0 mb-4">
-                          <h2 className="footer-heading">Discover</h2>
-                          <ul className="list-unstyled">
-                            <li>
-                              <a  href="/" className="py-1 d-block footer-a">
-                                Buy &amp; Sell
-                              </a>
-                            </li>
-                            <li>
-                              <a href="/" className="py-1 d-block footer-a">
-                                Merchant
-                              </a>
-                            </li>
-                            <li>
-                              <a href="/" className="py-1 d-block footer-a">
-                                Giving back
-                              </a>
-                            </li>
-                            <li>
-                              <a  href="/" className="py-1 d-block footer-a">
-                                Help &amp; Support
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="col-md-4 mb-md-0 mb-4">
-                          <h2 className="footer-heading">About</h2>
-                          <ul className="list-unstyled">
-                            <li>
-                              <a  href="/" className="py-1 d-block   footer-a">
-                                Staff
-                              </a>
-                            </li>
-                            <li>
-                              <a  href="/" className="py-1 d-block  footer-a">
-                                Team
-                              </a>
-                            </li>
-                            <li>
-                              <a  href="/" className="py-1 d-block  footer-a">
-                                Careers
-                              </a>
-                            </li>
-                            <li>
-                              <a  href="/" className="py-1 d-block footer-a">
-                                Blog
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="col-md-4 mb-md-0 mb-4">
-                          <h2 className="footer-heading">Resources</h2>
-                          <ul className="list-unstyled">
-                            <li>
-                              <a  href="/" className="py-1 d-block" footer-a>
-                                Security
-                              </a>
-                            </li>
-                            <li>
-                              <a  href="/" className="py-1 d-block" footer-a>
-                                Global
-                              </a>
-                            </li>
-                            <li>
-                              <a  href="/" className="py-1 d-block" footer-a>
-                                Charts
-                              </a>
-                            </li>
-                            <li>
-                              <a href="/" className="py-1 d-block" footer-a>
-                                Privacy
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="row mt-md-5">
-                <div className="col-md-12">
-                  <p className="copyright">
-                    Copyright &copy;
-                    <script>document.write(new Date().getFullYear());</script>{" "}
-                    All rights reserved | This template is made with{" "}
-                    <i className="ion-ios-heart" aria-hidden="true"></i> by{" "}
-                    <Link to="/" >
-                      Compass.com
-                    </Link>
+                    User Reviews and Recommendations of Best Restaurants,
+                    Shopping, Nightlife, Food, Entertainment, Things to Do,
+                    Services and More at <strong> Compass </strong>
                   </p>
                 </div>
+                {/* <!-- Grid column --> */}
+
+                {/* <!-- Grid column --> */}
+                <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                  {/* <!-- Links --> */}
+                  <h6 className="text-uppercase fw-bold">Products</h6>
+                  <hr
+                    className="mb-4 mt-0 d-inline-block mx-auto"
+                    style={{
+                      width: "60px",
+                      backgroundColor: "#7c4dff",
+                      height: "2px",
+                    }}
+                  />
+                  <p>
+                    <a href="#!" className="text-white">
+                      Business
+                    </a>
+                  </p>
+                  <p>
+                    <a href="#!" className="text-white">
+                      Reviews
+                    </a>
+                  </p>
+                  <p>
+                    <a href="#!" className="text-white">
+                      Events
+                    </a>
+                  </p>
+                  <p>
+                    <a href="#!" className="text-white">
+                      Places
+                    </a>
+                  </p>
+                </div>
+                {/* <!-- Grid column --> */}
+
+                {/* <!-- Grid column --> */}
+                <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                  {/* <!-- Links --> */}
+                  <h6 className="text-uppercase fw-bold">Useful links</h6>
+                  <hr
+                    className="mb-4 mt-0 d-inline-block mx-auto"
+                    style={{
+                      width: "60px",
+                      backgroundColor: "#7c4dff",
+                      height: "2px",
+                    }}
+                  />
+                  <p>
+                    <a href="#!" className="text-white">
+                      Your Account
+                    </a>
+                  </p>
+                  <p>
+                    <a href="#!" className="text-white">
+                      Become an Affiliate
+                    </a>
+                  </p>
+                  <p>
+                    <a href="#!" className="text-white">
+                      Shipping Rates
+                    </a>
+                  </p>
+                  <p>
+                    <a href="#!" className="text-white">
+                      Help
+                    </a>
+                  </p>
+                </div>
+                {/* <!-- Grid column --> */}
+
+                {/* <!-- Grid column --> */}
+                <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                  {/* <!-- Links --> */}
+                  <h6 className="text-uppercase fw-bold">Contact</h6>
+                  <hr
+                    className="mb-4 mt-0 d-inline-block mx-auto"
+                    style={{
+                      width: "60px",
+                      backgroundColor: "#7c4df7",
+                      height: "2px",
+                    }}
+                  />
+                  <p>
+                    <i className="fas fa-home mr-3"></i> Dhaka, Bangladesh
+                  </p>
+                  <p>
+                    <i className="fas fa-envelope mr-3"></i> info@compass.com
+                  </p>
+                  <p>
+                    <i className="fas fa-phone mr-3"></i> + 01 234 567 88
+                  </p>
+                  <p>
+                    <i className="fas fa-print mr-3"></i> + 01 234 567 89
+                  </p>
+                </div>
+                {/* <!-- Grid column --> */}
               </div>
+              {/* <!-- Grid row --> */}
             </div>
-            <div className="col-md-3 mt-2 py-md-5 py-4 aside-stretch-right pl-lg-5">
-              <h2 className="footer-heading footer-heading-white">Contact us</h2>
-              <form action="#" className="contact-form">
-                <div className="form-group mb-2">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Your Name"
-                  />
-                </div>
-                <div className="form-group mb-2">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Your Email"
-                  />
-                </div>
-                <div className="form-group mb-2">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Subject"
-                  />
-                </div>
-                <div className="form-group mb-2">
-                  <textarea
-                    name=""
-                    id=""
-                    cols="30"
-                    rows="3"
-                    className="form-control"
-                    placeholder="Message"
-                  ></textarea>
-                </div>
-                <div className="form-group mb-5">
-                  <button type="submit" className="form-control submit px-3">
-                    Send
-                  </button>
-                </div>
-              </form>
-            </div>
+          </section>
+          {/* <!-- Section: Links  --> */}
+
+          {/* <!-- Copyright --> */}
+          <div
+            className="text-center p-3"
+            style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
+          >
+            © 2022 Copyright:
+            <a className="text-white" href="/">
+              Compass.com
+            </a>
           </div>
-        </div>
-      </footer>
-    </div>
+          {/* <!-- Copyright --> */}
+        </footer>
+        {/* <!-- Footer --> */}
+      </div>
+      {/* <!-- End of .container --> */}
+    </>
   );
 }
