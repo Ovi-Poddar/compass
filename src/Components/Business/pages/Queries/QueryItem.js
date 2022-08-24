@@ -143,49 +143,6 @@ function QueryItem(props) {
               {props.query?.user_id.user_name}
             </h6>
 
-            {(props.query?.user_id._id === user?._id) ?
-              <>
-                <div className="d-inline" style={{ marginLeft: "20rem" }}>
-                  <Button
-                    className="mr-3"
-                    variant="outline-primary"
-                    onClick={updateQuery}
-                  >
-                    <EditIcon />
-                  </Button>
-                  <Button
-                    className="mr-3"
-                    variant="outline-danger"
-                    onClick={toggleDeleteQuery}
-                  >
-                    <DeleteIcon />
-                  </Button>
-                </div>
-              </>
-              
-              :
-              <>
-              <div className="d-inline" style={{ marginLeft: "20rem" }}>
-                <Button
-                  className="mr-3"
-                  variant="outline-primary"
-                  onClick={updateQuery}
-                  disabled = {true}
-                >
-                  <EditIcon />
-                </Button>
-                <Button
-                  className="mr-3"
-                  variant="outline-danger"
-                  onClick={toggleDeleteQuery}
-                  disabled = {true}
-                >
-                  <DeleteIcon />
-                </Button>
-              </div>
-            </>
-            }
-
             <div className="d-flex align-items-center mb-3">
               <span class="badge rounded-pill bg-danger d-inline">
                 {moment(props.query.creation_date).calendar()}
@@ -246,6 +203,49 @@ function QueryItem(props) {
                 <ReplyIcon />
               </Button>
             </div>
+
+            {(props.query?.user_id._id === user?._id) ?
+              <>
+                <div className="d-inline" style={{ marginLeft: "13rem" }}>
+                  <Button
+                    className="mr-3"
+                    variant="outline-primary"
+                    onClick={updateQuery}
+                  >
+                    <EditIcon />
+                  </Button>
+                  <Button
+                    className="mr-3"
+                    variant="outline-danger"
+                    onClick={toggleDeleteQuery}
+                  >
+                    <DeleteIcon />
+                  </Button>
+                </div>
+              </>
+              
+              :
+              <>
+              <div className="d-inline" style={{ marginLeft: "13rem" }}>
+                <Button
+                  className="mr-3"
+                  variant="outline-primary"
+                  onClick={updateQuery}
+                  disabled = {true}
+                >
+                  <EditIcon />
+                </Button>
+                <Button
+                  className="mr-3"
+                  variant="outline-danger"
+                  onClick={toggleDeleteQuery}
+                  disabled = {true}
+                >
+                  <DeleteIcon />
+                </Button>
+              </div>
+            </>
+            }
 
             {/* Modal for editing query */}
             <Modal
