@@ -27,6 +27,7 @@ import LoadingSpinner from "../../../LoadingSpinner/LoadingSpinner";
 import TopReviews from "./TopReviews/TopReviews";
 import UserRating from "./Rating/UserRating";
 import ScoreCard from "./Rating/ScoreCard";
+import Details from "./Details/Details";
 import ReviewContext from "../../../../Context/Review/ReviewContext";
 import UserContext from "../../../../Context/Users/UserContext";
 
@@ -180,6 +181,7 @@ const Home = () => {
                     <div className="media-body mb-5 text-white">
                       <h4 className="mt-0 mb-0"> {business?.business_name} </h4>
                       {/* <p className="small mb-4 text-warning"> */}
+                      <p>{business?.category}</p>
                       <p>
                         {" "}
                         <PlaceIcon color="warning" /> {business?.address}
@@ -340,22 +342,27 @@ const Home = () => {
                   ) : null}
                   <hr />
                   {/* Top reviews section */}
-                  <div class="container mt-4">
-                    <div class="row">
-                      <div class="col-4">
-                        <UserRating totalReviews={reviews.length}
-                          averageRating={business?.average_star_count} />
+                  <div className="container mt-4">
+                    <div className="row">
+                      <div className="col-4">
+                        <UserRating
+                          totalReviews={reviews.length}
+                          averageRating={business?.average_star_count}
+                        />
                       </div>
-                      <div class="col-8">
+                      <div className="col-8">
                         <ScoreCard
                           stars={stars}
                           starsPercentage={starsPercentage}
-                          
                         />
                       </div>
                     </div>
-                  </div>{" "}
+                  </div>
                   <hr />
+                  {/* details section */}
+                  <div className="d-flex justify-content-center mb-3">
+                    <Details business_id={business_id} />
+                  </div>
                   <div className="py-4">
                     <TopReviews topReviews={topReviews} />
                   </div>

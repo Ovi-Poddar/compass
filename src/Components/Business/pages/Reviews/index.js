@@ -99,6 +99,7 @@ export const Reviews = (props) => {
         >
           See Our Recent Reviews
         </h1>
+        <hr />
 
         <div className="main_content" style={{ marginTop: "7rem" }}>
           <div className="container ">
