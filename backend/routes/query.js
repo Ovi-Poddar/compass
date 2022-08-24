@@ -8,67 +8,67 @@ var fetchUser = require("../middleware/fetchUser");
 
 // ROUTE 1: Add a query to a Business using: POST "/api/query/addquery/:buisness_id". Login required
 router.post(
-    "/addquery/:business_id",
-    fetchUser,
-    [body("text", "Enter a valid name").isLength({ min: 3 })],
-    async (req, res) => {
-      try {
-        const { text } = req.body;
-        // If there are errors, return Bad request and the errors
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-          return res.status(400).json({ errors: errors.array() });
-        }
-        const query = new Query({
-          text: text,
-          user_id: req.user.id,
-          business_id: req.params.business_id,
-        });
-        let savedQuery= await query.save();
-        savedQuery = await Query.findOne({
-          _id: savedQuery.id,
-        })
-          .populate("user_id", "user_name")
-          .select("-__v -business_id");
-
-        //increase the number of queries of the business
-        const curr_business = await Business.findById(req.params.business_id);
-        curr_business.query_count += 1;
-        await curr_business.save();
-
-        res.json(savedQuery);
-      } catch (error) {
-        console.error(error.message);
-        res.status(500).send("Internal Server Error");
-      }
-    }
-  );
-
-// ROUTE 2: Get All the Queries of this business using: GET "/api/query/getallqueries".
-router.get("/getallqueries/:business_id", async (req, res) => {
+  "/addquery/:business_id",
+  fetchUser,
+  [body("text", "Enter a valid name").isLength({ min: 3 })],
+  async (req, res) => {
     try {
-      const queries = await Query.find({
+      const { text } = req.body;
+      // If there are errors, return Bad request and the errors
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+      const query = new Query({
+        text: text,
+        user_id: req.user.id,
         business_id: req.params.business_id,
+      });
+      let savedQuery = await query.save();
+      savedQuery = await Query.findOne({
+        _id: savedQuery.id,
       })
         .populate("user_id", "user_name")
-        .select("-__v -business_id")
-        .sort({ creation_date: -1 });
-      res.json(queries);
+        .select("-__v -business_id");
+
+      //increase the number of queries of the business
+      const curr_business = await Business.findById(req.params.business_id);
+      curr_business.query_count += 1;
+      await curr_business.save();
+
+      res.json(savedQuery);
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Server Error");
     }
-  });
+  }
+);
+
+// ROUTE 2: Get All the Queries of this business using: GET "/api/query/getallqueries".
+router.get("/getallqueries/:business_id", async (req, res) => {
+  try {
+    const queries = await Query.find({
+      business_id: req.params.business_id,
+    })
+      .populate("user_id", "user_name")
+      .select("-__v -business_id")
+      .sort({ creation_date: -1 });
+    res.json(queries);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 // ROUTE 3: Get single query: GET "/api/query/:query_id".
 router.get("/:query_id", async (req, res) => {
   try {
     const query = await Query.find({
       _id: req.params.query_id,
-    })
-      // .populate("user_id", "user_name -_id")
-      // .select("-__v -business_id")
-      // .sort({ creation_date: -1 });
+    });
+    // .populate("user_id", "user_name -_id")
+    // .select("-__v -business_id")
+    // .sort({ creation_date: -1 });
     res.json(query);
   } catch (error) {
     console.error(error.message);
@@ -77,7 +77,6 @@ router.get("/:query_id", async (req, res) => {
 });
 
 // ROUTE 4: Delete an existing Query using: DELETE "/api/query/deletequery". Login required
-
 
 router.delete("/deletequery/:query_id", fetchUser, async (req, res) => {
   try {
@@ -100,7 +99,7 @@ router.delete("/deletequery/:query_id", fetchUser, async (req, res) => {
     for (let i = 0; i < queryAnswers.length; i++) {
       await QueryAnswer.findByIdAndDelete(queryAnswers[i]._id);
     }
-    
+
     // Delete the query
 
     query = await Query.findByIdAndDelete(req.params.query_id);
@@ -110,8 +109,7 @@ router.delete("/deletequery/:query_id", fetchUser, async (req, res) => {
     curr_business.query_count -= 1;
     await curr_business.save();
 
-    res.json({Success: "Query deleted successfully", query: query});
-
+    res.json({ Success: "Query deleted successfully", query: query });
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
@@ -124,7 +122,7 @@ router.put("/updatequery/:query_id", fetchUser, async (req, res) => {
   try {
     // Create a new query object
     const newQuery = {};
-    if(text) newQuery.text = text;
+    if (text) newQuery.text = text;
 
     newQuery.creation_date = Date.now();
 
@@ -145,8 +143,7 @@ router.put("/updatequery/:query_id", fetchUser, async (req, res) => {
       { $set: newQuery },
       { new: true }
     );
-    res.json({Success: "Query updated successfully", query: query});
-
+    res.json({ Success: "Query updated successfully", query: query });
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
@@ -170,17 +167,15 @@ router.post(
         text: text,
         answerer_id: req.user.id,
         query_id: req.params.query_id,
-      })
-      ;
+      });
       const query = await Query.findById(req.params.query_id);
       query.answers.push(queryanswer);
       await query.save();
 
-      let savedQueryAnswer= await queryanswer.save();
+      let savedQueryAnswer = await queryanswer.save();
       savedQueryAnswer = await QueryAnswer.findOne({
         _id: savedQueryAnswer.id,
-      })
-        .populate("answerer_id", "user_name")
+      }).populate("answerer_id", "user_name");
 
       res.json(savedQueryAnswer);
     } catch (error) {
@@ -196,7 +191,7 @@ router.put("/updateanswer/:answer_id", fetchUser, async (req, res) => {
   try {
     // Create a new answer object
     const newAnswer = {};
-    if(text) newAnswer.text = text;
+    if (text) newAnswer.text = text;
 
     // Find the answer to be updated and update it
     let answer = await QueryAnswer.findById(req.params.answer_id);
@@ -218,15 +213,14 @@ router.put("/updateanswer/:answer_id", fetchUser, async (req, res) => {
 
     const query = await Query.findById(answer.query_id);
     //find answer in query and update it
-    query.answers.forEach(answer => {
+    query.answers.forEach((answer) => {
       if (answer._id.toString() === req.params.answer_id) {
         answer.text = text;
-    }
-  });
+      }
+    });
     await query.save();
 
-    res.json({Success: "Answer updated successfully", answer: answer});
-
+    res.json({ Success: "Answer updated successfully", answer: answer });
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
@@ -251,18 +245,16 @@ router.delete("/deleteanswer/:answer_id", fetchUser, async (req, res) => {
 
     const query = await Query.findById(answer.query_id);
     //find answer in query and delete it
-    query.answers.forEach(answer => {
+    query.answers.forEach((answer) => {
       if (answer._id.toString() === req.params.answer_id) {
         query.answers.pull(answer);
-    }
-  });
-  await query.save();
+      }
+    });
+    await query.save();
 
     answer = await QueryAnswer.findByIdAndDelete(req.params.answer_id);
 
-
-    res.json({Success: "Answer deleted successfully", answer: answer});
-
+    res.json({ Success: "Answer deleted successfully", answer: answer });
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
@@ -274,12 +266,45 @@ router.get("/getallanswers/:query_id", async (req, res) => {
   try {
     const answers = await QueryAnswer.find({
       query_id: req.params.query_id,
-    })
-      .populate("answerer_id", "user_name")
+    }).populate("answerer_id", "user_name");
     res.json(answers);
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
   }
 });
-  module.exports = router;
+
+// ROUTE 9: Get All the Queries of this user using: GET "/api/query/getalluserqueries".
+router.get("/getalluserqueries/:user_id", async (req, res) => {
+  try {
+    const queries = await Query.find({
+      user_id: req.params.user_id,
+    })
+      .populate("business_id", "business_name profile_image _id")
+      .select("-__v ")
+      .sort({ creation_date: -1 });
+    res.json(queries);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// Route 10: Get all Queries of this business of this user using: GET "/api/query/getallqueries".
+router.get("/getallqueries/:business_id/:user_id", async (req, res) => {
+  try {
+    const queries = await Query.find({
+      business_id: req.params.business_id,
+      user_id: req.params.user_id,
+    })
+      .populate("user_id", "user_name")
+      .select("-__v -business_id")
+      .sort({ creation_date: -1 });
+    res.json(queries);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+module.exports = router;

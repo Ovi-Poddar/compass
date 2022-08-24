@@ -1,17 +1,38 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import Button from "react-bootstrap/Button";
 import { useParams } from "react-router-dom";
 import QueryItem from "./QueryItem";
 import MakeQuery from "./MakeQuery";
 import SideBar from "../../Sidebar/Sidebar";
-import QueryContext from "../../../../Context/Query/QueryContext";
 import Card from "react-bootstrap/Card";
+
+import UserContext from "../../../../Context/Users/UserContext";
+import QueryContext from "../../../../Context/Query/QueryContext";
 import ShortDetails from "../ShortDetails/ShortDetails";
 
 export const Queries = (props) => {
+  const userContext = useContext(UserContext);
+  const { user } = userContext;
   let { business_id } = useParams();
 
   const context = useContext(QueryContext);
-  const { queries, getQueries } = context;
+  const { queries, getQueries, getQueriesOfUser } = context;
+
+  const [button_text, setButtonText] = useState("Show My Queries");
+
+  const update_button_text = () => {
+    if(button_text === "Show My Queries"){
+      setButtonText("Show All Queries");
+    }
+    else setButtonText("Show My Queries");
+  }
+
+  const handleShowMyQuery = (e) => {
+    e.preventDefault();
+    update_button_text();
+    if(button_text === "Show My Queries") getQueriesOfUser(business_id, user._id);
+    else getQueries(business_id);
+  }
 
   useEffect(() => {
     getQueries(business_id);
@@ -31,7 +52,7 @@ export const Queries = (props) => {
             bottom: "0",
             right: "0",
             width: "37%",
-            marginTop: "14rem",
+            marginTop: "17rem",
           }}
         >
           <ShortDetails showAlert={props.showAlert} business_id={business_id} />
@@ -61,7 +82,24 @@ export const Queries = (props) => {
                         style={{ width: "53rem" }}
                       >
                         <div className="row d-flex justify-content-start main_content_body">
+
                           <div className="col-md-12 col-lg-10">
+                          {localStorage.getItem("token") && (
+                            <>
+                              <div
+                                className=""
+                                style={{ marginBottom: "1rem" }}
+                              >
+                                <Button
+                                  className="mr-1"
+                                  variant="danger"
+                                  onClick={handleShowMyQuery}
+                                >
+                                  {button_text}
+                                </Button>
+                              </div>
+                            </>
+                          )}
                             <Card className="shadow-md">
                               <Card.Body
                                 className="p-4"

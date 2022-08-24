@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Button from "react-bootstrap/Button";
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditProfileForm = () => {
@@ -53,13 +54,6 @@ const EditProfileForm = () => {
         body: {
           user_name: "tanvir",
         },
-        // JSON.stringify(
-        //   // name
-
-        //   // user_email: formData.get("user_email"),
-        // ),
-        // body: "tanvir",
-        // ),
       }
     );
     // console.log("name", name);
@@ -69,6 +63,11 @@ const EditProfileForm = () => {
     // showAlert("Query added successfully!", "success");
     console.log("data", json.Success);
     if (json.Success) navigate(`/profile/${profile_id}`);
+  };
+
+  const handleCancel = async (e) => {
+    e.preventDefault();
+    navigate(`/profile/${profile_id}`);
   };
 
   return (
@@ -107,14 +106,20 @@ const EditProfileForm = () => {
           />
         </div>
 
-        <button
-          type="submit"
-          class="btn btn-primary"
+        <Button
+          className="btn btn-danger"
+          onClick= {handleCancel}
+          style={{ marginTop: "50px", marginLeft: "80px" }}
+        >
+          Cancel
+        </Button>
+        <Button
+          class="btn btn-success"
           onClick={handleSubmit}
           style={{ marginTop: "50px", marginLeft: "150px" }}
         >
           Update Info
-        </button>
+        </Button>
       </form>
     </>
   );
