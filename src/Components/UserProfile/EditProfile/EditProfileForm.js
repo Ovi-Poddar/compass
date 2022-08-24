@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Button from "react-bootstrap/Button";
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditProfileForm = () => {
@@ -65,6 +66,11 @@ const EditProfileForm = () => {
     if (json.Success) navigate(`/profile/${profile_id}`);
   };
 
+  const handleCancel = async (e) => {
+    e.preventDefault();
+    navigate(`/profile/${profile_id}`);
+  };
+
   return (
     <>
       <form
@@ -101,14 +107,20 @@ const EditProfileForm = () => {
           />
         </div>
 
-        <button
-          type="submit"
-          className="btn btn-primary"
+        <Button
+          className="btn btn-danger"
+          onClick={handleCancel}
+          style={{ marginTop: "50px", marginLeft: "80px" }}
+        >
+          Cancel
+        </Button>
+        <Button
+          className="btn btn-success"
           // onClick={handleSubmit}
           style={{ marginTop: "50px", marginLeft: "150px" }}
         >
           Update Info
-        </button>
+        </Button>
       </form>
     </>
   );

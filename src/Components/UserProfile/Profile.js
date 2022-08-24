@@ -7,6 +7,7 @@ import { Button } from "react-bootstrap";
 
 import { useParams, Link } from "react-router-dom";
 import UserReviews from "./UserReviews/UserReviews";
+import UserQueries from "./UserQueries/UserQueries";
 import UserProfileState from "../../Context/UserProfile/UserProfileState";
 import AboutUser from "./AboutUser/AboutUser";
 import Spinner from "react-bootstrap/Spinner";
@@ -87,6 +88,7 @@ const Profile = () => {
   };
 
   //for addiing photos modal
+  const [show, setShow] = useState(false);
   const handleClose = () => {
     setImagesToUpload([]);
     setImagesToPreview([]);
@@ -110,8 +112,8 @@ const Profile = () => {
                   <img
                     src={userDetails?.profile_image}
                     alt="..."
-                    width="auto"
-                    height="auto"
+                    width="5rem"
+                    height="5rem"
                     className="rounded mb-2 img-thumbnail"
                     onLoad={onProfileImageLoaded}
                   />
@@ -138,7 +140,7 @@ const Profile = () => {
                 </div>
               </div>
 
-              <div className="col-md-6">
+              <div className="col-md-6" style={{marginTop:"7rem"}}>
                 <div className="profile-head">
                   {/* <h5>{userDetails ? userDetails.user_name : null}</h5> */}
                   {/* <h6>Web Developer and Designer</h6> */}
@@ -230,14 +232,7 @@ const Profile = () => {
                     aria-labelledby="reviews-tab"
                   >
                     <UserReviews profile_id={profile_id} />
-                    {/* <div className="row">
-                    <div className="col-md-6">
-                      <label>Experience</label>
-                    </div>
-                    <div className="col-md-6">
-                      <p>Expert</p>
-                    </div>
-                  </div>*/}
+
                   </div>
                   <div
                     className="tab-pane fade show"
@@ -245,7 +240,7 @@ const Profile = () => {
                     role="tabpanel"
                     aria-labelledby="queries-tab"
                   >
-                    queries
+                    <UserQueries profile_id={profile_id} />
                   </div>
                 </div>
               </div>

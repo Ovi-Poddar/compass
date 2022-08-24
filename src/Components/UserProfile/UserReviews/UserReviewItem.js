@@ -8,6 +8,8 @@ import Rating from "@mui/material/Rating";
 import StarsIcon from "@mui/icons-material/Stars";
 import Badge from "react-bootstrap/Badge";
 
+import { Link } from "react-router-dom";
+
 import moment from "moment";
 
 const UserReviewItem = ({ review }) => {
@@ -27,9 +29,10 @@ const UserReviewItem = ({ review }) => {
 
         <div className="media-body u-shadow-v18 g-bg-secondary px-3 py-2">
           <div className="mb-2 ">
-            <h5 className="fw-bold mb-0 text-danger">
-              {review.business_id.business_name}
-            </h5>
+            <Link to={`/reviews/${review.business_id._id}`} style={{textDecoration:"none"}}>
+              <h5 className="fw-bold mb-0 text-danger">
+              {review.business_id.business_name} 
+            </h5> </Link>
             <span className="text-dark g-font-size-12">
               <Rating
                 className="mr-2"

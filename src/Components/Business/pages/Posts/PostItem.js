@@ -76,9 +76,15 @@ function PostItem(props) {
               {props.post?.user_id.user_name}
             </h6>
 
+            <div className="d-flex align-items-center mb-3">
+              <span class="badge rounded-pill bg-danger d-inline">
+                {moment(props.post?.creation_date).calendar()}
+              </span>
+            </div>
+            <p className="mb-2 text-dark">{props.post?.text}</p>
             {(props.post?.user_id._id === user?._id) ? 
               <>
-                <div className="d-inline" style={{ marginLeft: "20rem" }}>
+                <div className="d-inline" style={{ marginLeft: "25rem" }}>
                   <Button
                     className="mr-3"
                     variant="outline-primary"
@@ -97,7 +103,7 @@ function PostItem(props) {
               </>
               :
               <>
-              <div className="d-inline" style={{ marginLeft: "20rem" }}>
+              <div className="d-inline" style={{ marginLeft: "25rem" }}>
                 <Button
                   className="mr-3"
                   variant="outline-primary"
@@ -117,13 +123,6 @@ function PostItem(props) {
               </div>
             </>
             }
-
-            <div className="d-flex align-items-center mb-3">
-              <span class="badge rounded-pill bg-danger d-inline">
-                {moment(props.post?.creation_date).calendar()}
-              </span>
-            </div>
-            <p className="mb-2 text-dark">{props.post?.text}</p>
 
             {/* Modal for editing post */}
             <Modal

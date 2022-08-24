@@ -58,7 +58,7 @@ router.get("/getallreviews/:business_id", async (req, res) => {
     const reviews = await Review.find({
       business_id: req.params.business_id,
     })
-      .populate("user_id", "user_name")
+      .populate("user_id", "user_name _id")
       .select("-__v -business_id")
       .sort({ creation_date: -1 });
 
@@ -224,13 +224,13 @@ router.put("/thumbdown/:review_id", fetchUser, async (req, res) => {
   }
 });
 
-// ROUTE 9: Get All the Reviews of this user using: GET "/api/review/getallreviews".
+// ROUTE 9: Get All the Reviews of this user using: GET "/api/review/getalluserreviews".
 router.get("/getalluserreviews/:user_id", async (req, res) => {
   try {
     const reviews = await Review.find({
       user_id: req.params.user_id,
     })
-      .populate("business_id", "business_name profile_image") 
+      .populate("business_id", "business_name profile_image _id") 
       .select("-__v ")
       .sort({ creation_date: -1 });
     res.json(reviews);
@@ -239,4 +239,5 @@ router.get("/getalluserreviews/:user_id", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+
 module.exports = router;

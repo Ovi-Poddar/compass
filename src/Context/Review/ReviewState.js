@@ -11,6 +11,9 @@ const ReviewState = (props) => {
   const reviewsInitial = [];
   const [reviews, setReviews] = useState(reviewsInitial);
 
+  const [stars, setStars] = useState([0, 0, 0, 0, 0, 0]);
+  const [starsPercentage, setStarsPercentage] = useState([0, 0, 0, 0, 0, 0]);
+
   const userContext = useContext(UserContext);
   const { user, getUser } = userContext;
 
@@ -29,7 +32,22 @@ const ReviewState = (props) => {
       }
     );
     const json = await response.json();
+
     setReviews(json);
+
+    const calculatedStars = [0, 0, 0, 0, 0, 0];
+    reviews.forEach((review) => {
+      calculatedStars[review.stars] += 1;
+    } );
+
+    setStars(calculatedStars);
+
+    // Calculate the percentage of stars
+    const calculatedStarsPercentage = [0, 0, 0, 0, 0, 0];
+    calculatedStars.forEach((star, index) => {
+      calculatedStarsPercentage[index] = (star / reviews.length) * 100;
+    } );
+    setStarsPercentage(calculatedStarsPercentage);
 
     //check if the review is liked by the user
     if (user) {
@@ -196,6 +214,8 @@ const ReviewState = (props) => {
         editReview,
         thumbUp,
         thumbDown,
+        stars,
+        starsPercentage,
       }}
     >
       {props.children}

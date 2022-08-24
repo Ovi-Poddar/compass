@@ -10,7 +10,7 @@ const Landing = () => {
   const host = "http://localhost:5000";
 
   const [businesses, setBusinesses] = useState([]); // keep track of all businesses available
-  const [selectedRating, setSelectedRating] = useState(null);
+  const [selectedRating, setSelectedRating] = useState(null); // keep track of selected ratings
 
   const [categories, setcategories] = useState([
     { id: 1, checked: false, label: "Restaurant" },
@@ -23,8 +23,11 @@ const Landing = () => {
   const [resultsFound, setResultsFound] = useState(true);
   const [searchInput, setSearchInput] = useState("");
 
-  const handleSelectRating = (event, value) =>
-    !value ? null : setSelectedRating(value);
+  const handleSelectRating = (event, values) => {
+    if(values.length) setSelectedRating(values);
+    else setSelectedRating(null);
+  }
+    
 
   const handleChangeChecked = (id) => {
     const categoriesStateList = categories;
@@ -39,9 +42,16 @@ const Landing = () => {
 
     // Rating Filter
     if (selectedRating) {
-      updatedList = updatedList.filter(
-        (item) => parseInt(item.rating) === parseInt(selectedRating)
-      );
+      //iterate over selectedRating
+      let ratedFilters = [];     
+      //if selected rating includes the rating, push it to the ratedFilters array
+      selectedRating.forEach((rating) => {
+        updatedList.forEach((business) => {
+          if (Math.round(business.average_star_count) === rating) ratedFilters.push(business);
+        } );
+      } );
+
+      updatedList = ratedFilters;
     }
 
     // category Filter
@@ -50,12 +60,11 @@ const Landing = () => {
       .map((item) => item.label.toLowerCase());
 
     if (categoriesChecked.length) {
-      console.log(categoriesChecked);
-      console.log(updatedList);
+
       updatedList = updatedList.filter((item) =>
         categoriesChecked.includes(item.category.toLowerCase())
       );
-      console.log(updatedList);
+
     }
 
     // Search Filter
@@ -75,7 +84,6 @@ const Landing = () => {
 
   useEffect(() => {
     applyFilters();
-    console.log(list);
   }, [selectedRating, categories, searchInput, list]);
 
   //fetch all businesses when component mounts

@@ -2,64 +2,65 @@ import React from "react";
 
 import "./styles.css";
 
-const ScoreCard = () => {
+const ScoreCard = ({stars, starsPercentage}) => {
+ 
   return (
     <div>
-      <div class="row">
-        <div class="side">
+      <div className="row">
+        <div className="side">
           <div>5 star</div>
         </div>
-        <div class="middle">
-          <div class="bar-container">
-            <div class="bar-5"></div>
+        <div classNameName="middle">
+          <div className="bar-container">
+            <div className="bar-5"  style={{width:`${starsPercentage[5]}%`}}></div>
           </div>
         </div>
-        <div class="side right">
-          <div>150</div>
+        <div className="side right">
+          <div>{stars[5]}</div>
         </div>
-        <div class="side">
+        <div className="side">
           <div>4 star</div>
         </div>
-        <div class="middle">
-          <div class="bar-container">
-            <div class="bar-4"></div>
+        <div className="middle">
+          <div className="bar-container">
+            <div className="bar-4"  style={{width:`${starsPercentage[4]}%`}}></div>
           </div>
         </div>
-        <div class="side right">
-          <div>63</div>
+        <div className="side right">
+          <div>{stars[4]}</div>
         </div>
-        <div class="side">
+        <div className="side">
           <div>3 star</div>
         </div>
-        <div class="middle">
-          <div class="bar-container">
-            <div class="bar-3"></div>
+        <div className="middle">
+          <div className="bar-container">
+            <div className="bar-3"  style={{width:`${starsPercentage[3]}%`}}></div>
           </div>
         </div>
-        <div class="side right">
-          <div>15</div>
+        <div className="side right">
+          <div>{stars[3]}</div>
         </div>
-        <div class="side">
+        <div className="side">
           <div>2 star</div>
         </div>
-        <div class="middle">
-          <div class="bar-container">
-            <div class="bar-2"></div>
+        <div className="middle">
+          <div className="bar-container">
+            <div className="bar-2"  style={{width:`${starsPercentage[2]}%`}}></div>
           </div>
         </div>
-        <div class="side right">
-          <div>6</div>
+        <div className="side right">
+          <div>{stars[2]}</div>
         </div>
-        <div class="side">
+        <div className="side">
           <div>1 star</div>
         </div>
-        <div class="middle">
-          <div class="bar-container">
-            <div class="bar-1"></div>
+        <div className="middle">
+          <div className="bar-container">
+            <div className="bar-1"  style={{width:`${starsPercentage[1]}%`}}></div>
           </div>
         </div>
-        <div class="side right">
-          <div>20</div>
+        <div className="side right">
+          <div>{stars[1]}</div>
         </div>
       </div>
     </div>

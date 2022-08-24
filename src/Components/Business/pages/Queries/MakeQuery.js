@@ -82,8 +82,8 @@ function MakeQuery(props) {
             disabled = {localStorage.getItem("token") === null && String(owner) === String(user?._id)}
           >
             Make a Query
-          </Button>{" "}
-          <hr className="mt-2" style={{ width: "78rem" }} />
+          </Button>
+          <hr className="mt-4" style={{ width: "78rem" }} />
         </div>
         <div className="row">
           <div className="d-flex justify-content-start pt-3 pb-2">

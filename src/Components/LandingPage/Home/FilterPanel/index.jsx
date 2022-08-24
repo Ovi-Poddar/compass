@@ -22,14 +22,14 @@ const FilterPanel = ({
       ))}
     </div>
     <hr/>
-    {/* <div className='input-group'>
+    <div className='input-group'>
       <p className='label'>Star Rating</p>
       <FilterListToggle
         options={ratingList}
         value={selectedRating}
         selectToggle={selectRating}
       />
-    </div> */}
+    </div>
   </div>
 );
 

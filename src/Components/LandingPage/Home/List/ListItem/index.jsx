@@ -7,7 +7,7 @@ import { Rating } from "@mui/material";
 import { Card } from "react-bootstrap";
 
 const ListItem = ({ item }) => {
-  const {  business_name, profile_image, rating, _id } = item;
+  const {  business_name, profile_image, average_star_count, _id } = item;
   const business_id = _id;
 
   const [imageLoaded, setimageLoaded] = useState(false);
@@ -38,7 +38,7 @@ const ListItem = ({ item }) => {
         </Link>
         {/* <span>🌟{rating}</span> */}
         <span>
-          <Rating name="size-small" value={5} readOnly size="medium" />
+          <Rating name="size-small" value={Math.round(average_star_count)} readOnly size="medium" />
         </span>
       </Card.Footer>
       {/* <footer>

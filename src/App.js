@@ -132,6 +132,11 @@ function App() {
                     path="/profile/edit/:profile_id"
                     element={<EditProfileForm />}
                   />
+                  <Route
+                    exact
+                    path="/profile/editpicture/:profile_id"
+                    element={<EditProfilePic />}
+                  />
                   {/* <Route
             exact
             path="/showownbusinesses"

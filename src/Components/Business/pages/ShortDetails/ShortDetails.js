@@ -1,8 +1,8 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./shortdetails.css";
 import Card from "react-bootstrap/Card";
-import BusinessHomeContext from "../../../../Context/BusinessHome/BusinessHomeContext";
+
 function ShortDetails(props) {
   const business_id = props.business_id;
   const host = "http://localhost:5000";
@@ -22,7 +22,6 @@ function ShortDetails(props) {
       }
     );
     const json = await response.json();
-    console.log("hello");
     setBusiness(json);
   };
 

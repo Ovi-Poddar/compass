@@ -16,7 +16,7 @@ const UserReviews = (props) => {
 
   return (
     <>
-      <div className="row " style={{ height:"400px", overflow:"auto",}}>
+      <div className="row mb-4" style={{ height:"400px", overflow:"auto",}}>
         {/* conditional rendering */}
         {userReviews.length > 0 ? (
           userReviews.map((review) => (

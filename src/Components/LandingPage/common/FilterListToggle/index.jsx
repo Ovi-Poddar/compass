@@ -22,8 +22,10 @@ const useStyles = makeStyles({
     },
     '&.Mui-selected': {
       borderRadius: '10px',
-      background: '#000',
-      color: '#fff',
+      // background: '#000',
+      color: '#fff !important',
+      backgroundColor: "#D32F2F !important",
+      borderColor:"#000 !important"
     },
     '&.MuiToggleButton-root': {
       '&:hover': {
@@ -38,15 +40,15 @@ const FilterListToggle = ({ options, value, selectToggle }) => {
   const classes = useStyles();
   return (
     <ToggleButtonGroup
-      value={value}
-      exclusive
+      value={value} size="small"  aria-label="Small sizes"
+      // exclusive
       onChange={selectToggle}
       className={classes.root}
     >
       {options.map(({ label, id, value }) => (
         <ToggleButton
-         className={classes.toggle} 
-        key={id} value={value}>
+         className={classes.toggle}   sx={{ fontWeight: 'bold' }}
+        key={id} value={value}> 
           {label}
         </ToggleButton>
       ))}

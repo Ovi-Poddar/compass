@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import Button from "react-bootstrap/Button";
-import Collapse from "react-bootstrap/Collapse";
 import Form from "react-bootstrap/Form";
 import ReplyIcon from "@mui/icons-material/Reply";
 import EditIcon from "@mui/icons-material/Edit";
@@ -10,8 +9,10 @@ import Modal from "react-bootstrap/Modal";
 import Card from "react-bootstrap/Card";
 import AnswerItem from "./AnswerItem";
 
+
 import UserContext from "../../../../Context/Users/UserContext";
 import QueryContext from "../../../../Context/Query/QueryContext";
+import { Link } from "react-router-dom";
 
 // import "./QueryItem.css";
 
@@ -137,55 +138,12 @@ function QueryItem(props) {
             height="60"
           />
           <div>
-            <h6
+          <Link to={`/profile/${props.query.user_id._id}`} style={{textDecoration:"none"}}><h6
               className="fw-bold mb-1 mr-3 d-inline"
               style={{ color: "#027A97" }}
             >
               {props.query?.user_id.user_name}
-            </h6>
-
-            {(props.query?.user_id._id === user?._id) ?
-              <>
-                <div className="d-inline" style={{ marginLeft: "20rem" }}>
-                  <Button
-                    className="mr-3"
-                    variant="outline-primary"
-                    onClick={updateQuery}
-                  >
-                    <EditIcon />
-                  </Button>
-                  <Button
-                    className="mr-3"
-                    variant="outline-danger"
-                    onClick={toggleDeleteQuery}
-                  >
-                    <DeleteIcon />
-                  </Button>
-                </div>
-              </>
-              
-              :
-              <>
-              <div className="d-inline" style={{ marginLeft: "20rem" }}>
-                <Button
-                  className="mr-3"
-                  variant="outline-primary"
-                  onClick={updateQuery}
-                  disabled = {true}
-                >
-                  <EditIcon />
-                </Button>
-                <Button
-                  className="mr-3"
-                  variant="outline-danger"
-                  onClick={toggleDeleteQuery}
-                  disabled = {true}
-                >
-                  <DeleteIcon />
-                </Button>
-              </div>
-            </>
-            }
+            </h6></Link>
 
             <div className="d-flex align-items-center mb-3">
               <span class="badge rounded-pill bg-danger d-inline">
@@ -247,6 +205,49 @@ function QueryItem(props) {
                 <ReplyIcon />
               </Button>
             </div>
+
+            {(props.query?.user_id._id === user?._id) ?
+              <>
+                <div className="d-inline" style={{ marginLeft: "13rem" }}>
+                  <Button
+                    className="mr-3"
+                    variant="outline-primary"
+                    onClick={updateQuery}
+                  >
+                    <EditIcon />
+                  </Button>
+                  <Button
+                    className="mr-3"
+                    variant="outline-danger"
+                    onClick={toggleDeleteQuery}
+                  >
+                    <DeleteIcon />
+                  </Button>
+                </div>
+              </>
+              
+              :
+              <>
+              <div className="d-inline" style={{ marginLeft: "13rem" }}>
+                <Button
+                  className="mr-3"
+                  variant="outline-primary"
+                  onClick={updateQuery}
+                  disabled = {true}
+                >
+                  <EditIcon />
+                </Button>
+                <Button
+                  className="mr-3"
+                  variant="outline-danger"
+                  onClick={toggleDeleteQuery}
+                  disabled = {true}
+                >
+                  <DeleteIcon />
+                </Button>
+              </div>
+            </>
+            }
 
             {/* Modal for editing query */}
             <Modal

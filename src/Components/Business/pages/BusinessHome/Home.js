@@ -28,6 +28,7 @@ import LoadingSpinner from "../../../LoadingSpinner/LoadingSpinner";
 import TopReviews from "./TopReviews/TopReviews";
 import UserRating from "./Rating/UserRating";
 import ScoreCard from "./Rating/ScoreCard";
+import Details from "./Details/Details";
 import ReviewContext from "../../../../Context/Review/ReviewContext";
 import UserContext from "../../../../Context/Users/UserContext";
 
@@ -35,7 +36,8 @@ const Home = () => {
   const { business_id } = useParams();
   const [business, setBusiness] = useState(null);
   const { images, addImages } = useContext(BusinessHomeContext);
-  const { getReviews, reviews } = useContext(ReviewContext);
+  const { getReviews, reviews, stars, starsPercentage } =
+    useContext(ReviewContext);
 
   const [imagesToUpload, setImagesToUpload] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
@@ -68,18 +70,6 @@ const Home = () => {
         ["desc", "desc"]
       );
       const topReviews = sortedReviews.slice(0, 3);
-
-      //count how many reveiws are of 1, 2, 3, 4, 5 stars
-      const starsCount = {
-        1: 0,
-        2: 0,
-        3: 0,
-        4: 0,
-        5: 0,
-      };
-      reviews.forEach((review) => {
-        starsCount[review.stars] += 1;
-      });
 
       if (isMounted) {
         setBusiness(gotBusiness);
@@ -192,6 +182,7 @@ const Home = () => {
                     <div className="media-body mb-5 text-white">
                       <h4 className="mt-0 mb-0"> {business?.business_name} </h4>
                       {/* <p className="small mb-4 text-warning"> */}
+                      <p>{business?.category}</p>
                       <p>
                         {" "}
                         <PlaceIcon color="warning" /> {business?.address}
@@ -361,22 +352,31 @@ const Home = () => {
                       </div>{" "}
                     </div>
                   ) : null}
-
                   <hr />
                   {/* Top reviews section */}
-                  <div className="py-4">
-                    <TopReviews topReviews={topReviews} />
+                  <div className="container mt-4">
+                    <div className="row">
+                      <div className="col-4">
+                        <UserRating
+                          totalReviews={reviews.length}
+                          averageRating={business?.average_star_count}
+                        />
+                      </div>
+                      <div className="col-8">
+                        <ScoreCard
+                          stars={stars}
+                          starsPercentage={starsPercentage}
+                        />
+                      </div>
+                    </div>
                   </div>
                   <hr />
-                  <div class="container mt-4">
-                    {/* <div class="row">
-                      <div class="col-4">
-                        <UserRating />
-                      </div>
-                      <div class="col-8">
-                        <ScoreCard />
-                      </div>
-                    </div> */}
+                  {/* details section */}
+                  <div className="d-flex justify-content-center mb-3">
+                    <Details business_id={business_id} />
+                  </div>
+                  <div className="py-4">
+                    <TopReviews topReviews={topReviews} />
                   </div>
                 </div>
               </div>
