@@ -10,6 +10,7 @@ import Modal from "react-bootstrap/Modal";
 
 import UserContext from "../../../../Context/Users/UserContext";
 import QueryContext from "../../../../Context/Query/QueryContext";
+import { Link } from "react-router-dom";
 
 // import "./QueryItem.css";
 
@@ -60,7 +61,6 @@ function AnswerItem(props) {
     props.showAlert("Answer deleted successfully!", "success");
   };
 
-
   if (props.answer != null) {
     return (
       <>
@@ -73,12 +73,16 @@ function AnswerItem(props) {
             height="60"
           />
           <div>
-            <h6
-              className="fw-bold mb-1 mr-3 d-inline"
-              style={{ color: "#027A97" }}
-            >
-              {props.answer?.answerer_id.user_name}
-            </h6>
+            <Link to={`/profile/${props.answer.answerer_id._id}`}
+            style={{textDecoration:"none"}}>
+              {" "}
+              <h6
+                className="fw-bold mb-1 mr-3 d-inline"
+                style={{ color: "#027A97" }}
+              >
+                {props.answer?.answerer_id.user_name}
+              </h6>
+            </Link>
 
             <div className="d-flex align-items-center mb-3">
               <span class="badge rounded-pill bg-danger d-inline">
@@ -86,9 +90,9 @@ function AnswerItem(props) {
               </span>
             </div>
             <p className="mb-2 text-dark ">{props.answer?.text}</p>
-            {(props.answer?.answerer_id._id === user?._id) ? 
+            {props.answer?.answerer_id._id === user?._id ? (
               <>
-                <div className="d-inline"  style={{ marginLeft: "11rem" }}>
+                <div className="d-inline" style={{ marginLeft: "11rem" }}>
                   <Button
                     className="btn-sm mr-3"
                     variant="outline-primary"
@@ -104,35 +108,37 @@ function AnswerItem(props) {
                     <DeleteIcon />
                   </Button>
                 </div>
-              </> :
+              </>
+            ) : (
               <>
-              <div className="d-inline"  style={{ marginLeft: "11rem" }}>
-                <Button
-                  className="btn-sm mr-3"
-                  variant="outline-primary"
-                  onClick={updateAnswer}
-                  disabled={true}
-                >
-                  <EditIcon />
-                </Button>
-                <Button
-                  className="btn-sm mr-3"
-                  variant="outline-danger"
-                  onClick={toggleDeleteAnswer}
-                  disabled={true}
-                >
-                  <DeleteIcon />
-                </Button>
-              </div>
-            </>
-  }
-
+                <div className="d-inline" style={{ marginLeft: "11rem" }}>
+                  <Button
+                    className="btn-sm mr-3"
+                    variant="outline-primary"
+                    onClick={updateAnswer}
+                    disabled={true}
+                  >
+                    <EditIcon />
+                  </Button>
+                  <Button
+                    className="btn-sm mr-3"
+                    variant="outline-danger"
+                    onClick={toggleDeleteAnswer}
+                    disabled={true}
+                  >
+                    <DeleteIcon />
+                  </Button>
+                </div>
+              </>
+            )}
 
             {/* Modal for editing answer */}
-            <Modal 
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-            show={showEditAnswer} onHide={toggleEditAnswer}>
+            <Modal
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
+              show={showEditAnswer}
+              onHide={toggleEditAnswer}
+            >
               <Modal.Header closeButton>
                 <Modal.Title className="text-primary">
                   Edit Your Answer
@@ -194,8 +200,6 @@ function AnswerItem(props) {
                 </Button>
               </Modal.Footer>
             </Modal>
-
-            
           </div>
         </div>
         <hr className="mt-2" />

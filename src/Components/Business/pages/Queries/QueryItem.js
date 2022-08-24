@@ -9,8 +9,10 @@ import Modal from "react-bootstrap/Modal";
 import Card from "react-bootstrap/Card";
 import AnswerItem from "./AnswerItem";
 
+
 import UserContext from "../../../../Context/Users/UserContext";
 import QueryContext from "../../../../Context/Query/QueryContext";
+import { Link } from "react-router-dom";
 
 // import "./QueryItem.css";
 
@@ -136,12 +138,12 @@ function QueryItem(props) {
             height="60"
           />
           <div>
-            <h6
+          <Link to={`/profile/${props.query.user_id._id}`} style={{textDecoration:"none"}}><h6
               className="fw-bold mb-1 mr-3 d-inline"
               style={{ color: "#027A97" }}
             >
               {props.query?.user_id.user_name}
-            </h6>
+            </h6></Link>
 
             <div className="d-flex align-items-center mb-3">
               <span class="badge rounded-pill bg-danger d-inline">

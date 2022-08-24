@@ -50,7 +50,7 @@ router.get("/getallqueries/:business_id", async (req, res) => {
     const queries = await Query.find({
       business_id: req.params.business_id,
     })
-      .populate("user_id", "user_name")
+      .populate("user_id", "user_name _id")
       .select("-__v -business_id")
       .sort({ creation_date: -1 });
     res.json(queries);
@@ -266,7 +266,7 @@ router.get("/getallanswers/:query_id", async (req, res) => {
   try {
     const answers = await QueryAnswer.find({
       query_id: req.params.query_id,
-    }).populate("answerer_id", "user_name");
+    }).populate("answerer_id", "user_name _id");
     res.json(answers);
   } catch (error) {
     console.error(error.message);

@@ -22,6 +22,7 @@ import UserContext from "../../../../Context/Users/UserContext";
 import ReviewContext from "../../../../Context/Review/ReviewContext";
 
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 function ReviewItem(props) {
   const colors = {
@@ -117,12 +118,13 @@ function ReviewItem(props) {
           height="60"
         />
         <div>
-          <h6
+          <Link to={`/profile/${props.review.user_id._id}`}
+          style={{textDecoration:"none"}} ><h6
             className="fw-bold mb-1 mr-3 d-inline"
             style={{ color: "#027A97" }}
           >
             {props.review.user_id.user_name}
-          </h6>
+          </h6> </Link>
 
           {stars.map((_, index) => {
             return (

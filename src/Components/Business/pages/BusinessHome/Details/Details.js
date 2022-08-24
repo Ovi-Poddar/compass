@@ -45,7 +45,7 @@ const Details = (props) => {
         <div className="col-4">
           <Card style={{ height: "15rem" }}>
             <Card.Body>
-              <Card.Title className="text-danger font-weight-bold">
+              <Card.Title className="text-danger mb-2 font-weight-bold text-center">
                 About Us
               </Card.Title>
               <Card.Text>{business?.about}</Card.Text>
@@ -55,7 +55,7 @@ const Details = (props) => {
         <div className="col-4">
           <Card style={{ height: "15rem" }}>
             <Card.Body>
-              <Card.Title className="text-danger font-weight-bold">
+              <Card.Title className="text-danger  mb-2 font-weight-bold text-center">
                 Opening Hours
               </Card.Title>
               <Card.Text>
@@ -86,7 +86,7 @@ const Details = (props) => {
         <div className="col-4">
           <Card style={{ height: "15rem" }}>
             <Card.Body>
-              <Card.Title className="text-danger font-weight-bold">
+              <Card.Title className="text-danger mb-2 font-weight-bold text-center">
                 Contact Us
               </Card.Title>
               <Card.Text className="text-danger font-weight-bold">
