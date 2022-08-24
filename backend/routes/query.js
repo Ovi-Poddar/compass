@@ -282,4 +282,22 @@ router.get("/getallanswers/:query_id", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+
+
+// ROUTE 9: Get All the Queries of this user using: GET "/api/query/getalluserqueries".
+router.get("/getalluserqueries/:user_id", async (req, res) => {
+  try {
+    const queries = await Query.find({
+      user_id: req.params.user_id,
+    })
+      .populate("business_id", "business_name profile_image _id") 
+      .select("-__v ")
+      .sort({ creation_date: -1 });
+    res.json(queries);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
   module.exports = router;
