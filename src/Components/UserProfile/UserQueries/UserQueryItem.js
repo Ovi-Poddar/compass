@@ -76,7 +76,7 @@ const UserQueryItem = ({ query }) => {
         <div className="media-body u-shadow-v18 g-bg-secondary px-3 py-2">
           <div className="mb-2 ">
             <Link
-              to={`/business/${query.business_id._id}`}
+              to={`/queries/${query.business_id._id}`}
               style={{ textDecoration: "none" }}
             >
               <h5 className="fw-bold mb-0 text-danger">
