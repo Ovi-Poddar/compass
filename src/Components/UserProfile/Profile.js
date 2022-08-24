@@ -112,8 +112,8 @@ const Profile = () => {
                   <img
                     src={userDetails?.profile_image}
                     alt="..."
-                    width="auto"
-                    height="auto"
+                    width="5rem"
+                    height="5rem"
                     className="rounded mb-2 img-thumbnail"
                     onLoad={onProfileImageLoaded}
                   />
