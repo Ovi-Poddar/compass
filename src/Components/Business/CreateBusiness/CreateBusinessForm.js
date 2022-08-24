@@ -19,7 +19,6 @@ import {
 
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 
 import { makeStyles } from "@mui/styles";
 import {
@@ -500,7 +499,6 @@ const OpeningDayCheckList = (props) => {
               style={{ width: "10%", marginRight: "10rem" }}
             />
           </LocalizationProvider>
-          
         )}
       />
       <Controller
@@ -519,10 +517,10 @@ const OpeningDayCheckList = (props) => {
           </LocalizationProvider>
         )}
       />
-      <div className="opening_time">
+      {/* <div className="opening_time">
         <label htmlFor="appt">Select Opening Time</label>
         <input type="time" id="opening_time" name="opening_time" />
-      </div>
+      </div> */}
 
       {/* <TimePicker name="opening_time" onChange={onChange} value={value} /> */}
     </>
@@ -688,7 +686,7 @@ const CreateBusinessForm = () => {
                   </Typography>
                 );
               }
-              if (isStepFalied() && activeStep == index) {
+              if (isStepFalied() && activeStep === index) {
                 labelProps.error = true;
               }
               if (isStepSkipped(index)) {

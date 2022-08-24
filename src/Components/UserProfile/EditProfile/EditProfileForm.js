@@ -115,6 +115,7 @@ const EditProfileForm = () => {
           Cancel
         </Button>
         <Button
+          type="submit"
           className="btn btn-success"
           // onClick={handleSubmit}
           style={{ marginTop: "50px", marginLeft: "150px" }}
