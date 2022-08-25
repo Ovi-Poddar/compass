@@ -1,7 +1,10 @@
 import React, { useState, useContext } from "react";
 import moment from "moment";
 
-const UserQueryAnswerItem = ({ answer }) => {
+import { Link } from "react-router-dom";
+
+const UserQueryAnswerItem = (props) => {
+  const {answer} = props;
   return (
     <>
       <div className="d-flex justify-content-start ">
