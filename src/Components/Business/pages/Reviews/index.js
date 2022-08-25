@@ -52,8 +52,8 @@ export const Reviews = (props) => {
       <div className="wrapper">
         <Sidebar />
         {
-          // String(owner) != String(user?._id) &&
-          localStorage.getItem("token") ? (
+          (String(owner) != String(user?._id) &&
+          localStorage.getItem("token")) ? (
             <>
               <div
                 className="mb-3"
