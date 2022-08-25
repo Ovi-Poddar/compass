@@ -83,6 +83,7 @@ const Home = () => {
 
     return () => (isMounted = false);
   }, [reviews, allImages]);
+
   const handleChange = async (e) => {
     //push the files into the state
     const files = e.target.files;
@@ -315,7 +316,6 @@ const Home = () => {
                 <div className="py-4 px-4">
                   {gallery ? (
                     <div>
-                      {" "}
                       <div className="d-flex align-items-center justify-content-between mb-3">
                         <h5 className="mb-0">Recent photos</h5>
                         <Link

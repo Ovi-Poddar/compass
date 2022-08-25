@@ -6,7 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import moment from "moment";
 import Modal from "react-bootstrap/Modal";
-import Card from "react-bootstrap/Card";
+import {Link} from "react-router-dom";
 
 import UserContext from "../../../../Context/Users/UserContext";
 import PostContext from "../../../../Context/Post/PostContext";
@@ -16,6 +16,14 @@ function PostItem(props) {
   const { user } = userContext;
   const postContext = useContext(PostContext);
   const { deletePost, editPost } = postContext;
+
+  const [gallery, setGallery] = useState([]);
+
+  const [allImages, setAllImages] = useState([]);
+
+  useEffect(() => {
+  setAllImages(props.post?.images);
+  }, [allImages]);
 
   const [showEditPost, setShowEditPost] = useState(false);
   const toggleEditPost = () => setShowEditPost(!showEditPost);
@@ -69,12 +77,17 @@ function PostItem(props) {
             height="60"
           />
           <div>
-            <h6
-              className="fw-bold mb-1 mr-3 d-inline"
-              style={{ color: "#027A97" }}
+          <Link
+              to={`/profile/${props.post?.user_id._id}`}
+              style={{ textDecoration: "none" }}
             >
-              {props.post?.user_id.user_name}
-            </h6>
+              <h6
+                className="fw-bold mb-1 mr-3 d-inline"
+                style={{ color: "#027A97" }}
+              >
+                {props.post?.user_id.user_name}
+              </h6>
+            </Link>
 
             <div className="d-flex align-items-center mb-3">
               <span class="badge rounded-pill bg-danger d-inline">
@@ -82,7 +95,39 @@ function PostItem(props) {
               </span>
             </div>
             <p className="mb-2 text-dark">{props.post?.text}</p>
-            {(props.post?.user_id._id === user?._id) ? 
+            {allImages ? (
+              <div>
+                <div className="d-flex align-items-center justify-content-between mb-3">
+                  {/* <h5 className="mb-0">Recent photos</h5> */}
+                </div>
+                <div className="row">
+                  {allImages ? (
+                    allImages.map((image, idx) => {
+                      return (
+                        <div className="col-md-4" key={idx}>
+                          <div className="card mb-4">
+                            <img
+                              src={image}
+                              className="card-img-top"
+                              alt="..."
+                              style={{ height: "200px" }}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div className="col-lg-6 mb-2 pr-lg-1">
+                      <h1 className="text-center">
+                        {" "}
+                        <i className="fa fa-spinner fa-spin"></i>{" "}
+                      </h1>
+                    </div>
+                  )}
+                </div>{" "}
+              </div>
+            ) : null}
+            {props.post?.user_id._id === user?._id ? (
               <>
                 <div className="d-inline" style={{ marginLeft: "25rem" }}>
                   <Button
@@ -101,28 +146,28 @@ function PostItem(props) {
                   </Button>
                 </div>
               </>
-              :
+            ) : (
               <>
-              <div className="d-inline" style={{ marginLeft: "25rem" }}>
-                <Button
-                  className="mr-3"
-                  variant="outline-primary"
-                  onClick={updatePost}
-                  disabled = {true}
-                >
-                  <EditIcon />
-                </Button>
-                <Button
-                  className="mr-3"
-                  variant="outline-danger"
-                  onClick={toggleDeletePost}
-                  disabled  = {true}
-                >
-                  <DeleteIcon />
-                </Button>
-              </div>
-            </>
-            }
+                <div className="d-inline" style={{ marginLeft: "25rem" }}>
+                  <Button
+                    className="mr-3"
+                    variant="outline-primary"
+                    onClick={updatePost}
+                    disabled={true}
+                  >
+                    <EditIcon />
+                  </Button>
+                  <Button
+                    className="mr-3"
+                    variant="outline-danger"
+                    onClick={toggleDeletePost}
+                    disabled={true}
+                  >
+                    <DeleteIcon />
+                  </Button>
+                </div>
+              </>
+            )}
 
             {/* Modal for editing post */}
             <Modal

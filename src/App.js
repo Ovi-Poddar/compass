@@ -24,7 +24,6 @@ import { Reviews } from "./Components/Business/pages/Reviews/index";
 
 import { Queries } from "./Components/Business/pages/Queries/Queries_home";
 import { Posts } from "./Components/Business/pages/Posts/Posts_home";
-import { Offers } from "./Components/Business/pages/Offers";
 
 import Business from "./Components/BusinessPages/BusinessHome";
 
@@ -124,11 +123,6 @@ function App() {
                   {/* edit profile */}
                   <Route
                     exact
-                    path="/profile/editpicture/:profile_id"
-                    element={<EditProfilePic />}
-                  />
-                  <Route
-                    exact
                     path="/profile/edit/:profile_id"
                     element={<EditProfileForm />}
                   />
@@ -197,8 +191,6 @@ function App() {
                     path="/photos/:business_id"
                     element={<BusinessPhotos showAlert={showAlert} />}
                   />
-                  <Route path="/offers" element={<Offers />} />
-                  {/* <Route path="/settings" element={<Setting />} /> */}
                   <Route path="*" element={<> not found</>} />
                 </Routes>
                 {/* <CompassFooter /> */}

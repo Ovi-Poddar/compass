@@ -6,6 +6,9 @@ import PostContext from "./PostContext";
 const PostState = (props) => {
   const host = "http://localhost:5000";
 
+  const imagesInitial = [];
+  const [images, setImages] = useState(imagesInitial);
+
   const postsInitial = [];
   const [posts, setPosts] = useState(postsInitial);
 
@@ -27,17 +30,24 @@ const PostState = (props) => {
   };
 
   // Add a Post to a Business using: POST "/api/post/addpost/".
-  const addPost = async (text, business_id) => {
+  const addPost = async (text, business_id, images, setIsUploading) => {
+    const formData = new FormData();
+    for (let i = 0; i < images.length; i += 1) {
+      formData.append('images[]', images[i]);
+    }
+    formData.append("text", text);
+    formData.append("folder", `${business_id}`);
+
     //API Call
     const response = await fetch(`${host}/api/post/addpost/${business_id}`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         "auth-token": localStorage.getItem("token"),
       },
-      body: JSON.stringify({ text: text }),
+      body: formData,
     });
     const addedPost = await response.json();
+    setIsUploading(false);
     setPosts([addedPost].concat(posts));
   };
 
@@ -53,7 +63,6 @@ const PostState = (props) => {
       },
     });
     const json = await response.json();
-    console.log("hello");
 
     const newPosts = posts.filter((post) => {
       return post._id !== post_id;
@@ -85,6 +94,28 @@ const PostState = (props) => {
     setPosts(newPosts);
   };
 
+  // Add Images to a post using: POST "/api/post/uploadimages/:post_id". login reqiured.
+
+  const addImages = async (post_id, images, setIsUploading) => {
+    const formData = new FormData();
+    for (let i = 0; i < images.length; i += 1) {
+      formData.append("images[]", images[i]);
+    }
+    formData.append("folder", `${post_id}`);
+
+    //API Call
+    const response = await fetch(`${host}/api/post/uploadimages/${post_id}`, {
+      method: "POST",
+      headers: {
+        "auth-token": localStorage.getItem("token"),
+      },
+      body: formData,
+    });
+    const json = await response.json();
+    setIsUploading(false);
+    console.log(json);
+  };
+
   return (
     <PostContext.Provider
       value={{
@@ -93,6 +124,7 @@ const PostState = (props) => {
         addPost,
         deletePost,
         editPost,
+        addImages,
       }}
     >
       {props.children}
