@@ -44,6 +44,10 @@ function SubmitReview(props) {
   });
 
   const handleSubmitReview = async (e) => {
+    if(review.text.length < 3 || currentValue === 0) {
+      showAlert("danger", "Please enter a valid review and rate the business");
+      return;
+    }
     e.preventDefault();
     //     body: JSON.stringify({
     //       text: review.text,
@@ -119,6 +123,7 @@ function SubmitReview(props) {
                   name="text"
                   value={review.text}
                   onChange={onChange}
+                  maxLength="1000"
                   required
                 />
               </Form.Group>
@@ -126,13 +131,14 @@ function SubmitReview(props) {
             {/* <button style={styles.button}>Submit</button> */}
           </div>
           <Button
-            disabled={review.text.length < 3}
+            disabled={review.text.length < 3 || currentValue === 0}
             variant="danger"
             type="submit"
             onClick={handleSubmitReview}
           >
             Submit
           </Button>
+          <p className="text-muted mt-1"> *Atleast One Star Must be Rated. Minimum 3 and Maximum 1000 characters.</p>
         </Card.Body>
       </Card>
     </div>

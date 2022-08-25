@@ -118,7 +118,7 @@ function ReviewItem(props) {
           height="60"
         />
         <div>
-          <Link to={`/profile/${props.review.user_id._id}`}
+          <Link to={`/profile/${props.review?.user_id._id}`}
           style={{textDecoration:"none"}} ><h6
             className="fw-bold mb-1 mr-3 d-inline"
             style={{ color: "#027A97" }}
@@ -128,7 +128,7 @@ function ReviewItem(props) {
 
           {stars.map((_, index) => {
             return (
-              <div className="d-inline" key={props.review._id + index}>
+              <div className="d-inline" key={props.review?._id + index}>
                 <FaStar
                   size={16}
                   color={
@@ -142,7 +142,7 @@ function ReviewItem(props) {
             );
           })}
 
-          {props.review.user_id._id == user._id && (
+          {props.review?.user_id._id == user._id && (
             <div className="d-inline" style={{ marginLeft: "18rem" }}>
               <OverlayTrigger overlay={<Tooltip id="EditReview">Edit</Tooltip>}>
                 <a

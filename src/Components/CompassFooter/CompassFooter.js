@@ -9,7 +9,7 @@ export default function CompassFooter() {
   return (
     <>
       {/* <!-- Remove the container if you want to extend the Footer to full width. --> */}
-      <div className=" mt-1 mx-1">
+      <div className=" mt-4 mx-1">
         {/* <!-- Footer --> */}
         <footer
           className="text-center text-lg-start text-white"

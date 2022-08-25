@@ -7,6 +7,7 @@ import ReviewItem from "./ReviewItem";
 import SubmitReview from "./SubmitReview";
 import Sidebar from "../../Sidebar/Sidebar";
 import ShortDetails from "../ShortDetails/ShortDetails";
+import YourReview from "./YourReview";
 
 import ReviewContext from "../../../../Context/Review/ReviewContext";
 import UserContext from "../../../../Context/Users/UserContext";
@@ -15,7 +16,7 @@ export const Reviews = (props) => {
   let { business_id } = useParams();
 
   const context = useContext(ReviewContext);
-  const { reviews, getReviews } = context;
+  const { reviews, getReviews, hasSubmitted, submittedReview } = context;
 
   const { user, getUser } = useContext(UserContext);
 
@@ -44,54 +45,72 @@ export const Reviews = (props) => {
   useEffect(() => {
     getReviews(business_id);
     // eslint-disable-next-line
-  }, []);
+  }, [reviews]);
 
   return (
     <>
       <div className="wrapper">
         <Sidebar />
-        {String(owner) != String(user?._id) && localStorage.getItem("token") ? (
-          <>
-            <div
-              className="mb-3"
-              style={{
-                backgrounColor: "lightgreen",
-                position: "fixed",
-                top: "0",
-                bottom: "0",
-                right: "0",
-                width: "40%",
-                marginTop: "10rem",
-                marginLeft: "60px",
-              }}
-            >
-              <SubmitReview
-                showAlert={props.showAlert}
-                business_id={business_id}
-              />
-            </div>
-          </>
-        ) : (
-          <>
-            <div
-              className="justify-content-end"
-              style={{
-                backgrounColor: "lightgreen",
-                position: "fixed",
-                top: "0",
-                bottom: "0",
-                right: "0",
-                width: "37%",
-                marginTop: "10rem",
-              }}
-            >
-              <ShortDetails
-                showAlert={props.showAlert}
-                business_id={business_id}
-              />
-            </div>
-          </>
-        )}
+        {
+          // String(owner) != String(user?._id) &&
+          localStorage.getItem("token") ? (
+            <>
+              <div
+                className="mb-3"
+                style={{
+                  backgrounColor: "lightgreen",
+                  position: "fixed",
+                  top: "0",
+                  bottom: "0",
+                  right: "0",
+                  width: "40%",
+                  marginTop: "10rem",
+                  marginLeft: "60px",
+                  marginBottom:"100px",
+                }}
+              >
+                {!hasSubmitted ? (
+                  <SubmitReview
+                    showAlert={props.showAlert}
+                    business_id={business_id}
+                    style={{
+
+                    }}
+                  />
+                ) : (
+                  <YourReview
+                    review={submittedReview}
+                    business_id={business_id}
+                    showAlert={props.showAlert}
+                    style={{
+                      position:"fixed"
+                    }}
+                  />
+                )}
+              </div>
+            </>
+          ) : (
+            <>
+              <div
+                className="justify-content-end"
+                style={{
+                  backgrounColor: "lightgreen",
+                  position: "fixed",
+                  top: "0",
+                  bottom: "0",
+                  right: "0",
+                  width: "37%",
+                  marginTop: "10rem",
+                }}
+              >
+                <ShortDetails
+                  showAlert={props.showAlert}
+                  business_id={business_id}
+                />
+              </div>
+            </>
+          )
+        }
         <h1
           className="fw-bold text-danger"
           style={{
@@ -112,7 +131,10 @@ export const Reviews = (props) => {
               <div className="d-flex mr-4 ">
                 <div className=" my-1 py-3 " style={{ width: "53rem" }}>
                   <div className="row d-flex justify-content-start ">
-                    <div className="col-md-12 col-lg-10  ">
+                    <div
+                      className="col-md-12 col-lg-10 "
+                      style={{ marginBottom: "100px" }}
+                    >
                       <Card className="" style={{}}>
                         <Card.Body className="p-4">
                           <h4 className="mb-4 text-danger">

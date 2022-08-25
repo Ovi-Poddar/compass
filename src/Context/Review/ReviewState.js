@@ -10,6 +10,8 @@ const ReviewState = (props) => {
 
   const reviewsInitial = [];
   const [reviews, setReviews] = useState(reviewsInitial);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [submittedReview, setSubmittedReview] = useState(null);
 
   const [stars, setStars] = useState([0, 0, 0, 0, 0, 0]);
   const [starsPercentage, setStarsPercentage] = useState([0, 0, 0, 0, 0, 0]);
@@ -61,6 +63,21 @@ const ReviewState = (props) => {
         };
       });
       setReviews(reviews);
+      
+      //check if th user has already submitted a review
+      let found = false;
+      for (let i = 0; i < reviews.length; i++) {
+        if (reviews[i].user_id._id === user._id) {
+          found = true;
+          setSubmittedReview(reviews[i]);
+        }
+      }
+      if (found) {
+        setHasSubmitted(true);
+      }else{
+        setHasSubmitted(false);
+        setSubmittedReview(null);
+      }
     }
   };
 
@@ -141,7 +158,6 @@ const ReviewState = (props) => {
       },
     });
     const json = response.json();
-    console.log(user._id);
     const newReviews = reviews.map((review) => {
       if (review._id === review_id && !review.users_who_like.includes(user._id)) {
         review.useful_count += 1;
@@ -216,6 +232,8 @@ const ReviewState = (props) => {
         thumbDown,
         stars,
         starsPercentage,
+        hasSubmitted,
+        submittedReview,
       }}
     >
       {props.children}

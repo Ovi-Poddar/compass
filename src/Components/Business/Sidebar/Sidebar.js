@@ -14,7 +14,6 @@ const Sidebar = () => {
   };
 
   let location = useLocation();
-  console.log(location);
   let { pathname } = location;
 
   const isActive = {
