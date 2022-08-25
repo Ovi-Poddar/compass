@@ -10,10 +10,10 @@ const AboutUs = () => {
     <>
       <div>
         <div className="about">
-          <div className="title">
+          <div className="about-title">
             <h1>About Us</h1>
           </div>
-          <div className="desc">
+          <div className="about-desc">
             <p>
               If you've ever searched for restaurant reviews on the internet,
               odds are you visited Yelp. It's a lot of people's go-to when
@@ -22,17 +22,17 @@ const AboutUs = () => {
             </p>
           </div>
         </div>
-        <div className="row ">
-          <div className="card col-4 border-0">
-            <div className="card_img">
+        <div className="row about-row">
+          <div className="about-card card  col-5 border-0 mx-2">
+            <div className="about-card_img">
               {/* <i className="fas fa-rocket"></i> */}
               <TravelExploreIcon
-                className="fas"
+                className="about-fas"
                 style={{ fontSize: "70px", marginTop: "-40px" }}
               />
             </div>
-            <div className="card_title">Discover</div>
-            <div className="card_body">
+            <div className="about-card_title">Discover</div>
+            <div className="about-card_body">
               <p>
                 Compass is a popular online directory for discovering local
                 businesses ranging from bars, restaurants, and cafes to
@@ -40,15 +40,15 @@ const AboutUs = () => {
               </p>
             </div>
           </div>
-          <div className="card col-4 border-0">
-            <div className="card_img">
+          <div className="about-card col-5 border-0">
+            <div className="about-card_img">
               <AddBusinessIcon
-                className="fab"
+                className="about-fab"
                 style={{ fontSize: "70px", marginTop: "-40px" }}
               />
             </div>
-            <div className="card_title">Create</div>
-            <div className="card_body">
+            <div className="about-card_title">Create</div>
+            <div className="about-card_body">
               <p>
                 You can create your own business here. It is very simple and
                 cost free and can be done by anyone. Compass helps you plan,
@@ -56,15 +56,15 @@ const AboutUs = () => {
               </p>
             </div>
           </div>
-          <div className="card col-6 d-flex justify-content-center border-0">
-            <div className="card_img">
+          <div className="about-card col-6 d-flex justify-content-center border-0">
+            <div className="about-card_img">
               <ConnectWithoutContactIcon
-                className="fas"
+                className="about-fas"
                 style={{ fontSize: "70px", marginTop: "-40px" }}
               />
             </div>
-            <div className="card_title">Improve Your Business</div>
-            <div className="card_body">
+            <div className="about-card_title">Improve Your Business</div>
+            <div className="about-card_body">
               <p>
                 Compass is a top review site for marketing local businesses.
                 Being on Compass helps you attract new customers and address
