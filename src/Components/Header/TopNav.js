@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 
 import Fab from "@mui/material/Fab";
+import InfoIcon from '@mui/icons-material/Info';
 
 import { LinkContainer } from "react-router-bootstrap";
 
@@ -53,7 +54,7 @@ export default function TopNav(props) {
     <>
       <Navbar
         // bg="light"
-        expand="lg"
+        expand="lg" className="mt-0"
         style={{
           backgroundColor: "#FE9834",
           position: "ralative",
@@ -81,13 +82,23 @@ export default function TopNav(props) {
             
           </Form> */}
           <Link
-            className="btn btn-primary mx-4"
+            className="btn btn-primary ml-4 mr-2"
             style={{ backgroundColor: "#7B1FA2", textTransform: "none" }}
             to="/landing"
             role="button"
           >
             <HomeIcon className="me-2" />
             Home
+          </Link>
+
+          <Link
+            className="btn btn-primary mr-4"
+            style={{ backgroundColor: "#7B1FA2", textTransform: "none" }}
+            to="/about"
+            role="button"
+          >
+            <InfoIcon className="me-2" />
+            About
           </Link>
           {localStorage.getItem("token") && (
             <Dropdown>
