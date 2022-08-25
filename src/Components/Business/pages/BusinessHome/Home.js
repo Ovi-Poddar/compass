@@ -13,6 +13,7 @@ import Spinner from "react-bootstrap/Spinner";
 
 import Button from "react-bootstrap/Button";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import EditIcon from "@mui/icons-material/Edit";
 import Modal from "react-bootstrap/Modal";
 
 import "./main.scss";
@@ -171,7 +172,7 @@ const Home = () => {
                       </div>
                       {user?._id === business?.owner_id ? (
                         <Link
-                          to={`/business/edit/${business_id}`}
+                          to={`/business/editpicture/${business_id}`}
                           className="btn btn-dark btn-sm btn-block"
                         >
                           Change Picture
@@ -196,6 +197,17 @@ const Home = () => {
 
                 <div className="bg-light p-4 d-flex justify-content-end text-center">
                   <ul className="list-inline mb-0">
+                    {user?._id === business?.owner_id ? (
+                      <Link to={`/business/edit/${business_id}`}>
+                        <Button
+                          variant="danger"
+                          className="btn-block"
+                          style={{ color: "white", width: "150px" }}
+                        >
+                          <EditIcon /> Edit Business
+                        </Button>
+                      </Link>
+                    ) : null}
                     <li className="list-inline-item mx-4">
                       {user?._id === business?.owner_id ? (
                         <Button variant="danger" size="sm" onClick={handleShow}>

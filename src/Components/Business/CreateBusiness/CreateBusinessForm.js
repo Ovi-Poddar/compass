@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "react-bootstrap/Card";
+import TimePicker from "react-time-picker";
 import {
   Typography,
   TextField,
@@ -18,7 +19,6 @@ import {
 
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 
 import { makeStyles } from "@mui/styles";
 import {
@@ -400,6 +400,7 @@ const OpeningDayCheckList = (props) => {
   ///const [opening_time, setOpening_time] = useState(new Date('2018-01-01T00:00:00.000Z'));
 
   const { control } = useFormContext();
+  const [value, onChange] = useState("12:00");
   return (
     <>
       <h3>Add opening Days</h3>
@@ -498,7 +499,6 @@ const OpeningDayCheckList = (props) => {
               style={{ width: "10%", marginRight: "10rem" }}
             />
           </LocalizationProvider>
-          
         )}
       />
       <Controller
@@ -517,6 +517,12 @@ const OpeningDayCheckList = (props) => {
           </LocalizationProvider>
         )}
       />
+      {/* <div className="opening_time">
+        <label htmlFor="appt">Select Opening Time</label>
+        <input type="time" id="opening_time" name="opening_time" />
+      </div> */}
+
+      {/* <TimePicker name="opening_time" onChange={onChange} value={value} /> */}
     </>
   );
 };
@@ -680,7 +686,7 @@ const CreateBusinessForm = () => {
                   </Typography>
                 );
               }
-              if (isStepFalied() && activeStep == index) {
+              if (isStepFalied() && activeStep === index) {
                 labelProps.error = true;
               }
               if (isStepSkipped(index)) {

@@ -50,6 +50,8 @@ import ProfileFormLoader from "./Components/UserProfile/CreateProfile/ProfileFor
 import BusinessPhotos from "./Components/Business/pages/Photos/BusinessPhotos";
 import EditProfileForm from "./Components/UserProfile/EditProfile/EditProfileForm";
 import EditProfilePic from "./Components/UserProfile/EditProfile/EditProfilePic";
+import EditBusinessForm from "./Components/Business/EditBusiness/EditBusinessForm";
+// import EditBusiness from "./Components/Business/EditBusiness/EditBusiness";
 
 function App() {
   const [alert, setAlert] = useState(null);
@@ -110,11 +112,21 @@ function App() {
                   />
                   <Route
                     exact
-                    path="/business/edit/:business_id"
+                    path="/business/editpicture/:business_id"
                     element={<EditBusiness />}
+                  />
+                  <Route
+                    exact
+                    path="/business/edit/:business_id"
+                    element={<EditBusinessForm />}
                   />
 
                   {/* edit profile */}
+                  <Route
+                    exact
+                    path="/profile/editpicture/:profile_id"
+                    element={<EditProfilePic />}
+                  />
                   <Route
                     exact
                     path="/profile/edit/:profile_id"

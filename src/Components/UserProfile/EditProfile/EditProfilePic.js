@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingSpinner from "../../LoadingSpinner/LoadingSpinner";
 
-const EditProfile = () => {
+const EditProfilePic = () => {
   const navigate = useNavigate();
   const { profile_id } = useParams();
   const [profileImage, setprofileImage] = useState(null);
@@ -75,4 +75,4 @@ const EditProfile = () => {
   );
 };
 
-export default EditProfile;
+export default EditProfilePic;
