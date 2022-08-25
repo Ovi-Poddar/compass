@@ -55,7 +55,7 @@ const EditBusiness = () => {
                         type="file"
                         className="form-control-file"
                         id="exampleFormControlFile1"
-                        name="profile_image"
+                        name="profile_image" 
                         onChange={handleImageChange}
                       />
                     </div>

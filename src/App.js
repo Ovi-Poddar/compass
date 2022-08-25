@@ -50,6 +50,7 @@ import BusinessPhotos from "./Components/Business/pages/Photos/BusinessPhotos";
 import EditProfileForm from "./Components/UserProfile/EditProfile/EditProfileForm";
 import EditProfilePic from "./Components/UserProfile/EditProfile/EditProfilePic";
 import EditBusinessForm from "./Components/Business/EditBusiness/EditBusinessForm";
+import AboutUs from "./Components/AboutUs/AboutUs";
 // import EditBusiness from "./Components/Business/EditBusiness/EditBusiness";
 
 function App() {
@@ -192,6 +193,12 @@ function App() {
                     element={<BusinessPhotos showAlert={showAlert} />}
                   />
                   <Route path="*" element={<> not found</>} />
+
+                  <Route
+                    exact
+                    path="/about"
+                    element={<AboutUs />}
+                  />
                 </Routes>
                 {/* <CompassFooter /> */}
               </Router>
