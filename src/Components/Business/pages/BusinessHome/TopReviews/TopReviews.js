@@ -18,7 +18,7 @@ const TopReviews = ({ topReviews }) => {
 
       <div class="row text-center">
         {/* conditional rendering  */}
-        {topReviews.map((review, idx) => {
+        {topReviews.length > 0 ?  (topReviews.map((review, idx) => {
           return (
             <div class="col-md-4 mb-5 mb-md-0" key={idx}>
               <div class="d-flex justify-content-center mb-4">
@@ -57,7 +57,12 @@ const TopReviews = ({ topReviews }) => {
               </div>
             </div>
           );
-        })}
+        })) : (
+          <div class="col-md-12">
+            <h5 class="text-danger">No Reviews Yet</h5>
+          </div>
+        )}
+        
       </div>
     </>
   );
