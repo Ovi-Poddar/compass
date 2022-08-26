@@ -1,6 +1,6 @@
 import React from "react";
 
-const AboutUser = ({userDetails}) => {
+const AboutUser = ({ userDetails }) => {
   return (
     <>
       <div className="row">
@@ -17,6 +17,22 @@ const AboutUser = ({userDetails}) => {
         </div>
         <div className="col-md-6">
           <p>{userDetails?.user_email}</p>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-6">
+          <label>Address</label>
+        </div>
+        <div className="col-md-6">
+          <p>{userDetails?.user_address}</p>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-6">
+          <label>Date of Birth</label>
+        </div>
+        <div className="col-md-6">
+          <p>{userDetails?.date_of_birth}</p>
         </div>
       </div>
     </>

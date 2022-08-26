@@ -30,6 +30,8 @@ router.post(
         review_count: 0,
         joined_since: Date.now(),
         average_stars: 0,
+        address: req.user.address,
+        date_of_birth: req.user.date_of_birth,
       });
       let savedUser = await user.save();
       savedUser = await User.findOne({
@@ -80,9 +82,10 @@ router.delete("/deleteprofile/:profile_id", fetchUser, async (req, res) => {
 // ROUTE 4: Update an existing profile using: PUT "/api/profile/updateprofile". Login required
 router.put("/updateprofile/:profile_id", fetchUser, async (req, res) => {
   // console.log("aschi");
+  // console.log(req.body);
   // console.log(req.headers.user_name);
   // console.log("req", req.body);
-  const { user_name, user_email } = req.headers;
+  const { user_name, user_email, user_address, date_of_birth } = req.headers;
   // console.log(user_name, user_email);
 
   try {
@@ -90,6 +93,8 @@ router.put("/updateprofile/:profile_id", fetchUser, async (req, res) => {
     const newProfile = {};
     if (user_name) newProfile.user_name = user_name;
     if (user_email) newProfile.user_email = user_email;
+    if (user_address) newProfile.user_address = user_address;
+    if (date_of_birth) newProfile.date_of_birth = date_of_birth;
 
     newProfile.creation_date = Date.now();
 

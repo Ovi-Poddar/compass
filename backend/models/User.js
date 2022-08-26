@@ -18,6 +18,16 @@ const userSchema = new Schema({
     required: true,
   },
 
+  user_address: {
+    type: String,
+    default: "Dhaka, Bangladesh",
+  },
+
+  date_of_birth: {
+    type: String,
+    default: "01/01/1990",
+  },
+
   // integer, the number of reviews they've written
   review_count: { type: Number, default: 0 },
 

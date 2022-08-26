@@ -46,12 +46,10 @@ import Profile from "./Components/UserProfile/Profile";
 
 import Main from "./Components/Business/CreateBusiness/Main";
 import EditBusiness from "./Components/Business/EditBusiness/EditBusiness";
-import ProfileFormLoader from "./Components/UserProfile/CreateProfile/ProfileFormLoader";
 import BusinessPhotos from "./Components/Business/pages/Photos/BusinessPhotos";
 import EditProfileForm from "./Components/UserProfile/EditProfile/EditProfileForm";
 import EditProfilePic from "./Components/UserProfile/EditProfile/EditProfilePic";
-import EditBusinessForm from "./Components/Business/EditBusiness/EditBusinessForm";
-// import EditBusiness from "./Components/Business/EditBusiness/EditBusiness";
+import EditBusinessInfo from "./Components/Business/EditBusiness.js";
 
 function App() {
   const [alert, setAlert] = useState(null);
@@ -118,7 +116,7 @@ function App() {
                   <Route
                     exact
                     path="/business/edit/:business_id"
-                    element={<EditBusinessForm />}
+                    element={<EditBusinessInfo />}
                   />
 
                   {/* edit profile */}
@@ -144,11 +142,6 @@ function App() {
           />
 
                 {/* Added by Tanvir Raihan */}
-                  <Route
-                    exact
-                    path="/createprofile"
-                    element={<ProfileFormLoader showAlert={showAlert} />}
-                  />
                   <Route
                     exact
                     path="/businessupdates/:business_id"

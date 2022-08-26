@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import { useNavigate, useParams } from "react-router-dom";
+import dayjs from "dayjs";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { TextField } from "@mui/material";
 
 const EditProfileForm = () => {
   const navigate = useNavigate();
@@ -33,14 +38,15 @@ const EditProfileForm = () => {
     formData.append("profile_id", data._id);
     formData.append("user_name", data.user_name);
     formData.append("user_email", data.user_email);
-    // formData.append("user_name", user_name);
-    // formData.append("user_email", user_email);
-    console.log("data", formData.get("profile_id"));
-    console.log("data", formData.get("user_name"));
-    console.log("data", formData.get("user_email"));
+    formData.append("user_address", data.user_address);
+    formData.append("date_of_birth", data.date_of_birth);
+
     const name = formData.get("user_name");
     const email = formData.get("user_email");
+    const address = formData.get("user_address");
+    const date_of_birth = formData.get("date_of_birth");
 
+    console.log(name);
     const response = await fetch(
       `http://localhost:5000/api/profile/updateprofile/${profile_id}`,
       {
@@ -50,10 +56,14 @@ const EditProfileForm = () => {
           "auth-token": localStorage.getItem("token"),
           user_name: name,
           user_email: email,
+          user_address: address,
+          date_of_birth: date_of_birth,
         },
         body: {
           user_name: name,
           user_email: email,
+          user_address: address,
+          date_of_birth: date_of_birth,
         },
       }
     );
@@ -106,7 +116,37 @@ const EditProfileForm = () => {
             onChange={(e) => setData({ ...data, user_email: e.target.value })}
           />
         </div>
-
+        <div className="form-group" style={{ marginTop: "50px" }}>
+          <label htmlFor="exampleInputEmail1">Address</label>
+          <input
+            type="name"
+            name="user_address"
+            className="form-control"
+            id="user_address"
+            aria-describedby="emailHelp"
+            value={data.user_address}
+            style={{ width: "500px" }}
+            onChange={(e) => setData({ ...data, user_address: e.target.value })}
+          />
+        </div>
+        <div className="form-group" style={{ marginTop: "50px" }}>
+          <label htmlFor="exampleInputEmail1">Date of Birth</label>
+          <LocalizationProvider
+            dateAdapter={AdapterDayjs}
+            style={{ marginLeft: "20px" }}
+          >
+            <DatePicker
+              value={dayjs(data.date_of_birth)}
+              onChange={(date) =>
+                setData({ ...data, date_of_birth: date.toString() })
+              }
+              renderInput={(params) => (
+                <TextField {...params} helperText={null} />
+              )}
+              style={{ width: "500px" }}
+            />
+          </LocalizationProvider>
+        </div>
         <Button
           className="btn btn-danger"
           onClick={handleCancel}
