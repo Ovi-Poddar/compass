@@ -36,13 +36,13 @@ const Home = () => {
   const { business_id } = useParams();
   const [business, setBusiness] = useState(null);
   const { images, addImages } = useContext(BusinessHomeContext);
-  const { getReviews, reviews, stars, starsPercentage } =
+  const { getReviews, reviews, stars, starsPercentage , topReviews} =
     useContext(ReviewContext);
 
   const [imagesToUpload, setImagesToUpload] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
   const [imagesToPreview, setImagesToPreview] = useState([]);
-  const [topReviews, settopReviews] = useState([]);
+
   const [gallery, setGallery] = useState([]);
 
   const [allImages, setAllImages] = useState([]);
@@ -63,26 +63,19 @@ const Home = () => {
       const gotBusiness = JSON.parse(JSON.stringify(json));
       setAllImages(gotBusiness.images);
       getReviews(business_id);
-      //sort reviews by rating desc and tiebreaker by useful_count desc and maximum 3 reviews
-      const sortedReviews = _.orderBy(
-        reviews,
-        ["stars", "useful_count"],
-        ["desc", "desc"]
-      );
-      const topReviews = sortedReviews.slice(0, 3);
-
+      
       if (isMounted) {
         setBusiness(gotBusiness);
         setGallery(
           gotBusiness.images.splice(0, Math.min(gotBusiness.images.length, 6))
         );
-        settopReviews(topReviews);
       }
     };
     fetchBusinessDetails();
 
     return () => (isMounted = false);
   }, [reviews, allImages]);
+
   const handleChange = async (e) => {
     //push the files into the state
     const files = e.target.files;
@@ -315,7 +308,6 @@ const Home = () => {
                 <div className="py-4 px-4">
                   {gallery ? (
                     <div>
-                      {" "}
                       <div className="d-flex align-items-center justify-content-between mb-3">
                         <h5 className="mb-0">Recent photos</h5>
                         <Link

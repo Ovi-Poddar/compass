@@ -41,6 +41,7 @@ import UserState from "./Context/Users/UserState";
 import MyBusinessItem from "./Components/Business/MyBusiness/MyBusinessItem";
 import QueryState from "./Context/Query/QueryState";
 import PostState from "./Context/Post/PostState";
+import AboutUs from "./Components/AboutUs/AboutUs";
 
 import Profile from "./Components/UserProfile/Profile";
 
@@ -49,8 +50,7 @@ import EditBusiness from "./Components/Business/EditBusiness/EditBusiness";
 import BusinessPhotos from "./Components/Business/pages/Photos/BusinessPhotos";
 import EditProfileForm from "./Components/UserProfile/EditProfile/EditProfileForm";
 import EditProfilePic from "./Components/UserProfile/EditProfile/EditProfilePic";
-import EditBusinessInfo from "./Components/Business/EditBusiness.js";
-
+import EditBusinessInfo from "./Components/Business/EditBusiness";
 function App() {
   const [alert, setAlert] = useState(null);
 
@@ -190,9 +190,9 @@ function App() {
                     path="/photos/:business_id"
                     element={<BusinessPhotos showAlert={showAlert} />}
                   />
-                  <Route path="/offers" element={<Offers />} />
-                  {/* <Route path="/settings" element={<Setting />} /> */}
                   <Route path="*" element={<> not found</>} />
+
+                  <Route exact path="/about" element={<AboutUs />} />
                 </Routes>
                 {/* <CompassFooter /> */}
               </Router>

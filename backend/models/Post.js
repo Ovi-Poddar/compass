@@ -21,6 +21,10 @@ const postSchema = new Schema({
     // string, the text itself
     text: { type: String, required: true },
 
+    images: {
+        type: [String],
+    },
+
 });
 
 const Post = mongoose.model("Post", postSchema);

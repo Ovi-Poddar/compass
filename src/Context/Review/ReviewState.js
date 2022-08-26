@@ -1,6 +1,8 @@
 import React from "react";
 import { useState, useContext, useEffect } from "react";
 
+import _ from "lodash";
+
 import ReviewContext from "./ReviewContext";
 
 import UserContext from "../../Context/Users/UserContext";
@@ -15,6 +17,8 @@ const ReviewState = (props) => {
 
   const [stars, setStars] = useState([0, 0, 0, 0, 0, 0]);
   const [starsPercentage, setStarsPercentage] = useState([0, 0, 0, 0, 0, 0]);
+
+  const [topReviews, setTopReviews] = useState([]);
 
   const userContext = useContext(UserContext);
   const { user, getUser } = userContext;
@@ -50,6 +54,15 @@ const ReviewState = (props) => {
       calculatedStarsPercentage[index] = (star / reviews.length) * 100;
     } );
     setStarsPercentage(calculatedStarsPercentage);
+
+    // //sort reviews by rating desc and tiebreaker by useful_count desc and maximum 3 reviews
+    const sortedReviews = _.orderBy(
+      reviews,
+      ["stars", "useful_count"],
+      ["desc", "desc"]
+    );
+    const topThreeReviews = sortedReviews.slice(0, 3);
+    setTopReviews(topThreeReviews);
 
     //check if the review is liked by the user
     if (user) {
@@ -234,6 +247,7 @@ const ReviewState = (props) => {
         starsPercentage,
         hasSubmitted,
         submittedReview,
+        topReviews,
       }}
     >
       {props.children}

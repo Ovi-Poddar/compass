@@ -40,27 +40,28 @@ const EditBusiness = () => {
   return (
     <>
       {loaded ? (
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6">
+        <div className="container" style={{marginTop:"10%", marginLeft:"35%"}}>
+          <div className="container d-flex jusitify-content-center">
+            <div className="">
               <div className="card">
                 <div className="card-body">
-                  <h5 className="card-title">Upload Image</h5>
-                  <form onSubmit={handleSubmit} encType="multipart/form-data">
+                  <h5 className="card-title mb-3 text-center text-danger">Change Your Business Photo</h5>
+                  <form onSubmit={handleSubmit} encType="multipart/form-data"
+                  className="d-flex justify-content-between">
                     <div className="form-group">
-                      <label htmlFor="exampleFormControlFile1">
+                      {/* <label htmlFor="exampleFormControlFile1">
                         Upload Image
-                      </label>
+                      </label> */}
                       <input
                         type="file"
                         className="form-control-file"
                         id="exampleFormControlFile1"
-                        name="profile_image"
+                        name="profile_image" 
                         onChange={handleImageChange}
                       />
                     </div>
-                    <button type="submit" className="btn btn-primary">
-                      Submit
+                    <button type="submit" className="btn btn-success">
+                      Upload
                     </button>
                   </form>
                 </div>
