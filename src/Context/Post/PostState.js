@@ -96,12 +96,12 @@ const PostState = (props) => {
 
   // Add Images to a post using: POST "/api/post/uploadimages/:post_id". login reqiured.
 
-  const addImages = async (post_id, images, setIsUploading) => {
+  const addImages = async (post_id, business_id, images, setIsUploading) => {
     const formData = new FormData();
     for (let i = 0; i < images.length; i += 1) {
       formData.append("images[]", images[i]);
     }
-    formData.append("folder", `${post_id}`);
+    formData.append("folder", `${business_id}`);
 
     //API Call
     const response = await fetch(`${host}/api/post/uploadimages/${post_id}`, {

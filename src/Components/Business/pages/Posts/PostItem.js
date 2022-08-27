@@ -6,7 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import moment from "moment";
 import Modal from "react-bootstrap/Modal";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import UserContext from "../../../../Context/Users/UserContext";
 import PostContext from "../../../../Context/Post/PostContext";
@@ -17,12 +17,10 @@ function PostItem(props) {
   const postContext = useContext(PostContext);
   const { deletePost, editPost } = postContext;
 
-  const [gallery, setGallery] = useState([]);
-
   const [allImages, setAllImages] = useState([]);
 
   useEffect(() => {
-  setAllImages(props.post?.images);
+    setAllImages(props.post?.images);
   }, [allImages]);
 
   const [showEditPost, setShowEditPost] = useState(false);
@@ -77,7 +75,7 @@ function PostItem(props) {
             height="60"
           />
           <div>
-          <Link
+            <Link
               to={`/profile/${props.post?.user_id._id}`}
               style={{ textDecoration: "none" }}
             >
@@ -119,12 +117,11 @@ function PostItem(props) {
                   ) : (
                     <div className="col-lg-6 mb-2 pr-lg-1">
                       <h1 className="text-center">
-                        {" "}
-                        <i className="fa fa-spinner fa-spin"></i>{" "}
+                        <i className="fa fa-spinner fa-spin"></i>
                       </h1>
                     </div>
                   )}
-                </div>{" "}
+                </div>
               </div>
             ) : null}
             {props.post?.user_id._id === user?._id ? (

@@ -90,6 +90,7 @@ function MakePost(props) {
     setIsUploading(true);
     addPost(post.text, business_id, imagesToUpload, setIsUploading);
     setPost({ text: "" });
+    setImagesToUpload([]);
     handleShowAddPost();
     showAlert("Post added successfully!", "success");
   };

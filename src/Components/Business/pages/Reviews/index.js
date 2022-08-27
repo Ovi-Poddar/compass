@@ -83,7 +83,7 @@ export const Reviews = (props) => {
                     business_id={business_id}
                     showAlert={props.showAlert}
                     style={{
-                      position:"fixed"
+                      position:"fixed",
                     }}
                   />
                 )}
@@ -121,7 +121,6 @@ export const Reviews = (props) => {
         >
           See Our Recent Reviews
         </h1>
-        <hr className="mt-2" style={{ width: "78rem" }} />
 
         <div className="main_content" style={{ marginTop: "7rem" }}>
           <div className="container ">
