@@ -248,7 +248,7 @@ router.get("/getalluserreviews/:user_id", async (req, res) => {
     const reviews = await Review.find({
       user_id: req.params.user_id,
     })
-      .populate("business_id", "business_name profile_image _id") 
+      .populate("business_id", "business_name profile_image _id")
       .select("-__v ")
       .sort({ creation_date: -1 });
     res.json(reviews);
@@ -262,15 +262,15 @@ router.get("/getalluserreviews/:user_id", async (req, res) => {
 
 router.post(
   "/uploadimages/:post_id",
-  fetchUser, 
-  uploads, 
-  addMultipleImages, 
+  fetchUser,
+  uploads,
+  addMultipleImages,
   async (req, res) => {
     try {
       const { review_id } = req.params;
       const downloadURLs = req.downloadURLs;
 
-      const review = await Review.findOne({_id: post_id});
+      const review = await Review.findOne({ _id: post_id });
 
       if (!review) {
         return res.status(404).json({ msg: "Review not found" });
@@ -300,12 +300,12 @@ router.post(
 // Route 8 : Get all images of a post: GET "/api/review/getimages/:review_id".
 router.get("/getimages/:review_id", async (req, res) => {
   try {
-    const review = await Review.findOne({_id: req.params.review_id});
+    const review = await Review.findOne({ _id: req.params.review_id });
     res.json(review.images);
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
   }
-} );
+});
 
 module.exports = router;

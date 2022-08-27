@@ -120,7 +120,13 @@ function SubmitReview(props) {
     <div>
       <Card
         className="text-center ml-4 mt-4 shadow-lg"
-        style={{ width: "30rem", position: "sticky", top: "0rem", height: "33rem", overflowY: "scroll" }}
+        style={{
+          width: "30rem",
+          position: "sticky",
+          top: "0rem",
+          height: "33rem",
+          overflowY: "scroll",
+        }}
       >
         <Card.Body>
           <div style={styles.container}>

@@ -47,7 +47,7 @@ const ReviewState = (props) => {
     const calculatedStars = [0, 0, 0, 0, 0, 0];
     reviews.forEach((review) => {
       calculatedStars[review.stars] += 1;
-    } );
+    });
 
     setStars(calculatedStars);
 
@@ -55,7 +55,7 @@ const ReviewState = (props) => {
     const calculatedStarsPercentage = [0, 0, 0, 0, 0, 0];
     calculatedStars.forEach((star, index) => {
       calculatedStarsPercentage[index] = (star / reviews.length) * 100;
-    } );
+    });
     setStarsPercentage(calculatedStarsPercentage);
 
     // //sort reviews by rating desc and tiebreaker by useful_count desc and maximum 3 reviews
@@ -79,7 +79,7 @@ const ReviewState = (props) => {
         };
       });
       setReviews(reviews);
-      
+
       //check if th user has already submitted a review
       let found = false;
       for (let i = 0; i < reviews.length; i++) {
@@ -90,7 +90,7 @@ const ReviewState = (props) => {
       }
       if (found) {
         setHasSubmitted(true);
-      }else{
+      } else {
         setHasSubmitted(false);
         setSubmittedReview(null);
       }
@@ -98,10 +98,16 @@ const ReviewState = (props) => {
   };
 
   // Add a Review to a Business using: POST "/api/review/addreview/".
-  const addReview = async (text, stars, business_id, images, setIsUploading) => {
+  const addReview = async (
+    text,
+    stars,
+    business_id,
+    images,
+    setIsUploading
+  ) => {
     const formData = new FormData();
     for (let i = 0; i < images.length; i += 1) {
-      formData.append('images[]', images[i]);
+      formData.append("images[]", images[i]);
     }
     formData.append("text", text);
     formData.append("folder", `${business_id}`);
@@ -183,21 +189,35 @@ const ReviewState = (props) => {
     });
     const json = response.json();
     const newReviews = reviews.map((review) => {
-      if (review._id === review_id && !review.users_who_like.includes(user._id)) {
+      if (
+        review._id === review_id &&
+        !review.users_who_like.includes(user._id)
+      ) {
         review.useful_count += 1;
         review.isLiked = true;
         review.users_who_like.push(user._id);
-      }
-      else if (review._id === review_id && review.users_who_like.includes(user._id)) {
+      } else if (
+        review._id === review_id &&
+        review.users_who_like.includes(user._id)
+      ) {
         review.useful_count -= 1;
         review.isLiked = false;
-        review.users_who_like.splice(review.users_who_like.indexOf(user._id), 1);
+        review.users_who_like.splice(
+          review.users_who_like.indexOf(user._id),
+          1
+        );
       }
-      if (review._id === review_id && review.users_who_dislike.includes(user._id)) {
+      if (
+        review._id === review_id &&
+        review.users_who_dislike.includes(user._id)
+      ) {
         review.not_useful_count -= 1;
         review.isDisliked = false;
         review.isLiked = true;
-        review.users_who_dislike.splice(review.users_who_dislike.indexOf(user._id), 1);
+        review.users_who_dislike.splice(
+          review.users_who_dislike.indexOf(user._id),
+          1
+        );
       }
       return review;
     });
@@ -216,55 +236,71 @@ const ReviewState = (props) => {
     });
     const json = response.json();
     const newReviews = reviews.map((review) => {
-      if (review._id === review_id && !review.users_who_dislike.includes(user._id)) {
+      if (
+        review._id === review_id &&
+        !review.users_who_dislike.includes(user._id)
+      ) {
         review.not_useful_count += 1;
         review.isDisliked = true;
         review.users_who_dislike.push(user._id);
-      }
-      else if (review._id === review_id && review.users_who_dislike.includes(user._id)) {
+      } else if (
+        review._id === review_id &&
+        review.users_who_dislike.includes(user._id)
+      ) {
         review.not_useful_count -= 1;
         review.isDisliked = false;
-        review.users_who_dislike.splice(review.users_who_dislike.indexOf(user._id), 1);
+        review.users_who_dislike.splice(
+          review.users_who_dislike.indexOf(user._id),
+          1
+        );
       }
-      if (review._id === review_id && review.users_who_like.includes(user._id)) {
+      if (
+        review._id === review_id &&
+        review.users_who_like.includes(user._id)
+      ) {
         review.useful_count -= 1;
         review.isLiked = false;
         review.isDisliked = true;
-        review.users_who_like.splice(review.users_who_like.indexOf(user._id), 1);
+        review.users_who_like.splice(
+          review.users_who_like.indexOf(user._id),
+          1
+        );
       }
       return review;
     });
     setReviews(newReviews);
   };
 
-    // Add Images to a review using: POST "/api/review/uploadimages/:review_id". login reqiured.
+  // Add Images to a review using: POST "/api/review/uploadimages/:review_id". login reqiured.
 
-    const addImages = async (review_id, business_id, images, setIsUploading) => {
-      const formData = new FormData();
-      for (let i = 0; i < images.length; i += 1) {
-        formData.append("images[]", images[i]);
-      }
-      formData.append("folder", `${business_id}`);
-  
-      //API Call
-      const response = await fetch(`${host}/api/review/uploadimages/${review_id}`, {
+  const addImages = async (review_id, business_id, images, setIsUploading) => {
+    const formData = new FormData();
+    for (let i = 0; i < images.length; i += 1) {
+      formData.append("images[]", images[i]);
+    }
+    formData.append("folder", `${business_id}`);
+
+    //API Call
+    const response = await fetch(
+      `${host}/api/review/uploadimages/${review_id}`,
+      {
         method: "POST",
         headers: {
           "auth-token": localStorage.getItem("token"),
         },
         body: formData,
-      });
-      const json = await response.json();
-      setIsUploading(false);
-      console.log(json);
-    };
+      }
+    );
+    const json = await response.json();
+    setIsUploading(false);
+    console.log(json);
+  };
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
       getUser();
     }
   }, []);
-  
 
   return (
     <ReviewContext.Provider

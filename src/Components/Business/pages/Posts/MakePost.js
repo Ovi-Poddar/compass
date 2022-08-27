@@ -164,7 +164,6 @@ function MakePost(props) {
                   </Form>
                   {/* Upload Images form */}
                   {
-                    
                     <div className="form-group ">
                       <h4 className="text-primary"> Upload your images</h4>
                       {/* <label

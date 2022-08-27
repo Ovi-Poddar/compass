@@ -33,7 +33,7 @@ const PostState = (props) => {
   const addPost = async (text, business_id, images, setIsUploading) => {
     const formData = new FormData();
     for (let i = 0; i < images.length; i += 1) {
-      formData.append('images[]', images[i]);
+      formData.append("images[]", images[i]);
     }
     formData.append("text", text);
     formData.append("folder", `${business_id}`);
