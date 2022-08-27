@@ -112,7 +112,7 @@ function ReviewItem(props) {
       <div className="d-flex justify-content-start">
         <img
           className="rounded-circle shadow-1-strong me-3"
-          src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp"
+          src={props.review?.user_id.profile_image}
           alt="avatar"
           width="60"
           height="60"

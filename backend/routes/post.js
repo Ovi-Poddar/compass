@@ -68,7 +68,7 @@ router.get("/getallposts/:business_id", async (req, res) => {
     const posts = await Post.find({
       business_id: req.params.business_id,
     })
-      .populate("user_id", "user_name _id")
+      .populate("user_id", "user_name _id profile_image")
       .select("-__v -business_id")
       .sort({ creation_date: -1 });
     res.json(posts);
