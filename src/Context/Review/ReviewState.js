@@ -23,6 +23,9 @@ const ReviewState = (props) => {
   const userContext = useContext(UserContext);
   const { user, getUser } = userContext;
 
+  const imagesInitial = [];
+  const [images, setImages] = useState(imagesInitial);
+
   // Get all Reviews of this business using: GET "/api/review/getallreviews".
   const getReviews = async (business_id) => {
     getUser();
@@ -95,20 +98,28 @@ const ReviewState = (props) => {
   };
 
   // Add a Review to a Business using: POST "/api/review/addreview/".
-  const addReview = async (text, stars, business_id) => {
+  const addReview = async (text, stars, business_id, images, setIsUploading) => {
+    const formData = new FormData();
+    for (let i = 0; i < images.length; i += 1) {
+      formData.append('images[]', images[i]);
+    }
+    formData.append("text", text);
+    formData.append("folder", `${business_id}`);
+    formData.append("rating", stars);
+
     // API Call
     const response = await fetch(
       `${host}/api/review/addreview/${business_id} `,
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           "auth-token": localStorage.getItem("token"),
         },
-        body: JSON.stringify({ text: text, rating: stars }),
+        body: formData,
       }
     );
     const addedReview = await response.json();
+    setIsUploading(false);
     setReviews([addedReview].concat(reviews));
   };
 
@@ -226,6 +237,28 @@ const ReviewState = (props) => {
     setReviews(newReviews);
   };
 
+    // Add Images to a review using: POST "/api/review/uploadimages/:review_id". login reqiured.
+
+    const addImages = async (review_id, business_id, images, setIsUploading) => {
+      const formData = new FormData();
+      for (let i = 0; i < images.length; i += 1) {
+        formData.append("images[]", images[i]);
+      }
+      formData.append("folder", `${business_id}`);
+  
+      //API Call
+      const response = await fetch(`${host}/api/review/uploadimages/${review_id}`, {
+        method: "POST",
+        headers: {
+          "auth-token": localStorage.getItem("token"),
+        },
+        body: formData,
+      });
+      const json = await response.json();
+      setIsUploading(false);
+      console.log(json);
+    };
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
       getUser();
@@ -248,6 +281,7 @@ const ReviewState = (props) => {
         hasSubmitted,
         submittedReview,
         topReviews,
+        addImages,
       }}
     >
       {props.children}

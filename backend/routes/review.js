@@ -4,16 +4,27 @@ const Review = require("../models/Review");
 const User = require("../models/User");
 const Business = require("../models/Business");
 const { body, validationResult } = require("express-validator");
+const multer = require("multer");
 var fetchUser = require("../middleware/fetchUser");
+
+const { addMultipleImages } = require("../imageController");
+
+// Setting up multer as a middleware to grab photo uploads
+const storage = multer.memoryStorage();
+const uploads = multer({ storage: storage }).array("images[]", 10);
 
 // ROUTE 1: Add a review to a Business using: POST "/api/review/addreview/". Login required
 router.post(
   "/addreview/:business_id",
+  uploads,
+  addMultipleImages,
   fetchUser,
   [body("text", "Enter a valid name").isLength({ min: 3 })],
   async (req, res) => {
     try {
       const { text } = req.body;
+      const { rating } = req.body;
+      const downloadURLs = req.downloadURLs;
       // If there are errors, return Bad request and the errors
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -23,8 +34,15 @@ router.post(
         text: text,
         user_id: req.user.id,
         business_id: req.params.business_id,
-        stars: req.body.rating,
+        stars: rating,
       });
+
+      let length = Object.keys(review.images).length;
+      downloadURLs.forEach((downloadURL) => {
+        review.images[length] = downloadURL;
+        length++;
+      });
+
       let savedReview = await review.save();
       savedReview = await Review.findOne({
         _id: savedReview.id,
@@ -239,5 +257,55 @@ router.get("/getalluserreviews/:user_id", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+
+//Route 6: Upload images to a review: POST "/api/review/uploadimages/:review_id". Login required
+
+router.post(
+  "/uploadimages/:post_id",
+  fetchUser, 
+  uploads, 
+  addMultipleImages, 
+  async (req, res) => {
+    try {
+      const { review_id } = req.params;
+      const downloadURLs = req.downloadURLs;
+
+      const review = await Review.findOne({_id: post_id});
+
+      if (!review) {
+        return res.status(404).json({ msg: "Review not found" });
+      }
+
+      // Check if the user is the owner of the review
+      if (review.user_id.toString() !== req.user.id) {
+        return res.status(401).json({ msg: "User not authorized" });
+      }
+
+      let length = Object.keys(review.images).length;
+
+      imageUrls.forEach((url) => {
+        review.images[length] = url;
+        length++;
+      });
+
+      const savedreview = await review.save();
+      res.json({ success: true, images: savedreview.images });
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Internal Server Error");
+    }
+  }
+);
+
+// Route 8 : Get all images of a post: GET "/api/review/getimages/:review_id".
+router.get("/getimages/:review_id", async (req, res) => {
+  try {
+    const review = await Review.findOne({_id: req.params.review_id});
+    res.json(review.images);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+} );
 
 module.exports = router;

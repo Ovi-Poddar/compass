@@ -5,6 +5,9 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import uploadIcon from "./upload.png";
+
 import ReviewContext from "../../../../Context/Review/ReviewContext";
 
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -17,7 +20,11 @@ const colors = {
 
 function SubmitReview(props) {
   const context = useContext(ReviewContext);
-  const { addReview } = context;
+  const { addReview, addImages } = context;
+
+  const [imagesToUpload, setImagesToUpload] = useState([]);
+  const [isUploading, setIsUploading] = useState(false);
+  const [imagesToPreview, setImagesToPreview] = useState([]);
 
   const { showAlert, business_id } = props;
 
@@ -44,22 +51,26 @@ function SubmitReview(props) {
   });
 
   const handleSubmitReview = async (e) => {
-    if(review.text.length < 3 || currentValue === 0) {
+    if (review.text.length < 3 || currentValue === 0) {
       showAlert("danger", "Please enter a valid review and rate the business");
       return;
     }
     e.preventDefault();
-    //     body: JSON.stringify({
-    //       text: review.text,
-    //       rating : currentValue,
-    //     }),
-    addReview(review.text, currentValue, business_id);
+    setIsUploading(true);
+    addReview(
+      review.text,
+      currentValue,
+      business_id,
+      imagesToUpload,
+      setIsUploading
+    );
     showAlert("Review submitted successfully!", "success");
 
     setReview({
       text: "",
       rating: 0,
     });
+    setImagesToUpload([]);
     setCurrentValue(0);
   };
 
@@ -70,9 +81,47 @@ function SubmitReview(props) {
     });
   };
 
+  const handleChange = async (e) => {
+    //push the files into the state
+    const files = e.target.files;
+    setImagesToUpload(files);
+
+    const currImages = [],
+      fileReaders = [];
+    let isCancel = false;
+    if (files.length) {
+      Object.values(files).forEach((file) => {
+        const fileReader = new FileReader();
+        fileReaders.push(fileReader);
+        fileReader.onload = (e) => {
+          const { result } = e.target;
+          if (result) {
+            currImages.push(result);
+          }
+          if (currImages.length === files.length && !isCancel) {
+            setImagesToPreview(currImages);
+          }
+        };
+        fileReader.readAsDataURL(file);
+      });
+    }
+
+    return () => {
+      isCancel = true;
+      fileReaders.forEach((fileReader) => {
+        if (fileReader.readyState === 1) {
+          fileReader.abort();
+        }
+      });
+    };
+  };
+
   return (
     <div>
-      <Card className="text-center ml-4 mt-4 shadow-lg" style={{ width: "30rem", position : "sticky" , top : "0"}}>
+      <Card
+        className="text-center ml-4 mt-4 shadow-lg"
+        style={{ width: "30rem", position: "sticky", top: "0rem", height: "33rem", overflowY: "scroll" }}
+      >
         <Card.Body>
           <div style={styles.container}>
             <h2 className="text-danger"> Write A Review </h2>
@@ -82,8 +131,7 @@ function SubmitReview(props) {
                   <OverlayTrigger
                     overlay={
                       <Tooltip id={reviewTooltip[index]}>
-                        {" "}
-                        {reviewTooltip[index]}{" "}
+                        {reviewTooltip[index]}
                       </Tooltip>
                     }
                     key={index}
@@ -128,7 +176,51 @@ function SubmitReview(props) {
                 />
               </Form.Group>
             </Form>
-            {/* <button style={styles.button}>Submit</button> */}
+            {/* Upload Images form */}
+            {
+              <div className="form-group ">
+                <h4 className="text-primary"> Upload your images</h4>
+                <div className="d-flex justify-content-center">
+                  <div className="d-flex">
+                    <div className="file-uploader-mask d-flex justify-content-center align-items-center">
+                      <img
+                        className="file-uploader-icon"
+                        src={uploadIcon}
+                        alt="Upload-Icon"
+                      />
+                    </div>
+                    <input
+                      multiple
+                      className="file-input"
+                      accept="image/*"
+                      type="file"
+                      id={`images${business_id}`}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+                {imagesToPreview.length > 0 ? (
+                  <div className="mt-3">
+                    <h3 className="text-center text-success"> Preview </h3>
+                    {imagesToPreview.map((image, idx) => {
+                      return (
+                        <p key={idx} className="">
+                          <img
+                            src={image}
+                            className="mb-1"
+                            alt="..."
+                            style={{
+                              width: "50px",
+                              height: "50px",
+                            }}
+                          />
+                        </p>
+                      );
+                    })}
+                  </div>
+                ) : null}
+              </div>
+            }
           </div>
           <Button
             disabled={review.text.length < 3 || currentValue === 0}
@@ -138,7 +230,11 @@ function SubmitReview(props) {
           >
             Submit
           </Button>
-          <p className="text-muted mt-1"> *Atleast One Star Must be Rated. Minimum 3 and Maximum 1000 characters.</p>
+          <p className="text-muted mt-1">
+            {" "}
+            *Atleast One Star Must be Rated. Minimum 3 and Maximum 1000
+            characters.
+          </p>
         </Card.Body>
       </Card>
     </div>
