@@ -51,66 +51,61 @@ export const Reviews = (props) => {
     <>
       <div className="wrapper">
         <Sidebar />
-        {
-          (String(owner) != String(user?._id) &&
-          localStorage.getItem("token")) ? (
-            <>
-              <div
-                className="mb-3"
-                style={{
-                  backgrounColor: "lightgreen",
-                  position: "fixed",
-                  top: "0",
-                  bottom: "0",
-                  right: "0",
-                  width: "40%",
-                  marginTop: "10rem",
-                  marginLeft: "60px",
-                  marginBottom:"100px",
-                }}
-              >
-                {!hasSubmitted ? (
-                  <SubmitReview
-                    showAlert={props.showAlert}
-                    business_id={business_id}
-                    style={{
-
-                    }}
-                  />
-                ) : (
-                  <YourReview
-                    review={submittedReview}
-                    business_id={business_id}
-                    showAlert={props.showAlert}
-                    style={{
-                      position:"fixed"
-                    }}
-                  />
-                )}
-              </div>
-            </>
-          ) : (
-            <>
-              <div
-                className="justify-content-end"
-                style={{
-                  backgrounColor: "lightgreen",
-                  position: "fixed",
-                  top: "0",
-                  bottom: "0",
-                  right: "0",
-                  width: "37%",
-                  marginTop: "10rem",
-                }}
-              >
-                <ShortDetails
+        {String(owner) != String(user?._id) && localStorage.getItem("token") ? (
+          <>
+            <div
+              className="mb-3"
+              style={{
+                backgrounColor: "lightgreen",
+                position: "fixed",
+                top: "0",
+                bottom: "0",
+                right: "0",
+                width: "40%",
+                marginTop: "10rem",
+                marginLeft: "60px",
+                marginBottom: "100px",
+              }}
+            >
+              {!hasSubmitted ? (
+                <SubmitReview
                   showAlert={props.showAlert}
                   business_id={business_id}
+                  style={{}}
                 />
-              </div>
-            </>
-          )
-        }
+              ) : (
+                <YourReview
+                  review={submittedReview}
+                  business_id={business_id}
+                  showAlert={props.showAlert}
+                  style={{
+                    position: "fixed",
+                  }}
+                />
+              )}
+            </div>
+          </>
+        ) : (
+          <>
+            <div
+              className="justify-content-end"
+              style={{
+                backgrounColor: "lightgreen",
+                position: "fixed",
+                top: "0",
+                bottom: "0",
+                right: "0",
+                width: "37%",
+                marginTop: "10rem",
+              }}
+            >
+              <ShortDetails
+                showAlert={props.showAlert}
+                business_id={business_id}
+              />
+            </div>
+          </>
+        )}
         <h1
           className="fw-bold text-danger"
           style={{
@@ -121,7 +116,6 @@ export const Reviews = (props) => {
         >
           See Our Recent Reviews
         </h1>
-        <hr className="mt-2" style={{ width: "78rem" }} />
 
         <div className="main_content" style={{ marginTop: "7rem" }}>
           <div className="container ">

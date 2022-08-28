@@ -37,6 +37,11 @@ const reviewSchema = new Schema({
 
   //users to dislike the review
   users_who_dislike: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+
+  images: {
+    type: [String],
+  },
+
 });
 
 const Review = mongoose.model("Review", reviewSchema);

@@ -40,7 +40,6 @@ router.post(
         length++;
       });
 
-
       let savedPost = await post.save();
 
       savedPost = await Post.findOne({
@@ -164,15 +163,15 @@ router.put("/updatepost/:post_id", fetchUser, async (req, res) => {
 
 router.post(
   "/uploadimages/:post_id",
-  fetchUser, 
-  uploads, 
-  addMultipleImages, 
+  fetchUser,
+  uploads,
+  addMultipleImages,
   async (req, res) => {
     try {
       const { post_id } = req.params;
       const downloadURLs = req.downloadURLs;
 
-      const post = await Post.findOne({_id: post_id});
+      const post = await Post.findOne({ _id: post_id });
 
       if (!post) {
         return res.status(404).json({ msg: "Post not found" });
@@ -202,12 +201,12 @@ router.post(
 // Route 8 : Get all images of a post: GET "/api/post/getimages/:post_id".
 router.get("/getimages/:post_id", async (req, res) => {
   try {
-    const post = await Post.findOne({_id: req.params.post_id});
+    const post = await Post.findOne({ _id: req.params.post_id });
     res.json(post.images);
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
   }
-} );
+});
 
 module.exports = router;

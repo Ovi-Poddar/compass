@@ -90,6 +90,7 @@ function MakePost(props) {
     setIsUploading(true);
     addPost(post.text, business_id, imagesToUpload, setIsUploading);
     setPost({ text: "" });
+    setImagesToUpload([]);
     handleShowAddPost();
     showAlert("Post added successfully!", "success");
   };
@@ -163,7 +164,6 @@ function MakePost(props) {
                   </Form>
                   {/* Upload Images form */}
                   {
-                    
                     <div className="form-group ">
                       <h4 className="text-primary"> Upload your images</h4>
                       {/* <label

@@ -91,9 +91,16 @@ const YourReview = (props) => {
     }
   }
 
+  // for images show
+  const [allImages, setAllImages] = useState([]);
+
+  useEffect(() => {
+    setAllImages(props.review?.images);
+  }, [allImages]);
+
   return (
     <>
-      <div className="container py-5 ml-4" style={{ marginTop: "50px" }}>
+      <div className="container py-4 ml-4" style={{ marginTop: "2px" }}>
         <div className="row text-center">
           <div className="col-10 mb-4 mb-md-0">
             <div className="card">
@@ -109,12 +116,12 @@ const YourReview = (props) => {
                 <h2 className="font-weight-bold text-danger ">Your Review </h2>
 
                 <div className="row">
-                  <div className="col-3">
+                  <div className="col-7">
                     <h6 className=" font-weight-bold text-secondary mb-4 mr-auto">
                       {moment(review.creation_date).calendar()}
                     </h6>
                   </div>
-                  <div className="col-9 d-inline ml-auto">
+                  <div className="col-5 d-inline ml-auto">
                     <Button
                       variant="primary"
                       className="ml-4 btn-sm"
@@ -137,6 +144,38 @@ const YourReview = (props) => {
                   <i className="fas fa-quote-left pe-2"></i>
                   {truncateString(review.text, 500)}
                 </p>
+
+                {allImages ? (
+                  <div>
+                    <div className="d-flex align-items-center justify-content-between mb-3">
+                      {/* <h5 className="mb-0">Recent photos</h5> */}
+                    </div>
+                    <div className="row">
+                      {allImages ? (
+                        allImages.map((image, idx) => {
+                          return (
+                            <div className="col-md-4" key={idx}>
+                              <div className="card mb-4">
+                                <img
+                                  src={image}
+                                  className="card-img-top"
+                                  alt="..."
+                                  style={{ height: "200px" }}
+                                />
+                              </div>
+                            </div>
+                          );
+                        })
+                      ) : (
+                        <div className="col-lg-6 mb-2 pr-lg-1">
+                          <h1 className="text-center">
+                            <i className="fa fa-spinner fa-spin"></i>
+                          </h1>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ) : null}
 
                 {/* Modal for editing review */}
                 <Modal show={showEdit} onHide={handleCloseEdit}>

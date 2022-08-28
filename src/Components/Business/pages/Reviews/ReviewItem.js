@@ -1,11 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
-import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 import MoodIcon from "@mui/icons-material/Mood";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import EditIcon from "@mui/icons-material/Edit";
@@ -93,19 +93,25 @@ function ReviewItem(props) {
 
   //for updating review thumbs up/down
   const handleThumbUp = (e) => {
-    if(!localStorage.getItem("token")) return;
+    if (!localStorage.getItem("token")) return;
     e.preventDefault();
     thumbUp(props.review._id);
     props.showAlert("Review liked!", "success");
-  }
+  };
 
   const handleThumbDown = (e) => {
-    if(!localStorage.getItem("token")) return;
+    if (!localStorage.getItem("token")) return;
     e.preventDefault();
     thumbDown(props.review._id);
     props.showAlert("Review disliked!", "success");
-  }
+  };
 
+  // for images show
+  const [allImages, setAllImages] = useState([]);
+
+  useEffect(() => {
+    setAllImages(props.review?.images);
+  }, [allImages]);
 
   return (
     <>
@@ -118,13 +124,17 @@ function ReviewItem(props) {
           height="60"
         />
         <div>
-          <Link to={`/profile/${props.review?.user_id._id}`}
-          style={{textDecoration:"none"}} ><h6
-            className="fw-bold mb-1 mr-3 d-inline"
-            style={{ color: "#027A97" }}
+          <Link
+            to={`/profile/${props.review?.user_id._id}`}
+            style={{ textDecoration: "none" }}
           >
-            {props.review.user_id.user_name}
-          </h6> </Link>
+            <h6
+              className="fw-bold mb-1 mr-3 d-inline"
+              style={{ color: "#027A97" }}
+            >
+              {props.review.user_id.user_name}
+            </h6>{" "}
+          </Link>
 
           {stars.map((_, index) => {
             return (
@@ -174,41 +184,43 @@ function ReviewItem(props) {
             {/* Modal for editing review */}
             <Modal show={showEdit} onHide={handleCloseEdit}>
               <Modal.Header closeButton>
-                <Modal.Title className = "text-primary"> Edit Your Review</Modal.Title>
+                <Modal.Title className="text-primary">
+                  {" "}
+                  Edit Your Review
+                </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-
-                <div className="d-flex justify-content-center mb-2"> 
-                {stars.map((_, index) => {
-                  return (
-                    <OverlayTrigger
-                      overlay={
-                        <Tooltip id={reviewTooltip[index]}>
-                          {reviewTooltip[index]}
-                        </Tooltip>
-                      }
-                      key={index}
-                    >
-                      <span className="d-inline-block">
-                        <FaStar
-                          size={24}
-                          onClick={() => handleClickStars(index + 1)}
-                          onMouseOver={() => handleMouseOverStars(index + 1)}
-                          onMouseLeave={handleMouseLeaveStars}
-                          color={
-                            (hoverStarValue || currentStarValue) > index
-                              ? colors.orange
-                              : colors.grey
-                          }
-                          style={{
-                            marginRight: 10,
-                            cursor: "pointer",
-                          }}
-                        />
-                      </span>
-                    </OverlayTrigger>
-                  );
-                })}
+                <div className="d-flex justify-content-center mb-2">
+                  {stars.map((_, index) => {
+                    return (
+                      <OverlayTrigger
+                        overlay={
+                          <Tooltip id={reviewTooltip[index]}>
+                            {reviewTooltip[index]}
+                          </Tooltip>
+                        }
+                        key={index}
+                      >
+                        <span className="d-inline-block">
+                          <FaStar
+                            size={24}
+                            onClick={() => handleClickStars(index + 1)}
+                            onMouseOver={() => handleMouseOverStars(index + 1)}
+                            onMouseLeave={handleMouseLeaveStars}
+                            color={
+                              (hoverStarValue || currentStarValue) > index
+                                ? colors.orange
+                                : colors.grey
+                            }
+                            style={{
+                              marginRight: 10,
+                              cursor: "pointer",
+                            }}
+                          />
+                        </span>
+                      </OverlayTrigger>
+                    );
+                  })}
                 </div>
                 <Form>
                   <Form.Group className="mb-3">
@@ -224,11 +236,19 @@ function ReviewItem(props) {
                   </Form.Group>
                 </Form>
               </Modal.Body>
-              <Modal.Footer className = "d-flex">
-                <Button variant="danger" onClick={handleCloseEdit} className = "mr-auto" >
+              <Modal.Footer className="d-flex">
+                <Button
+                  variant="danger"
+                  onClick={handleCloseEdit}
+                  className="mr-auto"
+                >
                   Cancel
                 </Button>
-                <Button variant="success" onClick={handleSaveEdit}  className = "ml-auto" >
+                <Button
+                  variant="success"
+                  onClick={handleSaveEdit}
+                  className="ml-auto"
+                >
                   Save
                 </Button>
               </Modal.Footer>
@@ -259,36 +279,66 @@ function ReviewItem(props) {
           </div>
           <p className="mb-2 text-dark">{props.review.text}</p>
 
+          {/* show images */}
+          {allImages ? (
+            <div>
+              <div className="d-flex align-items-center justify-content-between mb-3">
+                {/* <h5 className="mb-0">Recent photos</h5> */}
+              </div>
+              <div className="row">
+                {allImages ? (
+                  allImages.map((image, idx) => {
+                    return (
+                      <div className="col-md-4" key={idx}>
+                        <div className="card mb-4">
+                          <img
+                            src={image}
+                            className="card-img-top"
+                            alt="..."
+                            style={{ height: "200px" }}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div className="col-lg-6 mb-2 pr-lg-1">
+                    <h1 className="text-center">
+                      <i className="fa fa-spinner fa-spin"></i>
+                    </h1>
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : null}
+
           <OverlayTrigger overlay={<Tooltip id="tooltip-like">Like!</Tooltip>}>
             <span className="d-inline-block">
-              <a role="button" className="mr-2 text-success" onClick={handleThumbUp}>
-                {props.review.isLiked ? <ThumbUpIcon /> : <ThumbUpOffAltIcon/>}
+              <a
+                role="button"
+                className="mr-2 text-success"
+                onClick={handleThumbUp}
+              >
+                {props.review.isLiked ? <ThumbUpIcon /> : <ThumbUpOffAltIcon />}
                 {props.review.useful_count}
               </a>
             </span>
           </OverlayTrigger>
 
-          <OverlayTrigger overlay={<Tooltip id="tooltip-like">Dislike!</Tooltip>}>
+          <OverlayTrigger
+            overlay={<Tooltip id="tooltip-like">Dislike!</Tooltip>}
+          >
             <span className="d-inline-block" onClick={handleThumbDown}>
               <a role="button" className="mr-2 text-danger">
-                {!props.review.isLiked ? <ThumbDownIcon/> : <ThumbDownOffAltIcon/>} {props.review.not_useful_count}
+                {!props.review.isLiked ? (
+                  <ThumbDownIcon />
+                ) : (
+                  <ThumbDownOffAltIcon />
+                )}{" "}
+                {props.review.not_useful_count}
               </a>
             </span>
           </OverlayTrigger>
-
-          {/* <OverlayTrigger
-            overlay={<Tooltip id="tooltip-funny">Funny!</Tooltip>}
-          >
-            <span className="d-inline-block">
-              <a
-                role="button "
-                className="mr-2 text-primary"
-                style={{ cursor: "pointer" }}
-              >
-                <MoodIcon />
-              </a>
-            </span>
-          </OverlayTrigger> */}
         </div>
       </div>
       <hr className="mt-2" />
