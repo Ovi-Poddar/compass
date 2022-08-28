@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import TimePicker from "react-time-picker";
 import {
   Typography,
   TextField,
@@ -19,6 +22,8 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import FormLabel from "@mui/material/FormLabel";
 import Box from "@mui/material/Box";
+import moment from "moment";
+import { getTime } from "date-fns";
 
 const EditBusinessInfo = () => {
   const navigate = useNavigate();
@@ -99,11 +104,11 @@ const EditBusinessInfo = () => {
     const about = formData.get("about");
     const email = formData.get("email");
     const category = formData.get("category");
-    const tags = formData.get("tags");
-    const opening_days = formData.get("opening_days");
-    const opening_time = formData.get("opening_time");
-    const closing_time = formData.get("closing_time");
-    console.log("business_name", category);
+    const tags = taglist;
+    const opening_days = opening_days_list;
+    // const opening_time = formData.get("opening_time");
+    // const closing_time = formData.get("closing_time");
+    console.log("business_name", opening_days);
 
     const response = await fetch(
       `http://localhost:5000/api/business/updatebusiness/${business_id}`,
@@ -112,20 +117,6 @@ const EditBusinessInfo = () => {
         headers: {
           "Content-Type": "multipart/form-data",
           "auth-token": localStorage.getItem("token"),
-          // business_name: business_name,
-          // contact_no: contact_no,
-          // district: district,
-          // city: city,
-          // address: address,
-          // category: category,
-          // about: about,
-          // email: email,
-          // tags: tags,
-          // opening_days: opening_days,
-          // opening_time: opening_time,
-          // closing_time: closing_time,
-        },
-        body: JSON.stringify({
           business_name: business_name,
           contact_no: contact_no,
           district: district,
@@ -135,10 +126,10 @@ const EditBusinessInfo = () => {
           about: about,
           email: email,
           tags: tags,
-          // opening_days: opening_days,
+          opening_days: opening_days,
           // opening_time: opening_time,
           // closing_time: closing_time,
-        }),
+        },
       }
     );
     // console.log("name", business_name);
@@ -206,6 +197,7 @@ const EditBusinessInfo = () => {
         </div>
         <div className="form-group">
           <label htmlFor="category">Category</label>
+          <br />
           <Select
             LabelId="business-category-select-label"
             id="business-category-select"
@@ -279,6 +271,7 @@ const EditBusinessInfo = () => {
         </div>
         <div className="form-group">
           <label htmlFor="about">About</label>
+          <br />
           <TextareaAutosize
             aria-label="about textarea"
             id="about"
@@ -287,11 +280,11 @@ const EditBusinessInfo = () => {
             fullWidth
             margin="normal"
             minRows={5}
-            style={{ width: "100%" }}
+            style={{ width: "50%" }}
             onChange={(e) => setData({ ...data, about: e.target.value })}
           />
         </div>
-        {/* <div className="form-group">
+        <div className="form-group">
           <label htmlFor="tags">Tags</label>
           <Box sx={{ display: "flex" }}>
             <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
@@ -390,85 +383,119 @@ const EditBusinessInfo = () => {
               </FormGroup>
             </FormControl>
           </Box>
+        </div>
+        <div className="form-group">
+          <label htmlFor="opening_hours">Opening Days</label>
+          <Box
+            sx={{ display: "flex" }}
+            className="justify-content-center"
+            style={{ marginLeft: "-500px" }}
+          >
+            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+              <FormLabel component="legend"></FormLabel>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={handleChangeOpeningDays}
+                      name="Saturday"
+                    />
+                  }
+                  label="Saturday"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={handleChangeOpeningDays}
+                      name="Sunday"
+                    />
+                  }
+                  label="Sunday"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={handleChangeOpeningDays}
+                      name="Monday"
+                    />
+                  }
+                  label="Monday"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={handleChangeOpeningDays}
+                      name="Tuesday"
+                    />
+                  }
+                  label="Tuesday"
+                />
+              </FormGroup>
+            </FormControl>
+            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+              <FormLabel component="legend"></FormLabel>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={handleChangeOpeningDays}
+                      name="Wednesday"
+                    />
+                  }
+                  label="Wednesday"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={handleChangeOpeningDays}
+                      name="Thursday"
+                    />
+                  }
+                  label="Thursday"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={handleChangeOpeningDays}
+                      name="Friday"
+                    />
+                  }
+                  label="Friday"
+                />
+              </FormGroup>
+            </FormControl>
+          </Box>
+        </div>
+        {/* <div className="form-group">
+          <label htmlFor="opening_hours">Opening Hours</label>
+          <br />
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <TimePicker
+              id="opening_time"
+              label="opening time"
+              value={getTime(data.opening_time)}
+              onChange={(e) =>
+                setData({ ...data, opening_time: Date(e.target.value) })
+              }
+              style={{ width: "10%", marginRight: "10rem" }}
+            />
+          </LocalizationProvider>
+        </div>
+        <div className="form-group">
+          <label htmlFor="opening_hours">Closing Hours</label>
+          <br />
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <TimePicker
+              id="closing_time"
+              label="closing_time"
+              value={getTime(data.closing_time)}
+              onChange={(e) =>
+                setData({ ...data, closing_time: getTime(e.target.value) })
+              }
+              style={{ width: "10%", marginRight: "10rem" }}
+            />
+          </LocalizationProvider>
         </div> */}
-        {/*      <div className="form-group">
-        <label htmlFor="opening_hours">Opening Hours</label>
-        <Box sx={{ display: "flex" }} className="justify-content-center">
-          <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-            <FormLabel component="legend"></FormLabel>
-            <FormGroup>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    onChange={handleChangeOpeningDays}
-                    name="Saturday"
-                  />
-                }
-                label="Saturday"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    onChange={handleChangeOpeningDays}
-                    name="Sunday"
-                  />
-                }
-                label="Sunday"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    onChange={handleChangeOpeningDays}
-                    name="Monday"
-                  />
-                }
-                label="Monday"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    onChange={handleChangeOpeningDays}
-                    name="Tuesday"
-                  />
-                }
-                label="Tuesday"
-              />
-            </FormGroup>
-          </FormControl>
-          <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-            <FormLabel component="legend"></FormLabel>
-            <FormGroup>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    onChange={handleChangeOpeningDays}
-                    name="Wednesday"
-                  />
-                }
-                label="Wednesday"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    onChange={handleChangeOpeningDays}
-                    name="Thursday"
-                  />
-                }
-                label="Thursday"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    onChange={handleChangeOpeningDays}
-                    name="Friday"
-                  />
-                }
-                label="Friday"
-              />
-            </FormGroup>
-          </FormControl>
-        </Box>
-       </div> */}
         <Button
           className="btn btn-danger"
           onClick={handleCancel}

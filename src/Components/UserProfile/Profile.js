@@ -11,6 +11,7 @@ import UserQueries from "./UserQueries/UserQueries";
 import UserProfileState from "../../Context/UserProfile/UserProfileState";
 import AboutUser from "./AboutUser/AboutUser";
 import Spinner from "react-bootstrap/Spinner";
+import EditIcon from "@mui/icons-material/Edit";
 
 const Profile = () => {
   const { profile_id } = useParams();
@@ -140,7 +141,7 @@ const Profile = () => {
                 </div>
               </div>
 
-              <div className="col-md-6" style={{marginTop:"7rem"}}>
+              <div className="col-md-6" style={{ marginTop: "7rem" }}>
                 <div className="profile-head">
                   {/* <h5>{userDetails ? userDetails.user_name : null}</h5> */}
                   {/* <h6>Web Developer and Designer</h6> */}
@@ -192,13 +193,18 @@ const Profile = () => {
                 </div>
               </div>
               <div className="col-md-2">
-                {/* <input
-                  type="submit"
-                  className="profile-edit-btn"
-                  name="btnAddMore"
-                  value="Edit Profile"
-                /> */}
-                <Link to={`/profile/edit/${profile_id}`}>
+                {user?._id === profile_id ? (
+                  <Link to={`/profile/edit/${profile_id}`}>
+                    <Button
+                      variant="danger"
+                      className="btn-block"
+                      style={{ color: "white", width: "150px" }}
+                    >
+                      <EditIcon /> Edit Profile
+                    </Button>
+                  </Link>
+                ) : null}
+                {/* <Link to={`/profile/edit/${profile_id}`}>
                   <Button
                     variant="danger"
                     className="btn-block"
@@ -206,7 +212,7 @@ const Profile = () => {
                   >
                     Edit Profile
                   </Button>
-                </Link>
+                </Link> */}
               </div>
             </div>
             <div className="row">
@@ -232,7 +238,6 @@ const Profile = () => {
                     aria-labelledby="reviews-tab"
                   >
                     <UserReviews profile_id={profile_id} />
-
                   </div>
                   <div
                     className="tab-pane fade show"

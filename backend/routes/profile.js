@@ -81,12 +81,21 @@ router.delete("/deleteprofile/:profile_id", fetchUser, async (req, res) => {
 
 // ROUTE 4: Update an existing profile using: PUT "/api/profile/updateprofile". Login required
 router.put("/updateprofile/:profile_id", fetchUser, async (req, res) => {
-  // console.log("aschi");
-  // console.log(req.body);
-  // console.log(req.headers.user_name);
-  // console.log("req", req.body);
-  const { user_name, user_email, user_address, date_of_birth } = req.headers;
-  // console.log(user_name, user_email);
+  console.log("aschi");
+  const {
+    user_name,
+    user_email,
+    user_address,
+    date_of_birth,
+    user_occupation,
+  } = req.headers;
+  console.log(
+    user_name,
+    user_email,
+    user_address,
+    date_of_birth,
+    user_occupation
+  );
 
   try {
     // Create a new query object
@@ -95,6 +104,7 @@ router.put("/updateprofile/:profile_id", fetchUser, async (req, res) => {
     if (user_email) newProfile.user_email = user_email;
     if (user_address) newProfile.user_address = user_address;
     if (date_of_birth) newProfile.date_of_birth = date_of_birth;
+    if (user_occupation) newProfile.user_occupation = user_occupation;
 
     newProfile.creation_date = Date.now();
 

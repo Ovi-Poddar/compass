@@ -110,7 +110,7 @@ router.post("/uploadprofilepic", upload, addImage, async (req, res) => {
 });
 
 // Route 5: update a business using: GET "/api/business/updatebusiness/:business_id". Login required
-router.get("/updatebusiness/:business_id", fetchUser, async (req, res) => {
+router.put("/updatebusiness/:business_id", fetchUser, async (req, res) => {
   const {
     business_name,
     email,
@@ -125,6 +125,7 @@ router.get("/updatebusiness/:business_id", fetchUser, async (req, res) => {
     opening_time,
     closing_time,
   } = req.headers;
+  console.log(opening_days);
   try {
     // Create a new query object
     const newBusiness = {};
@@ -138,8 +139,8 @@ router.get("/updatebusiness/:business_id", fetchUser, async (req, res) => {
     if (about) newBusiness.about = about;
     if (tags) newBusiness.tags = tags;
     if (opening_days) newBusiness.opening_days = opening_days;
-    if (opening_time) newBusiness.opening_time = opening_time;
-    if (closing_time) newBusiness.closing_time = closing_time;
+    if (opening_time != null) newBusiness.opening_time = opening_time;
+    if (closing_time != null) newBusiness.closing_time = closing_time;
 
     // Find the query to be updated and update it
     let business = await Business.findById(req.params.business_id);
