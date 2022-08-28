@@ -1,17 +1,13 @@
 import Button from "react-bootstrap/esm/Button";
-import React, { useState } from "react";
-
-import Spinner from "react-bootstrap/Spinner";
+import React, { useState, useContext } from "react";
 
 import Modal from "react-bootstrap/Modal";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+import BusinessHomeContext from "../../../../Context/BusinessHome/BusinessHomeContext";
+
 // show image zoomed modal
 function ZoomImageModal(props) {
-    const [confirmDeleteShow, setConfirmDeleteShow] = useState(false);
-  
-    const handleConfirmDeleteClose = () => setConfirmDeleteShow(false);
-    const handleConfirmDeleteShow = () => setConfirmDeleteShow(true);
   
     return (
       <>
@@ -31,44 +27,13 @@ function ZoomImageModal(props) {
               className="img-fluid rounded shadow-sm "
             />
           </Modal.Body>
-          {props.owner_id === props.user_id && localStorage.getItem("token") && (
-          <Modal.Footer>
-            
-              <Button
-                className="btn btn-danger"
-                onClick={handleConfirmDeleteShow}
-              >
-                <DeleteIcon />
-              </Button>
-            
-          </Modal.Footer>)}
-        </Modal>
-  
-        {/* handle confirm delete */}
-        <Modal
-          show={confirmDeleteShow}
-          onHide={handleConfirmDeleteClose}
-          animation={false}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-vcenter">
-              Are you Sure to Delete This Photo?
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleConfirmDeleteClose}>
-              No
-            </Button>
-            <Button variant="success" onClick={handleConfirmDeleteClose}>
-              Yes
-            </Button>
-          </Modal.Footer>
+
         </Modal>
       </>
     );
   }
 
-  function PostPhotoItem(props) {
+  function HomePhotoItem(props) {
     const [imageModalShow, setImageModalShow] = React.useState(false);
 
     const onHide = () => {
@@ -81,6 +46,7 @@ function ZoomImageModal(props) {
               show={imageModalShow}
               onHide={onHide}
               image={props.image}
+              business_id={props.business_id}
               owner_id={props.owner_id}
               user_id={props.user_id}
             />
@@ -95,5 +61,5 @@ function ZoomImageModal(props) {
       );
     };
     
-    export default PostPhotoItem;
+    export default HomePhotoItem;
     

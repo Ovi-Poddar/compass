@@ -23,8 +23,7 @@ import uplodIcon from "./img/upload.png";
 import { useContext } from "react";
 import BusinessHomeContext from "../../../../Context/BusinessHome/BusinessHomeContext";
 
-import LoadingDots from "../../../LoadingSpinner/LoadingDots";
-import LoadingSpinner from "../../../LoadingSpinner/LoadingSpinner";
+import HomePhotoItem from "./HomePhotoItem";
 import TopReviews from "./TopReviews/TopReviews";
 import UserRating from "./Rating/UserRating";
 import ScoreCard from "./Rating/ScoreCard";
@@ -193,7 +192,7 @@ const Home = () => {
                     {user?._id === business?.owner_id ? (
                       <Link to={`/business/edit/${business_id}`}>
                         <Button
-                          variant="danger"
+                          variant="danger" size="sm"
                           className="btn-block"
                           style={{ color: "white", width: "150px" }}
                         >
@@ -321,13 +320,15 @@ const Home = () => {
                         {gallery ? (
                           gallery.map((image, idx) => {
                             return (
-                              <div className="col-md-4" key={idx}>
-                                <div className="card mb-4">
-                                  <img
-                                    src={image}
+                              <div className="col-md-4 " key={idx}>
+                                <div className="card mb-4 d-flex align-items-center justify-content-center">
+                                  <HomePhotoItem
+                                    key={idx}
+                                    image={image}
+                                    business_id={business_id}
+                                    owner_id={business?.owner_id}
+                                    user_id={user?._id}
                                     className="card-img-top"
-                                    alt="..."
-                                    style={{ height: "200px" }}
                                   />
                                 </div>
                               </div>
