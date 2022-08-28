@@ -171,6 +171,17 @@ const Home = () => {
                       <h4 className="mt-0 mb-0"> {business?.business_name} </h4>
                       {/* <p className="small mb-4 text-warning"> */}
                       <p>{business?.category}</p>
+                      {
+                        business?.tags ? (
+                          business?.tags.map((tag, index) => {
+                            return (
+                              <h6 key={index} className="badge badge-danger" style={{marginRight: "10px"}}>
+                                {tag}
+                              </h6>
+                            );
+                          })
+                        ):null
+                      }
                       <p>
                         {" "}
                         <PlaceIcon color="warning" /> {business?.address}

@@ -29,10 +29,6 @@ const MyBusinessItem = (props) => {
           <Link to={`/business/${props.business._id}`}>
             <Button variant="warning">Visit</Button>
           </Link>
-          <Link to={`/reviews/${props.business._id}`}>
-            {" "}
-            {props.business.review_count} Reviews{" "}
-          </Link>
         </Card.Body>
       </Card>
     </div>

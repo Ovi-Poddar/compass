@@ -137,7 +137,7 @@ const EditProfileForm = () => {
           <label htmlFor="exampleInputEmail1">Date of Birth</label>
           <LocalizationProvider
             dateAdapter={AdapterDayjs}
-            style={{ marginLeft: "20px" }}
+            style={{ marginLeft: "50px" }}
           >
             <DatePicker
               value={dayjs(data.date_of_birth)}
