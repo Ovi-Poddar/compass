@@ -193,7 +193,7 @@ export default function TopNav(props) {
                 </Fab> */}
 
                 {user && (
-                  <Link to={`/profile/${user._id}`}>
+                  <Link to={`/profile/${user?._id}`}>
                     <Fab
                       size="small"
                       color="secondary"

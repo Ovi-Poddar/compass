@@ -63,7 +63,7 @@ const Profile = () => {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [profile_id]);
 
   // handle image upload
   const handleChange = async (e) => {
@@ -148,13 +148,13 @@ const Profile = () => {
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"
                     alt=""
                   /> */}
-                  <div className="file btn btn-lg btn-primary">
-                    <Link
+                  <div className="file btn btn-lg ">
+                    {user?._id === profile_id ? <Link
                       to={`/profile/editpicture/${profile_id}`}
                       className="btn btn-dark btn-sm btn-block"
                     >
                       Change Picture
-                    </Link>
+                    </Link> : null}
                   </div>
                 </div>
               </div>

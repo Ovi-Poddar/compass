@@ -297,7 +297,7 @@ router.get("/getallqueries/:business_id/:user_id", async (req, res) => {
       business_id: req.params.business_id,
       user_id: req.params.user_id,
     })
-      .populate("user_id", "user_name")
+      .populate("user_id", "user_name _id profile_image")
       .select("-__v -business_id")
       .sort({ creation_date: -1 });
     res.json(queries);
