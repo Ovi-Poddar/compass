@@ -19,7 +19,9 @@ function ZoomImageModal(props) {
     props.onHide();
     setConfirmDeleteShow(false);
   };
-  const handleConfirmDeleteShow = () => setConfirmDeleteShow(true);
+
+  const handleConfirmDeleteShow = () =>
+    setConfirmDeleteShow(!confirmDeleteShow);
 
   return (
     <>
@@ -96,6 +98,7 @@ function ReviewPhotoItem(props) {
         owner_id={props.owner_id}
         user_id={props.user_id}
         business_id={props.business_id}
+        review_id={props.review_id}
       />
       <img
         src={props.image}

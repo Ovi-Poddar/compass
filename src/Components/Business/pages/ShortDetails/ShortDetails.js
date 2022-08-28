@@ -34,7 +34,13 @@ function ShortDetails(props) {
     <>
       <Card
         className="text-center ml-4 mt-4 shadow-lg"
-        style={{ width: "30rem", position: "sticky", top: "0" }}
+        style={{
+          width: "30rem",
+          position: "sticky",
+          top: "0rem",
+          height: "30rem",
+          overflowY: "scroll",
+        }}
       >
         <Card.Body>
           <div class="top-container">

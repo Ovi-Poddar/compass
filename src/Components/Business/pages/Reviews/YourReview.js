@@ -6,6 +6,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 
+import ReviewPhotoItem from "./ReviewPhotoItem";
+
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -14,11 +16,14 @@ import moment from "moment";
 
 import { FaStar } from "react-icons/fa";
 
+import UserContext from "../../../../Context/Users/UserContext";
 import ReviewContext from "../../../../Context/Review/ReviewContext";
 
 const YourReview = (props) => {
   const { review } = props;
 
+  const userContext = useContext(UserContext);
+  const { user } = userContext;
   const reviewContext = useContext(ReviewContext);
   const { deleteReview, editReview, images, getImages } = reviewContext;
 
@@ -92,19 +97,40 @@ const YourReview = (props) => {
   }
 
   // // for images show
-  // const [allImages, setAllImages] = useState([]);
+  const [allImages, setAllImages] = useState([]);
 
   // useEffect(() => {
   //   setAllImages(props.review?.images);
   // }, [allImages]);
 
   useEffect(() => {
-    getImages(props.review?._id);
-  }, []);
+    const getImages = async (review_id) => {
+      //API Call
+      const response = await fetch(
+        `http://localhost:5000/api/review/getimages/${review_id}`,
+        {
+          method: "GET",
+        }
+      );
+      const json = await response.json();
+      const photos = JSON.parse(JSON.stringify(json));
+      setAllImages(photos);
+    };
+    getImages(props.review._id);
+  }, [allImages]);
 
   return (
     <>
-      <div className="container py-4 ml-4" style={{ marginTop: "2px" }}>
+      <div
+        className="container py-4 ml-4"
+        style={{
+          width: "38rem",
+          position: "sticky",
+          top: "0rem",
+          height: "33rem",
+          overflowY: "scroll",
+        }}
+      >
         <div className="row text-center">
           <div className="col-10 mb-4 mb-md-0">
             <div className="card">
@@ -149,22 +175,25 @@ const YourReview = (props) => {
                   {truncateString(review.text, 500)}
                 </p>
 
-                {images ? (
+                {allImages ? (
                   <div>
                     <div className="d-flex align-items-center justify-content-between mb-3">
                       {/* <h5 className="mb-0">Recent photos</h5> */}
                     </div>
                     <div className="row">
-                      {images ? (
-                        images.map((image, idx) => {
+                      {allImages ? (
+                        allImages.map((image, idx) => {
                           return (
                             <div className="col-md-4" key={idx}>
                               <div className="card mb-4">
-                                <img
-                                  src={image}
+                                <ReviewPhotoItem
+                                  key={idx}
+                                  image={image}
+                                  business_id={props.business_id}
+                                  review_id={props.review?._id}
+                                  owner_id={props.review?.user_id._id}
+                                  user_id={user?._id}
                                   className="card-img-top"
-                                  alt="..."
-                                  style={{ height: "200px" }}
                                 />
                               </div>
                             </div>
