@@ -98,7 +98,6 @@ router.post("/uploadprofilepic", upload, addImage, async (req, res) => {
   try {
     const { business_id } = req.body;
     const { downloadURL } = req.file;
-    console.log(downloadURL);
     const business = await Business.findOne({ _id: business_id });
     business.profile_image = downloadURL;
     const savedBusiness = await business.save();
@@ -198,7 +197,6 @@ router.post(
     try {
       const { business_id } = req.body;
       const downloadURLs = req.downloadURLs;
-      console.log("downloadURLs", downloadURLs);
       const business = await Business.findOne({ _id: business_id });
       // console.log(Object.keys(business.images));
       /**
@@ -228,7 +226,6 @@ router.get("/getphotos/:business_id", async (req, res) => {
   try {
     const { business_id } = req.params;
     const business = await Business.findOne({ _id: business_id });
-    console.log(business.images);
     res.json(business.images);
   } catch (error) {
     console.error(error.message);
