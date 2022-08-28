@@ -56,13 +56,15 @@ const ListItem = ({ item }) => {
                   </span>
                 );
               })
-              .slice(0, 5)}
+              .slice(0, 12)}
           </p>{" "}
         </div>
         <div className="row">
           <div className="col-12 ">
-            <span className="font-weight-bold text-success">Location </span> : {city}  
+            <span className="font-weight-bold text-success">Location </span> :{" "}
+            {city}
           </div>
+          <p className="text-secondary"> Category : {category}</p>
         </div>
       </Card.Body>
       <Card.Footer
@@ -73,12 +75,16 @@ const ListItem = ({ item }) => {
           to={`/business/${business_id}`}
           style={{ textDecoration: "none" }}
         >
-          <h5 className="ml-0 text-danger"> {business_name}</h5>
+          <h5 className="text-danger"> {business_name}</h5>
         </Link>
-        <p className="ml-5 text-secondary"> Category : {category}</p>
+        <Rating
+          name="read-only"
+          className=""
+          value={Math.round(average_star_count)}
+          readOnly
+        />
 
         {/* address of business */}
-        
       </Card.Footer>
       {/* <footer>
       <p>

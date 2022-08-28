@@ -19,15 +19,29 @@ const Landing = () => {
     { id: 4, checked: false, label: "Others" },
   ]);
 
+  const [tags, settags] = useState([
+    { id: 1, checked: false, label: "Social" },
+    { id: 2, checked: false, label: "Food" },
+    { id: 3, checked: false, label: "Expensive" },
+    { id: 4, checked: false, label: "Entertainment" },
+    { id: 5, checked: false, label: "Local" },
+    { id: 6, checked: false, label: "Sports" },
+    { id: 7, checked: false, label: "Shopping" },
+    { id: 8, checked: false, label: "Repair" },
+    { id: 9, checked: false, label: "Exclusive" },
+    { id: 10, checked: false, label: "Homemade" },
+    { id: 11, checked: false, label: "Service" },
+    { id: 12, checked: false, label: "Public" },
+  ]);
+
   const [list, setList] = useState(null);
   const [resultsFound, setResultsFound] = useState(true);
   const [searchInput, setSearchInput] = useState("");
 
   const handleSelectRating = (event, values) => {
-    if(values.length) setSelectedRating(values);
+    if (values.length) setSelectedRating(values);
     else setSelectedRating(null);
-  }
-    
+  };
 
   const handleChangeChecked = (id) => {
     const categoriesStateList = categories;
@@ -37,19 +51,28 @@ const Landing = () => {
     setcategories(changeCheckedcategories);
   };
 
+  const handleChangeCheckedTags = (id) => {
+    const tagsStateList = tags;
+    const changeCheckedTags = tagsStateList.map((item) =>
+      item.id === id ? { ...item, checked: !item.checked } : item
+    );
+    settags(changeCheckedTags);
+  };
+
   const applyFilters = () => {
     let updatedList = businesses;
 
     // Rating Filter
     if (selectedRating) {
       //iterate over selectedRating
-      let ratedFilters = [];     
+      let ratedFilters = [];
       //if selected rating includes the rating, push it to the ratedFilters array
       selectedRating.forEach((rating) => {
         updatedList.forEach((business) => {
-          if (Math.round(business.average_star_count) === rating) ratedFilters.push(business);
-        } );
-      } );
+          if (Math.round(business.average_star_count) === rating)
+            ratedFilters.push(business);
+        });
+      });
 
       updatedList = ratedFilters;
     }
@@ -60,11 +83,27 @@ const Landing = () => {
       .map((item) => item.label.toLowerCase());
 
     if (categoriesChecked.length) {
-
       updatedList = updatedList.filter((item) =>
         categoriesChecked.includes(item.category.toLowerCase())
       );
+    }
 
+    // tags Filter
+    const tagsChecked = tags
+      .filter((item) => item.checked)
+      .map((item) => item.label.toLowerCase());
+
+    if (tagsChecked.length) {
+      //for each tags
+      let tagsFilters = [];
+      for(let i=0; i<updatedList.length; i++){
+        for(let j=0; j<updatedList[i].tags.length; j++){
+          if(tagsChecked.includes(updatedList[i].tags[j].toLowerCase())){
+            tagsFilters.push(updatedList[i]);
+          }
+        }
+      }
+      updatedList = tagsFilters;
     }
 
     // Search Filter
@@ -84,7 +123,7 @@ const Landing = () => {
 
   useEffect(() => {
     applyFilters();
-  }, [selectedRating, categories, searchInput, list]);
+  }, [selectedRating, categories, searchInput, tags, list]);
 
   //fetch all businesses when component mounts
   useEffect(() => {
@@ -125,6 +164,8 @@ const Landing = () => {
             selectRating={handleSelectRating}
             categories={categories}
             changeChecked={handleChangeChecked}
+            tags={tags}
+            changeCheckedTags={handleChangeCheckedTags}
           />
         </div>
         {/* List & Empty View */}

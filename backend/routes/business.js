@@ -331,7 +331,6 @@ router.get("/getservices/:business_id", async (req, res) => {
 router.delete("/deletephoto", fetchUser, async (req, res) => {
   try {
     const { business_id, image_url } = req.body;
-    console.log("deletephoto", image_url);
     const business = await Business.findById(business_id);
     const imageIndex = business.images.indexOf(image_url);
     business.images.splice(imageIndex, 1);
