@@ -81,12 +81,21 @@ router.delete("/deleteprofile/:profile_id", fetchUser, async (req, res) => {
 
 // ROUTE 4: Update an existing profile using: PUT "/api/profile/updateprofile". Login required
 router.put("/updateprofile/:profile_id", fetchUser, async (req, res) => {
-  // console.log("aschi");
-  // console.log(req.body);
-  // console.log(req.headers.user_name);
-  // console.log("req", req.body);
-  const { user_name, user_email, user_address, date_of_birth } = req.headers;
-  // console.log(user_name, user_email);
+  console.log("aschi");
+  const {
+    user_name,
+    user_email,
+    user_address,
+    date_of_birth,
+    user_occupation,
+  } = req.headers;
+  console.log(
+    user_name,
+    user_email,
+    user_address,
+    date_of_birth,
+    user_occupation
+  );
 
   try {
     // Create a new query object
@@ -95,6 +104,7 @@ router.put("/updateprofile/:profile_id", fetchUser, async (req, res) => {
     if (user_email) newProfile.user_email = user_email;
     if (user_address) newProfile.user_address = user_address;
     if (date_of_birth) newProfile.date_of_birth = date_of_birth;
+    if (user_occupation) newProfile.user_occupation = user_occupation;
 
     newProfile.creation_date = Date.now();
 
@@ -137,5 +147,34 @@ router.post("/uploadprofilepic", upload, addImage, async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+
+
+//ROUTE 6 : Get count of all reviews given by a user using: GET "/api/profile/getreviewcount/:profile_id". Login not required
+router.get("/getreviewcount/:profile_id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.profile_id);
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+    const reviews = await Review.find({ user_id: req.params.profile_id });
+    
+    let review_count = 0;
+    let useful_count = 0;
+    let not_useful_count = 0;
+
+    reviews.forEach((review) => {
+      review_count += 1;
+      useful_count += review.useful_count;
+      not_useful_count += review.not_useful_count;
+    }
+    );
+    res.json({ review_count, useful_count, not_useful_count });
+    
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 
 module.exports = router;

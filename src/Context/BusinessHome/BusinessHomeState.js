@@ -43,9 +43,10 @@ const BusinessHomeState = (props) => {
         body: formData,
       }
     );
-    const json = await response.json();
+    let json = await response.json();
+    json = JSON.parse(JSON.stringify(json));
+    setPhotos(json.images);
     setIsUploading(false);
-    console.log(json);
   };
 
   // Delete a Image using: DELETE "/api/business/deletephoto/".

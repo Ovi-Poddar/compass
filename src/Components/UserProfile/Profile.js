@@ -11,21 +11,27 @@ import UserQueries from "./UserQueries/UserQueries";
 import UserProfileState from "../../Context/UserProfile/UserProfileState";
 import AboutUser from "./AboutUser/AboutUser";
 import Spinner from "react-bootstrap/Spinner";
+import EditIcon from "@mui/icons-material/Edit";
 
 const Profile = () => {
   const { profile_id } = useParams();
   console.log("profile_id", profile_id);
   const [userDetails, setUserDetails] = useState(null);
-  const { user, getUser, images, addImages } = useContext(UserContext);
+  const { user, getUser, addImages } = useContext(UserContext);
   const [imagesToPreview, setImagesToPreview] = useState([]);
   const [imagesToUpload, setImagesToUpload] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
+
+  const [review_count, setReviewCount] = useState(0);
+  const [helpfulCount, setHelpfulCount] = useState(0);
+  const [notHelpfulCount, setNotHelpfulCount] = useState(0);
+
   //fetch user details
   useEffect(() => {
     //use async await to fetch user details
     let isMounted = true;
     async function fetchUser() {
-      const response = await fetch(
+      let response = await fetch(
         `http://localhost:5000/api/profile/getprofile/${profile_id}`,
         {
           method: "GET",
@@ -35,9 +41,22 @@ const Profile = () => {
         }
       );
       const json = await response.json();
+
+      response = await fetch(
+        `http://localhost:5000/api/profile//getreviewcount/${profile_id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const stats = await response.json();
       if (isMounted) {
         setUserDetails(json);
-        console.log(json);
+        setReviewCount(stats.review_count);
+        setHelpfulCount(stats.useful_count);
+        setNotHelpfulCount(stats.not_useful_count);
       }
     }
     fetchUser();
@@ -140,7 +159,7 @@ const Profile = () => {
                 </div>
               </div>
 
-              <div className="col-md-6" style={{marginTop:"7rem"}}>
+              <div className="col-md-6" style={{ marginTop: "7rem" }}>
                 <div className="profile-head">
                   {/* <h5>{userDetails ? userDetails.user_name : null}</h5> */}
                   {/* <h6>Web Developer and Designer</h6> */}
@@ -192,13 +211,18 @@ const Profile = () => {
                 </div>
               </div>
               <div className="col-md-2">
-                {/* <input
-                  type="submit"
-                  className="profile-edit-btn"
-                  name="btnAddMore"
-                  value="Edit Profile"
-                /> */}
-                <Link to={`/profile/edit/${profile_id}`}>
+                {user?._id === profile_id ? (
+                  <Link to={`/profile/edit/${profile_id}`}>
+                    <Button
+                      variant="danger"
+                      className="btn-block"
+                      style={{ color: "white", width: "150px" }}
+                    >
+                      <EditIcon /> Edit Profile
+                    </Button>
+                  </Link>
+                ) : null}
+                {/* <Link to={`/profile/edit/${profile_id}`}>
                   <Button
                     variant="danger"
                     className="btn-block"
@@ -206,13 +230,23 @@ const Profile = () => {
                   >
                     Edit Profile
                   </Button>
-                </Link>
+                </Link> */}
               </div>
             </div>
             <div className="row">
               <div className="col-md-3">
                 <div className="profile-work">
-                  <ScoreBoard />
+                  <div className="alert alert-primary" role="alert">
+                    Total Reviews Given : {review_count}
+                  </div>
+                  <div className="alert alert-success" role="alert">
+                    {helpfulCount} People Found Helpful
+                  </div>
+                  <div className="alert alert-danger" role="alert">
+                     {notHelpfulCount} People Found Unhelpful
+                  </div>
+
+                  <p></p>
                 </div>
               </div>
               <div className="col-md-8">
@@ -232,7 +266,6 @@ const Profile = () => {
                     aria-labelledby="reviews-tab"
                   >
                     <UserReviews profile_id={profile_id} />
-
                   </div>
                   <div
                     className="tab-pane fade show"

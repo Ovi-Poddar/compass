@@ -28,6 +28,11 @@ const userSchema = new Schema({
     default: "01/01/1990",
   },
 
+  user_occupation: {
+    type: String,
+    default: "Student",
+  },
+
   // integer, the number of reviews they've written
   review_count: { type: Number, default: 0 },
 
