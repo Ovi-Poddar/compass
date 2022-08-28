@@ -325,6 +325,7 @@ const Home = () => {
                                   <HomePhotoItem
                                     key={idx}
                                     image={image}
+                                    business_id={business_id}
                                     owner_id={business?.owner_id}
                                     user_id={user?._id}
                                     className="card-img-top"

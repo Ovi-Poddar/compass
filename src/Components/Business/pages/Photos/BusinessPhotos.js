@@ -5,10 +5,9 @@ import { useParams } from "react-router-dom";
 import React, { useState, useEffect, useContext } from "react";
 
 import Sidebar from "../../Sidebar/Sidebar";
-
-import BusinessHomeState from "../../../../Context/BusinessHome/BusinessHomeState";
 import BusinessHomeContext from "../../../../Context/BusinessHome/BusinessHomeContext";
-
+import UserContext
+ from "../../../../Context/Users/UserContext";
 import PhotoItem from "./PhotoItem";
 
 // import "./Sidebar/styles.css";
@@ -16,27 +15,13 @@ import PhotoItem from "./PhotoItem";
 function BusinessPhotos() {
   const { business_id } = useParams();
 
-  const { photos, getPhotos } = useContext(BusinessHomeContext);
+  const { photos, getPhotos, getBusinessDetails, business_details } = useContext(BusinessHomeContext);
+  const {getUser, user} = useContext(UserContext);
 
   useEffect(() => {
-    // let isMounted = true;
-    // const fetchPhotos = async () => {
-    //   const response = await fetch(
-    //     `http://localhost:5000/api/business/getphotos/${business_id}`,
-    //     {
-    //       method: "GET",
-    //     }
-    //   );
-    //   const json = await response.json();
-    //   const photos = JSON.parse(JSON.stringify(json));
-    //   if (isMounted) {
-    //     setPhotos(photos);
-    //     console.log(photos);
-    //   }
-    // };
-    // fetchPhotos();
-    // return () => (isMounted = false);
     getPhotos(business_id);
+    getBusinessDetails(business_id);
+    getUser();
   }, []);
 
   return (
@@ -56,6 +41,8 @@ function BusinessPhotos() {
                         key={image}
                         image={image}
                         business_id={business_id}
+                        owner_id={business_details?.owner_id}
+                        user_id={user?._id}
                       />
                     );
                   })}
