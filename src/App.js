@@ -51,6 +51,9 @@ import BusinessPhotos from "./Components/Business/pages/Photos/BusinessPhotos";
 import EditProfileForm from "./Components/UserProfile/EditProfile/EditProfileForm";
 import EditProfilePic from "./Components/UserProfile/EditProfile/EditProfilePic";
 import EditBusinessInfo from "./Components/Business/EditBusiness";
+
+import BusinessHomeState from "./Context/BusinessHome/BusinessHomeState";
+
 function App() {
   const [alert, setAlert] = useState(null);
 
@@ -70,6 +73,7 @@ function App() {
         <ReviewState>
           <QueryState>
             <PostState>
+              <BusinessHomeState>
               <Router>
                 <TopNav showAlert={showAlert} />
                 <MsgAlert alert={alert} />
@@ -196,6 +200,7 @@ function App() {
                 </Routes>
                 {/* <CompassFooter /> */}
               </Router>
+              </BusinessHomeState>
             </PostState>
           </QueryState>
         </ReviewState>

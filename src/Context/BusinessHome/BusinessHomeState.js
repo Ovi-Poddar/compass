@@ -6,25 +6,21 @@ import BusinessHomeContext from "./BusinessHomeContext";
 const BusinessHomeState = (props) => {
   const host = "http://localhost:5000";
 
-  const imagesInitial = [];
-  const [images, setImages] = useState(imagesInitial);
+  const [photos, setPhotos] = useState([]);
   const [ business_details, setBusiness_details ] = useState([]);
 
  //Get all the Images from the database
-  const getImages = async (business_id) => {
+  const getPhotos = async (business_id) => {
     //API Call
     const response = await fetch(
-      `${host}/api/post/getallposts/${business_id}`,
+      `http://localhost:5000/api/business/getphotos/${business_id}`,
       {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": localStorage.getItem("token"),
-        },
       }
     );
     const json = await response.json();
-    setImages(json);
+    const photos = JSON.parse(JSON.stringify(json));
+    setPhotos(photos);
   };
 
   // Add Images to a Business using: POST "/api/business/uploadphotos".
@@ -52,25 +48,29 @@ const BusinessHomeState = (props) => {
     console.log(json);
   };
 
-  // // Delete a Image using: DELETE "/api/post/deletepost/".
-  // const deletePost = async (post_id) => {
-  //   console.log(post_id);
-  //   //API Call
-  //   const response = await fetch(`${host}/api/post/deletepost/${post_id}`, {
-  //     method: "DELETE",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "auth-token": localStorage.getItem("token"),
-  //     },
-  //   });
-  //   const json = await response.json();
-  //   console.log("hello");
-
-  //   const newPosts = posts.filter((post) => {
-  //     return post._id !== post_id;
-  //   });
-  //   setPosts(newPosts);
-  // };
+  // Delete a Image using: DELETE "/api/post/deletepost/".
+  const deletePhoto = async (business_id, image_url) => {
+    const response = await fetch(
+      `http://localhost:5000/api/business/deletephoto`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          business_id: business_id,
+          image_url: image_url,
+        }),
+      }
+    );
+    const json = await response.json();
+    JSON.parse(JSON.stringify(json));
+    console.log(json);
+    const business = json.business;
+    setPhotos(business.images);
+    
+  };
 
   // get business details
   const getBusinessDetails = async (business_id) => {
@@ -86,7 +86,6 @@ const BusinessHomeState = (props) => {
       }
     );
     const json = await response.json();
-    console.log("hello");
     setBusiness_details(json);
   }
 
@@ -94,11 +93,12 @@ const BusinessHomeState = (props) => {
   return (
     <BusinessHomeContext.Provider
       value={{
-        images,
-        getImages,
         addImages,
         business_details,
         getBusinessDetails,
+        photos,
+        getPhotos,
+        deletePhoto
       }}
     >
       {props.children}

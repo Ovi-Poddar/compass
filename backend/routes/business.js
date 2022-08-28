@@ -228,6 +228,7 @@ router.get("/getphotos/:business_id", async (req, res) => {
   try {
     const { business_id } = req.params;
     const business = await Business.findOne({ _id: business_id });
+    console.log(business.images);
     res.json(business.images);
   } catch (error) {
     console.error(error.message);
@@ -325,5 +326,23 @@ router.get("/getservices/:business_id", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+
+//Route 16 : Delete a photo from a business using: DELETE "/api/business/deletephoto/:business_id/:photo_id". Login required
+router.delete("/deletephoto", fetchUser, async (req, res) => {
+  try {
+    const { business_id, image_url } = req.body;
+    console.log("deletephoto", image_url);
+    const business = await Business.findById(business_id);
+    const imageIndex = business.images.indexOf(image_url);
+    business.images.splice(imageIndex, 1);
+    const savedBusiness = await business.save();
+    res.json({ success: true, business: savedBusiness });
+
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+}),
+
 
 module.exports = router;
