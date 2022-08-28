@@ -34,13 +34,14 @@
     "react-hook-form": "^7.34.0",
     "react-hook-form-mui": "^5.3.2",
     "react-icons": "^4.4.0",
+    "react-image-lightbox": "^5.1.4",
     "react-loading-dot": "^1.0.6",
+    "react-modal-image": "^2.5.0",
     "react-router-bootstrap": "^0.26.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
     "react-step-progress-bar": "^1.0.3",
     "react-time-picker": "^4.5.0",
-    "simple-react-lightbox": "^3.6.9-0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

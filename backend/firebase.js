@@ -6,7 +6,7 @@ const { getStorage } = require ("firebase/storage");
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAyIePxyI4a2aVIQi1A2NB6KFPtmEGJUhY",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "compass-app-16057.firebaseapp.com",
   projectId: "compass-app-16057",
   storageBucket: "compass-app-16057.appspot.com",

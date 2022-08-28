@@ -8,8 +8,6 @@ import Sidebar from "../../Sidebar/Sidebar";
 
 import BusinessHomeState from "../../../../Context/BusinessHome/BusinessHomeState";
 
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
 import PhotoItem from "./PhotoItem";
 
 // import "./Sidebar/styles.css";
@@ -44,7 +42,6 @@ function BusinessPhotos() {
         <div className="wrapper">
           <Sidebar />
           <div className="main_content">
-            {/* <div className="info"> */}
             <div className="container ">
               <div className="main_content_body">
                 {/* Add Your Main Content Codes Here */}
