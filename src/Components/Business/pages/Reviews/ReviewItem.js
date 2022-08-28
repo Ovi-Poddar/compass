@@ -18,6 +18,8 @@ import Modal from "react-bootstrap/Modal";
 
 import { FaStar } from "react-icons/fa";
 
+import ReviewPhotoItem from "./ReviewPhotoItem";
+
 import UserContext from "../../../../Context/Users/UserContext";
 import ReviewContext from "../../../../Context/Review/ReviewContext";
 
@@ -132,7 +134,7 @@ function ReviewItem(props) {
               className="fw-bold mb-1 mr-3 d-inline"
               style={{ color: "#027A97" }}
             >
-              {props.review.user_id.user_name}
+              {props.review?.user_id.user_name}
             </h6>{" "}
           </Link>
 
@@ -142,7 +144,7 @@ function ReviewItem(props) {
                 <FaStar
                   size={16}
                   color={
-                    props.review.stars > index ? colors.orange : colors.grey
+                    props.review?.stars > index ? colors.orange : colors.grey
                   }
                   style={{
                     marginRight: 0,
@@ -291,11 +293,12 @@ function ReviewItem(props) {
                     return (
                       <div className="col-md-4" key={idx}>
                         <div className="card mb-4">
-                          <img
-                            src={image}
+                          <ReviewPhotoItem
+                            key={idx}
+                            image={image}
+                            owner_id={props.review?.user_id._id}
+                            user_id={user?._id}
                             className="card-img-top"
-                            alt="..."
-                            style={{ height: "200px" }}
                           />
                         </div>
                       </div>

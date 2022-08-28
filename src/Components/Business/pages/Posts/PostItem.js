@@ -1,12 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import ReplyIcon from "@mui/icons-material/Reply";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import moment from "moment";
 import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
+
+import PostPhotoItem from "./PostPhotoItem";
 
 import UserContext from "../../../../Context/Users/UserContext";
 import PostContext from "../../../../Context/Post/PostContext";
@@ -104,11 +105,12 @@ function PostItem(props) {
                       return (
                         <div className="col-md-4" key={idx}>
                           <div className="card mb-4">
-                            <img
-                              src={image}
+                            <PostPhotoItem
+                              key={idx}
+                              image={image}
+                              owner_id={props.post?.user_id._id}
+                              user_id={user?._id}
                               className="card-img-top"
-                              alt="..."
-                              style={{ height: "200px" }}
                             />
                           </div>
                         </div>
