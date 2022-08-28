@@ -1,8 +1,6 @@
 import Button from "react-bootstrap/esm/Button";
 import React, { useState } from "react";
 
-import Spinner from "react-bootstrap/Spinner";
-
 import Modal from "react-bootstrap/Modal";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -68,7 +66,7 @@ function ZoomImageModal(props) {
     );
   }
 
-  function PostPhotoItem(props) {
+  function HomePhotoItem(props) {
     const [imageModalShow, setImageModalShow] = React.useState(false);
 
     const onHide = () => {
@@ -95,5 +93,5 @@ function ZoomImageModal(props) {
       );
     };
     
-    export default PostPhotoItem;
+    export default HomePhotoItem;
     

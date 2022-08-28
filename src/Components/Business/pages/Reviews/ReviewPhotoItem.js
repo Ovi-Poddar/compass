@@ -79,8 +79,8 @@ function ZoomImageModal(props) {
               show={imageModalShow}
               onHide={onHide}
               image={props.image}
-              owner_id={props.review?.user_id._id}
-              user_id={props.user?._id}
+              owner_id={props.owner_id}
+              user_id={props.user_id}
             />
             <img
               src={props.image}
