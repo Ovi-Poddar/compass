@@ -37,7 +37,8 @@ function ReviewItem(props) {
   const userContext = useContext(UserContext);
   const { user } = userContext;
   const reviewContext = useContext(ReviewContext);
-  const { deleteReview, editReview, thumbUp, thumbDown, images, getImages } = reviewContext;
+  const { deleteReview, editReview, thumbUp, thumbDown, images, getImages } =
+    reviewContext;
 
   // for the edit review modal
   const [showEdit, setShowEdit] = useState(false);
@@ -109,14 +110,23 @@ function ReviewItem(props) {
   };
 
   // // for images show
-  // const [allImages, setAllImages] = useState([]);
+  const [allImages, setAllImages] = useState([]);
 
-  // useEffect(() => {
-  //   setAllImages(props.review?.images);
-  // }, [allImages]);
   useEffect(() => {
-    getImages(props.review?._id);
-  }, []);
+    const getImages = async (review_id) => {
+      //API Call
+      const response = await fetch(
+        `http://localhost:5000/api/review/getimages/${review_id}`,
+        {
+          method: "GET",
+        }
+      );
+      const json = await response.json();
+      const photos = JSON.parse(JSON.stringify(json));
+      setAllImages(photos);
+    };
+    getImages(props.review._id);
+  }, [allImages]);
 
   return (
     <>
@@ -157,7 +167,7 @@ function ReviewItem(props) {
             );
           })}
 
-          {props.review?.user_id._id == user._id && (
+          {props.review?.user_id._id == user?._id && (
             <div className="d-inline" style={{ marginLeft: "18rem" }}>
               <OverlayTrigger overlay={<Tooltip id="EditReview">Edit</Tooltip>}>
                 <a
@@ -285,20 +295,22 @@ function ReviewItem(props) {
           <p className="mb-2 text-dark">{props.review.text}</p>
 
           {/* show images */}
-          {images ? (
+          {allImages ? (
             <div>
               <div className="d-flex align-items-center justify-content-between mb-3">
                 {/* <h5 className="mb-0">Recent photos</h5> */}
               </div>
               <div className="row">
-                {images ? (
-                  images.map((image, idx) => {
+                {allImages ? (
+                  allImages.map((image, idx) => {
                     return (
                       <div className="col-md-4" key={idx}>
                         <div className="card mb-4">
                           <ReviewPhotoItem
                             key={idx}
                             image={image}
+                            business_id={props.business_id}
+                            review_id={props.review?._id}
                             owner_id={props.review?.user_id._id}
                             user_id={user?._id}
                             className="card-img-top"

@@ -308,4 +308,19 @@ router.get("/getimages/:review_id", async (req, res) => {
   }
 });
 
+// Route 9 : Delele a photo from a review: DELETE "/api/review/deletephoto".
+router.delete("/deletephoto", fetchUser, async (req, res) => {
+  try {
+    const { review_id, image_url } = req.body;
+    const review = await Review.findOne({ _id: review_id });
+    const imageIndex = review.images.indexOf(image_url);
+    review.images.splice(imageIndex, 1);
+    const savedreview = await review.save();
+    res.json({ success: true, review: savedreview});
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+} );
+
 module.exports = router;
