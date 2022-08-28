@@ -113,7 +113,42 @@ const PostState = (props) => {
     });
     const json = await response.json();
     setIsUploading(false);
-    console.log(json);
+  };
+
+  //  Delete a photo from a post using: DELETE "/api/post/deletephoto" login reqiured.
+  const deletePhoto = async (post_id, image_url) => {
+    //API Call
+    const response = await fetch(`${host}/api/post/deletephoto`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": localStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        post_id: post_id,
+        image_url: image_url,
+      }),
+    });
+    const json = await response.json();
+    console.log("in delete images");
+
+    JSON.parse(JSON.stringify(json));
+    const post = json.post;
+    setImages(post.images);
+  };
+
+  //Get all the Images from the database
+  const getImages = async (post_id) => {
+    //API Call
+    const response = await fetch(
+      `http://localhost:5000/api/post/getimages/${post_id}`,
+      {
+        method: "GET",
+      }
+    );
+    const json = await response.json();
+    const photos = JSON.parse(JSON.stringify(json));
+    setImages(photos);
   };
 
   return (
@@ -125,6 +160,9 @@ const PostState = (props) => {
         deletePost,
         editPost,
         addImages,
+        deletePhoto,
+        images,
+        getImages,
       }}
     >
       {props.children}

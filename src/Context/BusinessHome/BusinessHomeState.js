@@ -48,7 +48,7 @@ const BusinessHomeState = (props) => {
     console.log(json);
   };
 
-  // Delete a Image using: DELETE "/api/post/deletepost/".
+  // Delete a Image using: DELETE "/api/business/deletephoto/".
   const deletePhoto = async (business_id, image_url) => {
     const response = await fetch(
       `http://localhost:5000/api/business/deletephoto`,
@@ -66,7 +66,6 @@ const BusinessHomeState = (props) => {
     );
     const json = await response.json();
     JSON.parse(JSON.stringify(json));
-    console.log(json);
     const business = json.business;
     setPhotos(business.images);
     

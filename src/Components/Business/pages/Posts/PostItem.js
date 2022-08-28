@@ -16,13 +16,17 @@ function PostItem(props) {
   const userContext = useContext(UserContext);
   const { user } = userContext;
   const postContext = useContext(PostContext);
-  const { deletePost, editPost } = postContext;
+  const { deletePost, editPost, getImages, images } = postContext;
 
-  const [allImages, setAllImages] = useState([]);
+  // const [allImages, setAllImages] = useState([]);
+
+  // useEffect(() => {
+  //   setAllImages(props.post?.images);
+  // }, [allImages]);
 
   useEffect(() => {
-    setAllImages(props.post?.images);
-  }, [allImages]);
+    getImages(props.post._id);
+  }, []);
 
   const [showEditPost, setShowEditPost] = useState(false);
   const toggleEditPost = () => setShowEditPost(!showEditPost);
@@ -94,20 +98,22 @@ function PostItem(props) {
               </span>
             </div>
             <p className="mb-2 text-dark">{props.post?.text}</p>
-            {allImages ? (
+            {images ? (
               <div>
                 <div className="d-flex align-items-center justify-content-between mb-3">
                   {/* <h5 className="mb-0">Recent photos</h5> */}
                 </div>
                 <div className="row">
-                  {allImages ? (
-                    allImages.map((image, idx) => {
+                  {images ? (
+                    images.map((image, idx) => {
                       return (
                         <div className="col-md-4" key={idx}>
                           <div className="card mb-4">
                             <PostPhotoItem
                               key={idx}
                               image={image}
+                              business_id={props.business_id}
+                              post_id={props.post?._id}
                               owner_id={props.post?.user_id._id}
                               user_id={user?._id}
                               className="card-img-top"

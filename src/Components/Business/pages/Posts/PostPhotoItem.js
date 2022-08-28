@@ -1,17 +1,30 @@
 import Button from "react-bootstrap/esm/Button";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Spinner from "react-bootstrap/Spinner";
 
 import Modal from "react-bootstrap/Modal";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+import PostContext from "../../../../Context/Post/PostContext";
+
 // show image zoomed modal
 function ZoomImageModal(props) {
     const [confirmDeleteShow, setConfirmDeleteShow] = useState(false);
   
-    const handleConfirmDeleteClose = () => setConfirmDeleteShow(false);
+    const navigate = useNavigate();
+
+    const handleConfirmDeleteClose = () =>
+    {
+      deletePhoto(props.post_id, props.image);
+      props.onHide();
+      setConfirmDeleteShow(false);
+      //navigate(`/posts/${props.business_id}`);
+    }
     const handleConfirmDeleteShow = () => setConfirmDeleteShow(true);
+
+    const { deletePhoto } = useContext(PostContext);
   
     return (
       <>
@@ -83,6 +96,7 @@ function ZoomImageModal(props) {
               image={props.image}
               owner_id={props.owner_id}
               user_id={props.user_id}
+              business_id={props.business_id}
             />
             <img
               src={props.image}
