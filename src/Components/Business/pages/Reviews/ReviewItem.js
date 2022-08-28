@@ -167,30 +167,9 @@ function ReviewItem(props) {
             );
           })}
 
-          {props.review?.user_id._id == user?._id && (
-            <div className="d-inline" style={{ marginLeft: "18rem" }}>
-              <OverlayTrigger overlay={<Tooltip id="EditReview">Edit</Tooltip>}>
-                <a
-                  role="button"
-                  className="ml-4 text-primary"
-                  onClick={updateReview}
-                >
-                  <EditIcon style={{ color: "#1565C0" }} />
-                </a>
-              </OverlayTrigger>
-              <OverlayTrigger
-                overlay={<Tooltip id="DeleteReview">Delete</Tooltip>}
-              >
-                <a
-                  role="button"
-                  className="ml-1 text-primary"
-                  onClick={handleShowDelete}
-                >
-                  <DeleteIcon style={{ color: "#E00707" }} />
-                </a>
-              </OverlayTrigger>
-            </div>
-          )}
+          {
+
+          }
           <div className="d-flex align-items-center mb-3">
             <span class="badge rounded-pill bg-danger d-inline">
               {moment(props.review.creation_date).calendar()}
@@ -357,6 +336,36 @@ function ReviewItem(props) {
               </a>
             </span>
           </OverlayTrigger>
+          <div className="d-inline" style={{ marginLeft: "18rem" }}>
+              <OverlayTrigger overlay={<Tooltip id="EditReview">Edit</Tooltip>}>
+                <Button
+                  className="" variant="outline-primary"
+                  onClick={updateReview}
+                  style={{ marginLeft: "5rem" }}
+                  disabled={
+                    localStorage.getItem("token") === null ||
+                    props.review?.user_id._id != user?._id
+                  }
+                >
+                  <EditIcon style={{ color: "#1565C0" }} />
+                </Button>
+              </OverlayTrigger>
+              <OverlayTrigger
+                overlay={<Tooltip id="DeleteReview">Delete</Tooltip>}
+              >
+                <Button
+                  className="ml-1" variant="outline-danger"
+                  style={{ marginLeft: "7rem" }}
+                  onClick={handleShowDelete}
+                  disabled={
+                    localStorage.getItem("token") === null ||
+                    props.review?.user_id._id != user?._id
+                  }
+                >
+                  <DeleteIcon style={{ color: "#E00707" }} />
+                </Button>
+              </OverlayTrigger>
+            </div>
         </div>
       </div>
       <hr className="mt-2" />

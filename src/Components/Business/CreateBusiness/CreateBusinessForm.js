@@ -129,7 +129,19 @@ const ContactForm = () => {
       <Controller
         control={control}
         name="email"
-        rules={{ required: "this field is required." }}
+        rules={{ required: "this field is required.",
+        validate: {
+          validEmail: (value) => {
+            let currentEmails = value
+              .split(',')
+              .filter((e) => e && e.trim());
+            let regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+$/i;
+            for (let i = 0; i < currentEmails.length; i++) {
+              if (!regex.test(currentEmails[i].replace(/\s/g, ''))) {
+                return false;
+              }
+            }
+          }}}}
         render={({ field }) => (
           <TextField
             id="email"
