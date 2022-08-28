@@ -138,4 +138,33 @@ router.post("/uploadprofilepic", upload, addImage, async (req, res) => {
   }
 });
 
+
+//ROUTE 6 : Get count of all reviews given by a user using: GET "/api/profile/getreviewcount/:profile_id". Login not required
+router.get("/getreviewcount/:profile_id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.profile_id);
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+    const reviews = await Review.find({ user_id: req.params.profile_id });
+    
+    let review_count = 0;
+    let useful_count = 0;
+    let not_useful_count = 0;
+
+    reviews.forEach((review) => {
+      review_count += 1;
+      useful_count += review.useful_count;
+      not_useful_count += review.not_useful_count;
+    }
+    );
+    res.json({ review_count, useful_count, not_useful_count });
+    
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+
 module.exports = router;
