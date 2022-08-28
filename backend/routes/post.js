@@ -209,20 +209,4 @@ router.get("/getimages/:post_id", async (req, res) => {
   }
 });
 
-// Route 9 : Delele a photo from a post: DELETE "/api/post/deletephoto".
-router.delete("/deletephoto", fetchUser, async (req, res) => {
-  try {
-    const { post_id, image_url } = req.body;
-    const post = await Post.findOne(post_id);
-    const imageIndex = post.images.indexOf(image_url);
-    post.images.splice(imageIndex, 1);
-    const savedpost = await post.save();
-    res.json({ success: true, post: savedpost});
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).send("Internal Server Error");
-  }
-} );
-
-
 module.exports = router;

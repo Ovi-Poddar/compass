@@ -40,11 +40,13 @@ const EditProfileForm = () => {
     formData.append("user_email", data.user_email);
     formData.append("user_address", data.user_address);
     formData.append("date_of_birth", data.date_of_birth);
+    formData.append("user_occupation", data.user_occupation);
 
     const name = formData.get("user_name");
     const email = formData.get("user_email");
     const address = formData.get("user_address");
     const date_of_birth = formData.get("date_of_birth");
+    const occupation = formData.get("user_occupation");
 
     console.log(name);
     const response = await fetch(
@@ -58,12 +60,14 @@ const EditProfileForm = () => {
           user_email: email,
           user_address: address,
           date_of_birth: date_of_birth,
+          user_occupation: occupation,
         },
         body: {
-          user_name: name,
-          user_email: email,
-          user_address: address,
-          date_of_birth: date_of_birth,
+          // user_name: name,
+          // user_email: email,
+          // user_address: address,
+          // date_of_birth: date_of_birth,
+          // user_occupation: occupation,
         },
       }
     );
@@ -146,6 +150,20 @@ const EditProfileForm = () => {
               style={{ width: "500px" }}
             />
           </LocalizationProvider>
+        </div>
+        <div className="form-group">
+          <label htmlFor="name">Occupation</label>
+          <input
+            type="name"
+            name="user_occupation"
+            className="form-control"
+            id="user_name"
+            value={data.user_occupation}
+            style={{ width: "500px" }}
+            onChange={(e) =>
+              setData({ ...data, user_occupation: e.target.value })
+            }
+          />
         </div>
         <Button
           className="btn btn-danger"

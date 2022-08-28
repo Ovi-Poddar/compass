@@ -98,6 +98,7 @@ router.post("/uploadprofilepic", upload, addImage, async (req, res) => {
   try {
     const { business_id } = req.body;
     const { downloadURL } = req.file;
+    console.log(downloadURL);
     const business = await Business.findOne({ _id: business_id });
     business.profile_image = downloadURL;
     const savedBusiness = await business.save();
@@ -109,7 +110,7 @@ router.post("/uploadprofilepic", upload, addImage, async (req, res) => {
 });
 
 // Route 5: update a business using: GET "/api/business/updatebusiness/:business_id". Login required
-router.get("/updatebusiness/:business_id", fetchUser, async (req, res) => {
+router.put("/updatebusiness/:business_id", fetchUser, async (req, res) => {
   const {
     business_name,
     email,
@@ -124,6 +125,7 @@ router.get("/updatebusiness/:business_id", fetchUser, async (req, res) => {
     opening_time,
     closing_time,
   } = req.headers;
+  console.log(opening_days);
   try {
     // Create a new query object
     const newBusiness = {};
@@ -137,8 +139,8 @@ router.get("/updatebusiness/:business_id", fetchUser, async (req, res) => {
     if (about) newBusiness.about = about;
     if (tags) newBusiness.tags = tags;
     if (opening_days) newBusiness.opening_days = opening_days;
-    if (opening_time) newBusiness.opening_time = opening_time;
-    if (closing_time) newBusiness.closing_time = closing_time;
+    if (opening_time != null) newBusiness.opening_time = opening_time;
+    if (closing_time != null) newBusiness.closing_time = closing_time;
 
     // Find the query to be updated and update it
     let business = await Business.findById(req.params.business_id);
@@ -197,6 +199,7 @@ router.post(
     try {
       const { business_id } = req.body;
       const downloadURLs = req.downloadURLs;
+      console.log("downloadURLs", downloadURLs);
       const business = await Business.findOne({ _id: business_id });
       // console.log(Object.keys(business.images));
       /**
@@ -323,22 +326,5 @@ router.get("/getservices/:business_id", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
-
-//Route 16 : Delete a photo from a business using: DELETE "/api/business/deletephoto". Login required
-router.delete("/deletephoto", fetchUser, async (req, res) => {
-  try {
-    const { business_id, image_url } = req.body;
-    const business = await Business.findById(business_id);
-    const imageIndex = business.images.indexOf(image_url);
-    business.images.splice(imageIndex, 1);
-    const savedBusiness = await business.save();
-    res.json({ success: true, business: savedBusiness });
-
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).send("Internal Server Error");
-  }
-}),
-
 
 module.exports = router;
