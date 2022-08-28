@@ -213,7 +213,7 @@ router.get("/getimages/:post_id", async (req, res) => {
 router.delete("/deletephoto", fetchUser, async (req, res) => {
   try {
     const { post_id, image_url } = req.body;
-    const post = await Post.findOne(post_id);
+    const post = await Post.findOne({ _id: post_id });
     const imageIndex = post.images.indexOf(image_url);
     post.images.splice(imageIndex, 1);
     const savedpost = await post.save();

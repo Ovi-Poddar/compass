@@ -7,6 +7,8 @@ import uploadIcon from "./upload.png";
 import React from "react";
 import { useContext, useState, useEffect } from "react";
 
+import Spinner from "react-bootstrap/Spinner";
+
 import PostContext from "../../../../Context/Post/PostContext";
 import UserContext from "../../../../Context/Users/UserContext";
 
@@ -90,6 +92,7 @@ function MakePost(props) {
     setIsUploading(true);
     addPost(post.text, business_id, imagesToUpload, setIsUploading);
     setPost({ text: "" });
+    setImagesToPreview([]);
     setImagesToUpload([]);
     handleShowAddPost();
     showAlert("Post added successfully!", "success");

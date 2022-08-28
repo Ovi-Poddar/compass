@@ -16,17 +16,25 @@ function PostItem(props) {
   const userContext = useContext(UserContext);
   const { user } = userContext;
   const postContext = useContext(PostContext);
-  const { deletePost, editPost, getImages, images } = postContext;
-
-  // const [allImages, setAllImages] = useState([]);
-
-  // useEffect(() => {
-  //   setAllImages(props.post?.images);
-  // }, [allImages]);
+  const { deletePost, editPost } = postContext;
+  //let allImages = [];
+  const [allImages, setAllImages] = useState([]);
 
   useEffect(() => {
-    getImages(props.post?._id);
-  }, []);
+    const getImages = async (post_id) => {
+      //API Call
+      const response = await fetch(
+        `http://localhost:5000/api/post/getimages/${post_id}`,
+        {
+          method: "GET",
+        }
+      );
+      const json = await response.json();
+      const photos = JSON.parse(JSON.stringify(json));
+      setAllImages(photos);
+    };
+    getImages(props.post._id);
+  }, [allImages]);
 
   const [showEditPost, setShowEditPost] = useState(false);
   const toggleEditPost = () => setShowEditPost(!showEditPost);
@@ -98,14 +106,14 @@ function PostItem(props) {
               </span>
             </div>
             <p className="mb-2 text-dark">{props.post?.text}</p>
-            {images ? (
+            {allImages ? (
               <div>
                 <div className="d-flex align-items-center justify-content-between mb-3">
                   {/* <h5 className="mb-0">Recent photos</h5> */}
                 </div>
                 <div className="row">
-                  {images ? (
-                    images.map((image, idx) => {
+                  {allImages ? (
+                    allImages.map((image, idx) => {
                       return (
                         <div className="col-md-4" key={idx}>
                           <div className="card mb-4">

@@ -132,21 +132,15 @@ const PostState = (props) => {
     const json = await response.json();
     JSON.parse(JSON.stringify(json));
     const post = json.post;
-    setImages(post.images);
-  };
 
-  //Get all the Images from the database
-  const getImages = async (post_id) => {
-    //API Call
-    const response = await fetch(
-      `http://localhost:5000/api/post/getimages/${post_id}`,
-      {
-        method: "GET",
+    let newPosts = JSON.parse(JSON.stringify(posts));
+    newPosts.forEach((post) => {
+      if (post._id === post_id) {
+        const imageIndex = post.images.indexOf(image_url);
+        post.images.splice(imageIndex, 1);
       }
-    );
-    const json = await response.json();
-    const photos = JSON.parse(JSON.stringify(json));
-    setImages(photos);
+    });
+    setPosts(newPosts);
   };
 
   return (
@@ -159,8 +153,6 @@ const PostState = (props) => {
         editPost,
         addImages,
         deletePhoto,
-        images,
-        getImages,
       }}
     >
       {props.children}
