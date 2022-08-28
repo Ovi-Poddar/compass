@@ -15,7 +15,12 @@ router.post(
     // username must be an email
     body("user_email", "Enter a valid email").isEmail(),
     // password must be at least 5 chars long
-    body("password", "Password must be atleast 5 characters").isLength({min: 5,}),
+    body("password", "Password must be atleast 5 characters").isLength({
+      min: 5,
+    }),
+    body("confirm_password", "Password must be atleast 5 characters").isLength({
+      min: 5,
+    }),
   ],
   async (req, res) => {
     // If there are errors, return Bad request and the errors
@@ -25,12 +30,17 @@ router.post(
     }
     try {
       // Check whether the user with this email exists already
-      let user = await User.findOne({ user_name: req.body.user_name });
+      let user = await User.findOne({ user_email: req.body.user_email });
       if (user) {
         return res
           .status(400)
           .json({ error: "Sorry a user with this name already exists" });
       }
+
+      if (req.body.password !== req.body.confirm_password) {
+        return res.status(400).json({ error: "Passwords do not match" });
+      }
+
       const salt = await bcrypt.genSalt(10);
       const secretPass = await bcrypt.hash(req.body.password, salt);
 
@@ -48,7 +58,7 @@ router.post(
       const authtoken = jwt.sign(data, process.env.JWT_SECRET);
       console.log(authtoken);
       res.json(user);
-     //  res.json({ authtoken });
+      //  res.json({ authtoken });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Server Error");
@@ -85,12 +95,10 @@ router.post(
       const passwordCompare = await bcrypt.compare(password, user.password);
       if (!passwordCompare) {
         success = false;
-        return res
-          .status(400)
-          .json({
-            success,
-            error: "Please try to login with correct credentials",
-          });
+        return res.status(400).json({
+          success,
+          error: "Please try to login with correct credentials",
+        });
       }
 
       const data = {
@@ -109,15 +117,15 @@ router.post(
 );
 
 // ROUTE 3: Get loggedin User Details using: POST "/api/auth/getuser". Login required
-router.post('/getuser', fetchUser,  async (req, res) => {
-    try {
-      userId = req.user.id;
-      const user = await User.findById(userId).select("-password");
-      res.send(user)
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).send("Internal Server Error");
-    }
-  })
+router.post("/getuser", fetchUser, async (req, res) => {
+  try {
+    userId = req.user.id;
+    const user = await User.findById(userId).select("-password");
+    res.send(user);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 module.exports = router;

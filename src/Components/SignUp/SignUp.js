@@ -1,6 +1,6 @@
-import React, { useState, useContext , useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom' ;
+import { useNavigate } from "react-router-dom";
 import UserContext from "../../Context/Users/UserContext";
 
 import "./style_signup.css";
@@ -30,19 +30,29 @@ export default function SignUp(props) {
       body: JSON.stringify({
         user_name: user_name,
         user_email: user_email,
-        password: password
+        password: password,
+        confirm_password: cpassword,
       }),
     });
     const json = await response.json();
     console.log(json);
+    if (json.error) {
+      props.showAlert(json.error, "danger");
+    } else {
+      props.showAlert(
+        "Signup Successful ! Please login to continue. ",
+        "success"
+      );
 
-    props.showAlert("Signup Successful ! Please login to continue. ", "success");
+      setCredentials({
+        user_name: "",
+        user_email: "",
+        password: "",
+        cpassword: "",
+      });
 
-    setCredentials({user_name: "",user_email: "",password: "",cpassword: ""})
-
-    navigate("/login");
-    
-
+      navigate("/login");
+    }
   };
 
   const onChange = (e) => {
@@ -62,7 +72,7 @@ export default function SignUp(props) {
                 <h5 className="card-title text-center mb-5 fw-bold signup-h3">
                   Register
                 </h5>
-                <form onSubmit={handleSubmit}  autoComplete="off"  >
+                <form onSubmit={handleSubmit} autoComplete="off">
                   <div className="form-floating mb-3">
                     <input
                       type="text"
