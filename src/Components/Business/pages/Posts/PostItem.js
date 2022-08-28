@@ -25,7 +25,7 @@ function PostItem(props) {
   // }, [allImages]);
 
   useEffect(() => {
-    getImages(props.post._id);
+    getImages(props.post?._id);
   }, []);
 
   const [showEditPost, setShowEditPost] = useState(false);

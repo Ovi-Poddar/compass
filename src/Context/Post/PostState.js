@@ -130,8 +130,6 @@ const PostState = (props) => {
       }),
     });
     const json = await response.json();
-    console.log("in delete images");
-
     JSON.parse(JSON.stringify(json));
     const post = json.post;
     setImages(post.images);

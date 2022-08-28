@@ -20,7 +20,7 @@ const YourReview = (props) => {
   const { review } = props;
 
   const reviewContext = useContext(ReviewContext);
-  const { deleteReview, editReview } = reviewContext;
+  const { deleteReview, editReview, images, getImages } = reviewContext;
 
   const colors = {
     orange: "#FFBA5A",
@@ -91,12 +91,16 @@ const YourReview = (props) => {
     }
   }
 
-  // for images show
-  const [allImages, setAllImages] = useState([]);
+  // // for images show
+  // const [allImages, setAllImages] = useState([]);
+
+  // useEffect(() => {
+  //   setAllImages(props.review?.images);
+  // }, [allImages]);
 
   useEffect(() => {
-    setAllImages(props.review?.images);
-  }, [allImages]);
+    getImages(props.review?._id);
+  }, []);
 
   return (
     <>
@@ -145,14 +149,14 @@ const YourReview = (props) => {
                   {truncateString(review.text, 500)}
                 </p>
 
-                {allImages ? (
+                {images ? (
                   <div>
                     <div className="d-flex align-items-center justify-content-between mb-3">
                       {/* <h5 className="mb-0">Recent photos</h5> */}
                     </div>
                     <div className="row">
-                      {allImages ? (
-                        allImages.map((image, idx) => {
+                      {images ? (
+                        images.map((image, idx) => {
                           return (
                             <div className="col-md-4" key={idx}>
                               <div className="card mb-4">

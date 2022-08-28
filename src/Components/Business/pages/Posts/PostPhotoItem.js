@@ -13,18 +13,16 @@ import PostContext from "../../../../Context/Post/PostContext";
 function ZoomImageModal(props) {
     const [confirmDeleteShow, setConfirmDeleteShow] = useState(false);
   
-    const navigate = useNavigate();
+    const { deletePhoto } = useContext(PostContext);
 
     const handleConfirmDeleteClose = () =>
     {
       deletePhoto(props.post_id, props.image);
       props.onHide();
       setConfirmDeleteShow(false);
-      //navigate(`/posts/${props.business_id}`);
     }
-    const handleConfirmDeleteShow = () => setConfirmDeleteShow(true);
+    const handleConfirmDeleteShow = () => setConfirmDeleteShow(!confirmDeleteShow);
 
-    const { deletePhoto } = useContext(PostContext);
   
     return (
       <>
@@ -60,7 +58,7 @@ function ZoomImageModal(props) {
         {/* handle confirm delete */}
         <Modal
           show={confirmDeleteShow}
-          onHide={handleConfirmDeleteClose}
+          onHide={handleConfirmDeleteShow}
           animation={false}
         >
           <Modal.Header closeButton>
@@ -69,7 +67,7 @@ function ZoomImageModal(props) {
             </Modal.Title>
           </Modal.Header>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleConfirmDeleteClose}>
+            <Button variant="secondary" onClick={handleConfirmDeleteShow}>
               No
             </Button>
             <Button variant="success" onClick={handleConfirmDeleteClose}>
