@@ -397,6 +397,7 @@ const handleChangeOpeningDays = (e) => {
 };
 
 const OpeningDayCheckList = (props) => {
+  // console.log(props.opening_time);
   ///const [opening_time, setOpening_time] = useState(new Date('2018-01-01T00:00:00.000Z'));
 
   const { control } = useFormContext();

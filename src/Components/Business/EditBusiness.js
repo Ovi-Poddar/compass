@@ -4,6 +4,12 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import TimePicker from "react-time-picker";
 import {
+  useForm,
+  Controller,
+  FormProvider,
+  useFormContext,
+} from "react-hook-form";
+import {
   Typography,
   TextField,
   Button,
@@ -23,7 +29,6 @@ import Checkbox from "@mui/material/Checkbox";
 import FormLabel from "@mui/material/FormLabel";
 import Box from "@mui/material/Box";
 import moment from "moment";
-import { getTime } from "date-fns";
 
 const EditBusinessInfo = () => {
   const navigate = useNavigate();
@@ -144,6 +149,62 @@ const EditBusinessInfo = () => {
   const handleCancel = async (e) => {
     e.preventDefault();
     navigate(`/business/${business_id}`);
+  };
+
+  function getCurrentHours() {
+    return moment().format("HH:mm");
+  }
+
+  const handleInputChange = (newValue) => {
+    const hours = newValue.getHours().toString().padStart(2, "0");
+    const minutes = newValue.getMinutes().toString().padStart(2, "0");
+    const textValue = hours + ":" + minutes;
+    console.log("textValue", textValue);
+    setData({ ...data, opening_time: textValue });
+  };
+
+  const [opening_time, setOpening_time] = useState(
+    new Date("2018-01-01T00:00:00.000Z")
+  );
+  const [closing_time, setClosing_time] = useState(
+    new Date("2018-01-01T00:00:00.000Z")
+  );
+
+  const OpeningDayCheckList = (props) => {
+    // console.log(props.opening_time);
+    ///const [opening_time, setOpening_time] = useState(new Date('2018-01-01T00:00:00.000Z'));
+    const [value, onChange] = useState("12:00");
+    return (
+      <>
+        <div id="opening_time" name="opening_time">
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <TimePicker
+              id="opening_time"
+              label="opening time"
+              value={props.opening_time}
+              onChange={props.setOpening_time}
+              style={{ width: "10%", marginRight: "10rem" }}
+            />
+          </LocalizationProvider>
+        </div>
+        <div id="closing_time" name="closing_time">
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <TimePicker
+              id="closing_time"
+              label="closing time"
+              value={props.closing_time}
+              onChange={props.setClosing_time}
+              style={{ width: "100%" }}
+            />
+          </LocalizationProvider>
+        </div>
+        {/* <div className="opening_time">
+          <label htmlFor="appt">Select Opening Time</label>
+          <input type="time" id="opening_time" name="opening_time" />
+        </div> */}
+        {/* <TimePicker name="opening_time" onChange={onChange} value={value} /> */}
+      </>
+    );
   };
 
   return (
@@ -389,7 +450,7 @@ const EditBusinessInfo = () => {
           <Box
             sx={{ display: "flex" }}
             className="justify-content-center"
-            style={{ marginLeft: "-500px" }}
+            style={{ marginLeft: "-1070px" }}
           >
             <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
               <FormLabel component="legend"></FormLabel>
@@ -466,36 +527,12 @@ const EditBusinessInfo = () => {
             </FormControl>
           </Box>
         </div>
-        {/* <div className="form-group">
-          <label htmlFor="opening_hours">Opening Hours</label>
-          <br />
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <TimePicker
-              id="opening_time"
-              label="opening time"
-              value={getTime(data.opening_time)}
-              onChange={(e) =>
-                setData({ ...data, opening_time: Date(e.target.value) })
-              }
-              style={{ width: "10%", marginRight: "10rem" }}
-            />
-          </LocalizationProvider>
-        </div>
-        <div className="form-group">
-          <label htmlFor="opening_hours">Closing Hours</label>
-          <br />
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <TimePicker
-              id="closing_time"
-              label="closing_time"
-              value={getTime(data.closing_time)}
-              onChange={(e) =>
-                setData({ ...data, closing_time: getTime(e.target.value) })
-              }
-              style={{ width: "10%", marginRight: "10rem" }}
-            />
-          </LocalizationProvider>
-        </div> */}
+        <OpeningDayCheckList
+          opening_time={opening_time}
+          setOpening_time={setOpening_time}
+          closing_time={closing_time}
+          setClosing_time={setClosing_time}
+        />
         <Button
           className="btn btn-danger"
           onClick={handleCancel}
