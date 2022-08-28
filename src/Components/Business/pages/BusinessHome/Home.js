@@ -23,8 +23,7 @@ import uplodIcon from "./img/upload.png";
 import { useContext } from "react";
 import BusinessHomeContext from "../../../../Context/BusinessHome/BusinessHomeContext";
 
-import LoadingDots from "../../../LoadingSpinner/LoadingDots";
-import LoadingSpinner from "../../../LoadingSpinner/LoadingSpinner";
+import HomePhotoItem from "./HomePhotoItem";
 import TopReviews from "./TopReviews/TopReviews";
 import UserRating from "./Rating/UserRating";
 import ScoreCard from "./Rating/ScoreCard";
@@ -35,7 +34,7 @@ import UserContext from "../../../../Context/Users/UserContext";
 const Home = () => {
   const { business_id } = useParams();
   const [business, setBusiness] = useState(null);
-  const { images, addImages } = useContext(BusinessHomeContext);
+  const { addImages, photos , getPhotos} = useContext(BusinessHomeContext);
   const { getReviews, reviews, stars, starsPercentage , topReviews} =
     useContext(ReviewContext);
 
@@ -43,9 +42,7 @@ const Home = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [imagesToPreview, setImagesToPreview] = useState([]);
 
-  const [gallery, setGallery] = useState([]);
 
-  const [allImages, setAllImages] = useState([]);
 
   const { user } = useContext(UserContext);
 
@@ -61,20 +58,18 @@ const Home = () => {
       );
       let json = await response.json();
       const gotBusiness = JSON.parse(JSON.stringify(json));
-      setAllImages(gotBusiness.images);
+
       getReviews(business_id);
+      getPhotos(business_id);
       
       if (isMounted) {
         setBusiness(gotBusiness);
-        setGallery(
-          gotBusiness.images.splice(0, Math.min(gotBusiness.images.length, 6))
-        );
       }
     };
     fetchBusinessDetails();
 
     return () => (isMounted = false);
-  }, [reviews, allImages]);
+  }, [topReviews]);
 
   const handleChange = async (e) => {
     //push the files into the state
@@ -193,7 +188,7 @@ const Home = () => {
                     {user?._id === business?.owner_id ? (
                       <Link to={`/business/edit/${business_id}`}>
                         <Button
-                          variant="danger"
+                          variant="danger" size="sm"
                           className="btn-block"
                           style={{ color: "white", width: "150px" }}
                         >
@@ -284,7 +279,7 @@ const Home = () => {
                     </li>
                     <li className="list-inline-item mx-4">
                       <h5 className="font-weight-bold mb-0 d-block">
-                        {allImages.length}
+                        {photos.length}
                       </h5>
                       <small className="text-dark">
                         {" "}
@@ -306,7 +301,7 @@ const Home = () => {
                 </div>
 
                 <div className="py-4 px-4">
-                  {gallery ? (
+                  {photos ? (
                     <div>
                       <div className="d-flex align-items-center justify-content-between mb-3">
                         <h5 className="mb-0">Recent photos</h5>
@@ -318,16 +313,18 @@ const Home = () => {
                         </Link>
                       </div>
                       <div className="row">
-                        {gallery ? (
-                          gallery.map((image, idx) => {
+                        {photos ? (
+                          photos.slice(0, 3).map((image, idx) => {
                             return (
-                              <div className="col-md-4" key={idx}>
-                                <div className="card mb-4">
-                                  <img
-                                    src={image}
+                              <div className="col-md-4 " key={idx}>
+                                <div className="card mb-4 d-flex align-items-center justify-content-center">
+                                  <HomePhotoItem
+                                    key={idx}
+                                    image={image}
+                                    business_id={business_id}
+                                    owner_id={business?.owner_id}
+                                    user_id={user?._id}
                                     className="card-img-top"
-                                    alt="..."
-                                    style={{ height: "200px" }}
                                   />
                                 </div>
                               </div>

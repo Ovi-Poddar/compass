@@ -37,7 +37,7 @@ function ReviewItem(props) {
   const userContext = useContext(UserContext);
   const { user } = userContext;
   const reviewContext = useContext(ReviewContext);
-  const { deleteReview, editReview, thumbUp, thumbDown } = reviewContext;
+  const { deleteReview, editReview, thumbUp, thumbDown, images, getImages } = reviewContext;
 
   // for the edit review modal
   const [showEdit, setShowEdit] = useState(false);
@@ -108,12 +108,15 @@ function ReviewItem(props) {
     props.showAlert("Review disliked!", "success");
   };
 
-  // for images show
-  const [allImages, setAllImages] = useState([]);
+  // // for images show
+  // const [allImages, setAllImages] = useState([]);
 
+  // useEffect(() => {
+  //   setAllImages(props.review?.images);
+  // }, [allImages]);
   useEffect(() => {
-    setAllImages(props.review?.images);
-  }, [allImages]);
+    getImages(props.review?._id);
+  }, []);
 
   return (
     <>
@@ -282,14 +285,14 @@ function ReviewItem(props) {
           <p className="mb-2 text-dark">{props.review.text}</p>
 
           {/* show images */}
-          {allImages ? (
+          {images ? (
             <div>
               <div className="d-flex align-items-center justify-content-between mb-3">
                 {/* <h5 className="mb-0">Recent photos</h5> */}
               </div>
               <div className="row">
-                {allImages ? (
-                  allImages.map((image, idx) => {
+                {images ? (
+                  images.map((image, idx) => {
                     return (
                       <div className="col-md-4" key={idx}>
                         <div className="card mb-4">

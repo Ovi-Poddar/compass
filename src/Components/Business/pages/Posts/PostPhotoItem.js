@@ -1,17 +1,28 @@
 import Button from "react-bootstrap/esm/Button";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Spinner from "react-bootstrap/Spinner";
 
 import Modal from "react-bootstrap/Modal";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+import PostContext from "../../../../Context/Post/PostContext";
+
 // show image zoomed modal
 function ZoomImageModal(props) {
     const [confirmDeleteShow, setConfirmDeleteShow] = useState(false);
   
-    const handleConfirmDeleteClose = () => setConfirmDeleteShow(false);
-    const handleConfirmDeleteShow = () => setConfirmDeleteShow(true);
+    const { deletePhoto } = useContext(PostContext);
+
+    const handleConfirmDeleteClose = () =>
+    {
+      deletePhoto(props.post_id, props.image);
+      props.onHide();
+      setConfirmDeleteShow(false);
+    }
+    const handleConfirmDeleteShow = () => setConfirmDeleteShow(!confirmDeleteShow);
+
   
     return (
       <>
@@ -47,7 +58,7 @@ function ZoomImageModal(props) {
         {/* handle confirm delete */}
         <Modal
           show={confirmDeleteShow}
-          onHide={handleConfirmDeleteClose}
+          onHide={handleConfirmDeleteShow}
           animation={false}
         >
           <Modal.Header closeButton>
@@ -56,7 +67,7 @@ function ZoomImageModal(props) {
             </Modal.Title>
           </Modal.Header>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleConfirmDeleteClose}>
+            <Button variant="secondary" onClick={handleConfirmDeleteShow}>
               No
             </Button>
             <Button variant="success" onClick={handleConfirmDeleteClose}>
@@ -81,8 +92,9 @@ function ZoomImageModal(props) {
               show={imageModalShow}
               onHide={onHide}
               image={props.image}
-              owner_id={props.post?.user_id._id}
-              user_id={props.user?._id}
+              owner_id={props.owner_id}
+              user_id={props.user_id}
+              business_id={props.business_id}
             />
             <img
               src={props.image}
