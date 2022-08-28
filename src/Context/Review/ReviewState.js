@@ -296,6 +296,40 @@ const ReviewState = (props) => {
     console.log(json);
   };
 
+  //  Delete a photo from a post using: DELETE "/api/review/deletephoto" login reqiured.
+  const deletePhoto = async (review_id, image_url) => {
+    //API Call
+    const response = await fetch(`${host}/api/review/deletephoto`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": localStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        review_id: review_id,
+        image_url: image_url,
+      }),
+    });
+    const json = await response.json();
+    JSON.parse(JSON.stringify(json));
+    const review = json.review;
+    setImages(review.images);
+  };
+
+  //Get all the Images from the database
+  const getImages = async (review_id) => {
+    //API Call
+    const response = await fetch(
+      `http://localhost:5000/api/review/getimages/${review_id}`,
+      {
+        method: "GET",
+      }
+    );
+    const json = await response.json();
+    const photos = JSON.parse(JSON.stringify(json));
+    setImages(photos);
+  };
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
       getUser();
@@ -318,6 +352,9 @@ const ReviewState = (props) => {
         submittedReview,
         topReviews,
         addImages,
+        images,
+        deletePhoto,
+        getImages,
       }}
     >
       {props.children}

@@ -16,7 +16,7 @@ export const Posts = (props) => {
   useEffect(() => {
     getPosts(business_id);
     // eslint-disable-next-line
-  }, []);
+  }, [posts]);
 
   return (
     <>

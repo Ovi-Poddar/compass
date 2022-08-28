@@ -324,7 +324,7 @@ router.get("/getservices/:business_id", async (req, res) => {
   }
 });
 
-//Route 16 : Delete a photo from a business using: DELETE "/api/business/deletephoto/:business_id/:photo_id". Login required
+//Route 16 : Delete a photo from a business using: DELETE "/api/business/deletephoto". Login required
 router.delete("/deletephoto", fetchUser, async (req, res) => {
   try {
     const { business_id, image_url } = req.body;

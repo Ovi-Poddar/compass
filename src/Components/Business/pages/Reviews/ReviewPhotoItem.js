@@ -1,14 +1,23 @@
 import Button from "react-bootstrap/esm/Button";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import Modal from "react-bootstrap/Modal";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+import ReviewContext from "../../../../Context/Review/ReviewContext";
+
 // show image zoomed modal
 function ZoomImageModal(props) {
     const [confirmDeleteShow, setConfirmDeleteShow] = useState(false);
+
+    const { deletePhoto } = useContext(ReviewContext);
   
-    const handleConfirmDeleteClose = () => setConfirmDeleteShow(false);
+    const handleConfirmDeleteClose = () =>
+    {
+      deletePhoto(props.review_id, props.image);
+      props.onHide();
+      setConfirmDeleteShow(false);
+    }
     const handleConfirmDeleteShow = () => setConfirmDeleteShow(true);
   
     return (
@@ -45,7 +54,7 @@ function ZoomImageModal(props) {
         {/* handle confirm delete */}
         <Modal
           show={confirmDeleteShow}
-          onHide={handleConfirmDeleteClose}
+          onHide={handleConfirmDeleteShow}
           animation={false}
         >
           <Modal.Header closeButton>
@@ -54,7 +63,7 @@ function ZoomImageModal(props) {
             </Modal.Title>
           </Modal.Header>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleConfirmDeleteClose}>
+            <Button variant="secondary" onClick={handleConfirmDeleteShow}>
               No
             </Button>
             <Button variant="success" onClick={handleConfirmDeleteClose}>
@@ -81,6 +90,7 @@ function ZoomImageModal(props) {
               image={props.image}
               owner_id={props.owner_id}
               user_id={props.user_id}
+              business_id={props.business_id}
             />
             <img
               src={props.image}
