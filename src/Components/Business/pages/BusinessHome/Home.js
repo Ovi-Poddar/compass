@@ -69,7 +69,7 @@ const Home = () => {
     fetchBusinessDetails();
 
     return () => (isMounted = false);
-  }, [topReviews]);
+  }, [topReviews, reviews, business]);
 
   const handleChange = async (e) => {
     //push the files into the state
