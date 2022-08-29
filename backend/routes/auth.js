@@ -34,7 +34,7 @@ router.post(
       if (user) {
         return res
           .status(400)
-          .json({ error: "Sorry a user with this name already exists" });
+          .json({ error: "Sorry a user with this email already exists" });
       }
 
       if (req.body.password !== req.body.confirm_password) {

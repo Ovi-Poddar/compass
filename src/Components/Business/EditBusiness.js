@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import TimePicker from "react-time-picker";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import {
   useForm,
   Controller,

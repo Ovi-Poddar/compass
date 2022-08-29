@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "react-bootstrap/Card";
-import TimePicker from "react-time-picker";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import {
   Typography,
   TextField,
