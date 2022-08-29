@@ -98,7 +98,8 @@ const Landing = () => {
       let tagsFilters = [];
       for(let i=0; i<updatedList.length; i++){
         for(let j=0; j<updatedList[i].tags.length; j++){
-          if(tagsChecked.includes(updatedList[i].tags[j].toLowerCase())){
+          if(tagsChecked.includes(updatedList[i].tags[j].toLowerCase())
+            && !tagsFilters.includes(updatedList[i])){
             tagsFilters.push(updatedList[i]);
           }
         }
