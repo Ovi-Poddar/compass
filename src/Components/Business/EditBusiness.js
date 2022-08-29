@@ -48,7 +48,7 @@ const EditBusinessInfo = () => {
       taglist.push(e.target.name);
     }
 
-    // console.log(tags);
+    console.log(taglist);
   };
 
   let opening_days_list = [];
@@ -98,7 +98,6 @@ const EditBusinessInfo = () => {
     formData.append("district", data.district);
     formData.append("email", data.email);
     formData.append("category", data.category);
-    formData.append("tags", data.tags);
     formData.append("about", data.about);
 
     const business_name = formData.get("business_name");
@@ -114,6 +113,7 @@ const EditBusinessInfo = () => {
     // const opening_time = formData.get("opening_time");
     // const closing_time = formData.get("closing_time");
     console.log("business_name", opening_days);
+    console.log("business_tags", tags);
 
     const response = await fetch(
       `http://localhost:5000/api/business/updatebusiness/${business_id}`,
@@ -132,8 +132,14 @@ const EditBusinessInfo = () => {
           email: email,
           tags: tags,
           opening_days: opening_days,
-          // opening_time: opening_time,
-          // closing_time: closing_time,
+          opening_time: opening_time.toLocaleString("en-US", {
+            hour: "numeric",
+            hour12: true,
+          }),
+          closing_time: closing_time.toLocaleString("en-US", {
+            hour: "numeric",
+            hour12: true,
+          }),
         },
       }
     );

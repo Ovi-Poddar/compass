@@ -137,8 +137,8 @@ router.put("/updatebusiness/:business_id", fetchUser, async (req, res) => {
     if (address) newBusiness.address = address;
     if (category) newBusiness.category = category;
     if (about) newBusiness.about = about;
-    if (tags) newBusiness.tags = tags;
-    if (opening_days) newBusiness.opening_days = opening_days;
+    if (tags) newBusiness.tags = tags.split(',');
+    if (opening_days) newBusiness.opening_days = opening_days.split(',');
     if (opening_time != null) newBusiness.opening_time = opening_time;
     if (closing_time != null) newBusiness.closing_time = closing_time;
 
