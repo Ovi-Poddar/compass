@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import TimePicker from "react-time-picker";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import {
   useForm,
   Controller,
@@ -182,8 +182,8 @@ const EditBusinessInfo = () => {
     const [value, onChange] = useState("12:00");
     return (
       <>
-        <div id="opening_time" name="opening_time">
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <div id="opening_time" name="opening_time" className="mb-3">
+          {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
             <TimePicker
               id="opening_time"
               label="opening time"
@@ -191,15 +191,37 @@ const EditBusinessInfo = () => {
               onChange={props.setOpening_time}
               style={{ width: "10%", marginRight: "10rem" }}
             />
+          </LocalizationProvider> */}
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <TimePicker
+            className="mb-2"
+              id="opening_time"
+              label="opening time"
+              value={props.opening_time}
+              onChange={props.setOpening_time}
+              renderInput={(field) => <TextField {...field} />}
+              style={{ width: "10%", marginRight: "10rem" }}
+            />
           </LocalizationProvider>
         </div>
-        <div id="closing_time" name="closing_time">
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <div id="closing_time" name="closing_time" className="mt-3">
+          {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
             <TimePicker
               id="closing_time"
               label="closing time"
               value={props.closing_time}
               onChange={props.setClosing_time}
+              style={{ width: "100%" }}
+            />
+          </LocalizationProvider> */}
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <TimePicker
+            className="mt-2"
+              id="closing_time"
+              label="closing time"
+              value={props.closing_time}
+              onChange={props.setClosing_time}
+              renderInput={(field) => <TextField {...field} />}
               style={{ width: "100%" }}
             />
           </LocalizationProvider>
@@ -262,13 +284,13 @@ const EditBusinessInfo = () => {
             onChange={(e) => setData({ ...data, contact_no: e.target.value })}
           />
         </div>
-        <div className="form-group" style={{width: "500px"}}>
+        <div className="form-group" style={{ width: "500px" }}>
           <label htmlFor="category">Category</label>
           <br />
           <Select
             LabelId="business-category-select-label"
             id="business-category-select"
-            style={{width: "500px"}}
+            style={{ width: "500px" }}
             margin="normal"
             label="category"
             title={data.address}
@@ -456,8 +478,8 @@ const EditBusinessInfo = () => {
           <label htmlFor="opening_hours">Opening Days</label>
           <Box
             sx={{ display: "flex" }}
-            className="justify-content-center"
-            style={{ marginLeft: "-1070px" }}
+            // className="justify-content-center"
+            // style={{ marginLeft: "-1070px" }}
           >
             <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
               <FormLabel component="legend"></FormLabel>
