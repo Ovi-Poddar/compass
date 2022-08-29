@@ -51,6 +51,7 @@ const BusinessHomeState = (props) => {
 
   // Delete a Image using: DELETE "/api/business/deletephoto/".
   const deletePhoto = async (business_id, image_url) => {
+    console.log("asche");
     const response = await fetch(
       `http://localhost:5000/api/business/deletephoto`,
       {
