@@ -27,6 +27,8 @@ import BusinessIcon from "@mui/icons-material/Business";
 
 import UserContext from "../../Context/Users/UserContext";
 
+import compass_logo from "../../Images/project_logo.png";
+
 export default function TopNav(props) {
   const context = useContext(UserContext);
   const { user, getUser, setUser } = context;
