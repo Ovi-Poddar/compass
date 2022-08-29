@@ -256,12 +256,13 @@ const EditBusinessInfo = () => {
             onChange={(e) => setData({ ...data, contact_no: e.target.value })}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group" style={{width: "500px"}}>
           <label htmlFor="category">Category</label>
           <br />
           <Select
             LabelId="business-category-select-label"
             id="business-category-select"
+            style={{width: "500px"}}
             margin="normal"
             label="category"
             title={data.address}
