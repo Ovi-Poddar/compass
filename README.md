@@ -44,7 +44,7 @@ Just Ignore them and run the following commands.
 # Authentication Page
 <li>SignUp</li>
 <p align="center">
-  <img src="./documentation/images/SignUp.png" width="838" height="440" title="Compass SignUp">
+  <img src="./documentation/images/signup.png" width="838" height="440" title="Compass SignUp">
 </p>
 <li>LogIn</li>
 <p align="center">
