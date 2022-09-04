@@ -41,10 +41,21 @@ Just Ignore them and run the following commands.
   <img src="./documentation/images/landing.png" width="838" height="440" title="Compass Landing Page">
 </p>
 
+# Authentication Page
+<li>SignUp</li>
+<p align="center">
+  <img src="./documentation/images/SignUp.png" width="838" height="440" title="Compass SignUp">
+</p>
+<li>LogIn</li>
+<p align="center">
+  <img src="./documentation/images/login.png" width="838" height="440" title="Compass LogIN">
+</p>
+
 # HomePage For Searching Businesses
 <p align="center">
   <img src="./documentation/images/searchfilter.png" width="838" height="440" title="Search Businesses">
 </p>
+
 
 # Business Home Page
 <p align="center">
@@ -52,6 +63,11 @@ Just Ignore them and run the following commands.
 </p>
 <p align="center">
   <img src="./documentation/images/businessdetails.png" width="838" height="440" title="Business detailes Page">
+</p>
+
+# Create Business Page
+<p align="center">
+  <img src="./documentation/images/createbusiness.png" width="838" height="440" title="Create Business Page">
 </p>
 
 # Business Reviews Page
