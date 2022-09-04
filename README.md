@@ -22,23 +22,34 @@ Just Ignore them and run the following commands.
     npm install
     npm start
 ```
-<p align="center">
-  <img src="./Docs/landing.png" width="350" title="Compass Landing Page">
-</p>
+
+# Compass Landing Page
 
 <p align="center">
-  <img src="./Docs/search.png" width="350" title="Search Businesses">
-</p>
-<p align="center">
-  <img src="./Docs/businesshome.png" width="350" title="Business Home Page">
+  <img src="./Docs/landing.png" width="838" height="440" title="Compass Landing Page">
 </p>
 
+# HomePage For Searching Businesses
 <p align="center">
-  <img src="./Docs/reviews.png" width="350" title="Business Reviews Page">
+  <img src="./Docs/search.png" width="838" height="440" title="Search Businesses">
 </p>
+
+# Business Home Page
 <p align="center">
-  <img src="./Docs/queries.png" width="350" title="Busienss Queries Page">
+  <img src="./Docs/businesshome.png" width="838" height="440" title="Business Home Page">
 </p>
+
+# Business Reviews Page
 <p align="center">
-  <img src="./Docs/profile.png" width="350" title="User Profile Page">
+  <img src="./Docs/reviews.png" width="838" height="440" title="Business Reviews Page">
+</p>
+
+# Busienss Queries Page
+<p align="center">
+  <img src="./Docs/queries.png" width="838" height="440" title="Busienss Queries Page">
+</p>
+
+# User Profile Page
+<p align="center">
+  <img src="./Docs/profile.png" width="838" height="440" title="User Profile Page">
 </p>
