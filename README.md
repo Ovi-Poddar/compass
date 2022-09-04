@@ -38,15 +38,16 @@ Just Ignore them and run the following commands.
 # Compass Landing Page
 
 <p align="center">
-  <img src="./documentation/images/landing.png" width="838" height="440" title="Compass Landing Page">
+  <img src="./documentation/images/landingpage.png" width="838" height="440" title="Compass Landing Page">
 </p>
 
 # Authentication Page
-<li>SignUp</li>
+### SignUp
 <p align="center">
   <img src="./documentation/images/signup.png" width="838" height="440" title="Compass SignUp">
-</p>
-<li>LogIn</li>
+</p> </br>
+
+### LogIn
 <p align="center">
   <img src="./documentation/images/login.png" width="838" height="440" title="Compass LogIN">
 </p>
