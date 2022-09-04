@@ -10,7 +10,6 @@ import MsgAlert from "./Components/Header/MsgAlert";
 import Login from "./Components/Login/Login";
 import SignUp from "./Components/SignUp/SignUp";
 import Home from "./Components/Home/Home";
-import CompassFooter from "./Components/CompassFooter/CompassFooter";
 
 import ShowOwnBusiness from "./Components/Business/MyBusiness/ShowOwnBusiness";
 
@@ -24,33 +23,23 @@ import { Reviews } from "./Components/Business/pages/Reviews/index";
 
 import { Queries } from "./Components/Business/pages/Queries/Queries_home";
 import { Posts } from "./Components/Business/pages/Posts/Posts_home";
-import { Offers } from "./Components/Business/pages/Offers";
-
-import Business from "./Components/BusinessPages/BusinessHome";
-
-import BusinessUpdates from "./Components/BusinessPages/BusinessUpdates";
-import BusinessOffers from "./Components/BusinessPages/BusinessOffers";
-import BusinessQuery from "./Components/BusinessPages/BusinessQuery";
-import BusinessHours from "./Components/BusinessPages/BusinessHours";
-import BusinessAmenities from "./Components/BusinessPages/BusinessAmenities";
 
 /* States for context api  */
 import ReviewState from "./Context/Review/ReviewState";
 import UserState from "./Context/Users/UserState";
 
-import MyBusinessItem from "./Components/Business/MyBusiness/MyBusinessItem";
 import QueryState from "./Context/Query/QueryState";
 import PostState from "./Context/Post/PostState";
 import AboutUs from "./Components/AboutUs/AboutUs";
 
-import Profile from "./Components/UserProfile/Profile";
+import Profile from "./Components/UserProfile/Profile"; 
 
 import Main from "./Components/Business/CreateBusiness/Main";
-import EditBusiness from "./Components/Business/EditBusiness/EditBusiness";
+import EditBusiness from "./Components/Business/EditBusiness/EditBusinessPicture";
 import BusinessPhotos from "./Components/Business/pages/Photos/BusinessPhotos";
 import EditProfileForm from "./Components/UserProfile/EditProfile/EditProfileForm";
 import EditProfilePic from "./Components/UserProfile/EditProfile/EditProfilePic";
-import EditBusinessInfo from "./Components/Business/EditBusiness";
+import EditBusinessInfo from "./Components/Business/EditBusiness/EditBusiness";
 
 import BusinessHomeState from "./Context/BusinessHome/BusinessHomeState";
 
@@ -139,48 +128,7 @@ function App() {
                       path="/profile/editpicture/:profile_id"
                       element={<EditProfilePic />}
                     />
-                    {/* <Route
-            exact
-            path="/showownbusinesses"
-            element={<MyBusinessItem />}
-          />
 
-                {/* Added by Tanvir Raihan */}
-                    <Route
-                      exact
-                      path="/businessupdates/:business_id"
-                      element={<BusinessUpdates />}
-                    />
-                    <Route
-                      exact
-                      path="/businessoffers/:business_id"
-                      element={<BusinessOffers />}
-                    />
-                    <Route
-                      exact
-                      path="/businessquery/:business_id"
-                      element={<BusinessQuery />}
-                    />
-                    <Route
-                      exact
-                      path="/businesshours/:business_id"
-                      element={<BusinessHours />}
-                    />
-                    <Route
-                      exact
-                      path="/businessamenities/:business_id"
-                      element={<BusinessAmenities />}
-                    />
-                    <Route
-                      path="/businesshome/:business_id"
-                      element={<Business />}
-                    />
-
-                    {/* Added for Business Sidebar Menu */}
-                    <Route
-                      path="/businessdashboard"
-                      element={<BusinessHome />}
-                    />
                     <Route
                       path="/reviews/:business_id"
                       element={<Reviews showAlert={showAlert} />}
@@ -201,7 +149,6 @@ function App() {
 
                     <Route exact path="/about" element={<AboutUs />} />
                   </Routes>
-                  {/* <CompassFooter /> */}
                 </Router>
               </BusinessHomeState>
             </PostState>

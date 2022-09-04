@@ -5,7 +5,7 @@ import { Carousel } from "react-bootstrap";
 import food from "../../Images/home_food.jpg";
 import shop from "../../Images/home_shopping.jpg";
 import business from "../../Images/home_business.unsplash.jpg";
-import logo from "../../Images/project_logo.png";
+import logo from "../../Images/cover.png";
 
 export default function HomeCarousel() {
   return (
@@ -19,8 +19,8 @@ export default function HomeCarousel() {
             alt="Food"
           />
           <Carousel.Caption>
-            <h3>Welcome To Compass!</h3>
-            <p>
+            <h3 className="text-success">Welcome To Compass!</h3>
+            <p className="text-success">
               Compass is a social site for everything local. Using Yelp, one can
               find nearby restaurants, bars, shops, etc., read reviews customers
               left for businesses, and write reviews with ease.
