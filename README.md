@@ -23,14 +23,21 @@ We have used MERN stack technology to build this app.
 </p>
 
 
-# Installation Process
+# Install the Packages
 
 While Installing React(Front End Part), Vulnerabilites may arise due to dependencies errors.
 Running `npm install` will not eliminate vulnerabilities completely. Don't be worried about it.
 Just Ignore them and run the following commands.
 
 ```
+    <!---To Run FrontEnd Part-->
     npm config set legacy-peer-deps true
+    npm install
+    npm start
+
+
+    <!---To Run BackEnd Part-->
+    cd .\backend\
     npm install
     npm start
 ```
