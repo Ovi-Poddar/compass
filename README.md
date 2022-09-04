@@ -64,7 +64,7 @@ Just Ignore them and run the following commands.
 
 # Business Home Page
 <p align="center">
-  <img src="./documentation/images/businesshome.png" width="838" height="440" title="Business Home Page">
+  <img src="./documentation/images/businesshomepage.png" width="838" height="440" title="Business Home Page">
 </p>
 <p align="center">
   <img src="./documentation/images/businessdetails.png" width="838" height="440" title="Business detailes Page">
