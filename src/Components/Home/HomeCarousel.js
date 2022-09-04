@@ -21,7 +21,7 @@ export default function HomeCarousel() {
           <Carousel.Caption>
             <h3 className="text-success">Welcome To Compass!</h3>
             <p className="text-success">
-              Compass is a social site for everything local. Using Yelp, one can
+              Compass is a social site for everything local. Using Compass, one can
               find nearby restaurants, bars, shops, etc., read reviews customers
               left for businesses, and write reviews with ease.
             </p>

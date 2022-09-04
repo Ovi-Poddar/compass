@@ -76,7 +76,7 @@ Just Ignore them and run the following commands.
   <img src="./documentation/images/reviews.png" width="838" height="440" title="Business Reviews Page">
 </p>
 
-# Busienss Queries Page
+# Business Queries Page
 <p align="center">
   <img src="./documentation/images/queries.png" width="838" height="440" title="Busienss Queries Page">
 </p>
