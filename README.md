@@ -11,6 +11,18 @@ You can check Compass to read customer reviews and get information from customer
 Being on Compass, also helps you attract new customers and address existing customers' feedback to improve your company.
 
 
+# FrameWorks Used
+We have used MERN stack technology to build this app.
+<li>MongoDB — document database</li>
+<li>Express(.js) — Node.js web framework</li>
+<li>React(.js) — a client-side JavaScript framework</li>
+<li>Node(.js) — the premier JavaScript web server</li>
+</br>
+<p align="center">
+  <img src="./documentation/images/mern.png" width="418" height="278" title="Mern Stack">
+</p>
+
+
 # Installation Process
 
 While Installing React(Front End Part), Vulnerabilites may arise due to dependencies errors.
