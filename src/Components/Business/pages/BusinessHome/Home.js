@@ -328,7 +328,7 @@ const Home = () => {
                           photos.slice(0, 3).map((image, idx) => {
                             return (
                               <div className="col-md-4 " key={idx}>
-                                <div className="card mb-4 d-flex align-items-center justify-content-center">
+                                <div className="card border-0 mb-4 d-flex align-items-center justify-content-center">
                                   <HomePhotoItem
                                     key={idx}
                                     image={image}
