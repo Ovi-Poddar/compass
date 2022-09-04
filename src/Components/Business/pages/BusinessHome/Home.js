@@ -35,7 +35,7 @@ const Home = () => {
   const { business_id } = useParams();
   const [business, setBusiness] = useState(null);
   const { addImages, photos , getPhotos} = useContext(BusinessHomeContext);
-  const { getReviews, reviews, stars, starsPercentage , topReviews} =
+  const { getReviews, reviews, stars, averageStarCount, starsPercentage , topReviews} =
     useContext(ReviewContext);
 
   const [imagesToUpload, setImagesToUpload] = useState([]);
@@ -359,7 +359,7 @@ const Home = () => {
                       <div className="col-4">
                         <UserRating
                           totalReviews={reviews.length}
-                          averageRating={business?.average_star_count}
+                          averageRating={averageStarCount}
                         />
                       </div>
                       <div className="col-8">

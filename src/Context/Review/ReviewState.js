@@ -19,6 +19,7 @@ const ReviewState = (props) => {
   const [starsPercentage, setStarsPercentage] = useState([0, 0, 0, 0, 0, 0]);
 
   const [topReviews, setTopReviews] = useState([]);
+  const [averageStarCount, setAverageStarCount] = useState(0);
 
   const userContext = useContext(UserContext);
   const { user, getUser } = userContext;
@@ -51,6 +52,17 @@ const ReviewState = (props) => {
 
     setStars(calculatedStars);
 
+    //Calculate Average Star Count
+    let sum = 0;
+    let count = 0;
+    calculatedStars.forEach((star, index) => {
+      sum += star * index;
+      count += star;
+    });
+
+    setAverageStarCount(sum / count);
+
+
     // Calculate the percentage of stars
     const calculatedStarsPercentage = [0, 0, 0, 0, 0, 0];
     calculatedStars.forEach((star, index) => {
@@ -61,7 +73,7 @@ const ReviewState = (props) => {
     // //sort reviews by rating desc and tiebreaker by useful_count desc and maximum 3 reviews
     const sortedReviews = _.orderBy(
       reviews,
-      ["stars", "useful_count"],
+      ["useful_count", "stars"],
       ["desc", "desc"]
     );
     const topThreeReviews = sortedReviews.slice(0, 3);
@@ -340,6 +352,7 @@ const ReviewState = (props) => {
         thumbUp,
         thumbDown,
         stars,
+        averageStarCount,
         starsPercentage,
         hasSubmitted,
         submittedReview,

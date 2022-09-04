@@ -6,6 +6,9 @@ import Avatar from "@mui/material/Avatar";
 import StyledBadge from "@mui/material/Badge";
 import { Link } from "react-router-dom";
 
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+
 const TopReviews = ({ topReviews }) => {
   return (
     <>
@@ -45,15 +48,19 @@ const TopReviews = ({ topReviews }) => {
               </div>
               <Link to={`/profile/${review.user_id._id}`}
               style={{textDecoration:"none", color:"red"}}>
-                <h5 class="mb-3">{review.user_id.user_name}</h5>
+                <h5 class="my-3">{review.user_id.user_name}</h5>
               </Link>
+              <div class="list-unstyled d-flex justify-content-center mb-2">
+                <Rating name="read-only" value={review.stars} readOnly />
+              </div>
               {/* <h6 class="text-primary mb-3">Web Developer</h6> */}
               <p class="px-xl-3">
                 <i class="fas fa-quote-left pe-2"></i>
                 {review.text}
               </p>
-              <div class="list-unstyled d-flex justify-content-center mb-0">
-                <Rating name="read-only" value={review.stars} readOnly />
+              <div class="d-flex justify-content-around"> 
+              <span> <ThumbUpIcon className="text-success"/> {review.useful_count}  </span>
+              <span> <ThumbDownIcon className="text-danger"/> {review.not_useful_count}  </span>
               </div>
             </div>
           );

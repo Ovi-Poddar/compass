@@ -26,30 +26,33 @@ Just Ignore them and run the following commands.
 # Compass Landing Page
 
 <p align="center">
-  <img src="./Docs/landing.png" width="838" height="440" title="Compass Landing Page">
+  <img src="./documentation/images/landing.png" width="838" height="440" title="Compass Landing Page">
 </p>
 
 # HomePage For Searching Businesses
 <p align="center">
-  <img src="./Docs/search.png" width="838" height="440" title="Search Businesses">
+  <img src="./documentation/images/search.png" width="838" height="440" title="Search Businesses">
 </p>
 
 # Business Home Page
 <p align="center">
-  <img src="./Docs/businesshome.png" width="838" height="440" title="Business Home Page">
+  <img src="./documentation/images/businesshome.png" width="838" height="440" title="Business Home Page">
+</p>
+<p align="center">
+  <img src="./documentation/images/businessdetails.png" width="838" height="440" title="Business detailes Page">
 </p>
 
 # Business Reviews Page
 <p align="center">
-  <img src="./Docs/reviews.png" width="838" height="440" title="Business Reviews Page">
+  <img src="./documentation/images/reviews.png" width="838" height="440" title="Business Reviews Page">
 </p>
 
 # Busienss Queries Page
 <p align="center">
-  <img src="./Docs/queries.png" width="838" height="440" title="Busienss Queries Page">
+  <img src="./documentation/images/queries.png" width="838" height="440" title="Busienss Queries Page">
 </p>
 
 # User Profile Page
 <p align="center">
-  <img src="./Docs/profile.png" width="838" height="440" title="User Profile Page">
+  <img src="./documentation/images/profile.png" width="838" height="440" title="User Profile Page">
 </p>

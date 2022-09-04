@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Business = require("../models/Business");
-const { body, validationResult } = require("express-validator");
+const Review = require("../models/Review");
+const { body, validationResult, buildSanitizeFunction } = require("express-validator");
 const multer = require("multer");
 // const upload = multer({ dest: 'uploads/' })
 var fetchUser = require("../middleware/fetchUser");
@@ -30,6 +31,23 @@ router.get("/getallbusinesses", async (req, res) => {
     // Empty `filter` means "match all documents"
     const filter = {};
     const businesses = await Business.find(filter);
+
+    // Calculate Average Rating For Each Business
+    for (let i = 0; i < businesses.length; i++) {
+      let sum = 0;
+      Review.find({ business_id: businesses[i]._id }, (err, reviews) => {
+        if (err) {
+          console.log(err);
+        } else {
+          for (let j = 0; j < reviews.length; j++) {
+            sum += reviews[j].stars;
+          }
+          businesses[i].average_star_count = sum / reviews.length;
+          businesses[i].review_count = reviews.length;
+          businesses[i].save();
+        }
+      });
+    }
     res.json(businesses);
   } catch (error) {
     console.error(error.message);
@@ -137,8 +155,8 @@ router.put("/updatebusiness/:business_id", fetchUser, async (req, res) => {
     if (address) newBusiness.address = address;
     if (category) newBusiness.category = category;
     if (about) newBusiness.about = about;
-    if (tags) newBusiness.tags = tags.split(',');
-    if (opening_days) newBusiness.opening_days = opening_days.split(',');
+    if (tags) newBusiness.tags = tags.split(",");
+    if (opening_days) newBusiness.opening_days = opening_days.split(",");
     if (opening_time != null) newBusiness.opening_time = opening_time;
     if (closing_time != null) newBusiness.closing_time = closing_time;
 
@@ -337,11 +355,9 @@ router.delete("/deletephoto", fetchUser, async (req, res) => {
     business.images.splice(imageIndex, 1);
     const savedBusiness = await business.save();
     res.json({ success: true, business: savedBusiness });
-
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
   }
 }),
-
-module.exports = router;
+  (module.exports = router);
