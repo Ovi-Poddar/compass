@@ -18,14 +18,14 @@ export default function HomeCarousel() {
             src={logo}
             alt="Food"
           />
-          <Carousel.Caption>
+          {/* <Carousel.Caption>
             <h3 className="text-success">Welcome To Compass!</h3>
             <p className="text-success">
               Compass is a social site for everything local. Using Compass, one can
               find nearby restaurants, bars, shops, etc., read reviews customers
               left for businesses, and write reviews with ease.
             </p>
-          </Carousel.Caption>
+          </Carousel.Caption> */}
         </Carousel.Item>
         <Carousel.Item interval={1000}>
           <img

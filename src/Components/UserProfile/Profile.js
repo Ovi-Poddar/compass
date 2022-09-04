@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 
-import "./profile.css";
-import ScoreBoard from "./ScoreBoard/ScoreBoard";
+import "./profile.css"; 
 import UserContext from "../../Context/Users/UserContext";
 import { Button } from "react-bootstrap";
 
