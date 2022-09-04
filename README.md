@@ -31,7 +31,7 @@ Just Ignore them and run the following commands.
 
 # HomePage For Searching Businesses
 <p align="center">
-  <img src="./documentation/images/search.png" width="838" height="440" title="Search Businesses">
+  <img src="./documentation/images/searchfilter.png" width="838" height="440" title="Search Businesses">
 </p>
 
 # Business Home Page
